@@ -20,6 +20,7 @@ en cuenta que se deberán generar las cuotas para que luego pague
 el cliente.
 
 • Incluir informe/ reportes estadísticos para el administrador.
+
 Usuario cliente
 
 • El cliente podrá seleccionar una cuenta y observar el historial de los
