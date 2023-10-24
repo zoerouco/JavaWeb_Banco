@@ -17,7 +17,7 @@
 	 
       <div class="contenedor-menu">
         <img class="imagen-menu" src="css/img/BancoLogo.png" alt="nav" />
-        <h1> GLOBANK </h1>
+        <h1 style="color:#ffefd5;"> GLOBANK </h1>
     
         <ul class="contenedor-links-menu">  
              	

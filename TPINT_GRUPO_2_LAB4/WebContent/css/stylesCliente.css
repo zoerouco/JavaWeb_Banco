@@ -48,14 +48,14 @@
 .links-menu{
 	font-size: 20px;
 	padding: 11px;
-	color: black;
+	color: papayawhip;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.4s ease-in-out;
 }
 
 .links-menu:hover{
 	font-size: 23px;
-	transition: all 0.2s ease 0s;
-	color: black;
+	color: papayawhip;
 	text-decoration: none;
 }
 
