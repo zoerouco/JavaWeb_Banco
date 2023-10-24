@@ -16,15 +16,14 @@
     height: 80px;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 0.5rem 1rem, rgba(255, 255, 255, 0.15) 0px -1px 0px inset;
     z-index: 1000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.mensaje-bienvenida h1{
-	
-font-size: 20px;
-	
-margin-left: 35px;
-	
-color: cornsilk;
+.mensaje-bienvenida h1 {
+	font-size: 20px;
+	margin-left: 35px;
+	color: cornsilk;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .navBar-menu{
@@ -50,6 +49,7 @@ color: cornsilk;
 	font-size: 20px;
 	padding: 11px;
 	color: black;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .links-menu:hover{
@@ -81,8 +81,6 @@ color: cornsilk;
     align-items: center;
     width: 100%;
 }
-
-
 
 .imagen-menu:hover {
     cursor: pointer;
