@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/stylesCliente.css">
-    <link rel="stylesheet" type="text/css" href="css/stylesAdmin.css">
+    <link rel="stylesheet" type="text/css" href="css/styleAdmin.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="css/img/BancoLogo.png" />
     <title>Menu Administradores</title>
@@ -57,8 +57,8 @@
             </ul>
         </div> 
     </header>
-    
-	<table class="table">
+    <div class="container-table">
+    <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -88,6 +88,9 @@
     </tr>
   </tbody>
 </table>
+    
+    </div>
+	
 	
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
