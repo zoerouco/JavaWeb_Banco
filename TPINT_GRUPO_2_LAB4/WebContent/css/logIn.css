@@ -94,6 +94,10 @@ body {
     color: papayawhip
 }
 
+#buttonSubmit:hover {
+    background-color: #3ea342;
+}
+
 #examples {
     color: rgba(0,0,0,.6);
     margin: 5px;
