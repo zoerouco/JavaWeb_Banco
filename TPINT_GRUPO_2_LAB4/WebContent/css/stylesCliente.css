@@ -85,3 +85,14 @@
 .imagen-menu:hover {
     cursor: pointer;
 }
+.contenedor-footer {
+    background-color: #62c06d;
+    padding: 20px;
+    margin: 0px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    heigth: inherit;
+    width: 100%;
+}
+
