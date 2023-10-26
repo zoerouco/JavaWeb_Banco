@@ -39,23 +39,42 @@
         </ul>    
 
         </div>
-         <footer class="contenedor-footer">
-	        
-        <p>Todos los derechos reservados &copy; Globank 2023</p>
-        <ul class="social-links">
-            <li><a href="https://www.facebook.com/TuEmpresa" target="_blank">Facebook</a></li>
-            <li><a href="https://www.instagram.com/TuEmpresa" target="_blank">Instagram</a></li>
-            <li><a href="https://twitter.com/TuEmpresa" target="_blank">Twitter</a></li>
-        </ul>
-    
-          
-      
-          
-          
-
-        </footer>
+       
+         
+	             
+                              
+       
     </header>
-	
+    
+	 <footer class="footer">
+          <p>Todos los derechos reservados &copy; Globank 2023</p>
+          <ul class="container-social-media">  
+             	
+         	 <li class="social-media">
+         	 <img src="css/img/facebook.png" alt="Facebook">
+            	<a class="social-media" href="#"> Facebook </a>
+            	
+          	</li>
+         		 <li class="social-media">
+         		   <img src="css/img/twitter.png" alt="Twitter">
+            <a class="social-media" href="#"> Twitter</a>
+          
+         		 </li>
+         			 <li class="social-media" >
+         			  <img src="css/img/instagram.png" alt="Instagram">
+            <a class="social-media" href="#"> Instagram </a>
+           
+          			</li>
+         				 <li class="social-media">
+         				 <img src="css/img/whatsapp.png" alt="Soporte Whatsapp">
+            <a class="social-media" href="#">Soporte Whatsapp</a>
+            
+         				 </li>
+                  
+          
+        </ul>    
+          
+        </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>	
 </body>
 </html>

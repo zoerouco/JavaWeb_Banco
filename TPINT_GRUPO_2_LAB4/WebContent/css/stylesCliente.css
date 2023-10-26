@@ -85,14 +85,25 @@
 .imagen-menu:hover {
     cursor: pointer;
 }
-.contenedor-footer {
-    background-color: #62c06d;
-    padding: 20px;
-    margin: 0px;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    heigth: inherit;
-    width: 100%;
+
+.footer {
+      background-color: #62c06d;         
+	  position: fixed;	
+	  bottom: 0;
+	  height: 50px; 
+	  padding: 5px; 
+	  margin: 10px; 
+	  width: 100%;
+	   margin-top: -33px;
 }
 
+.container-social-media{
+	  display: flex;
+	  justify-content: center;
+	  margin: -33px;
+	 
+}
+.social-media{
+	
+	margin: 0px 24px 0px 0px;
+}
