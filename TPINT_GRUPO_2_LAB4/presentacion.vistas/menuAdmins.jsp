@@ -53,51 +53,47 @@
                     </div>
                 </li>
                 
-                <li class="mensaje-bienvenida"> <h1> Bienvenido, x</h1> </li>
+                <li class="mensaje-bienvenida">
+                	<h1> Bienvenido, x</h1> 
+            	</li>
+            
             </ul>
         </div> 
     </header>
-      <div class="container-table"  id="table-usuarios">
-      
-      <h1> CLIENTES </h1>
-   
+    <div class="container-table"  id="table-usuarios">
+    <h1> CLIENTES </h1>
+
     <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Nro Usuario</th>
-      <th scope="col">CBU </th>
-      <th scope="col">ID cuenta</th>
-      <th scope="col">ID Usuario</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>533332213234565</td>
-      <td>1</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>533332213234568</td>
-      <td>2</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>533332213234565</td>
-      <td>3</td>
-      <td>3</td>
-    </tr>
-  </tbody>
-</table>
-
-</div>
-
-
-    
-    </div>
-	
+        <thead>
+            <tr>
+                <th scope="col">Nro Usuario</th>
+                <th scope="col">CBU </th>
+                <th scope="col">ID cuenta</th>
+                <th scope="col">ID Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>533332213234565</td>
+                <td>1</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>533332213234568</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>533332213234565</td>
+                <td>3</td>
+                <td>3</td>
+            </tr>
+        </tbody>
+    </table>
+	</div>
 	
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
