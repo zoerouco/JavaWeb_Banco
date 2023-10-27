@@ -87,8 +87,8 @@
 }
 
 #table-prestamos, #table-movimientos{	
-	
-	margin-top: 30px;
+	margin-top: 90px;
+	margin-bottom: 50px;
 }
 
 
@@ -98,18 +98,12 @@
 
 
 .form-prestamo , .form-movimientos{
-	
-margin: 150px;
-	
-display: flex;
-	
-align-items: center;
-	
-height: 15rem;
-	
-justify-content: space-between;
-	
-flex-direction: column;
+	margin: 150px;
+	display: flex;
+	align-items: center;
+	height: 15rem;
+	justify-content: space-between;
+	flex-direction: column;
 }
 
 .container-social-media{
@@ -206,10 +200,6 @@ margin: 0px 24px 0px 0px;
     cursor: pointer;
 }
 
-#table-prestamos, #table-movimientos{
-}
-
-
 #btnSolicitarPrestamo{
 	
 }
@@ -232,7 +222,7 @@ flex-direction: column;
 
 .Z-footer {
       background-color: #62c06d;
-      height: 5%;
+      height: 15%;
       width: 100%;
       display: flex;
       flex-direction: column;
