@@ -71,8 +71,6 @@
 </div>
 
 
-
-
   <div class="container-table" id="table-prestamos">
   
   <h1 class="text-center"> MIS PRÉSTAMOS </h1>

@@ -46,7 +46,7 @@
     
       <div class="container-table"  id="table-movimientos">
       
-      <h1> MIS PRÉSTAMOS </h1>
+      <h1> MIS MOVIMIENTOS </h1>
    
     <table class="table">
   <thead>
