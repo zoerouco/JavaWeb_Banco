@@ -27,10 +27,10 @@
             <a class="links-menu" href="#"> Home </a>
           </li>
           <li class="links-menu">
-            <a class="links-menu" href="movimientosCliente.jsp"> Mis movimientos</a>
+            <a class="links-menu" href="#"> Mis movimientos</a>
           </li>
           <li class="links-menu">
-            <a class="links-menu" href="prestamosCliente.jsp"> Mis préstamos </a>
+            <a class="links-menu" href="#"> Mis préstamos </a>
           </li>
           <li class="links-menu">
             <a class="links-menu" href="#">Ajustes de la cuenta</a>
@@ -44,42 +44,38 @@
               
     </header>
     
-      <div class="container-table"  id="table-movimientos">
-   
-    <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
 
 </div>
 
+<div class="form-prestamo">
+
+<h1>SOLICITAR PRÉSTAMO </h1>
+
+<form action="ServletCliente" method="post">
+
+<p> Importe: <input type="number" name="importe_pedido"></input> </p>
+<p> Cantidad de cuotas: <input type="range" name="plazo_meses" min="1" max="18"></input> </p>
+ <p>Seleccionar cuenta donde se depositará el préstamo: 
+ <select name="cuentas-cliente">
+                    <option value="cbu-1"> 01128484089</option>
+                    <option value="cbu-2"> 01428884089</option>
+                    <option value="cbu-3"> 01828884099</option>
+                </select>
+</p>
+
+<input type="submit" name="btnSolicitarPrestamo" value="Solicitar" id="btnSolicitarPrestamo"></input>
+
+
+</form>
+
+</div>
+
+
+
+
   <div class="container-table" id="table-prestamos">
+  
+  <h1 class="text-center"> MIS PRÉSTAMOS </h1>
     <table class="table">
   <thead>
     <tr>
@@ -113,8 +109,10 @@
        
     </div>
     
-	 <footer class="footer">
-          <p>Todos los derechos reservados &copy; Globank 2023</p>
+	 <div class="Z-footer">
+	 
+	  <p>Todos los derechos reservados &copy; Globank 2023</p>
+         
           <ul class="container-social-media">  
              	
          	 <li class="social-media">
@@ -137,9 +135,12 @@
             <a class="social-media" href="#">Soporte Whatsapp</a>
             
          				 </li>
+	    </ul>  
+	    
+	 </div>
                   
           
-        </ul>    
+       
           
         </footer>
        </main>
