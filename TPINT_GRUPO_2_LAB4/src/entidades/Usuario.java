@@ -3,14 +3,16 @@ package entidades;
 public class Usuario {
 	
 	private String id;
-	private String dni;
+	private Cliente dni;
 	private boolean esAdmin;
 	private int idRef;
 	private String contraseña;
 	private String nombreUsuario;
 	private boolean estado;
 	
-	public Usuario(String id, String dni, boolean esAdmin, int idRef, String contraseña, String nombreUsuario,
+	public Usuario() {}
+	
+	public Usuario(String id, Cliente dni, boolean esAdmin, int idRef, String contraseña, String nombreUsuario,
 			boolean estado) {
 		super();
 		this.id = id;
@@ -29,10 +31,10 @@ public class Usuario {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getDni() {
+	public Cliente getDni() {
 		return dni;
 	}
-	public void setDni(String dni) {
+	public void setDni(Cliente dni) {
 		this.dni = dni;
 	}
 	public boolean isEsAdmin() {
@@ -123,7 +125,7 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "ID usuario: " + id + ", dni: " + dni + ", es admin: " + esAdmin + ", ID de referencia: " + idRef + ", contraseña: "
+		return "ID usuario: " + id + ", dni: " + dni.getDNI() + ", es admin: " + esAdmin + ", ID de referencia: " + idRef + ", contraseña: "
 				+ contraseña + ", nombre de usuario: " + nombreUsuario + ", estado: " + estado;
 	}
 	

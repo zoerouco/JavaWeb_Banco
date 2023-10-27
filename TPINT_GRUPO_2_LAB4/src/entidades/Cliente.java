@@ -5,7 +5,7 @@ import java.util.Date;
 public class Cliente {
 	
 	private String DNI; 
-	private String id_genero;
+	private Genero id_genero;
 	private int id_nacionalidad;
 	private int id_provincia;
 	private int id_localidades;
@@ -19,17 +19,18 @@ public class Cliente {
 	private String telefono_secundario;
 	private boolean estado;
 	
+	public Cliente() {}
 	
-	public Cliente(String dNI, String id_genero, int id_nacionalidad, int id_provincia, int id_localidades, String cUIL,
+	public Cliente(String DNI, Genero id_genero, int id_nacionalidad, int id_provincia, int id_localidades, String CUIL,
 			String nombre, String apellido, Date fecha_nacimiento, String direccion, String correo_electronico,
 			String telefono_primario, String telefono_secundario, boolean estado) {
 		super();
-		DNI = dNI;
+		this.DNI = DNI;
 		this.id_genero = id_genero;
 		this.id_nacionalidad = id_nacionalidad;
 		this.id_provincia = id_provincia;
 		this.id_localidades = id_localidades;
-		CUIL = cUIL;
+		this.CUIL = CUIL;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fecha_nacimiento = fecha_nacimiento;
@@ -46,10 +47,10 @@ public class Cliente {
 	public void setDNI(String dNI) {
 		DNI = dNI;
 	}
-	public String getId_genero() {
+	public Genero getId_genero() {
 		return id_genero;
 	}
-	public void setId_genero(String id_genero) {
+	public void setId_genero(Genero id_genero) {
 		this.id_genero = id_genero;
 	}
 	public int getId_nacionalidad() {
@@ -218,13 +219,10 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "DNI cliente: " + DNI + ", ID genero: " + id_genero + ", ID nacionalidad: " + id_nacionalidad
+		return "DNI cliente: " + DNI + ", ID genero: " + id_genero.getDescripcion() + ", ID nacionalidad: " + id_nacionalidad
 				+ ", ID provincia: " + id_provincia + ", ID localidades: " + id_localidades + ", CUIL: " + CUIL
 				+ ", nombre: " + nombre + ", apellido: " + apellido + ", fecha de nacimiento: " + fecha_nacimiento
 				+ ", direccion: " + direccion + ", correo electronico: " + correo_electronico + ", telefono primario: "
 				+ telefono_primario + ", telefono secundario: " + telefono_secundario + ", estado: " + estado;
 	}
-
-	
-
 }
