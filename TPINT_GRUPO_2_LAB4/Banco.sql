@@ -2,20 +2,20 @@ CREATE DATABASE `bdGlobank`;
 USE bdGlobank; 
 
 CREATE TABLE `generos`(
-	`id_genero` int NOT NULL,
+	`id_genero` char(5) NOT NULL,
     `descripcion` varchar(50) NOT NULL,
     PRIMARY KEY (id_genero)
 );
 
 CREATE TABLE `tipo_cuenta`(
-	`id_tipo` int NOT NULL,
+	`id_tipo` char(5) NOT NULL,
     `descripcion`char(100) NOT NULL,
     PRIMARY KEY (id_tipo)
 );
 
 CREATE TABLE `clientes`(
 	`DNI` char(20) NOT NULL,
-    `id_genero` int NOT NULL,
+    `id_genero` char(5) NOT NULL,
     `id_nacionalidad` int(11) NOT NULL,
     `id_provincia` int(10) NOT NULL,
     `id_localidades` int(11) NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE `clientes`(
 
 CREATE TABLE `cuentas`(
 	`CBU` char(22) NOT NULL,
-	`id_tipo` int NOT NULL,
+	`id_tipo` char(5) NOT NULL,
     `DNI` char(20) NOT NULL,
     `fecha_creacion` datetime,
     `nro_cuenta` char(20) DEFAULT 0,
@@ -49,7 +49,7 @@ CREATE TABLE `cuentas`(
 );
 
 CREATE TABLE `tipo_movimiento`(
-	`id_tipo` int NOT NULL,
+	`id_tipo` char(30) NOT NULL,
     `descripcion`char(100) NOT NULL,
     PRIMARY KEY (id_tipo)
 );
@@ -57,7 +57,7 @@ CREATE TABLE `tipo_movimiento`(
 CREATE TABLE `movimientos`(
 	`id_movimiento` char(20) NOT NULL,
 	`CBU` char(22) NOT NULL,
-    `id_tipo` int NOT NULL,
+    `id_tipo` char(30) NOT NULL,
     `CBU_destino` char(22) NOT NULL,
     `fecha` datetime,
     `detalle` varchar(200),
@@ -72,7 +72,7 @@ CREATE TABLE `usuarios`(
 	`id_usuario` char(20) NOT NULL,
     `DNI` char(20) NOT NULL,
     `esAdmin` bit DEFAULT 0,
-    `id_ref` char(20) NOT NULL,
+    `id_ref` int NULL,
     `contraseña` char(30) NOT NULL,
     `nombre_usuario` char(50) NOT NULL,
 	`estado` bit DEFAULT 1,
