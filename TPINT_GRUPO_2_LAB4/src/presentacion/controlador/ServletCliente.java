@@ -1,4 +1,4 @@
-package servlets;
+package presentacion.controlador;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

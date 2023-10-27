@@ -1,0 +1,26 @@
+@charset "ISO-8859-1";
+
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+#table-prestamos, #table-movimientos{	
+	margin-top: 90px;
+	margin-bottom: 50px;
+}
+
+
+#btnSolicitarPrestamo{
+	
+}
+
+
+.form-prestamo , .form-movimientos{
+	margin: 150px;
+	display: flex;
+	align-items: center;
+	height: 15rem;
+	justify-content: space-between;
+	flex-direction: column;
+}

@@ -1,4 +1,3 @@
-CREATE DATABASE `bdGlobank`; 
 USE bdGlobank; 
  
 CREATE TABLE `nacionalidades` (

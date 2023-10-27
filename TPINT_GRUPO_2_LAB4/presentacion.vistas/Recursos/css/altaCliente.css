@@ -1,0 +1,16 @@
+@charset "ISO-8859-1";
+
+.form-alta-cuentas {
+    margin-top: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 1px solid rgba(0,0,0,.4);
+    padding: 50px;
+    border-radius: 5px;
+}
+
+.text-layout {
+    padding: 2%;
+}
