@@ -4,8 +4,8 @@
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<link rel="icon" type="image/png" href="css/img/BancoLogo.png" />
-	<link rel="stylesheet" type="text/css" href="css/logIn.css">
+	<link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
+	<link rel="stylesheet" type="text/css" href="Recursos/css/logIn.css">
 	<title>Globank | Log In</title>
 	</head>
 	<body>

@@ -1,4 +1,4 @@
-package dominio;
+package entidades;
 
 public class PrimeraClase {
 

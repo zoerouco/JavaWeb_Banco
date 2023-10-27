@@ -5,16 +5,16 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/stylesCliente.css">
-    <link rel="stylesheet" type="text/css" href="css/styleAdmin.css">
+    <link rel="stylesheet" type="text/css" href="Recursos/css/stylesCliente.css">
+    <link rel="stylesheet" type="text/css" href="Recursos/css/styleAdmin.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="css/img/BancoLogo.png" />
+    <link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
     <title>Menu Administradores</title>
 </head>
 <body>
     <header class="encabezado">
         <div class="contenedor-menu">
-            <img class="imagen-menu" src="css/img/BancoLogo.png" alt="nav" />
+            <img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" />
             <h1 style="color:#ffefd5;"> GLOBANK </h1>
             <ul class="contenedor-links-menu">  
 

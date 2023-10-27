@@ -4,10 +4,10 @@
 <html>
 <head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="css/stylesCliente.css">
+<link rel="stylesheet" type="text/css" href="Recursos/css/stylesCliente.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="css/img/BancoLogo.png" />
+<link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
 <title>Globank | Bienvenido</title>
 </head>
 
@@ -18,7 +18,7 @@
 	 <header class="encabezado">
 	 
       <div class="contenedor-menu">
-        <img class="imagen-menu" src="css/img/BancoLogo.png" alt="nav" />
+        <img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" />
         <h1 style="color:#ffefd5;"> GLOBANK </h1>
     
         <ul class="contenedor-links-menu">  
@@ -90,22 +90,22 @@
           <ul class="container-social-media">  
              	
          	 <li class="social-media">
-         	 <img src="css/img/facebook.png" alt="Facebook">
+         	 <img src="Recursos/img/facebook.png" alt="Facebook">
             	<a class="social-media" href="#"> Facebook </a>
             	
           	</li>
          		 <li class="social-media">
-         		   <img src="css/img/twitter.png" alt="Twitter">
+         		   <img src="Recursos/img/twitter.png" alt="Twitter">
             <a class="social-media" href="#"> Twitter</a>
           
          		 </li>
          			 <li class="social-media" >
-         			  <img src="css/img/instagram.png" alt="Instagram">
+         			  <img src="Recursos/img/instagram.png" alt="Instagram">
             <a class="social-media" href="#"> Instagram </a>
            
           			</li>
          				 <li class="social-media">
-         				 <img src="css/img/whatsapp.png" alt="Soporte Whatsapp">
+         				 <img src="Recursos/img/whatsapp.png" alt="Soporte Whatsapp">
             <a class="social-media" href="#">Soporte Whatsapp</a>
             
          				 </li>
