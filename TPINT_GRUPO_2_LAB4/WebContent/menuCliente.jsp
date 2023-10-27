@@ -44,76 +44,48 @@
               
     </header>
     
-      <div class="container-table"  id="table-movimientos">
+        <div class="container-table"  id="table-movimientos">
+      
+      <h1> MOVIMIENTOS </h1>
    
     <table class="table">
   <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+   <tr>
+      <th scope="col">Nro Usuario</th>
+      <th scope="col">CBU </th>
+      <th scope="col">ID cuenta</th>
+      <th scope="col">ID Usuario</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+      <td>533332213234565</td>
+      <td>1</td>
+      <td>3</td>
     </tr>
     <tr>
       <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
+      <td>533332213234568</td>
+      <td>2</td>
+      <td>3</td>
     </tr>
     <tr>
       <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
+      <td>533332213234565</td>
+      <td>3</td>
+      <td>3</td>
     </tr>
   </tbody>
 </table>
 
 </div>
 
-  <div class="container-table" id="table-prestamos">
-    <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-       
-    </div>
+</div>
+
+
     
-	 <footer class="footer">
+	 <footer class="Z-footer">
           <p>Todos los derechos reservados &copy; Globank 2023</p>
           <ul class="container-social-media">  
              	

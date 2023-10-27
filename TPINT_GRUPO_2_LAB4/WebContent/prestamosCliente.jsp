@@ -79,30 +79,30 @@
     <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Nro Prestamo</th>
+      <th scope="col">CBU Origen</th>
+      <th scope="col">Monto</th>
+      <th scope="col">Nro de cuota</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
+   <tr>
       <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+      <td>533332213234565</td>
+      <td>2000</td>
+      <td>1</td>
     </tr>
     <tr>
       <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
+      <td>533332213234568</td>
+      <td>30000</td>
+      <td>2</td>
     </tr>
     <tr>
       <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
+      <td>533332213234565</td>
+      <td>40020</td>
+      <td>3</td>
     </tr>
   </tbody>
 </table>

@@ -46,41 +46,60 @@
     
       <div class="container-table"  id="table-movimientos">
       
-      <h1> MIS PRÉSTAMOS </h1>
+      <h1> MIS MOVIMIENTOS </h1>
    
     <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Nro de transacción</th>
+      <th scope="col">CBU origen</th>
+      <th scope="col">Monto</th>
+      <th scope="col">CBU destino</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+      <td>533332213234565</td>
+      <td>2000</td>
+      <td>553119292933445</td>
     </tr>
     <tr>
       <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
+      <td>533332213234568</td>
+      <td>30000</td>
+      <td>@553119292933446</td>
     </tr>
     <tr>
       <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
+      <td>533332213234565</td>
+      <td>40020</td>
+      <td>55311929293347</td>
     </tr>
   </tbody>
 </table>
 
 </div>
+<div class="form-movimientos">
 
+<h1>TRANSFERENCIAS </h1>
+
+<form action="ServletCliente" method="post">
+
+<p> Importe: <input type="number" name="importe_pedido"></input> </p>
+<p> Indique CBU: <input type="number" name="importe_pedido"></input> </p>
+ <p>Seleccionar cuenta donde se depositará transferencias : 
+ 					<select name="cuentas-recientes">
+                    <option value="cbu-1"> 01128484089</option>
+                    <option value="cbu-2"> 01428884089</option>
+                    <option value="cbu-3"> 01828884099</option>
+                		</select>
+</p>
+
+<input type="submit" name="btnSolicitarPrestamo" value="Solicitar" id="btnSolicitarPrestamo"></input>
+
+
+</form>
     
 	 <footer>
 	 

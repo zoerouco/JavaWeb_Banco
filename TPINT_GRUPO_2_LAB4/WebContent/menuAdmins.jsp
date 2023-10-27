@@ -57,37 +57,42 @@
             </ul>
         </div> 
     </header>
-    <div class="container-table">
+      <div class="container-table"  id="table-usuarios">
+      
+      <h1> CLIENTES </h1>
+   
     <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Nro Usuario</th>
+      <th scope="col">CBU </th>
+      <th scope="col">ID cuenta</th>
+      <th scope="col">ID Usuario</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+      <td>533332213234565</td>
+      <td>1</td>
+      <td>3</td>
     </tr>
     <tr>
       <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
+      <td>533332213234568</td>
+      <td>2</td>
+      <td>3</td>
     </tr>
     <tr>
       <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
+      <td>533332213234565</td>
+      <td>3</td>
+      <td>3</td>
     </tr>
   </tbody>
 </table>
+
+</div>
 
 
     
