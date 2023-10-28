@@ -12,35 +12,32 @@
 	<title>Globank | Bienvenido</title>
 </head>
 <body>
-	<main>
-        <header class="encabezado">
-        
+	
+     <header class="encabezado">
             <div class="contenedor-menu">
                 <img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" />
                 <h1 style="color:#ffefd5;"> GLOBANK </h1>
             
                 <ul class="contenedor-links-menu">  
-                        
                     <li class="links-menu">
                         <a class="links-menu" href="#"> Home </a>
                     </li>
                     <li class="links-menu">
-                        <a class="links-menu" href="#"> Mis movimientos</a>
+                        <a class="links-menu" href="movimientosCliente.jsp"> Mis movimientos</a>
                     </li>
                     <li class="links-menu">
-                        <a class="links-menu" href="#"> Mis préstamos </a>
+                        <a class="links-menu" href="prestamosCliente.jsp"> Mis préstamos </a>
                     </li>
                     <li class="links-menu">
                         <a class="links-menu" href="#">Ajustes de la cuenta</a>
                     </li>
                     
                     <li class="mensaje-bienvenida"> <h1> Bienvenido, x</h1> </li>
-                
-                </ul>    
+                    
+                </ul>
             </div>
-                
         </header>
-        
+        <main>
         <div class="container-table"  id="table-movimientos">
             
             <h1> MIS MOVIMIENTOS </h1>

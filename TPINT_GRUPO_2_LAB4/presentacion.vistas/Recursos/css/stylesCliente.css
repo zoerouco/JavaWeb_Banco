@@ -3,6 +3,11 @@
 * {
     padding: 0px;
     margin: 0px;
+    
+}
+
+body{
+
 }
 
 #table-prestamos, #table-movimientos{	
@@ -15,12 +20,57 @@
 	
 }
 
-
-.form-prestamo , .form-movimientos{
-	margin: 150px;
-	display: flex;
-	align-items: center;
-	height: 15rem;
-	justify-content: space-between;
-	flex-direction: column;
+#btnMenuPrestamo{
+display: flex;	
+font-size: x-large;	
+flex-direction: row;	
+justify-content: center;	
+transition: 0.2 all ease;
 }
+
+#btnMenuPrestamo button{
+padding: 20px;
+cursor: pointer;
+border-radius: 36px;
+margin-top: 300px;
+}
+
+#btnMenuPrestamo button:hover{
+	background-color: #62c06d;
+	color: #ffefd5;
+}
+
+
+.form-prestamo{
+	margin-top: -590px;
+	transition: 1s all ease;
+	display: flex;
+	height: 27rem;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-items: center;
+	border-style: solid;
+	border-width: 2px;
+	border-color: black;
+	color: beige;
+	background: #6953df;
+	font-size: larger;
+	z-index: 0;
+}
+
+.form-prestamo p{
+	
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+}
+
+#btnSolicitarPrestamo{
+	padding: 4px 115px;
+	background-color: #ddba79;
+	border-radius: 37px;
+	margin-top: 20px;
+}
+
+

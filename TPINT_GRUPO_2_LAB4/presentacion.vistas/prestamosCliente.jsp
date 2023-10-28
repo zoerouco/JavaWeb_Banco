@@ -3,54 +3,64 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="Recursos/css/stylesCliente.css">
 	<link rel="stylesheet" type="text/css" href="Recursos/css/main.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="Recursos/js/prestamos.js"></script>
 	<link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
 	<title>Globank | Bienvenido</title>
 </head>
 
 <body>
 	
-	<main>
+	
         <header class="encabezado">
             <div class="contenedor-menu">
                 <img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" />
                 <h1 style="color:#ffefd5;"> GLOBANK </h1>
-    
+            
                 <ul class="contenedor-links-menu">  
-                            
                     <li class="links-menu">
                         <a class="links-menu" href="#"> Home </a>
                     </li>
                     <li class="links-menu">
-                        <a class="links-menu" href="#"> Mis movimientos</a>
+                        <a class="links-menu" href="movimientosCliente.jsp"> Mis movimientos</a>
                     </li>
                     <li class="links-menu">
-                        <a class="links-menu" href="#"> Mis préstamos </a>
+                        <a class="links-menu" href="prestamosCliente.jsp"> Mis préstamos </a>
                     </li>
                     <li class="links-menu">
                         <a class="links-menu" href="#">Ajustes de la cuenta</a>
                     </li>
                     
-                    <li class="mensaje-bienvenida">
-                        <h1> Bienvenido, x</h1>
-                    </li>
+                    <li class="mensaje-bienvenida"> <h1> Bienvenido, x</h1> </li>
                     
-                </ul>    
+                </ul>
             </div>
         </header>
-        <div class="form-prestamo">
+        
+        
+        <div class="form-prestamo" id="form-prestamo">
 
             <h1>SOLICITAR PRÉSTAMO </h1>
 
-            <form action="ServletCliente" method="post">
+            <form action="ServletCliente" method="post">           
 
-                <p> Importe: <input type="number" name="importe_pedido"></input> </p>
-                <p> Cantidad de cuotas: <input type="range" name="plazo_meses" min="1" max="18"></input> </p>
-                <p>Seleccionar cuenta donde se depositará el préstamo: 
+                <p class="importe_prestamo"> Importe:<input type="number" name="importe_pedido" min="1000" max="100000000" step="1000"></input> </p>
+                
+                <p> Cantidad de cuotas: 
+                <select name="cant_cuotas">
+                 <option value="1"> 1 cuota - 3% interés </option>
+                 <option value="3"> 3 cuotas - 5% interés </option>               
+                 <option value="6"> 6 cuotas - 10% interés </option>
+                 <option value="12"> 12 cuotas - 20% interés </option>
+                 <option value="18"> 18 cuotas - 25% interés </option>                  
+                </select>               
+                
+                </p>
+                <p>Cuenta donde se depositará el préstamo: 
                     <select name="cuentas-cliente">
                         <option value="cbu-1"> 01128484089</option>
                         <option value="cbu-2"> 01428884089</option>
@@ -59,8 +69,15 @@
                 </p>
 
                 <input type="submit" name="btnSolicitarPrestamo" value="Solicitar" id="btnSolicitarPrestamo"></input>
+                
+                
             </form>
 
+        </div>
+           <div id="btnMenuPrestamo">
+        
+        <button> SOLICITAR PRESTAMO</button>
+        
         </div>
         <div class="container-table" id="table-prestamos">
   
@@ -121,7 +138,6 @@
 
             </ul>  
 	    </footer>
-    </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>	
 </body>
 </html>

@@ -14,7 +14,7 @@
 
 <body>
 	
-	<main>
+
         <header class="encabezado">
             <div class="contenedor-menu">
                 <img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" />
@@ -39,7 +39,8 @@
                 </ul>
             </div>
         </header>
-    
+        
+    	<main>
         <div class="container-table"  id="table-movimientos">
             <h1> MOVIMIENTOS </h1>
    

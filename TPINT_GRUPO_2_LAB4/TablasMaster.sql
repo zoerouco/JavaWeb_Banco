@@ -10,7 +10,7 @@ CREATE TABLE `nacionalidades` (
 ) ;
 
 INSERT INTO `nacionalidades` VALUES (1, 4, 'AF', 'AFG', 'Afganistán');
-INSERT INTO `nacionaliCREATE DATABASE `bdGlobank`; 
+
 USE bdGlobank; 
  
 CREATE TABLE `nacionalidades` (

@@ -6,9 +6,9 @@
     width: 100%;
     top: 0;
     left: 0;
-    position: fixed;
     height: 80px;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 0.5rem 1rem, rgba(255, 255, 255, 0.15) 0px -1px 0px inset;
+    position: fixed;
     z-index: 1000;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
