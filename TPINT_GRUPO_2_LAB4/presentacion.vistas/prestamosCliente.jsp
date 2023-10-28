@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="entidades.Nacionalidad"%>
+<%@ page import="entidades.Provincia"%>
+<%@ page import="entidades.Localidad"%>
+<%@ page import="entidades.Genero"%>
+<%@ page import="entidades.Prestamo"%>
+<%@ page import="entidades.Cliente"%>
+<%@ page import="entidades.Cuenta"%>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,10 +23,39 @@
 <script src="Recursos/js/prestamos.js"></script>
 <link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
 <title>Globank | Bienvenido</title>
+
+  <script>
+        // Esta función se ejecutará cuando la página se cargue
+        window.onload = function() {
+            // Hacer una solicitud al servlet para cargar la lista
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'ServletCliente', true);
+            xhr.onreadystatechange = function() {
+              /*  if (xhr.readyState === 4 && xhr.status === 200) {
+                    // La respuesta del servlet contiene la lista, actualiza el JComboBox
+                    var comboBox = document.getElementById('listaCuentas');
+                    comboBox.innerHTML = xhr.responseText;
+                }
+            };*/
+            xhr.send();
+        }
+        };
+    </script>
 </head>
 
 <body>
 
+<% 
+	//este scriplet seria como el pageLoad donde inicializo todo lo que voy a necesitar en el form solicitar prestamo:
+	Nacionalidad nac = new Nacionalidad();
+	Localidad loc = new Localidad();
+	Provincia prov = new Provincia();
+	Genero genero = new Genero();
+	Prestamo prestamo = new Prestamo("x");
+	Cliente cliente = new Cliente ("01", "Jose", true);
+	Cuenta cuenta = new Cuenta();
+	   
+	%>
 
 	<header class="encabezado">
 	<div class="contenedor-menu">
@@ -36,13 +73,15 @@
 					de la cuenta</a></li>
 
 			<li class="mensaje-bienvenida">
-				<h1>Bienvenido, x</h1>
+			<input type="hidden" value="<% cliente.getDNI(); %>" name="clienteActual"> </input>
+				<h1>Bienvenido, <% cliente.getNombre(); %></h1>
 			</li>
 
 		</ul>
 	</div>
 	</header>
-
+	
+	
 
 	<div class="form-prestamo" id="form-prestamo">
 
@@ -66,11 +105,24 @@
 
 			</p>
 			<p>
-				Cuenta donde se depositará el préstamo: <select
-					name="cuentas-cliente">
-					<option value="cbu-1">01128484089</option>
-					<option value="cbu-2">01428884089</option>
-					<option value="cbu-3">01828884099</option>
+				Cuenta donde se depositará el préstamo: 
+				<select name="cuentas-cliente">
+				<% 
+				ArrayList <Cuenta> cuentas = (ArrayList <Cuenta>) request.getAttribute("listaCuentas"); 
+				
+				 if(cuentas != null){
+					 
+				   for(Cuenta cuentaCliente : cuentas){
+				  %>
+					<option><%cuentaCliente.getCBU(); %></option>
+				 <%
+                          }
+                            } else { 
+                            %>
+                                <option>NO HAY</option>
+                            <%
+                            }
+                            %>
 				</select>
 			</p>
 
@@ -79,6 +131,12 @@
 
 
 		</form>
+		
+		<div class="confirmacionPrestamo">
+		
+		<p>POR FAVOR, REVISE QUE LO INGRESADO SEA CORRECTO:</p>
+		<p>
+		</div>
 
 	</div>
 	<div id="btnMenuPrestamo">

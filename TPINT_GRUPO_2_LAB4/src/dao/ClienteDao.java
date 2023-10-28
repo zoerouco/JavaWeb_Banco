@@ -79,5 +79,67 @@ public class ClienteDao {
 		
 		return lista;
 	}
+	
+	
+	public Cliente getClientexDNI (String DNI) {
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<Cliente> lista = new ArrayList<Cliente>();
+		Cliente cliente = new Cliente();
+		Connection connection = null;
+		try{
+			
+			connection = (Connection) DriverManager.getConnection(host + DBname, user, password);
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(readall);
+			
+			while(resultSet.next()){
+				
+				if(DNI == resultSet.getString("DNI")) {
+					
+				//clases necesarias para crear un obj cliente
+				Genero genero = new Genero();
+				Nacionalidad nacionalidad = new Nacionalidad();
+			
+				Provincia provincia = new Provincia();
+				Localidad localidad = new Localidad();
+				
+				cliente.setDNI(resultSet.getString("DNI"));
+				genero.setId_genero(resultSet.getString("id_genero"));
+				cliente.setId_genero(genero);
+				nacionalidad.setId(resultSet.getInt("id_nacionalidad"));
+				cliente.setId_nacionalidad(nacionalidad);
+				provincia.setId(resultSet.getInt("id_provincia"));
+				cliente.setId_provincia(provincia);
+				localidad.setId(resultSet.getInt("id_localidades"));
+				cliente.setCUIL(resultSet.getString("CUIL"));
+				cliente.setNombre(resultSet.getString("nombre"));
+				cliente.setApellido(resultSet.getString("apellido"));
+				cliente.setFecha_nacimiento(resultSet.getDate("fecha_nacimiento"));
+				cliente.setDireccion(resultSet.getString("direccion"));
+				cliente.setCorreo_electronico(resultSet.getString("correo_electronico"));
+				cliente.setTelefono_primario(resultSet.getString("telefono_primario"));
+				cliente.setTelefono_secundario(resultSet.getString("telefono_secundario"));
+				cliente.setEstado(resultSet.getBoolean("estado"));	
+			}
+				
+			}
+			
+		connection.close();
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return cliente;
+			
+		
+		
+	}
 
 }

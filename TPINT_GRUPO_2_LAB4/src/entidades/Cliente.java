@@ -21,8 +21,19 @@ public class Cliente {
 	
 	public Cliente() {}
 	
+	
+	
+	public Cliente(String dNI, String nombre, boolean estado) {
+		super();
+		DNI = dNI;
+		this.nombre = nombre;
+		this.estado = estado;
+	}
+
+
+
 	public Cliente(String dNI, Genero id_genero, Nacionalidad id_nacionalidad, Provincia id_provincia,
-			Localidad id_localidades, String cUIL, String nombre, String apellido, Date fecha_nacimiento,
+			Localidad id_localidades, String cUIL, String nombre, String apellido, /*Date fecha_nacimiento,*/
 			String direccion, String correo_electronico, String telefono_primario, String telefono_secundario,
 			boolean estado) {
 		super();
@@ -34,7 +45,7 @@ public class Cliente {
 		CUIL = cUIL;
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.fecha_nacimiento = fecha_nacimiento;
+	//	this.fecha_nacimiento = fecha_nacimiento;
 		this.direccion = direccion;
 		this.correo_electronico = correo_electronico;
 		this.telefono_primario = telefono_primario;

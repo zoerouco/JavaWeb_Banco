@@ -2,9 +2,17 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import entidades.Cliente;
 import entidades.Cuenta;
+import entidades.Genero;
+import entidades.Localidad;
+import entidades.Nacionalidad;
+import entidades.Provincia;
+import entidades.Tipo_cuenta;
 
 
 public class CuentaDao {
@@ -12,6 +20,8 @@ public class CuentaDao {
 	private String user = "root";
 	private String password = "root";
 	private String DBname = "bdglobank";
+	private static final String readall = "SELECT * FROM cuentas";
+	private static final String readxDNI = "SELECT * FROM cuentas where DNI = ";
 	
 	public int agregarCuenta(Cuenta cuenta) {
 		
@@ -32,5 +42,111 @@ public class CuentaDao {
 		return filas;
 		
 	}
+	
+	
+	public ArrayList<Cuenta> getAllCuentas() {
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+		
+		Connection connection = null;
+		try{
+			
+			connection = (Connection) DriverManager.getConnection(host + DBname, user, password);
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(readall);
+			
+			while(resultSet.next()){
+				
+				//clases necesarias para crear un obj cliente
+				Cuenta cuenta = new Cuenta();
+				Cliente cliente = new Cliente();
+				Tipo_cuenta tipoCuenta = new Tipo_cuenta();
+				
+				cuenta.setCBU(resultSet.getString("CBU"));
+				tipoCuenta.setId_tipo(resultSet.getString("id_tipo"));
+				cuenta.setId_tipo(tipoCuenta);
+				cliente.setDNI(resultSet.getString("DNI"));
+				cuenta.setDNI(cliente);
+				cuenta.setFecha_creacion(resultSet.getDate("fecha_creacion"));
+				cuenta.setNro_cuenta(resultSet.getString("nro_cuenta"));
+				cuenta.setSaldo(resultSet.getFloat("saldo"));
+				cuenta.setEstado(resultSet.getBoolean("estado"));
+				
+				lista.add(cuenta);
+			}
+			
+		connection.close();
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return lista;
+	}
+	
+	
+	public ArrayList <Cuenta> getCuentasXDNI(Cliente cliente){
+		
+		String DNI = cliente.getDNI();
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+		
+		Connection connection = null;
+		
+		try{
+			
+			connection = (Connection) DriverManager.getConnection(host + DBname, user, password);
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(readxDNI+cliente.getDNI());
+			
+			while(resultSet.next()){
+				
+				if(resultSet.getString("DNI") == DNI) {
+					
+				//clases necesarias para crear un obj Cuenta
+				Cuenta cuenta = new Cuenta();
+				Tipo_cuenta tipoCuenta = new Tipo_cuenta();
+				
+				cuenta.setCBU(resultSet.getString("CBU"));
+				tipoCuenta.setId_tipo(resultSet.getString("id_tipo"));
+				cuenta.setId_tipo(tipoCuenta);
+				cliente.setDNI(resultSet.getString("DNI"));
+				cuenta.setDNI(cliente);
+				cuenta.setFecha_creacion(resultSet.getDate("fecha_creacion"));
+				cuenta.setNro_cuenta(resultSet.getString("nro_cuenta"));
+				cuenta.setSaldo(resultSet.getFloat("saldo"));
+				cuenta.setEstado(resultSet.getBoolean("estado"));
+				
+				lista.add(cuenta);
+			}
+				
+			}
+			
+		connection.close();
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return lista;
+		
+		
+		
+		
+	}
+	
+	
 
 }
