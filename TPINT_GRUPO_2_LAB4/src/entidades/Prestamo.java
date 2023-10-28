@@ -117,7 +117,7 @@ public class Prestamo {
 	
 	@Override
 	public String toString() {
-		return "ID Prestado=" + id_prestado + ", CBU=" + CBU + ", fecha_realizacion=" + fecha_realizacion
+		return "ID Prestado=" + id_prestado + ", CBU=" + CBU.getCBU() + ", fecha_realizacion=" + fecha_realizacion
 				+ ", importe_con_intereses=" + importe_con_intereses + ", importe_pedido=" + importe_pedido
 				+ ", monto_x_mes=" + monto_x_mes + ", cant_cuotas=" + cant_cuotas + ", estado=" + estado + "]";
 	}
@@ -173,17 +173,4 @@ public class Prestamo {
 			return false;
 		return true;
 	}
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

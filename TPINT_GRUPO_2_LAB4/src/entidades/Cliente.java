@@ -6,9 +6,9 @@ public class Cliente {
 	
 	private String DNI; 
 	private Genero id_genero;
-	private int id_nacionalidad;
-	private int id_provincia;
-	private int id_localidades;
+	private Nacionalidad id_nacionalidad;
+	private Provincia id_provincia;
+	private Localidad id_localidades;
 	private String CUIL;
 	private String nombre;
 	private String apellido;
@@ -21,16 +21,17 @@ public class Cliente {
 	
 	public Cliente() {}
 	
-	public Cliente(String DNI, Genero id_genero, int id_nacionalidad, int id_provincia, int id_localidades, String CUIL,
-			String nombre, String apellido, Date fecha_nacimiento, String direccion, String correo_electronico,
-			String telefono_primario, String telefono_secundario, boolean estado) {
+	public Cliente(String dNI, Genero id_genero, Nacionalidad id_nacionalidad, Provincia id_provincia,
+			Localidad id_localidades, String cUIL, String nombre, String apellido, Date fecha_nacimiento,
+			String direccion, String correo_electronico, String telefono_primario, String telefono_secundario,
+			boolean estado) {
 		super();
-		this.DNI = DNI;
+		DNI = dNI;
 		this.id_genero = id_genero;
 		this.id_nacionalidad = id_nacionalidad;
 		this.id_provincia = id_provincia;
 		this.id_localidades = id_localidades;
-		this.CUIL = CUIL;
+		CUIL = cUIL;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fecha_nacimiento = fecha_nacimiento;
@@ -40,7 +41,7 @@ public class Cliente {
 		this.telefono_secundario = telefono_secundario;
 		this.estado = estado;
 	}
-	
+
 	public String getDNI() {
 		return DNI;
 	}
@@ -53,22 +54,22 @@ public class Cliente {
 	public void setId_genero(Genero id_genero) {
 		this.id_genero = id_genero;
 	}
-	public int getId_nacionalidad() {
+	public Nacionalidad getId_nacionalidad() {
 		return id_nacionalidad;
 	}
-	public void setId_nacionalidad(int id_nacionalidad) {
+	public void setId_nacionalidad(Nacionalidad id_nacionalidad) {
 		this.id_nacionalidad = id_nacionalidad;
 	}
-	public int getId_provincia() {
+	public Provincia getId_provincia() {
 		return id_provincia;
 	}
-	public void setId_provincia(int id_provincia) {
+	public void setId_provincia(Provincia id_provincia) {
 		this.id_provincia = id_provincia;
 	}
-	public int getId_localidades() {
+	public Localidad getId_localidades() {
 		return id_localidades;
 	}
-	public void setId_localidades(int id_localidades) {
+	public void setId_localidades(Localidad id_localidades) {
 		this.id_localidades = id_localidades;
 	}
 	public String getCUIL() {
@@ -125,7 +126,7 @@ public class Cliente {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -138,9 +139,9 @@ public class Cliente {
 		result = prime * result + (estado ? 1231 : 1237);
 		result = prime * result + ((fecha_nacimiento == null) ? 0 : fecha_nacimiento.hashCode());
 		result = prime * result + ((id_genero == null) ? 0 : id_genero.hashCode());
-		result = prime * result + id_localidades;
-		result = prime * result + id_nacionalidad;
-		result = prime * result + id_provincia;
+		result = prime * result + ((id_localidades == null) ? 0 : id_localidades.hashCode());
+		result = prime * result + ((id_nacionalidad == null) ? 0 : id_nacionalidad.hashCode());
+		result = prime * result + ((id_provincia == null) ? 0 : id_provincia.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + ((telefono_primario == null) ? 0 : telefono_primario.hashCode());
 		result = prime * result + ((telefono_secundario == null) ? 0 : telefono_secundario.hashCode());
@@ -193,11 +194,20 @@ public class Cliente {
 				return false;
 		} else if (!id_genero.equals(other.id_genero))
 			return false;
-		if (id_localidades != other.id_localidades)
+		if (id_localidades == null) {
+			if (other.id_localidades != null)
+				return false;
+		} else if (!id_localidades.equals(other.id_localidades))
 			return false;
-		if (id_nacionalidad != other.id_nacionalidad)
+		if (id_nacionalidad == null) {
+			if (other.id_nacionalidad != null)
+				return false;
+		} else if (!id_nacionalidad.equals(other.id_nacionalidad))
 			return false;
-		if (id_provincia != other.id_provincia)
+		if (id_provincia == null) {
+			if (other.id_provincia != null)
+				return false;
+		} else if (!id_provincia.equals(other.id_provincia))
 			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
@@ -219,8 +229,8 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "DNI cliente: " + DNI + ", ID genero: " + id_genero.getDescripcion() + ", ID nacionalidad: " + id_nacionalidad
-				+ ", ID provincia: " + id_provincia + ", ID localidades: " + id_localidades + ", CUIL: " + CUIL
+		return "DNI cliente: " + DNI + ", ID genero: " + id_genero.getDescripcion() + ", ID nacionalidad: " + id_nacionalidad.getNombre_pais()
+				+ ", ID provincia: " + id_provincia.getNombre_provincia() + ", ID localidades: " + id_localidades.getNombre_localidad() + ", CUIL: " + CUIL
 				+ ", nombre: " + nombre + ", apellido: " + apellido + ", fecha de nacimiento: " + fecha_nacimiento
 				+ ", direccion: " + direccion + ", correo electronico: " + correo_electronico + ", telefono primario: "
 				+ telefono_primario + ", telefono secundario: " + telefono_secundario + ", estado: " + estado;
