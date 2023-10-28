@@ -14,7 +14,9 @@
 <body>
     <header class="encabezado">
         <div class="contenedor-menu">
-            <img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" />
+           <a href="menuAdmins.jsp">
+           <img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" /> 
+           </a> 
             <h1 style="color:#ffefd5;"> GLOBANK </h1>
             <ul class="contenedor-links-menu">  
 
@@ -23,7 +25,7 @@
                        Cuentas ABML
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Alta de cuentas</a>
+                        <a class="dropdown-item" href="altaCuenta.jsp">Alta de cuentas</a>
                         <a class="dropdown-item" href="#">Baja de cuentas</a>
                         <a class="dropdown-item" href="#">Modificar Cuentas</a>
                         <a class="dropdown-item" href="#">Listar Cuentas</a>
