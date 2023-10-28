@@ -7,7 +7,7 @@ public class Prestamo {
 	private static String cod_idPrestamo = "P";
 	private static int aux_id_prestamo = 0;
 	
-	private String id_prestado;
+	private String id_prestamo;
 	private Cuenta CBU;
 	private Date fecha_realizacion;
 	private float importe_con_intereses;
@@ -18,13 +18,12 @@ public class Prestamo {
 	
 	public Prestamo() { //cuando llamamos al constructor, se le setea el id_prestamo :)
 		aux_id_prestamo++;
-		this.id_prestado = cod_idPrestamo + aux_id_prestamo;
+		this.id_prestamo = cod_idPrestamo + aux_id_prestamo;
 	}
 	
 	public Prestamo(String id_prestado, Cuenta cBU, Date fecha_realizacion, float importe_con_intereses,
 	        float importe_pedido, float monto_x_mes, int cant_cuotas, boolean estado) {
-		aux_id_prestamo++;
-		this.id_prestado = cod_idPrestamo + aux_id_prestamo;
+		this.id_prestamo = cod_idPrestamo + aux_id_prestamo;
 		CBU = cBU;
 		this.fecha_realizacion = fecha_realizacion;
 		this.importe_con_intereses = importe_con_intereses;
@@ -32,6 +31,10 @@ public class Prestamo {
 		this.monto_x_mes = monto_x_mes;
 		this.cant_cuotas = cant_cuotas;
 		this.estado = estado;
+	}
+	
+	public Prestamo (String id_prestamo) {
+		this.id_prestamo = id_prestamo;
 	}
 	
 	
@@ -52,11 +55,11 @@ public class Prestamo {
 	}
 
 	public String getId_prestado() {
-		return id_prestado;
+		return id_prestamo;
 	}
 
-	public void setId_prestado(String id_prestado) {
-		this.id_prestado = id_prestado;
+	public void setId_prestamo(String id_prestado) {
+		this.id_prestamo = id_prestado;
 	}
 
 	public Cuenta getCBU() {
@@ -117,7 +120,7 @@ public class Prestamo {
 	
 	@Override
 	public String toString() {
-		return "ID Prestado=" + id_prestado + ", CBU=" + CBU.getCBU() + ", fecha_realizacion=" + fecha_realizacion
+		return "ID Prestado=" + id_prestamo + ", CBU=" + CBU.getCBU() + ", fecha_realizacion=" + fecha_realizacion
 				+ ", importe_con_intereses=" + importe_con_intereses + ", importe_pedido=" + importe_pedido
 				+ ", monto_x_mes=" + monto_x_mes + ", cant_cuotas=" + cant_cuotas + ", estado=" + estado + "]";
 	}
@@ -130,7 +133,7 @@ public class Prestamo {
 		result = prime * result + cant_cuotas;
 		result = prime * result + (estado ? 1231 : 1237);
 		result = prime * result + ((fecha_realizacion == null) ? 0 : fecha_realizacion.hashCode());
-		result = prime * result + ((id_prestado == null) ? 0 : id_prestado.hashCode());
+		result = prime * result + ((id_prestamo == null) ? 0 : id_prestamo.hashCode());
 		result = prime * result + Float.floatToIntBits(importe_con_intereses);
 		result = prime * result + Float.floatToIntBits(importe_pedido);
 		result = prime * result + Float.floatToIntBits(monto_x_mes);
@@ -160,10 +163,10 @@ public class Prestamo {
 				return false;
 		} else if (!fecha_realizacion.equals(other.fecha_realizacion))
 			return false;
-		if (id_prestado == null) {
-			if (other.id_prestado != null)
+		if (id_prestamo == null) {
+			if (other.id_prestamo != null)
 				return false;
-		} else if (!id_prestado.equals(other.id_prestado))
+		} else if (!id_prestamo.equals(other.id_prestamo))
 			return false;
 		if (Float.floatToIntBits(importe_con_intereses) != Float.floatToIntBits(other.importe_con_intereses))
 			return false;
