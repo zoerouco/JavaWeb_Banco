@@ -1,16 +1,172 @@
 @charset "ISO-8859-1";
 
-.form-alta-cuentas {
-    margin-top: 25%;
+body {
+    min-height: 100vh;
     display: flex;
-    flex-wrap: wrap;
-    width: 300px;
+    justify-content: center;
+    align-items: center;
+    /*flex-direction: column;
+    margin: 0;*/
+    background-color: #f2f2f2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-alta-cuentas {
+    margin-top: 100px;
+    margin-bottom: 80px;
+    position: relative;
+    max-width: 900px;
+    border-radius: 5px;
+    width: 100%;
+    padding: 30px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border: 1px solid rgba(0,0,0,.4);
-    padding: 50px;
+    background-color: white;
+}
+
+.form-alta-cuentas p{
+    position: relative;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.form-alta-cuentas p::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -20px;
+    height: 3px;
+    width: 240px;
+    border-radius: 8px;
+    background-color: #3ea342;
+    margin-bottom: 20px;
+}
+
+.form-alta-cuentas form {
+    position: relative;
+    margin-top: 16px;
+    min-height: 490px;
+}
+
+.form-alta-cuentas form .details {
+    display: block;
+    margin-bottom: 8px;
+    margin-top: 30px;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 6px 0;
+}
+
+.form-alta-cuentas form .inputs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+form .inputs .text-layout {
+    display: flex;
+    width: calc(100% / 2 - 15px);
+    flex-direction: column;
+    margin: 10px 0;
+}
+
+.text-layout input:focus {
+    border: solid 2px #024702;
+    outline: none;
+}
+
+.text-layout input {
+    height: 42px;
+    outline: none;
+    font-size: 14px;
+    font-weight: 400;
+    color: #706c6c;
+    border: 1px solid #aaa;
     border-radius: 5px;
 }
 
-.text-layout {
-    padding: 2%;
+.text-layout input:is(:focus, :valid) {
+    box-shadow: 0 3px 6px rbga(0,0,0,0.13);
+}
+
+.text-layout input[type="date"]{
+    color: #706c6c;
+}
+
+.text-layout input[type="date"]:valid {
+    color: #706c6c;
+}
+
+.text-layout select {
+    height: 42px;
+    outline: none;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+
+.required-fields {
+    color: red;
+    margin-left: 5px;
+    font-weight: 200;
+    font-size: small;
+}
+
+.text-layout label {
+    font-size: 15px;
+    font-weight: 400;
+    color: #333;
+    float: left;
+    width: 100px;
+    white-space: nowrap;
+}
+
+#titulo {
+    font-size: xx-large;
+    font-weight: bold;
+    color: #006414;
+}
+
+#buttonSubmit {
+    width: 120px;
+    border-radius: 5px;
+    border: none;
+    padding: 7px;
+    margin-top: 30px;
+    background-color:#0e6e11;
+    color: papayawhip;
+}
+
+#buttonSubmit:hover {
+    background-color: #3ea342;
+}
+
+#buttonCancel{
+    width: 120px;
+    border: 2px solid #0e6e11;
+    border-radius: 5px;
+    padding: 7px;
+    margin-top: 30px;
+    background-color:white;
+    color: #0e6e11;
+    float: right;
+    margin-left: 10px;
+}
+
+#buttonCancel:hover {
+    background-color: #f2f2f2;;
+}
+
+@media (max-width: 750) {
+
+}
+
+@media (max-width: 550px){
+    form .inputs .text-layout {
+        width: 100%;
+    }
 }

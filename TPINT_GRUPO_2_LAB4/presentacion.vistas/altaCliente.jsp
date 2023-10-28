@@ -6,14 +6,13 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	    <link rel="stylesheet" type="text/css" href="Recursos/css/main.css">
-	    <link rel="stylesheet" type="text/css" href="Recursos/css/logIn.css">
 	    <link rel="stylesheet" type="text/css" href="Recursos/css/altaCliente.css">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
 	    <title>Globank | Agregar cuenta</title>
 	</head>
 	<body>
-	<header class="encabezado">
+        <header class="encabezado">
             <div class="contenedor-menu">
                 <img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" />
                 <h1 style="color:#ffefd5;"> GLOBANK </h1>
@@ -57,70 +56,75 @@
                 </ul>
             </div> 
         </header>
+        <!--<h1 id="titulo">Alta de clientes</h1>-->
         <div class="form-alta-cuentas">
             <form action="ServletCliente" method="get">
-                <p>Ingrese un nuevo cliente al sistema:</p>
-                <div class="text-layout">
-                    <input type="text" id="name" placeholder=" " required>
-                    <label for="name">Nombre</label>
+                <p class="details"> Ingrese un nuevo cliente al sistema:</p>
+                <div class="inputs">
+                    <div class="text-layout">
+                        <label for="name">Nombre<span class="required-fields">*</span></label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="text-layout">
+                        <label for="lastName">Apellido<span class="required-fields">*</span></label>
+                        <input type="text" id="lastName" required>
+                    </div>
+                    <div class="text-layout">
+                        <label for="DNI">DNI<span class="required-fields">*</span></label>
+                        <input type="number" id="DNI" placeholder=" XX-XXX-XXX" required>
+                    </div>
+                    <div class="text-layout">
+                        <label for="CUIL">CUIL<span class="required-fields">*</span></label>
+                        <input type="number" id="CUIL" placeholder=" XX-XXXXXXXX-X" required>
+                    </div>
+                    <div class="text-layout">
+                        <label for="birthdate">Fecha de nacimiento<span class="required-fields">*</span></label>
+                        <input type="date" id="birthdate" required>
+                    </div>
+                    <div class="text-layout">
+                        <label for="gender">Genero<span class="required-fields">*</span></label>
+                        <select name="gender" id="gender">
+                            <option value="M">Mujer</option>
+                        </select>
+                    </div>
+                    <div class="text-layout">
+                        <label for="nationality">Nacionalidad<span class="required-fields">*</span></label>
+                        <select name="nationality" id="nationality">
+                            <option value="ARG">Argentina</option>
+                        </select>
+                    </div>
+                    <div class="text-layout">
+                        <label for="adress">Direccion<span class="required-fields">*</span></label>
+                        <input type="text" id="adress" placeholder=" Caballito 123" required>
+                    </div>
+                    <div class="text-layout">
+                        <label for="email">Correo electronico<span class="required-fields">*</span></label>
+                        <input type="email" id="email" placeholder=" example@example.com" required>
+                    </div>
+                    <div class="text-layout">
+                        <label for="number1">Numero de telefono<span class="required-fields">*</span></label>
+                        <input type="number" id="number1" required>
+                    </div>
+                    <div class="text-layout">
+                        <label for="number2">Numero de telefono secundario</label>
+                        <input type="number" id="number2">
+                    </div>
+                    <div class="text-layout">
+                        <label for="province">Provincia<span class="required-fields">*</span></label>
+                        <select name="province" id="province">
+                            <option value="1">Buenos Aires</option>
+                        </select>
+                    </div>
+                    <div class="text-layout">
+                        <label for="locality">Localidad<span class="required-fields">*</span></label>
+                        <select name="locality" id="locality">
+                            <option value="2">Tigre</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="text-layout">
-                    <input type="text" id="lastName" placeholder=" " required>
-                    <label for="lastName">Apellido</label>
-                </div>
-                <div class="text-layout">
-                    <input type="number" id="DNI" placeholder=" " required>
-                    <label for="DNI">DNI</label>
-                </div>
-                <div class="text-layout">
-                    <input type="number" id="CUIL" placeholder=" " required>
-                    <label for="CUIL">CUIL</label>
-                </div>
-                <div class="text-layout">
-                    <input type="date" id="birthdate" placeholder=" " required>
-                    <label for="birthdate">Fecha de nacimiento</label>
-                </div>
-                <div class="text-layout">
-                    <p>Genero</p>
-                    <select name="genero" id="genero">
-                        <option value="M">Mujer</option>
-                    </select>
-                </div>
-                <div>
-                    <p>Nacionalidad</p>
-                    <select name="nacionalidad" id="nacionalidad">
-                        <option value="ARG">Argentina</option>
-                    </select>
-                </div>
-                <div class="text-layout">
-                    <input type="text" id="adress" placeholder=" " required>
-                    <label for="adress">Direccion</label>
-                </div>
-                <div class="text-layout">
-                    <input type="email" id="email" placeholder=" " required>
-                    <label for="email">Correo electronico</label>
-                </div>
-                <div class="text-layout">
-                    <input type="number" id="number1" placeholder=" " required>
-                    <label for="number1">Numero de telefono</label>
-                </div>
-                <div class="text-layout">
-                    <input type="number" id="number2" placeholder=" ">
-                    <label for="number2">Numero de telefono secundario</label>
-                </div>
-                <div>
-                    <p>Provincia de residencia</p>
-                    <select name="provincia" id="provincia">
-                        <option value="1">Buenos Aires</option>
-                    </select>
-                </div>
-                <div>
-                    <p>Localidad de residencia</p>
-                    <select name="localidad" id="localidad">
-                        <option value="2">tigre</option>
-                    </select>
-                </div>
+                <h6 class="required-fields">* - Campos obligatorios.</h6>
                 <button type="submit" id="buttonSubmit">Agregar</button>
+                <button type="reset" id="buttonCancel">Cancelar</button>
             </form>
         </div>
 	</body>

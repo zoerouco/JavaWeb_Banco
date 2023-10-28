@@ -5,6 +5,7 @@ body {
     align-items: center;
     flex-direction: column;
     margin: 0;
+    background-color: #f0f0f0;;
 }
 
 .custom-form {
@@ -15,6 +16,7 @@ body {
     border: 1px solid rgba(0,0,0,.4);
     padding: 50px;
     border-radius: 5px;
+    background-color: white;
 }
 
 .text-layout {
@@ -65,9 +67,7 @@ body {
     clear: both;
     text-align: center; 
     padding: 20px;
-    background-color: #f0f0f0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    width: 1000px;
 }
 
 .links::after {
@@ -88,7 +88,7 @@ body {
 #buttonSubmit {
     width: 100px;
     border-radius: 5px;
-    border-width: 0px;
+    border: none;
     padding: 7px;
     background-color:#0e6e11;
     color: papayawhip
