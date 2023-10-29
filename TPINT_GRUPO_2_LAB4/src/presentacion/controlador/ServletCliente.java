@@ -53,13 +53,17 @@ public class ServletCliente extends HttpServlet {
 				int ultimoID = prestamoN.getUltimoID();
 				prestamo.setId_prestamo(ultimoID + 1);
 				prestamo.setImporte_pedido(Float.parseFloat(request.getParameter("importe_pedido")));
+				//calculo los intereses
+				float importe_con_intereses = prestamoN.calcularImporteConIntereses(Float.parseFloat(request.getParameter("importe_pedido")),Integer.parseInt(request.getParameter("cant_cuotas")));
+				prestamo.setImporte_con_intereses(importe_con_intereses);
 				prestamo.setCant_cuotas(Integer.parseInt(request.getParameter("cant_cuotas")));
+				prestamo.setMonto_x_mes(prestamoN.calcularMontoxMes(Integer.parseInt(request.getParameter("cant_cuotas")), importe_con_intereses));
 				cuenta = cuentaN.getCuentaxCBU(request.getParameter("cuentas-cliente"));
 				prestamo.setCBU(cuenta);
+				prestamo.setEstado("Solicitado");
 				boolean inserto = prestamoN.insert(prestamo);
 				request.setAttribute("inserto", inserto);
 			}
-			
 			
 			
 			
@@ -83,9 +87,14 @@ public class ServletCliente extends HttpServlet {
 			int ultimoID = prestamoN.getUltimoID();
 			prestamo.setId_prestamo(ultimoID + 1);
 			prestamo.setImporte_pedido(Float.parseFloat(request.getParameter("importe_pedido")));
+			//calculo los intereses
+			float importe_con_intereses = prestamoN.calcularImporteConIntereses(Float.parseFloat(request.getParameter("importe_pedido")),Integer.parseInt(request.getParameter("cant_cuotas")));
+			prestamo.setImporte_con_intereses(importe_con_intereses);
 			prestamo.setCant_cuotas(Integer.parseInt(request.getParameter("cant_cuotas")));
+			prestamo.setMonto_x_mes(prestamoN.calcularMontoxMes(Integer.parseInt(request.getParameter("cant_cuotas")), importe_con_intereses));
 			cuenta = cuentaN.getCuentaxCBU(request.getParameter("cuentas-cliente"));
 			prestamo.setCBU(cuenta);
+			prestamo.setEstado("Solicitado");
 			boolean inserto = prestamoN.insert(prestamo);
 			request.setAttribute("inserto", inserto);
 		}

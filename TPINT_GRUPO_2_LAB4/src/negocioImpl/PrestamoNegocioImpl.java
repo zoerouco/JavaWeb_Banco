@@ -43,5 +43,48 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 	
 	}
 	
+	public float calcularImporteConIntereses(float importe_pedido, int cant_cuotas) {
+		
+		float importe_con_intereses = 0;
+		float cuota_1 = 3;
+		float cuota_3 = 5;
+		float cuota_6 = 10;
+		float cuota_12 = 15;
+		float cuota_18 = 25;
+	
+		switch(cant_cuotas){
+		
+		case 1:
+			importe_con_intereses = (importe_pedido*cuota_1/100) + importe_pedido;
+			break;
+		case 3: 
+			importe_con_intereses = (importe_pedido*cuota_3/100) + importe_pedido;
+			break;
+		case 6:
+			importe_con_intereses = (importe_pedido*cuota_6/100) + importe_pedido;
+			break;
+		case 12:
+			importe_con_intereses = (importe_pedido*cuota_12/100) + importe_pedido;
+		break;
+		case 18:
+			importe_con_intereses = (importe_pedido*cuota_18/100) + importe_pedido;
+			break;
+		
+	
+		}
+		
+		
+		return importe_con_intereses;
+	}
+	
+	public float calcularMontoxMes(int cant_cuotas, float importe_con_intereses) {
+		
+
+		return importe_con_intereses/cant_cuotas;
+		
+	
+		
+	}
+	
 	
 }
