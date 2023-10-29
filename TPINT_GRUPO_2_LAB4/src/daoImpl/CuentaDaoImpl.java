@@ -82,7 +82,7 @@ public class CuentaDaoImpl implements CuentaDao{
 		
 			while(resultSet.next()){
 				
-				//clases necesarias para crear un obj cliente
+				//clases necesarias para crear un obj cuenta
 				Cuenta cuenta = new Cuenta();
 				Tipo_cuenta tipoCuenta = new Tipo_cuenta();
 				Genero genero = new Genero();
@@ -136,4 +136,101 @@ public class CuentaDaoImpl implements CuentaDao{
 	
 		return lista;
 	}
+
+
+	public ArrayList<Cuenta> getCuentasxDNI(String DNI) {
+		
+		String query = "SELECT * FROM cuentas where DNI = '"+ DNI + "'";
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+		
+		Conexion conexion = Conexion.getConexion();
+		try{
+			
+			PreparedStatement statement = conexion.getSQLConexion().prepareStatement(query);
+	        ResultSet resultSet = statement.executeQuery();
+		
+			while(resultSet.next()){
+			
+			Cuenta cuenta = new Cuenta();
+			Cliente cliente = new Cliente();
+			ClienteDaoImpl clienteDImpl = new ClienteDaoImpl();
+			
+			cuenta.setCBU(resultSet.getString("CBU"));
+			cliente = clienteDImpl.getClientexDNI(DNI);
+			cuenta.setDNI(cliente);
+			cuenta.setFecha_creacion(resultSet.getDate("fecha_creacion"));
+			cuenta.setNro_cuenta(resultSet.getString("nro_cuenta"));
+			cuenta.setSaldo(resultSet.getFloat("saldo"));
+			cuenta.setEstado(resultSet.getBoolean("estado"));
+			
+			lista.add(cuenta);
+			
+			}
+			
+			conexion.cerrarConexion();
+			
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		
+			return lista;
+		
+		
+	}
+
+	@Override
+	public Cuenta getCuentaxCBU(String CBU) {
+	 
+		String query = "SELECT * FROM cuentas where CBU = '"+ CBU + "'";
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		
+		Cuenta cuenta = new Cuenta();
+		Cliente cliente = new Cliente();
+		ClienteDaoImpl clienteDImpl = new ClienteDaoImpl();
+		
+		Conexion conexion = Conexion.getConexion();
+		try{
+			
+			PreparedStatement statement = conexion.getSQLConexion().prepareStatement(query);
+	        ResultSet resultSet = statement.executeQuery();
+		
+	        while(resultSet.next()) {
+			cuenta.setCBU(resultSet.getString("CBU"));
+			cliente = clienteDImpl.getClientexDNI(resultSet.getString("DNI"));
+			cuenta.setDNI(cliente);
+			cuenta.setFecha_creacion(resultSet.getDate("fecha_creacion"));
+			cuenta.setNro_cuenta(resultSet.getString("nro_cuenta"));
+			cuenta.setSaldo(resultSet.getFloat("saldo"));
+			cuenta.setEstado(resultSet.getBoolean("estado"));
+		
+	        }
+			
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		
+			conexion.cerrarConexion();
+			return cuenta;
+		
+	}
 }
+
+
+
+
+
+
+

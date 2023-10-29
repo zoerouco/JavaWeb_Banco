@@ -14,7 +14,7 @@ public class Prestamo {
 	private float importe_pedido;
 	private float monto_x_mes;
 	private int cant_cuotas;
-	private boolean estado; //solicitado-aprobado-rechazado-concluido
+	private String estado; //solicitado-aprobado-rechazado-concluido
 	
 	public Prestamo() { //cuando llamamos al constructor, se le setea el id_prestamo :)
 		aux_id_prestamo++;
@@ -22,7 +22,7 @@ public class Prestamo {
 	}
 	
 	public Prestamo(String id_prestado, Cuenta cBU, Date fecha_realizacion, float importe_con_intereses,
-	        float importe_pedido, float monto_x_mes, int cant_cuotas, boolean estado) {
+	        float importe_pedido, float monto_x_mes, int cant_cuotas, String estado) {
 		this.id_prestamo = cod_idPrestamo + aux_id_prestamo;
 		CBU = cBU;
 		this.fecha_realizacion = fecha_realizacion;
@@ -73,6 +73,12 @@ public class Prestamo {
 	public Date getFecha_realizacion() {
 		return fecha_realizacion;
 	}
+	
+	public void setEstado (String estado) {
+		
+		this.estado = estado;
+		
+	}
 
 	public void setFecha_realizacion(Date fecha_realizacion) {
 		this.fecha_realizacion = fecha_realizacion;
@@ -110,11 +116,11 @@ public class Prestamo {
 		this.cant_cuotas = cant_cuotas;
 	}
 
-	public boolean isEstado() {
+	public String getEstado() {
 		return estado;
 	}
 
-	public void setEstado(boolean estado) {
+	public void String (String estado) {
 		this.estado = estado;
 	}
 	
@@ -131,7 +137,7 @@ public class Prestamo {
 		int result = 1;
 		result = prime * result + ((CBU == null) ? 0 : CBU.hashCode());
 		result = prime * result + cant_cuotas;
-		result = prime * result + (estado ? 1231 : 1237);
+		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
 		result = prime * result + ((fecha_realizacion == null) ? 0 : fecha_realizacion.hashCode());
 		result = prime * result + ((id_prestamo == null) ? 0 : id_prestamo.hashCode());
 		result = prime * result + Float.floatToIntBits(importe_con_intereses);
@@ -156,7 +162,10 @@ public class Prestamo {
 			return false;
 		if (cant_cuotas != other.cant_cuotas)
 			return false;
-		if (estado != other.estado)
+		if (estado == null) {
+			if (other.estado != null)
+				return false;
+		} else if (!estado.equals(other.estado))
 			return false;
 		if (fecha_realizacion == null) {
 			if (other.fecha_realizacion != null)
@@ -176,4 +185,9 @@ public class Prestamo {
 			return false;
 		return true;
 	}
+	
+	
+	
+
+	
 }

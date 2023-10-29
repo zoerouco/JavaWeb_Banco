@@ -11,9 +11,13 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 	PrestamoDao pdao = new PrestamoDaoImpl();
 	
 	@Override
-	public int insert(Prestamo prestamo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean insert(Prestamo prestamo) {
+		
+		boolean filas = false;
+		
+		filas = pdao.insert(prestamo);
+		
+		return filas;
 	}
 
 	@Override

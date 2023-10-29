@@ -15,10 +15,12 @@ import entidades.Provincia;
 
 public class ClienteDaoImpl implements ClienteDao{
 	
-	private static final String readall = "SELECT * FROM clientes DNI INNER JOIN generos ON clientes.id_genero = "
-			+ "generos.id_genero INNER JOIN localidades ON clientes.id_localidades = localidades.id INNER JOIN "
-			+ "nacionalidades ON clientes.id_nacionalidad = nacionalidades.id INNER JOIN provincias ON "
-			+ "clientes.id_provincia = provincias.id";
+	private static final String readall = "SELECT * FROM clientes " 
+		    + "INNER JOIN generos ON clientes.id_genero = generos.id_genero "
+		    + "INNER JOIN localidades ON clientes.id_localidades = localidades.id "
+		    + "INNER JOIN nacionalidades ON clientes.id_nacionalidad = nacionalidades.id "
+		    + "INNER JOIN provincias ON clientes.id_provincia = provincias.id";
+
 	
 	private static final String insert = "INSERT INTO clientes(DNI, id_genero, id_nacionalidad, id_provincia, id_localidades, CUIL, nombre, apellido, fecha_nacimiento, direccion," + 
 										"correo_electronico, telefono_primario, telefono_secundario, estado)" + 
@@ -144,6 +146,8 @@ public Cliente getClientexDNI (String DNI) {
 					cliente.setTelefono_primario(resultSet.getString("telefono_primario"));
 					cliente.setTelefono_secundario(resultSet.getString("telefono_secundario"));
 					cliente.setEstado(resultSet.getBoolean("estado"));	
+					
+					conexion.cerrarConexion();
 					return cliente;
 					
 				}

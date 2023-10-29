@@ -25,7 +25,7 @@
 
 
     
-<title>Globank | Bienvenido</title>
+<title>Globank | Mis préstamos</title>
 
 </head>
 
@@ -63,6 +63,7 @@
 			</li>
 
 		</ul>
+		 <input type="hidden" name="clienteActual" value="<%= cliente.getDNI() %>">
 	</div>
 	</header>
 	
@@ -77,7 +78,7 @@
 		
 
 			<p class="importe_prestamo">
-				Importe:<input type="number" name="importe_pedido" min="1000"
+				Importe:<input type="number"  required name="importe_pedido" min="1000"
 					max="100000000" step="1000"></input>
 			</p>
 
@@ -93,7 +94,7 @@
 			</p>
 			<p>
 				Cuenta donde se depositará el préstamo: 
-				<select name="cuentas-cliente" id="cuentas-cliente">
+				<select required name="cuentas-cliente" id="cuentas-cliente">
 				<% 
 				ArrayList <Cuenta> cuentas = (ArrayList <Cuenta>) request.getAttribute("listaCuentas");
 				
@@ -119,11 +120,25 @@
 					id="btnSolicitarPrestamo"></input>
 
 		</form>
+		
 		<button id="btnOcultar" value="Ocultar">Ocultar</button>
+		
+		
+		<% 
+		Boolean inserto = (Boolean) request.getAttribute("inserto");
+		
+		if(inserto != null && inserto){
+			%>
+			
+			<p class="mensajeSucceed"> Se solicitó el préstamo correctamente. Por favor revisa el estado de tu solicitud en la pestaña "Mis préstamos". ¡Gracias!</p>
+			
+		<% 
+		}
+		%>
 			</div>
 		
 
-	<form action="ServletCliente" method="post">
+<form action="ServletCliente" method="post">
 	
 
 <div id="btnMenuPrestamo">

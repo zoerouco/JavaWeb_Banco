@@ -13,8 +13,28 @@ public class PrestamoDaoImpl implements PrestamoDao{
 		
 	@Override
 	public boolean insert(Prestamo prestamo) {
-		// TODO Auto-generated method stub
-		return false;
+		
+	String query =  "CALL AgregarPrestamo(?, ?, ?, ?, ?, ?, ?)";
+	Conexion conexion = Conexion.getConexion();
+	
+		boolean filas= false;
+		
+		try(PreparedStatement statement = conexion.getSQLConexion().prepareStatement(query)) {
+			
+			statement.setString(1, prestamo.getId_prestado());
+			statement.setString(2, prestamo.getCBU().getCBU());
+			statement.setFloat(3, prestamo.getImporte_con_intereses());
+			statement.setFloat(4, prestamo.getImporte_pedido());
+			statement.setFloat(5, prestamo.getMonto_x_mes());
+			statement.setInt(6, prestamo.getCant_cuotas());
+			statement.setString(7, prestamo.getEstado());
+			filas = statement.execute();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return filas;
 	}
 
 	@Override
@@ -52,7 +72,7 @@ public class PrestamoDaoImpl implements PrestamoDao{
 				prestamo.setImporte_pedido(resultSet.getFloat("importe_pedido"));
 				prestamo.setMonto_x_mes(resultSet.getFloat("monto_x_mes"));
 				prestamo.setCant_cuotas(resultSet.getInt("cantidad_cuotas"));
-				prestamo.setEstado(resultSet.getBoolean("estado"));	
+				prestamo.setEstado(resultSet.getString("estado"));	
 					
 				lista.add(prestamo);		
 			}

@@ -7,7 +7,8 @@ import entidades.Cuenta;
 import negocio.CuentaNegocio;
 
 public class CuentaNegocioImpl implements CuentaNegocio{
-
+	
+     Cuenta cuenta = new Cuenta();
 	CuentaDao cdao = new CuentaDaoImpl();
 
 	@Override
@@ -31,6 +32,14 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 	public boolean update(Cuenta cuenta) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public Cuenta getCuentaxCBU(String CBU) {
+		
+		cuenta = cdao.getCuentaxCBU(CBU);
+		
+		return cuenta;
 	}
 
 	
