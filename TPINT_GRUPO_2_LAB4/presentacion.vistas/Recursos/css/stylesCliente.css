@@ -19,6 +19,7 @@ body {
 	justify-content: center;
 	transition: 0.2 all ease;
     align-items: flex-end;
+    margin-top: 50px;
 }
 
 #btnMenuPrestamo input{
@@ -33,19 +34,14 @@ body {
 	color: #ffefd5;
 }
 
-#btnOcultar{
-padding: 4px 115px;
-	background-color: #ddba79;
-	border-radius: 37px;
-	margin-top: 20px;
-}
+#btnOcultar{padding: 4px 115px;background-color: #ddba79;border-radius: 37px;/* margin-top: 20px; */margin-right: 47px;}
 
 
 .form-prestamo {
 	margin-top: -360px;
 	transition: 2s all ease;
 	display: flex;
-	height: 25rem;
+	height: 21.5rem;
 	flex-direction: column;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
