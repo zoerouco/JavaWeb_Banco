@@ -1,7 +1,9 @@
 package daoImpl;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import dao.PrestamoDao;
 import entidades.Cuenta;
@@ -15,28 +17,40 @@ public class PrestamoDaoImpl implements PrestamoDao{
 	public boolean insert(Prestamo prestamo) {
 		
 	String query =  "CALL AgregarPrestamo(?, ?, ?, ?, ?, ?, ?)";
-	Conexion conexion = Conexion.getConexion();
 	
-		boolean filas= false;
-		
-		try(PreparedStatement statement = conexion.getSQLConexion().prepareStatement(query)) {
-			
-			statement.setString(1, prestamo.getId_prestado());
-			statement.setString(2, prestamo.getCBU().getCBU());
-			statement.setFloat(3, prestamo.getImporte_con_intereses());
-			statement.setFloat(4, prestamo.getImporte_pedido());
-			statement.setFloat(5, prestamo.getMonto_x_mes());
-			statement.setInt(6, prestamo.getCant_cuotas());
-			statement.setString(7, prestamo.getEstado());
-			filas = statement.execute();
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		return filas;
-	}
+	PreparedStatement statement;
+	Connection conexion = Conexion.getConexion().getSQLConexion();
+	boolean isInsertExitoso = false;
+	
+	try {
+		statement = conexion.prepareStatement(query);
+		statement.setString(1, prestamo.getId_prestado());
+		statement.setString(2, prestamo.getCBU().getCBU());
+		statement.setFloat(3, prestamo.getImporte_con_intereses());
+		statement.setFloat(4, prestamo.getImporte_pedido());
+		statement.setFloat(5, prestamo.getMonto_x_mes());
+		statement.setInt(6, prestamo.getCant_cuotas());
+		statement.setString(7, prestamo.getEstado());
 
+		if(statement.executeUpdate() > 0) {
+			conexion.commit();
+			isInsertExitoso = true;
+		}
+	}
+	catch (SQLException e) {
+		e.printStackTrace();
+		try {
+			conexion.rollback();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	return isInsertExitoso;
+	
+	}
+	
+	
 	@Override
 	public boolean delete(Prestamo prestamo) {
 		// TODO Auto-generated method stub

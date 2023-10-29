@@ -188,46 +188,83 @@ public class CuentaDaoImpl implements CuentaDao{
 	@Override
 	public Cuenta getCuentaxCBU(String CBU) {
 	 
-		String query = "SELECT * FROM cuentas where CBU = '"+ CBU + "'";
-		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
-		
 		Cuenta cuenta = new Cuenta();
-		Cliente cliente = new Cliente();
-		ClienteDaoImpl clienteDImpl = new ClienteDaoImpl();
-		
 		Conexion conexion = Conexion.getConexion();
+		
 		try{
 			
-			PreparedStatement statement = conexion.getSQLConexion().prepareStatement(query);
+			PreparedStatement statement = conexion.getSQLConexion().prepareStatement(readall);
 	        ResultSet resultSet = statement.executeQuery();
 		
-	        while(resultSet.next()) {
-			cuenta.setCBU(resultSet.getString("CBU"));
-			cliente = clienteDImpl.getClientexDNI(resultSet.getString("DNI"));
-			cuenta.setDNI(cliente);
-			cuenta.setFecha_creacion(resultSet.getDate("fecha_creacion"));
-			cuenta.setNro_cuenta(resultSet.getString("nro_cuenta"));
-			cuenta.setSaldo(resultSet.getFloat("saldo"));
-			cuenta.setEstado(resultSet.getBoolean("estado"));
-		
-	        }
-			
-			}catch(Exception e){
-				e.printStackTrace();
+			while(resultSet.next()){
+				
+				if(resultSet.getString("CBU").compareTo(CBU) == 0)
+				{
+				//clases necesarias para crear un obj cuenta
+				Tipo_cuenta tipoCuenta = new Tipo_cuenta();
+				Genero genero = new Genero();
+				Nacionalidad nacionalidad = new Nacionalidad();
+				Provincia provincia = new Provincia();
+				Localidad localidad = new Localidad();
+				Cliente cliente = new Cliente();
+				
+				cuenta.setCBU(resultSet.getString("CBU"));
+				tipoCuenta.setId_tipo(resultSet.getString(8));
+				tipoCuenta.setDescripcion(resultSet.getString(9));
+				cuenta.setId_tipo(tipoCuenta);
+				cliente.setDNI(resultSet.getString("DNI"));
+				genero.setId_genero(resultSet.getString(24));
+				genero.setDescripcion(resultSet.getString(25));
+				cliente.setId_genero(genero);
+				nacionalidad.setId(resultSet.getInt(29));
+				nacionalidad.setCode(resultSet.getShort(30));
+				nacionalidad.setIso3166a1(resultSet.getString(31));
+				nacionalidad.setIso3166a2(resultSet.getString(32));
+				nacionalidad.setNombre_pais(resultSet.getString(33));
+				cliente.setId_nacionalidad(nacionalidad);
+				provincia.setId(resultSet.getInt("id_provincia"));
+				provincia.setNombre_provincia(resultSet.getString(35));
+				cliente.setId_provincia(provincia);
+				localidad.setId(resultSet.getInt("id_localidades"));
+				localidad.setId_provincia(provincia);
+				localidad.setNombre_localidad(resultSet.getString("nombre_localidad"));
+				cliente.setCUIL(resultSet.getString("CUIL"));
+				cliente.setNombre(resultSet.getString("nombre"));
+				cliente.setApellido(resultSet.getString("apellido"));
+				cliente.setFecha_nacimiento(resultSet.getDate("fecha_nacimiento"));
+				cliente.setDireccion(resultSet.getString("direccion"));
+				cliente.setCorreo_electronico(resultSet.getString("correo_electronico"));
+				cliente.setTelefono_primario(resultSet.getString("telefono_primario"));
+				cliente.setTelefono_secundario(resultSet.getString("telefono_secundario"));
+				cuenta.setDNI(cliente);
+				cuenta.setFecha_creacion(resultSet.getDate("fecha_creacion"));
+				cuenta.setNro_cuenta(resultSet.getString("nro_cuenta"));
+				cuenta.setSaldo(resultSet.getFloat("saldo"));
+				cuenta.setEstado(resultSet.getBoolean("estado"));
+				
+				conexion.cerrarConexion();
+				return cuenta;
+				
+				}
 			}
+			
+		conexion.cerrarConexion();
 		
-			conexion.cerrarConexion();
-			return cuenta;
-		
-	}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	
+		return cuenta;
+	
 }
 
+}
 
 
 

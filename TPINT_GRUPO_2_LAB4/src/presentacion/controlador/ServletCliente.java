@@ -70,6 +70,10 @@ public class ServletCliente extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String DNIClienteActual = request.getParameter("clienteActual");
+		cliente = clienteN.getClientexDNI(DNIClienteActual);
+		cuentas = cuentaN.readAll(); 
+		request.setAttribute("listaCuentas", cuentas);
 		
 		if(request.getParameter("btnSolicitarPrestamo") != null) { //quiere un préstamo
 			
@@ -83,10 +87,7 @@ public class ServletCliente extends HttpServlet {
 		}
 		
 		
-			String DNIClienteActual = request.getParameter("clienteActual");
-			cliente = clienteN.getClientexDNI(DNIClienteActual);
-			cuentas = cuentaN.readAll(); 
-			request.setAttribute("listaCuentas", cuentas);
+			
 		
 			String url = "/prestamosCliente.jsp";
 			request.setAttribute("miUrl", url);
