@@ -4,10 +4,10 @@ import java.sql.Date;
 
 public class Prestamo {
 
-	private static String cod_idPrestamo = "P";
-	private static int aux_id_prestamo = 0;
 	
-	private String id_prestamo;
+	private static int cont_id_prestamo = 0;
+	
+	private int id_prestamo;
 	private Cuenta CBU;
 	private Date fecha_realizacion;
 	private float importe_con_intereses;
@@ -17,49 +17,28 @@ public class Prestamo {
 	private String estado; //solicitado-aprobado-rechazado-concluido
 	
 	public Prestamo() { //cuando llamamos al constructor, se le setea el id_prestamo :)
-		aux_id_prestamo++;
-		this.id_prestamo = cod_idPrestamo + aux_id_prestamo;
+		cont_id_prestamo++;
+		this.id_prestamo = cont_id_prestamo ;
 	}
 	
-	public Prestamo(String id_prestado, Cuenta cBU, Date fecha_realizacion, float importe_con_intereses,
-	        float importe_pedido, float monto_x_mes, int cant_cuotas, String estado) {
-		this.id_prestamo = cod_idPrestamo + aux_id_prestamo;
-		CBU = cBU;
-		this.fecha_realizacion = fecha_realizacion;
-		this.importe_con_intereses = importe_con_intereses;
-		this.importe_pedido = importe_pedido;
-		this.monto_x_mes = monto_x_mes;
-		this.cant_cuotas = cant_cuotas;
+	public Prestamo (String estado) {
 		this.estado = estado;
 	}
-	
-	public Prestamo (String id_prestamo) {
-		this.id_prestamo = id_prestamo;
-	}
-	
-	
-	public static String getCod_idPrestamo() {
-		return cod_idPrestamo;
+
+	public static int getCont_id_prestamo() {
+		return cont_id_prestamo;
 	}
 
-	public static void setCod_idPrestamo(String cod_idPrestamo) {
-		Prestamo.cod_idPrestamo = cod_idPrestamo;
+	public static void setCont_id_prestamo(int cont_id_prestamo) {
+		Prestamo.cont_id_prestamo = cont_id_prestamo;
 	}
 
-	public static int getAux_id_prestamo() {
-		return aux_id_prestamo;
-	}
-
-	public static void setAux_id_prestamo(int aux_id_prestamo) {
-		Prestamo.aux_id_prestamo = aux_id_prestamo;
-	}
-
-	public String getId_prestado() {
+	public int getId_prestamo() {
 		return id_prestamo;
 	}
 
-	public void setId_prestamo(String id_prestado) {
-		this.id_prestamo = id_prestado;
+	public void setId_prestamo(int id_prestamo) {
+		this.id_prestamo = id_prestamo;
 	}
 
 	public Cuenta getCBU() {
@@ -72,12 +51,6 @@ public class Prestamo {
 
 	public Date getFecha_realizacion() {
 		return fecha_realizacion;
-	}
-	
-	public void setEstado (String estado) {
-		
-		this.estado = estado;
-		
 	}
 
 	public void setFecha_realizacion(Date fecha_realizacion) {
@@ -120,15 +93,8 @@ public class Prestamo {
 		return estado;
 	}
 
-	public void String (String estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
-	}
-	
-	@Override
-	public String toString() {
-		return "ID Prestado=" + id_prestamo + ", CBU=" + CBU.getCBU() + ", fecha_realizacion=" + fecha_realizacion
-				+ ", importe_con_intereses=" + importe_con_intereses + ", importe_pedido=" + importe_pedido
-				+ ", monto_x_mes=" + monto_x_mes + ", cant_cuotas=" + cant_cuotas + ", estado=" + estado + "]";
 	}
 
 	@Override
@@ -139,7 +105,7 @@ public class Prestamo {
 		result = prime * result + cant_cuotas;
 		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
 		result = prime * result + ((fecha_realizacion == null) ? 0 : fecha_realizacion.hashCode());
-		result = prime * result + ((id_prestamo == null) ? 0 : id_prestamo.hashCode());
+		result = prime * result + id_prestamo;
 		result = prime * result + Float.floatToIntBits(importe_con_intereses);
 		result = prime * result + Float.floatToIntBits(importe_pedido);
 		result = prime * result + Float.floatToIntBits(monto_x_mes);
@@ -172,10 +138,7 @@ public class Prestamo {
 				return false;
 		} else if (!fecha_realizacion.equals(other.fecha_realizacion))
 			return false;
-		if (id_prestamo == null) {
-			if (other.id_prestamo != null)
-				return false;
-		} else if (!id_prestamo.equals(other.id_prestamo))
+		if (id_prestamo != other.id_prestamo)
 			return false;
 		if (Float.floatToIntBits(importe_con_intereses) != Float.floatToIntBits(other.importe_con_intereses))
 			return false;
@@ -185,6 +148,9 @@ public class Prestamo {
 			return false;
 		return true;
 	}
+	
+	
+	
 	
 	
 	

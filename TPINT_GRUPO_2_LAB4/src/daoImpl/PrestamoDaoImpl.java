@@ -24,7 +24,7 @@ public class PrestamoDaoImpl implements PrestamoDao{
 	
 	try {
 		statement = conexion.prepareStatement(query);
-		statement.setString(1, prestamo.getId_prestado());
+		statement.setInt(1, prestamo.getId_prestamo());
 		statement.setString(2, prestamo.getCBU().getCBU());
 		statement.setFloat(3, prestamo.getImporte_con_intereses());
 		statement.setFloat(4, prestamo.getImporte_pedido());
@@ -78,7 +78,7 @@ public class PrestamoDaoImpl implements PrestamoDao{
 				Prestamo prestamo = new Prestamo("x"); //pasa por el constructor que no incrementa prestamos.
 				Cuenta cuenta = new Cuenta();
 					
-				prestamo.setId_prestamo(resultSet.getString("id_prestamo"));
+				prestamo.setId_prestamo(resultSet.getInt("id_prestamo"));
 				cuenta.setCBU(resultSet.getString("CBU")); //habria que llamar a lo demas en la query
 				prestamo.setCBU(cuenta);
 				prestamo.setFecha_realizacion(resultSet.getDate("fecha_realizacion"));

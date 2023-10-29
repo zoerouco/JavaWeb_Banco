@@ -43,7 +43,9 @@
 	</header>
 
 	<main>
+	
 	<div class="container-table" id="table-movimientos">
+	
 		<h1>MOVIMIENTOS</h1>
 
 		<table class="table">
