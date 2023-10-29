@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -89,18 +90,16 @@ public class ClienteDao {
 			e.printStackTrace();
 		}
 		
-		ArrayList<Cliente> lista = new ArrayList<Cliente>();
 		Cliente cliente = new Cliente();
 		Connection connection = null;
-		try{
-			
-			connection = (Connection) DriverManager.getConnection(host + DBname, user, password);
-			Statement statement = connection.createStatement();
-			ResultSet resultSet = statement.executeQuery(readall);
-			
+		try{			
+			connection =  DriverManager.getConnection(host + DBname, user, password);
+			Statement st = connection.createStatement();
+	        ResultSet resultSet = st.executeQuery(readall);
+		
 			while(resultSet.next()){
 				
-				if(DNI == resultSet.getString("DNI")) {
+				if(resultSet.getString("DNI").compareTo(DNI) == 0) {
 					
 				//clases necesarias para crear un obj cliente
 				Genero genero = new Genero();
@@ -126,6 +125,10 @@ public class ClienteDao {
 				cliente.setTelefono_primario(resultSet.getString("telefono_primario"));
 				cliente.setTelefono_secundario(resultSet.getString("telefono_secundario"));
 				cliente.setEstado(resultSet.getBoolean("estado"));	
+				
+				connection.close();
+				return cliente;
+				
 			}
 				
 			}

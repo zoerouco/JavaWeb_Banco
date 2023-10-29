@@ -2,16 +2,13 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import entidades.Cliente;
 import entidades.Cuenta;
-import entidades.Genero;
-import entidades.Localidad;
-import entidades.Nacionalidad;
-import entidades.Provincia;
 import entidades.Tipo_cuenta;
 
 
@@ -19,9 +16,8 @@ public class CuentaDao {
 	private String host = "jdbc:mysql://localhost:3306/";
 	private String user = "root";
 	private String password = "root";
-	private String DBname = "bdglobank";
+	private String DBname = "bdglobank?useSSL=false";
 	private static final String readall = "SELECT * FROM cuentas";
-	private static final String readxDNI = "SELECT * FROM cuentas where DNI = ";
 	
 	public int agregarCuenta(Cuenta cuenta) {
 		
@@ -57,7 +53,7 @@ public class CuentaDao {
 		Connection connection = null;
 		try{
 			
-			connection = (Connection) DriverManager.getConnection(host + DBname, user, password);
+			connection = DriverManager.getConnection(host + DBname, user, password);
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(readall);
 			
@@ -107,13 +103,14 @@ public class CuentaDao {
 		
 		try{
 			
-			connection = (Connection) DriverManager.getConnection(host + DBname, user, password);
-			Statement statement = connection.createStatement();
-			ResultSet resultSet = statement.executeQuery(readxDNI+cliente.getDNI());
+			connection =  DriverManager.getConnection(host + DBname, user, password);
+			Statement st = connection.createStatement();
+	        ResultSet resultSet = st.executeQuery(readall);
+		
 			
 			while(resultSet.next()){
 				
-				if(resultSet.getString("DNI") == DNI) {
+				if(resultSet.getString("DNI").compareTo(cliente.getDNI()) == 0) {
 					
 				//clases necesarias para crear un obj Cuenta
 				Cuenta cuenta = new Cuenta();

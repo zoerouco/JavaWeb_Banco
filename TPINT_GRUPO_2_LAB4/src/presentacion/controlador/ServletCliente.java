@@ -24,7 +24,7 @@ import dao.PrestamoDao;
 public class ServletCliente extends HttpServlet {
 	
 private static final long serialVersionUID = 1L;
-ArrayList<Cuenta> listaCuentas = new ArrayList<Cuenta>();
+ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
 PrestamoDao prestamoD = new PrestamoDao();
 CuentaDao cuentaD = new CuentaDao();
 ClienteDao clienteD = new ClienteDao();
@@ -32,27 +32,50 @@ Cliente cliente = new Cliente();
 
     public ServletCliente() {
         super();
+	
         // TODO Auto-generated constructor stub
     }
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String DNIClienteActual = request.getParameter("clienteActual");
-		cliente = clienteD.getClientexDNI(DNIClienteActual);
-		listaCuentas = cuentaD.getCuentasXDNI(cliente);
+    
+			request.setAttribute("confirmacion", 0);
 		
 		
+			if(request.getParameter("btnSolicitarPositivo") != null) {
+				
+				String DNIClienteActual = request.getParameter("clienteActual");
+				cliente = clienteD.getClientexDNI(DNIClienteActual);
+				cuentas = cuentaD.getCuentasXDNI(cliente);
+				request.setAttribute("confirmacion", 1);
+			}
+			
+		
+		
+
 	    RequestDispatcher rd = request.getRequestDispatcher("/prestamosCliente.jsp");
         rd.forward(request, response);
 		
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+	
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+	 
+		
+	
+			
+			String DNIClienteActual = request.getParameter("clienteActual");
+			cliente = clienteD.getClientexDNI(DNIClienteActual);
+			cuentas = cuentaD.getCuentasXDNI(cliente);
+			request.setAttribute("listaCuentas", cuentas);
+		
+	
+	    RequestDispatcher rd = request.getRequestDispatcher("/prestamosCliente.jsp");
+        rd.forward(request, response);
+       
+		
 
 }
+	}
+

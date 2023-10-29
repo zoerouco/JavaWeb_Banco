@@ -22,25 +22,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="Recursos/js/prestamos.js"></script>
 <link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
+
+
+    
 <title>Globank | Bienvenido</title>
 
-  <script>
-        // Esta función se ejecutará cuando la página se cargue
-        window.onload = function() {
-            // Hacer una solicitud al servlet para cargar la lista
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'ServletCliente', true);
-            xhr.onreadystatechange = function() {
-              /*  if (xhr.readyState === 4 && xhr.status === 200) {
-                    // La respuesta del servlet contiene la lista, actualiza el JComboBox
-                    var comboBox = document.getElementById('listaCuentas');
-                    comboBox.innerHTML = xhr.responseText;
-                }
-            };*/
-            xhr.send();
-        }
-        };
-    </script>
 </head>
 
 <body>
@@ -68,13 +54,12 @@
 			<li class="links-menu"><a class="links-menu"
 				href="movimientosCliente.jsp"> Mis movimientos</a></li>
 			<li class="links-menu"><a class="links-menu"
-				href="prestamosCliente.jsp"> Mis préstamos </a></li>
+				href="prestamosCliente.jsp" id="mis-prestamos"> Mis préstamos </a></li>
 			<li class="links-menu"><a class="links-menu" href="#">Ajustes
 					de la cuenta</a></li>
 
 			<li class="mensaje-bienvenida">
-			<input type="hidden" value="<% cliente.getDNI(); %>" name="clienteActual"> </input>
-				<h1>Bienvenido, <% cliente.getNombre(); %></h1>
+			<h1>Bienvenido, <%= cliente.getNombre()%></h1>
 			</li>
 
 		</ul>
@@ -88,6 +73,9 @@
 		<h1>SOLICITAR PRÉSTAMO</h1>
 
 		<form action="ServletCliente" method="post">
+		
+		
+		<input type="hidden" name="clienteActual" value="<%= cliente.getDNI() %>">
 
 			<p class="importe_prestamo">
 				Importe:<input type="number" name="importe_pedido" min="1000"
@@ -106,44 +94,57 @@
 			</p>
 			<p>
 				Cuenta donde se depositará el préstamo: 
-				<select name="cuentas-cliente">
+				<select name="cuentas-cliente" id="cuentas-cliente">
 				<% 
-				ArrayList <Cuenta> cuentas = (ArrayList <Cuenta>) request.getAttribute("listaCuentas"); 
+				ArrayList <Cuenta> cuentas = (ArrayList <Cuenta>) request.getAttribute("listaCuentas");
 				
-				 if(cuentas != null){
+				if(cuentas != null){
 					 
-				   for(Cuenta cuentaCliente : cuentas){
+				   for(Cuenta cuentaCliente : cuentas){				   
 				  %>
-					<option><%cuentaCliente.getCBU(); %></option>
+
+					<option><%=cuentaCliente.getCBU()%></option>
 				 <%
-                          }
-                            } else { 
+				   }
+				}
+			    
+			    else { 
                             %>
                                 <option>NO HAY</option>
-                            <%
-                            }
-                            %>
-				</select>
-			</p>
+                       <% }
+				%>  
+                              
+                               </select>
+	
 
-			<input type="submit" name="btnSolicitarPrestamo" value="Solicitar"
-				id="btnSolicitarPrestamo"></input>
-
-
+			
+			<input type="submit" name="btnSolicitarPrestamo" SolicitarPrestamo"></input>
+			
+		
+		
+			<p>¿Estás segur@ que deseas solicitar un préstamo?</p>
+			<input type="submit" name="btnSolicitarPositivo" value="Sí"
+				id="btnSolicitarPositivo"></input>
+			<input type="submit" name="btnSolicitarNegativo" value="No"
+				id="btnSolicitarNegativo"></input>
+		
 		</form>
+			</div>
 		
-		<div class="confirmacionPrestamo">
+	
 		
-		<p>POR FAVOR, REVISE QUE LO INGRESADO SEA CORRECTO:</p>
-		<p>
-		</div>
+		
+
+
+
+	<div class="btnMenuPrestamo">
+
+		<button id="btnMenuPrestamo">SOLICITAR PRESTAMO</button>
+		
 
 	</div>
-	<div id="btnMenuPrestamo">
-
-		<button>SOLICITAR PRESTAMO</button>
-
-	</div>
+	
+	
 	<div class="container-table" id="table-prestamos">
 
 		<h1 class="text-center">MIS PRÉSTAMOS</h1>
