@@ -2,10 +2,8 @@ package entidades;
 
 import java.sql.Date;
 
-public class Prestamo {
 
-	
-	private static int cont_id_prestamo = 0;
+public class Prestamo {
 	
 	private int id_prestamo;
 	private Cuenta CBU;
@@ -16,21 +14,12 @@ public class Prestamo {
 	private int cant_cuotas;
 	private String estado; //solicitado-aprobado-rechazado-concluido
 	
-	public Prestamo() { //cuando llamamos al constructor, se le setea el id_prestamo :)
-		cont_id_prestamo++;
-		this.id_prestamo = cont_id_prestamo ;
+	public Prestamo() { 
+		
 	}
 	
 	public Prestamo (String estado) {
 		this.estado = estado;
-	}
-
-	public static int getCont_id_prestamo() {
-		return cont_id_prestamo;
-	}
-
-	public static void setCont_id_prestamo(int cont_id_prestamo) {
-		Prestamo.cont_id_prestamo = cont_id_prestamo;
 	}
 
 	public int getId_prestamo() {
@@ -148,6 +137,7 @@ public class Prestamo {
 			return false;
 		return true;
 	}
+	
 	
 	
 	

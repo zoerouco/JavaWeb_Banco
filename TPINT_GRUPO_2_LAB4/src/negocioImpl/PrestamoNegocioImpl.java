@@ -36,4 +36,12 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public int getUltimoID() {
+		
+		return pdao.getUltimoID();
+	
+	}
+	
+	
 }

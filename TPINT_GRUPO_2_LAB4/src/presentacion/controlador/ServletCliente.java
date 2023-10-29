@@ -49,7 +49,9 @@ public class ServletCliente extends HttpServlet {
 			
 			if(request.getParameter("btnSolicitarPrestamo") != null) { //quiere un préstamo
 				
-				Prestamo prestamo = new Prestamo(); //pasa por el constructor que suma 1 para el ID del préstamo.
+				Prestamo prestamo = new Prestamo();
+				int ultimoID = prestamoN.getUltimoID();
+				prestamo.setId_prestamo(ultimoID + 1);
 				prestamo.setImporte_pedido(Float.parseFloat(request.getParameter("importe_pedido")));
 				prestamo.setCant_cuotas(Integer.parseInt(request.getParameter("cant_cuotas")));
 				cuenta = cuentaN.getCuentaxCBU(request.getParameter("cuentas-cliente"));
@@ -77,7 +79,9 @@ public class ServletCliente extends HttpServlet {
 		
 		if(request.getParameter("btnSolicitarPrestamo") != null) { //quiere un préstamo
 			
-			Prestamo prestamo = new Prestamo(); //pasa por el constructor que suma 1 para el ID del préstamo.
+			Prestamo prestamo = new Prestamo();
+			int ultimoID = prestamoN.getUltimoID();
+			prestamo.setId_prestamo(ultimoID + 1);
 			prestamo.setImporte_pedido(Float.parseFloat(request.getParameter("importe_pedido")));
 			prestamo.setCant_cuotas(Integer.parseInt(request.getParameter("cant_cuotas")));
 			cuenta = cuentaN.getCuentaxCBU(request.getParameter("cuentas-cliente"));

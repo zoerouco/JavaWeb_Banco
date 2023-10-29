@@ -75,7 +75,7 @@
 
 		<form action="ServletCliente" method="post">
 		
-		
+		 <input type="hidden" name="clienteActual" value="<%= cliente.getDNI() %>">
 
 			<p class="importe_prestamo">
 				Importe:<input type="number"  required name="importe_pedido" min="1000"

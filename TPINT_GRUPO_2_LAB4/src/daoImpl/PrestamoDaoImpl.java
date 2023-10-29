@@ -1,9 +1,11 @@
 package daoImpl;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import dao.PrestamoDao;
 import entidades.Cuenta;
@@ -98,4 +100,30 @@ public class PrestamoDaoImpl implements PrestamoDao{
 		}
 		return lista;
 	}
+	
+	public int getUltimoID() {
+		
+	    int UltimoId = 0;
+
+	    Conexion conexion = Conexion.getConexion();
+
+	    try {
+	        PreparedStatement statement = conexion.getSQLConexion().prepareStatement("SELECT MAX(id_prestamo) AS maxId FROM prestamos");
+	        ResultSet resultSet = statement.executeQuery();
+	        
+	
+	        if (resultSet.next()) {
+	            UltimoId = resultSet.getInt("maxId");
+	        }
+
+	  
+	        conexion.cerrarConexion();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return UltimoId;
+	}
+
+	
 }
