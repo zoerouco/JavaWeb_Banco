@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import entidades.Cliente;
 import entidades.Cuenta;
 import entidades.Genero;
+import negocioImpl.CuentaNegocioImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,6 +28,7 @@ public class ServletCliente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
 	Cliente cliente = new Cliente();
+	CuentaNegocioImpl cuentaN = new CuentaNegocioImpl();
 	
 	//solo deberian haber llamados al negocio (y en negocio al dao)
 	PrestamoDaoImpl prestamoD = new PrestamoDaoImpl();
@@ -42,8 +44,9 @@ public class ServletCliente extends HttpServlet {
 		if(request.getParameter("btnMenuPrestamo") != null) {
 					
 			String DNIClienteActual = request.getParameter("clienteActual");
-			cliente = clienteD.getClientexDNI(DNIClienteActual);
-			cuentas = cuentaD.readAll();
+			cliente = clienteD.getClientexDNI(DNIClienteActual); //con el obj bien cargado en el dao se puede hacer el readAll()
+																 //como cambie abajo con cuentas
+			cuentas = cuentaN.readAll(); //usando negocio
 			
 			request.setAttribute("listaCuentas", cuentas);
 			
@@ -63,8 +66,9 @@ public class ServletCliente extends HttpServlet {
 	
 		if(request.getParameter("btnMenuPrestamo") != null) {
 			String DNIClienteActual = request.getParameter("clienteActual");
-			cliente = clienteD.getClientexDNI(DNIClienteActual);
-			cuentas = cuentaD.readAll();
+			cliente = clienteD.getClientexDNI(DNIClienteActual);//con el obj bien cargado en el dao se puede hacer el readAll()
+			 													//como cambie abajo con cuentas
+			cuentas = cuentaN.readAll(); //usando negocio
 			request.setAttribute("listaCuentas", cuentas);
 		}
 	
