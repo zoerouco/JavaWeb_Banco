@@ -61,6 +61,31 @@ body {
 	align-items: flex-start;
 }
 
+.form-movimientos {
+	margin-top: 300px;
+	transition: 2s all ease;
+	display: flex;
+	height: 21.5rem;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-items: center;
+	border-style: solid;
+	border-width: 2px;
+	border-color: black;
+	color: beige;
+	background: #6953df;
+	font-size: larger;
+	z-index: 0;
+}
+.form-movimientos p{
+	
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+
 #btnSolicitarPrestamo {
 	padding: 4px 115px;
 	background-color: #ddba79;

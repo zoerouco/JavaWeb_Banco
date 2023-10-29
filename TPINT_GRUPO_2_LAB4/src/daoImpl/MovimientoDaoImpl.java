@@ -5,13 +5,21 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 import dao.MovimientoDao;
+import entidades.Cliente;
 import entidades.Cuenta;
+import entidades.Genero;
+import entidades.Localidad;
 import entidades.Movimiento;
+import entidades.Nacionalidad;
+import entidades.Provincia;
+import entidades.Tipo_cuenta;
 
 public class MovimientoDaoImpl implements MovimientoDao {
 	
-	private static final String readall = "SELECT * FROM prestamos"; //modificar query con inner joins 
 	
+	private static final String readall = "SELECT * FROM movimientos WHERE CBU= ?";
+	private static final String insert = "INSERT INTO movimientos(id_movimiento,CBU,CBU_destino) VALUES(?, ?, ?)";
+	private static final String update = "UPDATE movimientos SET  = ?,  = ? WHERE CBU = ?";
 	@Override
 	public boolean insert(Movimiento movimiento) {
 		// TODO Auto-generated method stub
@@ -45,7 +53,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 				
 				
 				//habria que cargar cada objeto como en cuenta'
-				/*Cuenta cuenta = new Cuenta();
+				Cuenta cuenta = new Cuenta();
 				Tipo_cuenta tipoCuenta = new Tipo_cuenta();
 				Genero genero = new Genero();
 				Nacionalidad nacionalidad = new Nacionalidad();
@@ -85,14 +93,13 @@ public class MovimientoDaoImpl implements MovimientoDao {
 				cuenta.setFecha_creacion(resultSet.getDate("fecha_creacion"));
 				cuenta.setNro_cuenta(resultSet.getString("nro_cuenta"));
 				cuenta.setSaldo(resultSet.getFloat("saldo"));
-				cuenta.setEstado(resultSet.getBoolean("estado"));*/
+				cuenta.setEstado(resultSet.getBoolean("estado"));
 				
 				
 				
 
 				//clases necesarias para crear un obj Movimiento
 				Movimiento movimiento = new Movimiento();
-				Cuenta cuenta = new Cuenta();	
 				Cuenta cuentaDest = new Cuenta();	
 				// Cargar los atributos
 				Cuenta cbu = movimiento.getCBU();
@@ -115,3 +122,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		return lista;
 	}
 }
+
+
+
+
