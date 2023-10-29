@@ -11,35 +11,41 @@ body {
 
 
 
-#btnSolicitarPrestamo {
-	
-}
 
-.btnMenuPrestamo {
+#btnMenuPrestamo {
 	display: flex;
 	font-size: x-large;
 	flex-direction: row;
 	justify-content: center;
 	transition: 0.2 all ease;
+    align-items: flex-end;
 }
 
-.btnMenuPrestamo button{
+#btnMenuPrestamo input{
 	padding: 20px;
 	cursor: pointer;
 	border-radius: 36px;
 	margin-top: 70px;
 }
 
-.btnMenuPrestamo button:hover {
+#btnMenuPrestamo input:hover {
 	background-color: #62c06d;
 	color: #ffefd5;
 }
 
+#btnOcultar{
+padding: 4px 115px;
+	background-color: #ddba79;
+	border-radius: 37px;
+	margin-top: 20px;
+}
+
+
 .form-prestamo {
 	margin-top: -360px;
-	transition: 1s all ease;
+	transition: 2s all ease;
 	display: flex;
-	height: 27rem;
+	height: 25rem;
 	flex-direction: column;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
@@ -59,7 +65,7 @@ body {
 	align-items: flex-start;
 }
 
-#btnSolicitarPrestamo, #btnSolicitarPositivo, #btnSolicitarNegativo {
+#btnSolicitarPrestamo {
 	padding: 4px 115px;
 	background-color: #ddba79;
 	border-radius: 37px;

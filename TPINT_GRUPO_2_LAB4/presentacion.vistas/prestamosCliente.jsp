@@ -75,7 +75,6 @@
 		<form action="ServletCliente" method="post">
 		
 		
-		<input type="hidden" name="clienteActual" value="<%= cliente.getDNI() %>">
 
 			<p class="importe_prestamo">
 				Importe:<input type="number" name="importe_pedido" min="1000"
@@ -115,34 +114,26 @@
 				%>  
                               
                                </select>
-	
+			
+		    <input type="submit" name="btnSolicitarPrestamo" value="Aceptar"
+					id="btnSolicitarPrestamo"></input>
 
-			
-			<input type="submit" name="btnSolicitarPrestamo" SolicitarPrestamo"></input>
-			
-		
-		
-			<p>¿Estás segur@ que deseas solicitar un préstamo?</p>
-			<input type="submit" name="btnSolicitarPositivo" value="Sí"
-				id="btnSolicitarPositivo"></input>
-			<input type="submit" name="btnSolicitarNegativo" value="No"
-				id="btnSolicitarNegativo"></input>
-		
 		</form>
+		<button id="btnOcultar" value="Ocultar">Ocultar</button>
 			</div>
 		
+
+	<form action="ServletCliente" method="post">
 	
-		
-		
 
+<div id="btnMenuPrestamo">
 
+ <input type="hidden" name="clienteActual" value="<%= cliente.getDNI() %>">
+ <img src="Recursos/img/prestamo-icon.png" height="64px"> <input type="submit" name=btnMenuPrestamo id="btnMenuPrestamo" value="Solicitar préstamo"></input> <img>
+  
+</div>
 
-	<div class="btnMenuPrestamo">
-
-		<button id="btnMenuPrestamo">SOLICITAR PRESTAMO</button>
-		
-
-	</div>
+	</form>
 	
 	
 	<div class="container-table" id="table-prestamos">

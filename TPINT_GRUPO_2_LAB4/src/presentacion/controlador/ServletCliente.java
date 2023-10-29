@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import entidades.Cliente;
 import entidades.Cuenta;
+import entidades.Genero;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,24 +37,27 @@ Cliente cliente = new Cliente();
         // TODO Auto-generated constructor stub
     }
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    
-			request.setAttribute("confirmacion", 0);
 		
-		
-			if(request.getParameter("btnSolicitarPositivo") != null) {
-				
-				String DNIClienteActual = request.getParameter("clienteActual");
-				cliente = clienteD.getClientexDNI(DNIClienteActual);
-				cuentas = cuentaD.getCuentasXDNI(cliente);
-				request.setAttribute("confirmacion", 1);
-			}
 			
 		
 		
+		
+				if(request.getParameter("btnMenuPrestamo") != null) {
+					
+					String DNIClienteActual = request.getParameter("clienteActual");
+					cliente = clienteD.getClientexDNI(DNIClienteActual);
+					cuentas = cuentaD.getCuentasXDNI(cliente);
+					request.setAttribute("listaCuentas", cuentas);
+					String url = "/prestamosCliente.jsp";
+					 request.setAttribute("miUrl", url);
+					 request.getRequestDispatcher(url).forward(request, response);
+					
+				}
+		
 
 	    RequestDispatcher rd = request.getRequestDispatcher("/prestamosCliente.jsp");
+	    
         rd.forward(request, response);
 		
 	
@@ -64,12 +68,12 @@ Cliente cliente = new Cliente();
 	 
 		
 	
-			
+		if(request.getParameter("btnMenuPrestamo") != null) {
 			String DNIClienteActual = request.getParameter("clienteActual");
 			cliente = clienteD.getClientexDNI(DNIClienteActual);
 			cuentas = cuentaD.getCuentasXDNI(cliente);
 			request.setAttribute("listaCuentas", cuentas);
-		
+		}
 	
 	    RequestDispatcher rd = request.getRequestDispatcher("/prestamosCliente.jsp");
         rd.forward(request, response);
