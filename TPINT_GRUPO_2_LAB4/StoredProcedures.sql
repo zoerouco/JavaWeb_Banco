@@ -19,7 +19,7 @@ CREATE PROCEDURE AgregarCliente(
 BEGIN
 	INSERT INTO clientes(DNI, id_genero, id_nacionalidad, id_provincia, id_localidades, CUIL, nombre, apellido, fecha_nacimiento, direccion, 
 						correo_electronico, telefono_primario, telefono_secundario, estado)
-	SELECT id_genero, id_nacionalidad, id_provincia, id_localidades, CUIL, nombre, apellido, fecha_nacimiento, direccion, correo_electronico,
+	SELECT DNI, id_genero, id_nacionalidad, id_provincia, id_localidades, CUIL, nombre, apellido, fecha_nacimiento, direccion, correo_electronico,
 			telefono_primario, relefono_secundario, estado;
 END //
 

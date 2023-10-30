@@ -25,7 +25,7 @@
                 </div>
                 <br>
                 <br>
-                <button type="submit" name=buttonSubmit value="Ingresar" id="buttonSubmit"></button>
+                <button type="submit" name=buttonSubmit value="Ingresar" id="buttonSubmit">Log In</button>
          </form>
          <br>
          <footer class="footer">

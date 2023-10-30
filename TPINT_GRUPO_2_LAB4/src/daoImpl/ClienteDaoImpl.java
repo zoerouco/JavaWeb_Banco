@@ -31,7 +31,6 @@ public class ClienteDaoImpl implements ClienteDao{
 
 	@Override
 	public boolean insert(Cliente cliente) {
-		
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;

@@ -2,6 +2,8 @@ package presentacion.controlador;
 
 import java.io.IOException;
 import java.sql.Date;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,6 +48,7 @@ public class ServletAltaCliente extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		if (request.getParameter("buttonSubmit") != null) {
 			cliente.setApellido(request.getParameter("lastName"));
 			cliente.setCorreo_electronico(request.getParameter("email"));
@@ -68,6 +71,11 @@ public class ServletAltaCliente extends HttpServlet {
 			
 			boolean insert = cneg.insert(cliente);
 			request.setAttribute("insert", insert);
+			
+			//RequestDispatcher rd = request.getRequestDispatcher("/TPINT_GRUPO_2_LAB4/presentacion.vistas/altaCliente.jsp");   
+			response.sendRedirect(request.getSession().getServletContext().getRealPath("/altaCliente.jsp"));
+			//rd.forward(request, response);
+ 	        
 		}
 	}
 }
