@@ -9,7 +9,7 @@ import entidades.Provincia;
 
 public class LocalidadDaoImpl implements LocalidadDao{
 	
-	private static final String readall = "SELECT * FROM localidades";
+	private static final String readall = "SELECT * FROM localidades INNER JOIN provincias ON localidades.id_provincia = provincias.id";
 
 	@Override
 	public ArrayList<Localidad> readAll() {
@@ -28,10 +28,11 @@ public class LocalidadDaoImpl implements LocalidadDao{
 	        ResultSet resultSet = statement.executeQuery();
 		
 			while(resultSet.next()){
-				Localidad localidad = new Localidad();
-				ProvinciaDaoImpl pDao = new ProvinciaDaoImpl();
-				Provincia provincia = pDao.getProvinciaByID(resultSet.getInt("id_provincia"));
+				Provincia provincia = new Provincia();
+				provincia.setId(resultSet.getInt(4));
+				provincia.setNombre_provincia(resultSet.getString("nombre_provincia"));
 				
+				Localidad localidad = new Localidad();
 				localidad.setId(resultSet.getInt("id"));
 				localidad.setId_provincia(provincia);
 				localidad.setNombre_localidad(resultSet.getString("nombre_localidad"));
@@ -67,8 +68,9 @@ public class LocalidadDaoImpl implements LocalidadDao{
 	        ResultSet resultSet = statement.executeQuery();
 		
 			while(resultSet.next()){
-				ProvinciaDaoImpl pDao = new ProvinciaDaoImpl();
-				Provincia provincia = pDao.getProvinciaByID(resultSet.getInt("id_provincia"));
+				Provincia provincia = new Provincia();
+				provincia.setId(resultSet.getInt(4));
+				provincia.setNombre_provincia(resultSet.getString("nombre_provincia"));
 				
 				localidad.setId(resultSet.getInt("id"));
 				localidad.setId_provincia(provincia);
@@ -76,7 +78,6 @@ public class LocalidadDaoImpl implements LocalidadDao{
 			}
 			
 		conexion.cerrarConexion();
-		
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

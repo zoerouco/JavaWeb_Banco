@@ -73,7 +73,6 @@ public class NacionalidadDaoImpl implements NacionalidadDao{
 			}
 			
 		conexion.cerrarConexion();
-		
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

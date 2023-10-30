@@ -66,7 +66,6 @@ public class ProvinciaDaoImpl implements ProvinciaDao{
 				provincia.setId(resultSet.getInt("id"));
 				provincia.setNombre_provincia(resultSet.getString("nombre_provincia"));
 			}
-			
 		conexion.cerrarConexion();
 		
 		} catch(Exception e) {

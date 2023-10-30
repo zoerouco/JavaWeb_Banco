@@ -11,18 +11,11 @@ public class ClienteNegocioImpl implements ClienteNegocio {
 	
 	ClienteDao cdao = new ClienteDaoImpl();
 	
-	public int insert(Cliente cliente) {
-		return 0;
-	        /*boolean estado=false, repetido;
-	        repetido = validarDNIRepetido(persona);
-		
-	        if(repetido) {
-	        	JOptionPane.showMessageDialog(null, "ERROR - DNI REPETIDO.");
-	        	return -1;
-	        }
-			if (cdao.insert(cliente))return 1;
-			else return 0;*/
-		}
+	public boolean insert(Cliente cliente) {
+		boolean insert = false;
+		insert = cdao.insert(cliente);
+		return insert;
+	}
 
 	@Override
 	public boolean delete(Cliente cliente) {
@@ -42,7 +35,6 @@ public class ClienteNegocioImpl implements ClienteNegocio {
 	}
 
 	public Cliente getClientexDNI(String dNIClienteActual) {
-			
 		return cdao.getClientexDNI(dNIClienteActual);
 	}
 }

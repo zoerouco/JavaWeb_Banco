@@ -65,8 +65,6 @@ public class ServletCliente extends HttpServlet {
 				request.setAttribute("inserto", inserto);
 			}
 			
-			
-			
 			String url = "/prestamosCliente.jsp";
 			request.setAttribute("miUrl", url);
 			request.getRequestDispatcher(url).forward(request, response);

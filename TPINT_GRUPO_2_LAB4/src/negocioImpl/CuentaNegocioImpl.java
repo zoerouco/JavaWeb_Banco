@@ -8,7 +8,7 @@ import negocio.CuentaNegocio;
 
 public class CuentaNegocioImpl implements CuentaNegocio{
 	
-     Cuenta cuenta = new Cuenta();
+    Cuenta cuenta = new Cuenta();
 	CuentaDao cdao = new CuentaDaoImpl();
 
 	@Override

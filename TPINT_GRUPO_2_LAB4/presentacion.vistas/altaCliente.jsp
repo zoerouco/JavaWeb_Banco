@@ -56,9 +56,8 @@
                 </ul>
             </div> 
         </header>
-        <!--<h1 id="titulo">Alta de clientes</h1>-->
         <div class="form-alta-cuentas">
-            <form action="ServletAltaCliente" method="get">
+            <form action="ServletAltaCliente" method="post">
                 <p class="details"> Ingrese un nuevo cliente al sistema:</p>
                 <div class="inputs">
                     <div class="text-layout">

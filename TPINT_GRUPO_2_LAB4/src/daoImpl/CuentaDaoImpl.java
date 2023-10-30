@@ -83,34 +83,36 @@ public class CuentaDaoImpl implements CuentaDao{
 			while(resultSet.next()){
 				
 				//clases necesarias para crear un obj cuenta
-				Cuenta cuenta = new Cuenta();
 				Tipo_cuenta tipoCuenta = new Tipo_cuenta();
-				Genero genero = new Genero();
-				Nacionalidad nacionalidad = new Nacionalidad();
-				Provincia provincia = new Provincia();
-				Localidad localidad = new Localidad();
-				Cliente cliente = new Cliente();
-				
-				cuenta.setCBU(resultSet.getString("CBU"));
 				tipoCuenta.setId_tipo(resultSet.getString(8));
 				tipoCuenta.setDescripcion(resultSet.getString(9));
-				cuenta.setId_tipo(tipoCuenta);
-				cliente.setDNI(resultSet.getString("DNI"));
+				
+				Genero genero = new Genero();
 				genero.setId_genero(resultSet.getString(24));
 				genero.setDescripcion(resultSet.getString(25));
-				cliente.setId_genero(genero);
+				
+				Nacionalidad nacionalidad = new Nacionalidad();
 				nacionalidad.setId(resultSet.getInt(29));
 				nacionalidad.setCode(resultSet.getShort(30));
 				nacionalidad.setIso3166a1(resultSet.getString(31));
 				nacionalidad.setIso3166a2(resultSet.getString(32));
 				nacionalidad.setNombre_pais(resultSet.getString(33));
-				cliente.setId_nacionalidad(nacionalidad);
+				
+				Provincia provincia = new Provincia();
 				provincia.setId(resultSet.getInt("id_provincia"));
 				provincia.setNombre_provincia(resultSet.getString(35));
-				cliente.setId_provincia(provincia);
+				
+				Localidad localidad = new Localidad();
 				localidad.setId(resultSet.getInt("id_localidades"));
 				localidad.setId_provincia(provincia);
 				localidad.setNombre_localidad(resultSet.getString("nombre_localidad"));
+				
+				Cliente cliente = new Cliente();
+				cliente.setDNI(resultSet.getString("DNI"));
+				cliente.setId_genero(genero);
+				cliente.setId_nacionalidad(nacionalidad);
+				cliente.setId_provincia(provincia);
+				cliente.setId_localidades(localidad);
 				cliente.setCUIL(resultSet.getString("CUIL"));
 				cliente.setNombre(resultSet.getString("nombre"));
 				cliente.setApellido(resultSet.getString("apellido"));
@@ -119,6 +121,10 @@ public class CuentaDaoImpl implements CuentaDao{
 				cliente.setCorreo_electronico(resultSet.getString("correo_electronico"));
 				cliente.setTelefono_primario(resultSet.getString("telefono_primario"));
 				cliente.setTelefono_secundario(resultSet.getString("telefono_secundario"));
+				
+				Cuenta cuenta = new Cuenta();
+				cuenta.setCBU(resultSet.getString("CBU"));
+				cuenta.setId_tipo(tipoCuenta);
 				cuenta.setDNI(cliente);
 				cuenta.setFecha_creacion(resultSet.getDate("fecha_creacion"));
 				cuenta.setNro_cuenta(resultSet.getString("nro_cuenta"));

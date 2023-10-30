@@ -47,7 +47,7 @@ public class GeneroDaoImpl implements GeneroDao {
 	@Override
 	public Genero getGeneroByID(String id_genero) {
 		
-		String getByID = "SELECT * FROM generos WHERE id = '" + id_genero + "'";
+		String getByID = "SELECT * FROM generos WHERE id_genero = '" + id_genero + "'";
 		Genero genero = new Genero();
 		
 		try {
