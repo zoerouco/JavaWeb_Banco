@@ -15,7 +15,6 @@ public class UsuarioDaoImpl implements UsuarioDao{
 	
 	@Override
 	public Usuario getUsuarioxUser(String usuario) {
-		
 	
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -23,7 +22,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
 			e.printStackTrace();
 		}
 		
-		Usuario u = new Usuario();; 
+		Usuario u = null;
 		Conexion conexion = Conexion.getConexion();
 		try{
 			
@@ -34,9 +33,8 @@ public class UsuarioDaoImpl implements UsuarioDao{
 				
 				if (resultSet.getString("nombre_usuario").compareTo(usuario) == 0) {
 					
-
 					Cliente cliente = new Cliente();
-
+					u = new Usuario();
 					
 					u.setId(resultSet.getString("id_usuario"));
 					cliente.setDNI(resultSet.getString("DNI"));

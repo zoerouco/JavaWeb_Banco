@@ -32,8 +32,10 @@ public class ServletUsuario extends HttpServlet {
     	
     	if(request.getParameter("buttonSubmit") != null) {
     		
-        	String userName = request.getParameter("userName");
+    		 String errorMessage = "";
+        	 String userName = request.getParameter("userName");
              String password = request.getParameter("password");
+             
              
              UsuarioDaoImpl usuarioDao = new UsuarioDaoImpl();
              Usuario usuario = usuarioDao.getUsuarioxUser(userName);
@@ -54,9 +56,17 @@ public class ServletUsuario extends HttpServlet {
 
                  } else {
                      // Contraseña incorrecta, redirigir al formulario de inicio de sesión con un mensaje de error
+                	 errorMessage = "Contraseña incorrecta. Intente nuevamente.";
+                	 request.setAttribute("errorMessage", errorMessage);
+                	 RequestDispatcher rd = request.getRequestDispatcher("/logIn.jsp");
+                	 rd.forward(request, response);
                  }
              } else {
                  // Usuario no encontrado, redirigir al formulario de inicio de sesión con un mensaje de error
+            	 errorMessage = "Usuario no encontrado. Intente nuevamente.";
+            	 request.setAttribute("errorMessage", errorMessage);
+            	 RequestDispatcher rd = request.getRequestDispatcher("/logIn.jsp");
+            	 rd.forward(request, response);
          }
         }
     }
