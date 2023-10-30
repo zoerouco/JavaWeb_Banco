@@ -90,7 +90,7 @@ public class ClienteDaoImpl implements ClienteDao{
 				cliente.setTelefono_primario(resultSet.getString("telefono_primario"));
 				cliente.setTelefono_secundario(resultSet.getString("telefono_secundario"));
 				cliente.setEstado(resultSet.getBoolean("estado"));	
-				
+
 				lista.add(cliente);
 			}
 			

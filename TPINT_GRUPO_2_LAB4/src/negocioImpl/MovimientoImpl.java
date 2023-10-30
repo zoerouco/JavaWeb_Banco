@@ -6,7 +6,6 @@ import dao.MovimientoDao;
 import daoImpl.MovimientoDaoImpl;
 import entidades.Movimiento;
 import negocio.MovimientoNegocio;
-import negocio.PrestamoNegocio;
 
 
 public class MovimientoImpl implements MovimientoNegocio {
