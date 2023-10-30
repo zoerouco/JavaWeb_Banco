@@ -2,7 +2,7 @@ package presentacion.controlador;
 
 import java.io.IOException;
 import java.sql.Date;
-
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,6 +35,10 @@ public class ServletAltaCliente extends HttpServlet {
 	Localidad localidad = new Localidad();
 	ProvinciaNegocioImpl pneg = new ProvinciaNegocioImpl();
 	Provincia provincia = new Provincia();
+	ArrayList<Genero> generos = new ArrayList<Genero>();
+	ArrayList<Localidad> localidades = new ArrayList<Localidad>();
+	ArrayList<Provincia> provincias = new ArrayList<Provincia>();
+	ArrayList<Nacionalidad> nacionalidades = new ArrayList<Nacionalidad>();
 	
 	
     public ServletAltaCliente() {
@@ -48,6 +52,15 @@ public class ServletAltaCliente extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		generos = gneg.readAll();
+		request.setAttribute("listaGeneros", generos);
+		nacionalidades = nneg.readAll();
+		request.setAttribute("listaNacionalidades", nacionalidades);
+		provincias = pneg.readAll();
+		request.setAttribute("listaProvincias", provincias);
+		localidades = lneg.readAll();
+		request.setAttribute("listaLocalidades", localidades);
 		
 		if (request.getParameter("buttonSubmit") != null) {
 			cliente.setApellido(request.getParameter("lastName"));
@@ -71,11 +84,8 @@ public class ServletAltaCliente extends HttpServlet {
 			
 			boolean insert = cneg.insert(cliente);
 			request.setAttribute("insert", insert);
-			
-			//RequestDispatcher rd = request.getRequestDispatcher("/TPINT_GRUPO_2_LAB4/presentacion.vistas/altaCliente.jsp");   
-			response.sendRedirect(request.getSession().getServletContext().getRealPath("/altaCliente.jsp"));
-			//rd.forward(request, response);
- 	        
 		}
+		RequestDispatcher rd = request.getRequestDispatcher("/altaCliente.jsp");   
+	    rd.forward(request, response);
 	}
 }

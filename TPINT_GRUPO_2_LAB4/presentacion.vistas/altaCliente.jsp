@@ -1,5 +1,11 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>   
+<%@ page import="entidades.Genero"%>
+<%@ page import="entidades.Nacionalidad"%>
+<%@ page import="entidades.Provincia"%>
+<%@ page import="entidades.Localidad"%>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -82,14 +88,28 @@
                     </div>
                     <div class="text-layout">
                         <label for="gender">Genero<span class="required-fields">*</span></label>
-                        <select name="gender" id="gender">
-                            <option value="M">Mujer</option>
+                         <select name="gender" id="gender">
+                           	<% ArrayList <Genero> generos = (ArrayList <Genero>)request.getAttribute("listaGeneros");
+                        		if (generos != null){
+                        			for(Genero genero : generos) { %>
+                        				<option><%=genero.getDescripcion()%></option>
+                        			<%}
+                        		} else { %>
+                        			<option>NO HAY</option>
+                        	  <%}%>
                         </select>
                     </div>
                     <div class="text-layout">
                         <label for="nationality">Nacionalidad<span class="required-fields">*</span></label>
                         <select name="nationality" id="nationality">
-                            <option value="ARG">Argentina</option>
+                            <% ArrayList <Nacionalidad> nacionalidades = (ArrayList <Nacionalidad>)request.getAttribute("listaNacionalidades");
+                        		if (nacionalidades != null){
+                        			for(Nacionalidad nacionalidad : nacionalidades) { %>
+                        				<option><%=nacionalidad.getNombre_pais()%></option>
+                        			<%}
+                        		} else { %>
+                        			<option>NO HAY</option>
+                        	  <%}%>
                         </select>
                     </div>
                     <div class="text-layout">
@@ -111,13 +131,27 @@
                     <div class="text-layout">
                         <label for="province">Provincia<span class="required-fields">*</span></label>
                         <select name="province" id="province">
-                            <option value="1">Buenos Aires</option>
+                            <% ArrayList <Provincia> provincias = (ArrayList <Provincia>)request.getAttribute("listaProvincias");
+                        		if (provincias != null){
+                        			for(Provincia provincia : provincias) { %>
+                        				<option><%=provincia.getNombre_provincia()%></option>
+                        			<%}
+                        		} else { %>
+                        			<option>NO HAY</option>
+                        	  <%}%>
                         </select>
                     </div>
                     <div class="text-layout">
                         <label for="locality">Localidad<span class="required-fields">*</span></label>
                         <select name="locality" id="locality">
-                            <option value="2">Tigre</option>
+                            <% ArrayList <Localidad> localidades = (ArrayList <Localidad>)request.getAttribute("listaLocalidades");
+                        		if (localidades != null){
+                        			for(Localidad localidad : localidades) { %>
+                        				<option><%=localidad.getNombre_localidad()%></option>
+                        			<%}
+                        		} else { %>
+                        			<option>NO HAY</option>
+                        	  <%}%>
                         </select>
                     </div>
                 </div>

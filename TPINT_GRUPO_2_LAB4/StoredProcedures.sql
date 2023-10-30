@@ -20,7 +20,7 @@ BEGIN
 	INSERT INTO clientes(DNI, id_genero, id_nacionalidad, id_provincia, id_localidades, CUIL, nombre, apellido, fecha_nacimiento, direccion, 
 						correo_electronico, telefono_primario, telefono_secundario, estado)
 	SELECT DNI, id_genero, id_nacionalidad, id_provincia, id_localidades, CUIL, nombre, apellido, fecha_nacimiento, direccion, correo_electronico,
-			telefono_primario, relefono_secundario, estado;
+			telefono_primario, telefono_secundario, estado;
 END //
 
 DELIMITER ;
