@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import dao.ProvinciaDao;
+import entidades.Localidad;
 import entidades.Provincia;
 
 public class ProvinciaDaoImpl implements ProvinciaDao{
@@ -29,7 +30,7 @@ public class ProvinciaDaoImpl implements ProvinciaDao{
 			while(resultSet.next()){
 				Provincia provincia = new Provincia();
 				
-				provincia.setId(resultSet.getInt("id_provincia"));
+				provincia.setId(resultSet.getInt("id"));
 				provincia.setNombre_provincia(resultSet.getString("nombre_provincia"));
 				
 				lista.add(provincia);
@@ -46,7 +47,32 @@ public class ProvinciaDaoImpl implements ProvinciaDao{
 
 	@Override
 	public Provincia getProvinciaByID(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String getByID = "SELECT * FROM provincias WHERE id = " + id;
+		Provincia provincia = new Provincia();
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		Conexion conexion = Conexion.getConexion();
+		try{
+			
+			PreparedStatement statement = conexion.getSQLConexion().prepareStatement(getByID);
+	        ResultSet resultSet = statement.executeQuery();
+		
+			while(resultSet.next()){
+				provincia.setId(resultSet.getInt("id"));
+				provincia.setNombre_provincia(resultSet.getString("nombre_provincia"));
+			}
+			
+		conexion.cerrarConexion();
+		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return provincia;
 	}
 }

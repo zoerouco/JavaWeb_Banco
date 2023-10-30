@@ -9,9 +9,7 @@ import entidades.Nacionalidad;
 public class NacionalidadDaoImpl implements NacionalidadDao{
 	
 	private static final String readall = "SELECT * FROM nacionalidades";
-	private static final String getByID = "SELECT * FROM nacionalidades WHERE id = ?";
 	
-
 	@Override
 	public ArrayList<Nacionalidad> readAll() {
 		try {
@@ -50,33 +48,35 @@ public class NacionalidadDaoImpl implements NacionalidadDao{
 
 	@Override
 	public Nacionalidad getNacionalidadByID(int id) {
-		return null;
-		/*
+		
+		String getByID = "SELECT * FROM nacionalidades WHERE id = " + id;
 		Nacionalidad nacionalidad = new Nacionalidad();
-		PreparedStatement statement;
-		ResultSet resultSet;
-		Connection conexion = Conexion.getConexion().getSQLConexion();
 		
 		try {
-			statement = conexion.prepareStatement(getByID);
-			statement.setInt(1, id);
-			if(statement.executeUpdate() > 0) {
-				conexion.commit();
-			}
-			resultSet = statement.executeQuery();
-			while(resultSet.next()) {
-				
-			}
-		}
-		catch (SQLException e) {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			try {
-				conexion.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
 		}
 		
-		return nacionalidad;*/
+		Conexion conexion = Conexion.getConexion();
+		try{
+			
+			PreparedStatement statement = conexion.getSQLConexion().prepareStatement(getByID);
+	        ResultSet resultSet = statement.executeQuery();
+		
+			while(resultSet.next()){
+				nacionalidad.setId(resultSet.getInt("id"));
+				nacionalidad.setCode(resultSet.getShort("code"));
+				nacionalidad.setIso3166a1(resultSet.getString("iso3166a1"));
+				nacionalidad.setIso3166a2(resultSet.getString("iso3166a2"));
+				nacionalidad.setNombre_pais(resultSet.getString("nombre_pais"));
+			}
+			
+		conexion.cerrarConexion();
+		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return nacionalidad;
 	}
 }

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import dao.LocalidadDao;
 import entidades.Localidad;
+import entidades.Provincia;
 
 public class LocalidadDaoImpl implements LocalidadDao{
 	
@@ -28,11 +29,11 @@ public class LocalidadDaoImpl implements LocalidadDao{
 		
 			while(resultSet.next()){
 				Localidad localidad = new Localidad();
-				//ProvinciaNegocioImpl pNeg = new ProvinciaNegocioImpl();
-				//pNeg.getObjectbyID();
+				ProvinciaDaoImpl pDao = new ProvinciaDaoImpl();
+				Provincia provincia = pDao.getProvinciaByID(resultSet.getInt("id_provincia"));
 				
-				localidad.setId(resultSet.getInt("id_localidades"));
-				//localidad.setId_provincia(pNeg);
+				localidad.setId(resultSet.getInt("id"));
+				localidad.setId_provincia(provincia);
 				localidad.setNombre_localidad(resultSet.getString("nombre_localidad"));
 				
 				lista.add(localidad);
@@ -49,7 +50,36 @@ public class LocalidadDaoImpl implements LocalidadDao{
 
 	@Override
 	public Localidad getLocalidadByID(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String getByID = "SELECT * FROM localidades WHERE id = " + id;
+		Localidad localidad = new Localidad();
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		Conexion conexion = Conexion.getConexion();
+		try{
+			
+			PreparedStatement statement = conexion.getSQLConexion().prepareStatement(getByID);
+	        ResultSet resultSet = statement.executeQuery();
+		
+			while(resultSet.next()){
+				ProvinciaDaoImpl pDao = new ProvinciaDaoImpl();
+				Provincia provincia = pDao.getProvinciaByID(resultSet.getInt("id_provincia"));
+				
+				localidad.setId(resultSet.getInt("id"));
+				localidad.setId_provincia(provincia);
+				localidad.setNombre_localidad(resultSet.getString("nombre_localidad"));
+			}
+			
+		conexion.cerrarConexion();
+		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return localidad;
 	}
 }
