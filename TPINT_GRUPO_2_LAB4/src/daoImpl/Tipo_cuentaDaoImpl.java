@@ -3,22 +3,22 @@ package daoImpl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import dao.ProvinciaDao;
-import entidades.Provincia;
+import dao.Tipo_cuentaDao;
+import entidades.Tipo_cuenta;
 
-public class ProvinciaDaoImpl implements ProvinciaDao{
-	
-	private static final String readall = "SELECT * FROM provincias";
+public class Tipo_cuentaDaoImpl implements Tipo_cuentaDao {
+
+	private static final String readall = "SELECT * FROM tipo_cuenta";
 
 	@Override
-	public ArrayList<Provincia> readAll() {
+	public ArrayList<Tipo_cuenta> readAll() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
-		ArrayList<Provincia> lista = new ArrayList<Provincia>();
+		ArrayList<Tipo_cuenta> lista = new ArrayList<Tipo_cuenta>();
 		
 		Conexion conexion = Conexion.getConexion();
 		try{
@@ -27,12 +27,12 @@ public class ProvinciaDaoImpl implements ProvinciaDao{
 	        ResultSet resultSet = statement.executeQuery();
 		
 			while(resultSet.next()){
-				Provincia provincia = new Provincia();
+				Tipo_cuenta tipo_cuenta = new Tipo_cuenta();
 				
-				provincia.setId(resultSet.getInt("id"));
-				provincia.setNombre_provincia(resultSet.getString("nombre_provincia"));
+				tipo_cuenta.setId_tipo(resultSet.getString("id_tipo"));
+				tipo_cuenta.setDescripcion(resultSet.getString("descripcion"));
 				
-				lista.add(provincia);
+				lista.add(tipo_cuenta);
 			}
 			
 		conexion.cerrarConexion();
@@ -45,10 +45,10 @@ public class ProvinciaDaoImpl implements ProvinciaDao{
 	}
 
 	@Override
-	public Provincia getProvinciaByID(int id) {
+	public Tipo_cuenta getTipo_cuentaByID(String id_tipo) {
 		
-		String getByID = "SELECT * FROM provincias WHERE id = " + id;
-		Provincia provincia = new Provincia();
+		String getByID = "SELECT * FROM tipo_cuenta WHERE id_tipo = '" + id_tipo + "'";
+		Tipo_cuenta tipo_cuenta = new Tipo_cuenta();
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -63,8 +63,8 @@ public class ProvinciaDaoImpl implements ProvinciaDao{
 	        ResultSet resultSet = statement.executeQuery();
 		
 			while(resultSet.next()){
-				provincia.setId(resultSet.getInt("id"));
-				provincia.setNombre_provincia(resultSet.getString("nombre_provincia"));
+				tipo_cuenta.setId_tipo(resultSet.getString("id_tipo"));
+				tipo_cuenta.setDescripcion(resultSet.getString("descripcion"));
 			}
 			
 		conexion.cerrarConexion();
@@ -72,6 +72,6 @@ public class ProvinciaDaoImpl implements ProvinciaDao{
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return provincia;
+		return tipo_cuenta;
 	}
 }

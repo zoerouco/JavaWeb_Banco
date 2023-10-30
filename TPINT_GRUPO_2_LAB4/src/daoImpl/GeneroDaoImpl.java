@@ -3,22 +3,22 @@ package daoImpl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import dao.ProvinciaDao;
-import entidades.Provincia;
+import dao.GeneroDao;
+import entidades.Genero;
 
-public class ProvinciaDaoImpl implements ProvinciaDao{
+public class GeneroDaoImpl implements GeneroDao {
 	
-	private static final String readall = "SELECT * FROM provincias";
+	private static final String readall = "SELECT * FROM generos";
 
 	@Override
-	public ArrayList<Provincia> readAll() {
+	public ArrayList<Genero> readAll() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
-		ArrayList<Provincia> lista = new ArrayList<Provincia>();
+		ArrayList<Genero> lista = new ArrayList<Genero>();
 		
 		Conexion conexion = Conexion.getConexion();
 		try{
@@ -27,12 +27,12 @@ public class ProvinciaDaoImpl implements ProvinciaDao{
 	        ResultSet resultSet = statement.executeQuery();
 		
 			while(resultSet.next()){
-				Provincia provincia = new Provincia();
+				Genero genero = new Genero();
 				
-				provincia.setId(resultSet.getInt("id"));
-				provincia.setNombre_provincia(resultSet.getString("nombre_provincia"));
+				genero.setId_genero(resultSet.getString("id_genero"));
+				genero.setDescripcion(resultSet.getString("descripcion"));
 				
-				lista.add(provincia);
+				lista.add(genero);
 			}
 			
 		conexion.cerrarConexion();
@@ -45,10 +45,10 @@ public class ProvinciaDaoImpl implements ProvinciaDao{
 	}
 
 	@Override
-	public Provincia getProvinciaByID(int id) {
+	public Genero getGeneroByID(String id_genero) {
 		
-		String getByID = "SELECT * FROM provincias WHERE id = " + id;
-		Provincia provincia = new Provincia();
+		String getByID = "SELECT * FROM generos WHERE id = '" + id_genero + "'";
+		Genero genero = new Genero();
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -63,8 +63,10 @@ public class ProvinciaDaoImpl implements ProvinciaDao{
 	        ResultSet resultSet = statement.executeQuery();
 		
 			while(resultSet.next()){
-				provincia.setId(resultSet.getInt("id"));
-				provincia.setNombre_provincia(resultSet.getString("nombre_provincia"));
+				
+				genero.setId_genero(resultSet.getString("id_genero"));
+				genero.setDescripcion(resultSet.getString("descripcion"));
+				
 			}
 			
 		conexion.cerrarConexion();
@@ -72,6 +74,7 @@ public class ProvinciaDaoImpl implements ProvinciaDao{
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return provincia;
+		return genero;
 	}
+
 }
