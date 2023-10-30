@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import daoImpl.UsuarioDaoImpl;
 import entidades.Usuario;
+import negocio.UsuarioNegocio;
+import negocioImpl.UsuarioNegocioImpl;
 
 @WebServlet("/ServletUsuario")
 public class ServletUsuario extends HttpServlet {
@@ -37,8 +38,8 @@ public class ServletUsuario extends HttpServlet {
              String password = request.getParameter("password");
              
              
-             UsuarioDaoImpl usuarioDao = new UsuarioDaoImpl();
-             Usuario usuario = usuarioDao.getUsuarioxUser(userName);
+             UsuarioNegocio usuarioNeg = new UsuarioNegocioImpl();
+             Usuario usuario = usuarioNeg.getUsuarioxUser(userName);
 
              if (usuario != null) {
 
