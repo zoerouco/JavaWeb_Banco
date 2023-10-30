@@ -15,14 +15,15 @@ public class UsuarioDaoImpl implements UsuarioDao{
 	
 	@Override
 	public Usuario getUsuarioxUser(String usuario) {
+		
+	
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
-	
-		Usuario u = new Usuario();
+		Usuario u = new Usuario();; 
 		Conexion conexion = Conexion.getConexion();
 		try{
 			
@@ -31,12 +32,11 @@ public class UsuarioDaoImpl implements UsuarioDao{
 		
 			while(resultSet.next()){
 				
-				if(resultSet.getString("id_usuario").compareTo(usuario) == 0) {
+				if (resultSet.getString("nombre_usuario").compareTo(usuario) == 0) {
 					
-					
-					//clases
+
 					Cliente cliente = new Cliente();
-				
+
 					
 					u.setId(resultSet.getString("id_usuario"));
 					cliente.setDNI(resultSet.getString("DNI"));
@@ -48,7 +48,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
 					u.setEstado(resultSet.getBoolean("estado"));
 
 				
-					
+					conexion.cerrarConexion();
 					return u;
 					
 				}

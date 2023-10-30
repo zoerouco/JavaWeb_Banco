@@ -9,23 +9,23 @@
 		<title>Globank | Log In</title>
 	</head>
 	<body>
-        <form class="custom-form" action="">
+        <form class="custom-form" action="ServletUsuario" method="post">
                 <p id="welcome">Bienvenido!</p>
                 <p>Ingrese a tu cuenta de Globank:</p>
                 <br>
                 <div class="text-layout">
-                    <input type="text" id="userName" placeholder=" ">
+                    <input type="text" name="userName" id="userName" placeholder=" ">
                     <label for="userName">Nombre de usuario</label>
                 </div>
                 <p id="examples">Ej: RamonaMartinez01</p>
                 <br>
                 <div class="text-layout">
-                    <input type="password" id="password" placeholder=" ">
+                    <input type="password" name="password" id="password" placeholder=" ">
                     <label for="password">Contraseña</label>
                 </div>
                 <br>
                 <br>
-                <button type="submit" id="buttonSubmit">Ingresar</button>
+                <button type="submit" name=buttonSubmit value="Ingresar" id="buttonSubmit"></button>
          </form>
          <br>
          <footer class="footer">
