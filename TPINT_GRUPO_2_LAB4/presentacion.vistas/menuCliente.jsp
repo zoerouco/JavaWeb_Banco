@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="entidades.Nacionalidad"%>
+<%@ page import="entidades.Provincia"%>
+<%@ page import="entidades.Localidad"%>
+<%@ page import="entidades.Genero"%>
+<%@ page import="entidades.Prestamo"%>
+<%@ page import="entidades.Cliente"%>
+<%@ page import="entidades.Usuario" %>
+<%@ page import="entidades.Cuenta"%>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,11 +22,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
-<title>Globank | Bienvenido</title>
+<title>Globank | Home </title>
 </head>
 
 <body>
 
+	<% 
+	Nacionalidad nac = new Nacionalidad();
+	Localidad loc = new Localidad();
+	Provincia prov = new Provincia();
+	Genero genero = new Genero();
+	Cliente cliente = new Cliente ();
+	Cuenta cuenta = new Cuenta();
+	Usuario usuario = new Usuario();
+	ArrayList<Cuenta> cuentas_cliente_actual = new ArrayList<Cuenta>();
+	cuentas_cliente_actual = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
+	usuario = (Usuario) request.getSession().getAttribute("usuario");
+	cliente = (Cliente) request.getSession().getAttribute("cliente_actual");
+	
+	
+	%>
 
 	<header class="encabezado">
 	<div class="contenedor-menu">
@@ -30,58 +54,35 @@
 			<li class="links-menu"><a class="links-menu"
 				href="movimientosCliente.jsp"> Mis movimientos</a></li>
 			<li class="links-menu"><a class="links-menu"
-				href="prestamosCliente.jsp"> Mis préstamos </a></li>
+				href="prestamosCliente.jsp" id="mis-prestamos"> Mis préstamos </a></li>
 			<li class="links-menu"><a class="links-menu" href="#">Ajustes
-					de la cuenta</a></li>
+					</a></li>
 
 			<li class="mensaje-bienvenida">
-				<h1>Bienvenido, x</h1>
+			<h1>Bienvenid@, <%= cliente.getNombre()%></h1>
 			</li>
 
 		</ul>
+		 <input type="hidden" name="clienteActual" value="<%= cliente.getDNI()%>">
 	</div>
 	</header>
-
-	<main>
 	
-	<div class="container-table" id="table-movimientos">
+
 	
-		<h1>MOVIMIENTOS</h1>
-
-		<table class="table">
-			<thead>
-				<tr>
-					<th scope="col">Nro Usuario</th>
-					<th scope="col">CBU</th>
-					<th scope="col">ID cuenta</th>
-					<th scope="col">ID Usuario</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>533332213234565</td>
-					<td>1</td>
-					<td>3</td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td>533332213234568</td>
-					<td>2</td>
-					<td>3</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>533332213234565</td>
-					<td>3</td>
-					<td>3</td>
-				</tr>
-			</tbody>
-		</table>
-
+	<div class="panel-cliente">
+	<img src="Recursos/img/perfil-del-usuario.png">
+	<div class="info-cliente">
+	</div>
+	
+	<div class="">
+	</div>
+	
+	
+	
 	</div>
 
 	<footer class="Z-footer">
+	
 	<p>Todos los derechos reservados &copy; Globank 2023</p>
 	<ul class="container-social-media">
 
@@ -99,9 +100,10 @@
 
 	</ul>
 
-	</footer> </main>
+	</footer>
+	 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous"> </script>
 </body>

@@ -51,7 +51,7 @@ public class ServletUsuario extends HttpServlet {
                     RequestDispatcher rd = request.getRequestDispatcher("/menuAdmins.jsp");   
          	        rd.forward(request, response);}
                      else{
-                    	 RequestDispatcher rd = request.getRequestDispatcher("/Cliente.jsp");   
+                    	 RequestDispatcher rd = request.getRequestDispatcher("ServletMenuCliente");   
               	        rd.forward(request, response);}
                      
 

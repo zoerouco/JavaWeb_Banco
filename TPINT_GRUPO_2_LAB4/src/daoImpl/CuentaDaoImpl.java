@@ -190,6 +190,7 @@ public class CuentaDaoImpl implements CuentaDao{
 		
 		
 	}
+	
 
 	@Override
 	public Cuenta getCuentaxCBU(String CBU) {
