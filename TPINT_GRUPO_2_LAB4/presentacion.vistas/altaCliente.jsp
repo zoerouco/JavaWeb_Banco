@@ -127,10 +127,10 @@
                     <div class="text-layout">
                         <label for="number2">Numero de telefono secundario</label>
                         <input type="number" id="number2">
-                    </div>
+                    </div>  
                     <div class="text-layout">
                         <label for="province">Provincia<span class="required-fields">*</span></label>
-                        <select name="province" id="province">
+                        <select name="province" id="province" onchange="habilitarLocalidades()">
                             <% ArrayList <Provincia> provincias = (ArrayList <Provincia>)request.getAttribute("listaProvincias");
                         		if (provincias != null){
                         			for(Provincia provincia : provincias) { %>
@@ -143,10 +143,11 @@
                     </div>
                     <div class="text-layout">
                         <label for="locality">Localidad<span class="required-fields">*</span></label>
-                        <select name="locality" id="locality">
+                        <select name="locality" id="locality" disabled>
                             <% ArrayList <Localidad> localidades = (ArrayList <Localidad>)request.getAttribute("listaLocalidades");
                         		if (localidades != null){
                         			for(Localidad localidad : localidades) { %>
+                        				<option value="">Selecciona una provincia primero</option>
                         				<option><%=localidad.getNombre_localidad()%></option>
                         			<%}
                         		} else { %>
@@ -160,6 +161,20 @@
                 <button type="reset" id="buttonCancel">Cancelar</button>
             </form>
         </div>
+        <script type="text/javascript">
+	        function habilitarLocalidades() {
+	            var provinciaSelect = document.getElementById("province");
+	            var localidadSelect = document.getElementById("locality");
+	
+	            if (provinciaSelect.value) {
+	                localidadSelect.disabled = false;
+	                localidadSelect.innerHTML = '';
+	            } else {
+	                localidadSelect.disabled = true;
+	                localidadSelect.innerHTML = '<option value="">Selecciona una provincia primero</option>';
+	            }
+	        }
+        </script>
 	</body>
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
