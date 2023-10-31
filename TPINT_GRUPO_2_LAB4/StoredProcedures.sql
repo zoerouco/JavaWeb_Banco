@@ -43,7 +43,38 @@ END //
 
 DELIMITER ;
 
+DELIMITER //
+CREATE TRIGGER TR_CrearUsuario AFTER INSERT ON clientes
+FOR EACH ROW
+BEGIN
+    INSERT INTO usuarios(DNI, esAdmin, id_ref, contraseña, nombre_usuario, estado)
+    VALUES (NEW.DNI, false, 0, NEW.DNI, CONCAT(NEW.nombre, NEW.apellido), true);
+END;
+//
+DELIMITER ;
+
 
 //IGNORAR ESTAS LINEAS SI YA LAS EJECUTARON
 ALTER TABLE prestamos
 MODIFY estado VARCHAR(20);
+
+	//Nuevas para el trigger
+	
+	DELETE FROM usuarios
+	WHERE DNI = '01';
+	
+	ALTER TABLE usuarios
+	MODIFY id_usuario INT auto_increment;
+	
+	ALTER TABLE usuarios
+	MODIFY DNI char(20) UNIQUE;
+	
+	ALTER TABLE clientes
+	MODIFY fecha_nacimiento date;
+	
+	INSERT INTO usuarios(DNI, esAdmin, id_ref, contraseña, nombre_usuario, estado)
+	SELECT '01', 1, 1, 'globankroot', 'admin_banco', 1; 
+	
+	INSERT INTO clientes(DNI, id_genero, id_nacionalidad, id_provincia, id_localidades, CUIL, nombre, apellido, fecha_nacimiento, direccion, 
+							correo_electronico, telefono_primario, telefono_secundario, estado)
+	SELECT '45879526', 'M', '1', '1', '1', '23458795263', 'Natalia', 'Gomez', '2000/08/03', 'velez 189', 'natigomez@gmail.com', '1189758630', '1178452033', 1;
