@@ -75,9 +75,9 @@ public class LocalidadDaoImpl implements LocalidadDao{
 				localidad.setId(resultSet.getInt("id"));
 				localidad.setId_provincia(provincia);
 				localidad.setNombre_localidad(resultSet.getString("nombre_localidad"));
+				
+				conexion.cerrarConexion();
 			}
-			
-		conexion.cerrarConexion();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

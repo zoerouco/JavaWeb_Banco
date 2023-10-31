@@ -18,12 +18,15 @@ import entidades.Tipo_cuenta;
 
 public class CuentaDaoImpl implements CuentaDao{
 	
-	private static final String readall = "SELECT * FROM cuentas INNER JOIN tipo_cuenta ON cuentas.id_tipo = tipo_cuenta.id_tipo INNER JOIN clientes "
-			+ "ON cuentas.DNI = clientes.DNI INNER JOIN generos ON clientes.id_genero = generos.id_genero INNER JOIN "
-			+ "localidades ON clientes.id_localidades = localidades.id INNER JOIN nacionalidades ON "
-			+ "clientes.id_nacionalidad = nacionalidades.id INNER JOIN provincias ON clientes.id_provincia = provincias.id";
 	private static final String insert = "INSERT INTO cuentas(CBU,id_tipo,DNI,fecha_creacion,nro_cuenta,saldo) values (?,?,?,?,?,?)";
-
+	private static final String readall = "SELECT * FROM cuentas "
+			+ "INNER JOIN tipo_cuenta ON cuentas.id_tipo = tipo_cuenta.id_tipo "
+			+ "INNER JOIN clientes ON cuentas.DNI = clientes.DNI "
+			+ "INNER JOIN generos ON clientes.id_genero = generos.id_genero "
+			+ "INNER JOIN localidades ON clientes.id_localidades = localidades.id "
+			+ "INNER JOIN nacionalidades ON clientes.id_nacionalidad = nacionalidades.id "
+			+ "INNER JOIN provincias ON clientes.id_provincia = provincias.id";
+	
 	@Override
 	public boolean insert(Cuenta cuenta) {
 		PreparedStatement statement;

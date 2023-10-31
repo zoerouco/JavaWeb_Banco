@@ -19,8 +19,9 @@ public class ClienteNegocioImpl implements ClienteNegocio {
 
 	@Override
 	public boolean delete(Cliente cliente) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean estado=false;
+		estado=cdao.delete(cliente);
+		return estado;
 	}
 
 	@Override

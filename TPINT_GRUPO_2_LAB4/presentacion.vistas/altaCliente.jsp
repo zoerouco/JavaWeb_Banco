@@ -102,8 +102,9 @@
                     <div class="text-layout">
                         <label for="nationality">Nacionalidad<span class="required-fields">*</span></label>
                         <select name="nationality" id="nationality">
-                            <% ArrayList <Nacionalidad> nacionalidades = (ArrayList <Nacionalidad>)request.getAttribute("listaNacionalidades");
-                        		if (nacionalidades != null){
+                            <% ArrayList <Nacionalidad> nacionalidades;
+                           	   if (request.getParameter("listaNacionalidades") != null){
+                            		nacionalidades = (ArrayList <Nacionalidad>)request.getAttribute("listaNacionalidades");
                         			for(Nacionalidad nacionalidad : nacionalidades) { %>
                         				<option><%=nacionalidad.getNombre_pais()%></option>
                         			<%}
