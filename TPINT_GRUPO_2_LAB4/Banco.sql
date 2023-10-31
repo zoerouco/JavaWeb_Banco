@@ -69,8 +69,8 @@ CREATE TABLE `movimientos`(
 );
 
 CREATE TABLE `usuarios`(
-	`id_usuario` char(20) NOT NULL,
-    `DNI` char(20) NOT NULL,
+	`id_usuario` int AUTO_INCREMENT NOT NULL,
+    `DNI` char(20) UNIQUE NOT NULL,
     `esAdmin` bit DEFAULT 0,
     `id_ref` int NULL,
     `contraseña` char(30) NOT NULL,
@@ -88,7 +88,7 @@ CREATE TABLE `prestamos`(
     `importe_pedido` decimal(18,2) DEFAULT 0,
     `monto_x_mes` decimal(18,2) DEFAULT 0,
     `cantidad_cuotas` int DEFAULT 0,
-	`estado` bit DEFAULT 1,
+	`estado` varchar(20),
     FOREIGN KEY (CBU) REFERENCES cuentas (CBU),
     PRIMARY KEY (id_prestamo)
 );
