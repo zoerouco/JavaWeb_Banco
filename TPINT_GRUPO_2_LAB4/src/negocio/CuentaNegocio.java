@@ -10,5 +10,6 @@ public interface CuentaNegocio {
 	public ArrayList<Cuenta> readAll();
 	public boolean update (Cuenta cuenta);
 	public Cuenta getCuentaxCBU (String CBU);
+	public ArrayList<Cuenta> getCuentaxDNI (String DNI);
 	
 }

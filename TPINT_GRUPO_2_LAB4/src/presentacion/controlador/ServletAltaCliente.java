@@ -31,7 +31,7 @@ public class ServletAltaCliente extends HttpServlet {
 	GeneroNegocioImpl gneg = new GeneroNegocioImpl();
 	NacionalidadNegocioImpl nneg = new NacionalidadNegocioImpl();
 	Nacionalidad nacionalidad = new Nacionalidad();
-	LocalidadNegocioImpl lneg = new LocalidadNegocioImpl();
+	LocalidadNegocioImpl lneg = new LocalidadNegocioImpl(); 
 	Localidad localidad = new Localidad();
 	ProvinciaNegocioImpl pneg = new ProvinciaNegocioImpl();
 	Provincia provincia = new Provincia();

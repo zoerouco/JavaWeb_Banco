@@ -10,6 +10,7 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 	
     Cuenta cuenta = new Cuenta();
 	CuentaDao cdao = new CuentaDaoImpl();
+	ArrayList<Cuenta> cuentas_cliente = new ArrayList<Cuenta>();
 
 	@Override
 	public int insert(Cuenta cuenta) {
@@ -33,6 +34,8 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	
 
 	@Override
 	public Cuenta getCuentaxCBU(String CBU) {
@@ -40,6 +43,11 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 		cuenta = cdao.getCuentaxCBU(CBU);
 		
 		return cuenta;
+	}
+
+	@Override
+	public ArrayList<Cuenta> getCuentaxDNI(String DNI) {
+		return  cuentas_cliente = cdao.getCuentasxDNI(DNI);
 	}
 
 	
