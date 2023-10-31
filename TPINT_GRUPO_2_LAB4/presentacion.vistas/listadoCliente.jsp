@@ -60,10 +60,12 @@
         <form action="ServletListadoCliente" method="post">
         	<input type="submit" name="btnMostrarClientes" value="mostrarClientes" style="margin-top: 200px"> 
         </form>
-        <% ArrayList<Cliente> clientes = null;
-        if(request.getParameter("listaClientes") != null) { 
-        	clientes = (ArrayList<Cliente>)request.getAttribute("listaClientes");
-        }%>
+        
+        <% ArrayList<Cliente> clientes = (ArrayList<Cliente>)request.getAttribute("listaClientes");
+        
+       // if(request.getParameter("listaClientes") != null) { 
+        	
+       // }%>
         <div class="container-table"  id="table-usuarios">
 	    	<h1> CLIENTES </h1>
 	        <table class="table">

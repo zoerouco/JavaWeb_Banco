@@ -48,7 +48,7 @@ public class ServletUsuario extends HttpServlet {
                      request.getSession().setAttribute("usuario", usuario);
                   	
                      if(usuario.isEsAdmin()) {
-                    RequestDispatcher rd = request.getRequestDispatcher("/menuAdmins.jsp");   
+                    RequestDispatcher rd = request.getRequestDispatcher("ServletMenuAdmin");   
          	        rd.forward(request, response);}
                      else{
                     	 RequestDispatcher rd = request.getRequestDispatcher("ServletMenuCliente");   

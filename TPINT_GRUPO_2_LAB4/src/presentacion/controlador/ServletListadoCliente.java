@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import entidades.Cliente;
 import negocioImpl.ClienteNegocioImpl;
 
-@WebServlet("/ServletListarCliente")
+@WebServlet("/ServletListadoCliente")
 public class ServletListadoCliente extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
@@ -27,11 +27,21 @@ public class ServletListadoCliente extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		if (request.getParameter("btnMostrarClientes") != null) {
+			
+			ArrayList<Cliente> listaClientes = cneg.readAll();
+			request.setAttribute("listaClientes", listaClientes);
+			
+		}
+		RequestDispatcher rd = request.getRequestDispatcher("/listadoCliente.jsp");   
+	    rd.forward(request, response);
 	}
+		
+	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		if(request.getParameter("btnMostrarClientes") != null) {
+		if (request.getParameter("btnMostrarClientes") != null) {
 			ArrayList<Cliente> listaClientes = cneg.readAll();
 			request.setAttribute("listaClientes", listaClientes);
 		}

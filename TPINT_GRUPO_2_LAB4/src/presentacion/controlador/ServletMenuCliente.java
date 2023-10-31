@@ -36,6 +36,9 @@ public class ServletMenuCliente extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		
+		
 		
 		
 		
@@ -61,6 +64,10 @@ public class ServletMenuCliente extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+
+		
+		
 		  if(request.getSession().getAttribute("usuario") != null) {
 			  
 				 usuario = (Usuario) request.getSession().getAttribute("usuario");  
