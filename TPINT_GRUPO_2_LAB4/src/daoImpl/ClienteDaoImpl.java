@@ -5,10 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
-
-import com.sun.jndi.url.ldaps.ldapsURLContextFactory;
-
 import dao.ClienteDao;
 
 
@@ -51,7 +47,7 @@ public class ClienteDaoImpl implements ClienteDao{
 			statement.setString(12, cliente.getTelefono_primario());
 			statement.setString(13, cliente.getTelefono_secundario());
 			statement.setBoolean(14, true);
-
+						
 			if(statement.executeUpdate() > 0) {
 				conexion.commit();
 				isInsertExitoso = true;
@@ -140,7 +136,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		return lista;
 	}
 	
-public Cliente getClientexDNI (String DNI) {
+	public Cliente getClientexDNI (String DNI) {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");

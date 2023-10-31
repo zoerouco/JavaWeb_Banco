@@ -22,7 +22,7 @@
 
                 <li class="nav-item dropdown">
                     <a class= "nav-link dropdown-toggle links-menu" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                       Cuentas ABML
+                       Cuentas
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="altaCuenta.jsp">Alta de cuentas</a>
@@ -33,13 +33,13 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class= "nav-link dropdown-toggle links-menu" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                       Clientes ABML
+                       Clientes
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="altaCliente.jsp">Alta de clientes</a>
-                        <a class="dropdown-item" href="#">Baja de clientes</a>
-                        <a class="dropdown-item" href="#">Modificar clientes</a>
-                        <a class="dropdown-item" href="#">Listar clientes</a>
+                        <a class="dropdown-item" href="eliminarCliente.jsp">Baja de clientes</a>
+                        <a class="dropdown-item" href="modificarCliente">Modificar clientes</a>
+                        <a class="dropdown-item" href="listadoCliente.jsp">Listar clientes</a>
                     </div>
                 </li>
                 

@@ -15,7 +15,7 @@
 	    <link rel="stylesheet" type="text/css" href="Recursos/css/altaCliente.css">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
-	    <title>Globank | Agregar cuenta</title>
+	    <title>Globank | Agregar Cliente</title>
 	</head>
 	<body>
         <header class="encabezado">
@@ -25,26 +25,26 @@
                 <ul class="contenedor-links-menu">  
                     <li class="nav-item dropdown">
                         <a class= "nav-link dropdown-toggle links-menu" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           Cuentas ABML
+                           Cuentas
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Alta de cuentas</a>
-                            <a class="dropdown-item" href="#">Baja de cuentas</a>
-                            <a class="dropdown-item" href="#">Modificar Cuentas</a>
-                            <a class="dropdown-item" href="#">Listar Cuentas</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class= "nav-link dropdown-toggle links-menu" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                           Clientes ABML
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="altaCliente.jsp">Alta de clientes</a>
-                            <a class="dropdown-item" href="#">Baja de clientes</a>
-                            <a class="dropdown-item" href="#">Modificar clientes</a>
-                            <a class="dropdown-item" href="#">Listar clientes</a>
-                        </div>
-                    </li>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="altaCuenta.jsp">Alta de cuentas</a>
+                        <a class="dropdown-item" href="#">Baja de cuentas</a>
+                        <a class="dropdown-item" href="#">Modificar Cuentas</a>
+                        <a class="dropdown-item" href="#">Listar Cuentas</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class= "nav-link dropdown-toggle links-menu" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       Clientes
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="altaCliente.jsp">Alta de clientes</a>
+                        <a class="dropdown-item" href="eliminarCliente.jsp">Baja de clientes</a>
+                        <a class="dropdown-item" href="modificarCliente">Modificar clientes</a>
+                        <a class="dropdown-item" href="listadoCliente.jsp">Listar clientes</a>
+                    </div>
+                </li>
                     <li class="nav-item dropdown">
                         <a class= "nav-link dropdown-toggle links-menu" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            Reportes de prestamos
@@ -159,7 +159,11 @@
                 <h6 class="required-fields">* - Campos obligatorios.</h6>
                 <button type="submit" id="buttonSubmit">Agregar</button>
                 <button type="reset" id="buttonCancel">Cancelar</button>
-            </form>
+            </form>     
+            <% Boolean insert = (Boolean)request.getAttribute("insert");
+               if (insert != null && insert) {%>
+            	   Se agrego correctamente!
+            <%}%>
         </div>
         <script type="text/javascript">
 	        function habilitarLocalidades() {

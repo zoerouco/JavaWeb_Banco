@@ -24,3 +24,26 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE AgregarPrestamo(
+    IN id_prestamo CHAR(20),
+    IN CBU CHAR(22),
+    IN importe_con_intereses DECIMAL(18, 2),
+    IN importe_pedido DECIMAL(18, 2),
+    IN monto_x_mes DECIMAL(18, 2),
+    IN cantidad_cuotas INT,
+    IN estado CHAR(20)
+)
+BEGIN
+    INSERT INTO Prestamos (id_prestamo, CBU, fecha_realizacion, importe_con_intereses, importe_pedido, monto_x_mes, cantidad_cuotas, estado)
+    SELECT id_prestamo, CBU, NOW(), importe_con_intereses, importe_pedido, monto_x_mes, cantidad_cuotas, estado;
+END //
+
+DELIMITER ;
+
+
+//IGNORAR ESTAS LINEAS SI YA LAS EJECUTARON
+ALTER TABLE prestamos
+MODIFY estado VARCHAR(20);

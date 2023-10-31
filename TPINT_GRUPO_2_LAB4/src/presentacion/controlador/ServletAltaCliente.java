@@ -25,7 +25,7 @@ import negocioImpl.ProvinciaNegocioImpl;
 public class ServletAltaCliente extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	Cliente cliente = new Cliente();
+	
 	ClienteNegocioImpl cneg = new ClienteNegocioImpl();
 	Genero genero = new Genero();
 	GeneroNegocioImpl gneg = new GeneroNegocioImpl();
@@ -63,12 +63,15 @@ public class ServletAltaCliente extends HttpServlet {
 		request.setAttribute("listaLocalidades", localidades);
 		
 		if (request.getParameter("buttonSubmit") != null) {
+			
+			Cliente cliente = new Cliente();
+			
 			cliente.setApellido(request.getParameter("lastName"));
 			cliente.setCorreo_electronico(request.getParameter("email"));
 			cliente.setCUIL(request.getParameter("CUIL"));
 			cliente.setDireccion(request.getParameter("adress"));
 			cliente.setDNI(request.getParameter("DNI"));
-			cliente.setFecha_nacimiento(Date.valueOf(request.getParameter("birthdate")));
+			cliente.setFecha_nacimiento(/*Date.valueOf(request.getParameter("birthdate"))*/new Date(07/07/2003));
 			genero = gneg.getGeneroByID(request.getParameter("id_genero"));
 			cliente.setId_genero(genero);
 			localidad = lneg.getLocalidadByID(Integer.parseInt(request.getParameter("id_localidad")));
