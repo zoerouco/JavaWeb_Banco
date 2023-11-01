@@ -15,7 +15,10 @@
     <title>Globank | Menu Administradores</title>
 </head>
 <body>
-
+	<%
+	Cliente admin = new Cliente ();
+	admin = (Cliente) request.getSession().getAttribute("admin_actual");
+	%>
     <header class="encabezado">
         <div class="contenedor-menu">
            <a href="menuAdmins.jsp">
@@ -62,27 +65,8 @@
                 </li>
                 
                 <li class="mensaje-bienvenida">
-                
-                	 
-                	 <% 
-                	 
-                	Usuario usuario = new Usuario();
-                	 
-                	 usuario = (Usuario) request.getSession().getAttribute("usuario");
-                	 
-                	 if(usuario.getNombreUsuario() == null){
-                		 
-                		%> 
-                			<h1> SOY NULL </h1> 
-                		 
-                	<%  }else{  %>
-                	<h1>Bienvenid@, <%= usuario.getNombreUsuario()%></h1>
-                	
-                	<% } %>
-                	
-                	
+                <h1>Bienvenid@, <%= admin.getNombre()%></h1>
             	</li>
-            
             </ul>
         </div> 
     </header>

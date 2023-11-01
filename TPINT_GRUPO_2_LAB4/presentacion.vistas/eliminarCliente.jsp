@@ -1,4 +1,5 @@
 <%@page import="java.util.ArrayList"%>
+<%@ page import="entidades.Usuario"%>
 <%@page import="entidades.Cliente" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -13,6 +14,10 @@
 	    <title>Globank | Eliminar Cliente</title>
 	</head>
 	<body>
+	<%
+	Cliente admin = new Cliente ();
+	admin = (Cliente) request.getSession().getAttribute("admin_actual");
+	%>
 		<header class="encabezado">
             <div class="contenedor-menu">
                 <img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" />
@@ -54,7 +59,7 @@
                         </div>
                     </li>
                     <li class="mensaje-bienvenida">
-                        <h1> Bienvenido, x</h1> 
+                        <h1> Bienvenid@, <%=admin.getNombre() %></h1> 
                     </li>
                 </ul>
             </div> 

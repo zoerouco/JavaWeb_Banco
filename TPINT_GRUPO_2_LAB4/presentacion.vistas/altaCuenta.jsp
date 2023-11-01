@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="entidades.Usuario"%>
+<%@page import="entidades.Cliente" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -12,6 +14,10 @@
 	    <title>Globank | Agregar Cuenta</title>
 	</head>
 	<body>
+	<%
+	Cliente admin = new Cliente ();
+	admin = (Cliente) request.getSession().getAttribute("admin_actual");
+	%>
         <header class="encabezado">
             <div class="contenedor-menu">
 	        <a href="menuAdmins.jsp">
@@ -55,7 +61,7 @@
                         </div>
                     </li>
                     <li class="mensaje-bienvenida">
-                        <h1> Bienvenido, x</h1> 
+                        <h1> Bienvenid@, <%=admin.getNombre() %></h1> 
                     </li>
                 </ul>
             </div> 

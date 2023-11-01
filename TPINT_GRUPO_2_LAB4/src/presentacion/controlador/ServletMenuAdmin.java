@@ -28,18 +28,6 @@ public class ServletMenuAdmin extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	ClienteNegocioImpl cneg = new ClienteNegocioImpl();
-	Genero genero = new Genero();
-	GeneroNegocioImpl gneg = new GeneroNegocioImpl();
-	NacionalidadNegocioImpl nneg = new NacionalidadNegocioImpl();
-	Nacionalidad nacionalidad = new Nacionalidad();
-	LocalidadNegocioImpl lneg = new LocalidadNegocioImpl(); 
-	Localidad localidad = new Localidad();
-	ProvinciaNegocioImpl pneg = new ProvinciaNegocioImpl();
-	Provincia provincia = new Provincia();
-	ArrayList<Genero> generos = new ArrayList<Genero>();
-	ArrayList<Localidad> localidades = new ArrayList<Localidad>();
-	ArrayList<Provincia> provincias = new ArrayList<Provincia>();
-	ArrayList<Nacionalidad> nacionalidades = new ArrayList<Nacionalidad>();
 	Cliente cliente = new Cliente();
 	ClienteNegocioImpl clienteN = new ClienteNegocioImpl();
 	
@@ -56,32 +44,16 @@ public class ServletMenuAdmin extends HttpServlet {
 		ArrayList<Cliente> listaClientes = cneg.readAll();
 		request.setAttribute("listaClientes", listaClientes);
 		
-		  usuario = (Usuario) request.getSession().getAttribute("usuario");
-		//  cliente = (Cliente) request.getSession().getAttribute("cliente_actual");
-		  
-
-		  if(request.getSession().getAttribute("usuario") != null) {
+		if(request.getSession().getAttribute("usuario") != null) {
 			  
-					generos = gneg.readAll();
-					request.setAttribute("listaGeneros", generos);
-					nacionalidades = nneg.readAll();
-					request.setAttribute("listaNacionalidades", nacionalidades);
-					provincias = pneg.readAll();
-					request.setAttribute("listaProvincias", provincias);
-					localidades = lneg.readAll();
-					request.setAttribute("listaLocalidades", localidades);
-					
-				
-				  
-			  }
-		  
-		  
-		  
-			
-				String url = "/menuAdmins.jsp";
-				request.setAttribute("miUrl", url);
-				request.getRequestDispatcher(url).forward(request, response);
-		
+			 usuario = (Usuario) request.getSession().getAttribute("usuario");  
+			 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
+			 request.getSession().setAttribute("cliente_actual", cliente);
+		}
+	  	
+		String url = "/menuAdmins.jsp";
+		request.setAttribute("miUrl", url);
+		request.getRequestDispatcher(url).forward(request, response);
 	}
 
 
@@ -93,28 +65,15 @@ public class ServletMenuAdmin extends HttpServlet {
 		ArrayList<Cliente> listaClientes = cneg.readAll();
 		request.setAttribute("listaClientes", listaClientes);
 		
-		usuario = (Usuario) request.getSession().getAttribute("usuario");
-		 // cliente = (Cliente) request.getSession().getAttribute("cliente_actual");
-		  
-
-		  if(request.getSession().getAttribute("usuario") != null) {
+		if(request.getSession().getAttribute("usuario") != null) {
 			  
-					generos = gneg.readAll();
-					request.setAttribute("listaGeneros", generos);
-					nacionalidades = nneg.readAll();
-					request.setAttribute("listaNacionalidades", nacionalidades);
-					provincias = pneg.readAll();
-					request.setAttribute("listaProvincias", provincias);
-					localidades = lneg.readAll();
-					request.setAttribute("listaLocalidades", localidades);
-					
-				
-				  
-			  }
-			
-				String url = "/menuAdmins.jsp";
-				request.setAttribute("miUrl", url);
-				request.getRequestDispatcher(url).forward(request, response);
-}
-		
+			 usuario = (Usuario) request.getSession().getAttribute("usuario");  
+			 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
+			 request.getSession().setAttribute("admin_actual", cliente);
+		}
+	  	
+		String url = "/menuAdmins.jsp";
+		request.setAttribute("miUrl", url);
+		request.getRequestDispatcher(url).forward(request, response);
+	}
 }
