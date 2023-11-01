@@ -19,9 +19,12 @@
 	    <title>Globank | Agregar Cuenta</title>
 	</head>
 	<body>
+	
 	<%
-	Cliente admin = new Cliente ();
-	admin = (Cliente) request.getSession().getAttribute("admin_actual");
+	
+	Usuario admin = new Usuario ();
+	admin = (Usuario) request.getSession().getAttribute("admin_actual"); 
+	
 	%>
         <header class="encabezado">
             <div class="contenedor-menu">
@@ -66,14 +69,16 @@
                         </div>
                     </li>
                     <li class="mensaje-bienvenida">
-                        <h1> Bienvenid@, <%=admin.getNombre() %></h1> 
+                        <h1> Bienvenid@, <%= admin.getNombreUsuario() %></h1> 
                     </li>
                 </ul>
             </div> 
         </header>
         <!--<h1 id="titulo">Alta de clientes</h1>-->
         <div class="form-alta-cuentas">
+        
             <form action="ServletAltaCuenta" method="get">
+            
                 <p class="details">Asignar cuenta a un cliente:</p>
                 <div class="inputs">
                     <div class="text-layout">
@@ -83,13 +88,13 @@
                     
                     <div class="text-layout">
                         <label for="DNI">DNI<span class="required-fields">*</span></label>
-                        <input type="number" id="DNI" placeholder=" XX-XXX-XXX" required>
+                        <input type="number" id="DNI" placeholder=" XX-XXX-XXX" name="txtDni" required>
                     </div>
                     
                     <div class="text-layout">
                         <label for="T-Cuenta">Tipo de Cuenta<span class="required-fields">*</span></label>
                         <select name="txtTipo" id="T-Cuenta">
-                            <option value="M">Tipo A</option>
+                            <option value="CC">Tipo A</option>
                         </select>
                     </div>
 
@@ -100,15 +105,18 @@
 
                     <div class="text-layout">
                         <label for="number1">Saldo<span class="required-fields">*</span></label>
-                        <input type="number" name="txtSaldo"id="number1" required>
+                        <input type="number" name="txtSaldo" id="number1" required>
                     </div>
 
                 </div>
                 <h6 class="required-fields">* - Campos obligatorios.</h6>
+                
                 <input type="submit" name="btnAceptar" value="Agregar" id="buttonSubmit"></input>
                 <button type="reset" id="buttonCancel">Cancelar</button>
+                
             </form>
-                   <% Boolean insert = (Boolean)request.getAttribute("insert");
+            
+             <% Boolean insert = (Boolean)request.getAttribute("insert");
                if (insert != null && insert) {%>
             	   Se agrego correctamente!
             <%}%>

@@ -13,6 +13,7 @@ import daoImpl.Tipo_cuentaDaoImpl;
 import entidades.Cliente;
 import entidades.Cuenta;
 import entidades.Tipo_cuenta;
+import entidades.Usuario;
 import negocioImpl.ClienteNegocioImpl;
 import negocioImpl.CuentaNegocioImpl;
 
@@ -21,7 +22,11 @@ import negocioImpl.CuentaNegocioImpl;
  */
 @WebServlet("/ServletAltaCuenta")
 public class ServletAltaCuenta extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
+Cliente admin_actual = new Cliente();
+ClienteNegocioImpl clienteN = new ClienteNegocioImpl();
+Usuario usuario = new Usuario();
+	
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -30,12 +35,16 @@ public class ServletAltaCuenta extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	if(request.getAttribute("btnAceptar")!=null){
+		
+		usuario = (Usuario) request.getSession().getAttribute("usuario");  
+		 request.getSession().setAttribute("admin_actual", usuario);
+		
+		
+    	if(request.getParameter("btnAceptar") != null){
+    		
     		Cuenta cuenta = new Cuenta();
     		Cliente cli= new Cliente();
     		Tipo_cuentaDaoImpl tipoCuentaDaoImpl= new Tipo_cuentaDaoImpl();
@@ -52,19 +61,51 @@ public class ServletAltaCuenta extends HttpServlet {
     		cuenta.setSaldo(Float.parseFloat(request.getParameter("txtSaldo")));
             
         boolean guardo= cuenegImpl.insert(cuenta);
+        
         request.setAttribute("insert", guardo);
+        
     	}
     	
-		RequestDispatcher rd = request.getRequestDispatcher("/altaCuenta.jsp");   
-	    rd.forward(request, response);
+    	String url = "/altaCuenta.jsp";
+		request.setAttribute("miUrl", url);
+		request.getRequestDispatcher(url).forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+		 usuario = (Usuario) request.getSession().getAttribute("usuario");  
+		 admin_actual = clienteN.getClientexDNI(usuario.getDni().getDNI());
+		 request.getSession().setAttribute("cliente_actual", admin_actual);
+		
+		
+   	if (request.getAttribute("btnAceptar") != null){
+   		
+   		Cuenta cuenta = new Cuenta();
+   		Cliente cli= new Cliente();
+   		Tipo_cuentaDaoImpl tipoCuentaDaoImpl= new Tipo_cuentaDaoImpl();
+   		Tipo_cuenta tcuenta= new Tipo_cuenta();
+   		ClienteNegocioImpl clineg=new ClienteNegocioImpl();
+   		CuentaNegocioImpl cuenegImpl=new CuentaNegocioImpl();
+   		
+   		cuenta.setCBU(request.getParameter("txtCbu"));
+   		tcuenta= tipoCuentaDaoImpl.getTipo_cuentaByID(request.getParameter("txtTipo"));
+   		cuenta.setId_tipo(tcuenta);
+   		cuenta.setNro_cuenta(request.getParameter("txtNroCuenta"));
+   		cli = clineg.getClientexDNI((request.getParameter("txtDni")));
+   		cuenta.setDNI(cli);
+   		cuenta.setSaldo(Float.parseFloat(request.getParameter("txtSaldo")));
+           
+       boolean guardo= cuenegImpl.insert(cuenta);
+       
+       request.setAttribute("insert", guardo);
+       
+   	}
+   	
+   	String url = "/altaCuenta.jsp";
+		request.setAttribute("miUrl", url);
+		request.getRequestDispatcher(url).forward(request, response);
 	}
 
 }

@@ -38,8 +38,8 @@ public class CuentaDaoImpl implements CuentaDao{
 			statement.setString(1, cuenta.getCBU());
 			statement.setString(2, cuenta.getId_tipo().getId_tipo());
 			statement.setString(3, cuenta.getDNI().getDNI());
-			statement.setString(5, cuenta.getNro_cuenta());
-			statement.setFloat(6, cuenta.getSaldo());
+			statement.setString(4, cuenta.getNro_cuenta());
+			statement.setFloat(5, cuenta.getSaldo());
 			
 			
 			if(statement.executeUpdate() > 0) {
