@@ -68,8 +68,9 @@ public class GeneroDaoImpl implements GeneroDao {
 				
 				genero.setId_genero(resultSet.getString("id_genero"));
 				genero.setDescripcion(resultSet.getString("descripcion"));
-				conexion.cerrarConexion();
 			}
+		
+		conexion.cerrarConexion();
 		
 		} catch(Exception e) {
 			e.printStackTrace();

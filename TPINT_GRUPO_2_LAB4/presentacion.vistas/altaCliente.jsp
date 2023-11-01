@@ -76,31 +76,31 @@
                 <div class="inputs">
                     <div class="text-layout">
                         <label for="name">Nombre<span class="required-fields">*</span></label>
-                        <input type="text" id="name" required>
+                        <input type="text" name="name" required>
                     </div>
                     <div class="text-layout">
                         <label for="lastName">Apellido<span class="required-fields">*</span></label>
-                        <input type="text" id="lastName" required>
+                        <input type="text" name="lastName" required>
                     </div>
                     <div class="text-layout">
                         <label for="DNI">DNI<span class="required-fields">*</span></label>
-                        <input type="number" id="DNI" placeholder=" XX-XXX-XXX" required>
+                        <input type="number" name="DNI" placeholder=" XX-XXX-XXX" required>
                     </div>
                     <div class="text-layout">
                         <label for="CUIL">CUIL<span class="required-fields">*</span></label>
-                        <input type="number" id="CUIL" placeholder=" XX-XXXXXXXX-X" required>
+                        <input type="number" name="CUIL" placeholder=" XX-XXXXXXXX-X" required>
                     </div>
                     <div class="text-layout">
                         <label for="birthdate">Fecha de nacimiento<span class="required-fields">*</span></label>
-                        <input type="date" id="birthdate" required>
+                        <input type="date" name="birthdate" required>
                     </div>
                     <div class="text-layout">
                         <label for="gender">Genero<span class="required-fields">*</span></label>
-                         <select name="gender" id="gender">
+                         <select name="gender" name="gender">
                            	<% ArrayList <Genero> generos = (ArrayList <Genero>)request.getAttribute("listaGeneros");
                         		if (generos != null){
                         			for(Genero genero : generos) { %>
-                        				<option><%=genero.getDescripcion()%></option>
+                        				<option value="<%=genero.getId_genero()%>"><%=genero.getDescripcion()%></option>
                         			<%}
                         		} else { %>
                         			<option>NO HAY</option>
@@ -109,11 +109,11 @@
                     </div>
                     <div class="text-layout">
                         <label for="nationality">Nacionalidad<span class="required-fields">*</span></label>
-                        <select name="nationality" id="nationality">
+                        <select name="nationality" name="nationality">
                             <% ArrayList <Nacionalidad> nacionalidades = (ArrayList <Nacionalidad>)request.getAttribute("listaNacionalidades");
                            	   if (nacionalidades != null){
                         			for(Nacionalidad nacionalidad : nacionalidades) { %>
-                        				<option><%=nacionalidad.getNombre_pais()%></option>
+                        				<option value="<%=nacionalidad.getId()%>"><%=nacionalidad.getNombre_pais()%></option>
                         			<%}
                         		} else { %>
                         			<option>NO HAY</option>
@@ -122,27 +122,27 @@
                     </div>
                     <div class="text-layout">
                         <label for="adress">Direccion<span class="required-fields">*</span></label>
-                        <input type="text" id="adress" placeholder=" Caballito 123" required>
+                        <input type="text" name="adress" placeholder=" Caballito 123" required>
                     </div>
                     <div class="text-layout">
                         <label for="email">Correo electronico<span class="required-fields">*</span></label>
-                        <input type="email" id="email" placeholder=" example@example.com" required>
+                        <input type="email" name="email" placeholder=" example@example.com" required>
                     </div>
                     <div class="text-layout">
                         <label for="number1">Numero de telefono<span class="required-fields">*</span></label>
-                        <input type="number" id="number1" required>
+                        <input type="number" name="number1" required>
                     </div>
                     <div class="text-layout">
                         <label for="number2">Numero de telefono secundario</label>
-                        <input type="number" id="number2">
+                        <input type="number" name="number2">
                     </div>  
                     <div class="text-layout">
                         <label for="province">Provincia<span class="required-fields">*</span></label>
-                        <select name="province" id="province"> <!--onchange="habilitarLocalidades()"-->
+                        <select name="province" name="province"> <!--onchange="habilitarLocalidades()"-->
                             <% ArrayList <Provincia> provincias = (ArrayList <Provincia>)request.getAttribute("listaProvincias");
                         		if (provincias != null){
                         			for(Provincia provincia : provincias) { %>
-                        				<option><%=provincia.getNombre_provincia()%></option>
+                        				<option value="<%=provincia.getId()%>"><%=provincia.getNombre_provincia()%></option>
                         			<%}
                         		} else { %>
                         			<option>NO HAY</option>
@@ -151,12 +151,12 @@
                     </div>
                     <div class="text-layout">
                         <label for="locality">Localidad<span class="required-fields">*</span></label>
-                        <select name="locality" id="locality"> <!--disabled-->
+                        <select name="locality" name="locality"> <!--disabled-->
                             <% ArrayList <Localidad> localidades = (ArrayList <Localidad>)request.getAttribute("listaLocalidades");
                         		if (localidades != null){
                         			for(Localidad localidad : localidades) { %>
                         				<!--<option value="">Selecciona una provincia primero</option>-->
-                        				<option><%=localidad.getNombre_localidad()%></option>
+                        				<option value="<%=localidad.getId()%>"><%=localidad.getNombre_localidad()%></option>
                         			<%}
                         		} else { %>
                         			<option>NO HAY</option>
@@ -165,8 +165,8 @@
                     </div>
                 </div>
                 <h6 class="required-fields">* - Campos obligatorios.</h6>
-                <button type="submit" id="buttonSubmit">Agregar</button>
-                <button type="reset" id="buttonCancel">Cancelar</button>
+                <input type="submit" name="buttonSubmit" value="Agregar" id="buttonSubmit"></input>
+                <button type="reset" name="buttonReset" id="buttonCancel">Cancelar</button>
             </form>     
             <% Boolean insert = (Boolean)request.getAttribute("insert");
                if (insert != null && insert) {%>

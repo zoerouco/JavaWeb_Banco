@@ -53,7 +53,7 @@ public class LocalidadDaoImpl implements LocalidadDao{
 	@Override
 	public Localidad getLocalidadByID(int id) {
 		
-		String getByID = "SELECT * FROM localidades WHERE id = " + id;
+		String getByID = "SELECT * FROM localidades INNER JOIN provincias ON localidades.id_provincia = provincias.id WHERE localidades.id = " + id;
 		Localidad localidad = new Localidad();
 		
 		try {
@@ -73,12 +73,13 @@ public class LocalidadDaoImpl implements LocalidadDao{
 				provincia.setId(resultSet.getInt(4));
 				provincia.setNombre_provincia(resultSet.getString("nombre_provincia"));
 				
-				localidad.setId(resultSet.getInt("id"));
+				localidad.setId(resultSet.getInt(1));
 				localidad.setId_provincia(provincia);
 				localidad.setNombre_localidad(resultSet.getString("nombre_localidad"));
-				
-				conexion.cerrarConexion();
 			}
+			
+		conexion.cerrarConexion();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

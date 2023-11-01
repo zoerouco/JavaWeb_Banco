@@ -70,9 +70,10 @@ public class NacionalidadDaoImpl implements NacionalidadDao{
 				nacionalidad.setIso3166a1(resultSet.getString("iso3166a1"));
 				nacionalidad.setIso3166a2(resultSet.getString("iso3166a2"));
 				nacionalidad.setNombre_pais(resultSet.getString("nombre_pais"));
-				
-				conexion.cerrarConexion();
 			}
+			
+		conexion.cerrarConexion();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

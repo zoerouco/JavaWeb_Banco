@@ -1,11 +1,10 @@
 package daoImpl;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.CallableStatement;
 import java.util.ArrayList;
 import dao.ClienteDao;
 import entidades.Cliente;
@@ -16,7 +15,7 @@ import entidades.Provincia;
 
 public class ClienteDaoImpl implements ClienteDao{
 	
-	private static final String insert = "CALL AgregaCliente(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "CALL AgregarCliente(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "UPDATE clientes SET estado = 0 WHERE DNI = ?";
 	private static final String readall = "SELECT * FROM clientes " 
 		    + "INNER JOIN generos ON clientes.id_genero = generos.id_genero "
@@ -26,12 +25,11 @@ public class ClienteDaoImpl implements ClienteDao{
 
 	@Override
 	public boolean insert(Cliente cliente) {
-		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
 		
 		try {
-			statement = conexion.prepareStatement(insert);
+			CallableStatement statement = conexion.prepareCall(insert);
 			statement.setString(1, cliente.getDNI());
 			statement.setString(2, cliente.getId_genero().getId_genero());
 			statement.setInt(3, cliente.getId_nacionalidad().getId());
@@ -62,36 +60,6 @@ public class ClienteDaoImpl implements ClienteDao{
 		}
 		
 		return isInsertExitoso;
-		/* public void procedimientoInsertarUsuario(Usuario usuario)
-	   {
-		 try {
-				Class.forName("com.mysql.jdbc.Driver");
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		   Connection conn = null;
-	       try {
-	    	    conn = DriverManager.getConnection(host + dbName, user, pass);
-	            CallableStatement proc = conn.prepareCall(" CALL crearUsuario(?,?) ");
-	            proc.setString("Unombre", usuario.getNombre());//Tipo String
-	            proc.setString("Uapellido", usuario.getApellido());
-	            proc.execute();            
-	        } 
-	       catch (Exception e) {                  
-	            System.out.println(e);
-	       }
-	   }
-	}
-	/* 
-	 DELIMITER $$
-	 CREATE PROCEDURE `crearUsuario`(IN Unombre varchar(45), IN Uapellido varchar(45))
-	 BEGIN
-	 INSERT INTO usuario(nombre,apellido) VALUES (Unombre,Uapellido);
-	 END
-	 $$ DELIMITER ;
-	*/
 	}
 
 	@Override
