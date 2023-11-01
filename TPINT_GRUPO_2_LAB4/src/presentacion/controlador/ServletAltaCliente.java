@@ -47,7 +47,43 @@ public class ServletAltaCliente extends HttpServlet {
 
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		generos = gneg.readAll();
+		request.setAttribute("listaGeneros", generos);
+		nacionalidades = nneg.readAll();
+		request.setAttribute("listaNacionalidades", nacionalidades);
+		provincias = pneg.readAll();
+		request.setAttribute("listaProvincias", provincias);
+		localidades = lneg.readAll();
+		request.setAttribute("listaLocalidades", localidades);
 		
+		if (request.getParameter("buttonSubmit") != null) {
+			
+			Cliente cliente = new Cliente();
+			
+			cliente.setApellido(request.getParameter("lastName"));
+			cliente.setCorreo_electronico(request.getParameter("email"));
+			cliente.setCUIL(request.getParameter("CUIL"));
+			cliente.setDireccion(request.getParameter("adress"));
+			cliente.setDNI(request.getParameter("DNI"));
+			cliente.setFecha_nacimiento(/*Date.valueOf(request.getParameter("birthdate"))*/new Date(07/07/2003));
+			genero = gneg.getGeneroByID(request.getParameter("id_genero"));
+			cliente.setId_genero(genero);
+			localidad = lneg.getLocalidadByID(Integer.parseInt(request.getParameter("id_localidad")));
+			cliente.setId_localidades(localidad);
+			nacionalidad = nneg.getNacionalidadByID(Integer.parseInt(request.getParameter("id_nacionalidad")));
+			cliente.setId_nacionalidad(nacionalidad);
+			provincia = pneg.getProvinciaByID(Integer.parseInt(request.getParameter("id_provincia")));
+			cliente.setId_provincia(provincia);
+			cliente.setNombre(request.getParameter("name"));
+			cliente.setTelefono_primario(request.getParameter("number1"));
+			cliente.setTelefono_secundario(request.getParameter("number2"));
+			cliente.setEstado(true);
+			
+			boolean insert = cneg.insert(cliente);
+			request.setAttribute("insert", insert);
+		}
+		RequestDispatcher rd = request.getRequestDispatcher("/altaCliente.jsp");   
+	    rd.forward(request, response);
 	}
 
 	

@@ -11,6 +11,7 @@ public class LocalidadDaoImpl implements LocalidadDao{
 	
 	private static final String readall = "SELECT * FROM localidades INNER JOIN provincias ON localidades.id_provincia = provincias.id";
 
+	//HACER FUNCION READALL QUE DEPENDA DE LA PROVINCIA SELECCIONADA
 	@Override
 	public ArrayList<Localidad> readAll() {
 		try {

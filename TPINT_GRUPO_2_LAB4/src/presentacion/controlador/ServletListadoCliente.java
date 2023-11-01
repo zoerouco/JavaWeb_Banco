@@ -27,12 +27,9 @@ public class ServletListadoCliente extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		if (request.getParameter("btnMostrarClientes") != null) {
-			
-			ArrayList<Cliente> listaClientes = cneg.readAll();
-			request.setAttribute("listaClientes", listaClientes);
-			
-		}
+		ArrayList<Cliente> listaClientes = cneg.readAll();
+		request.setAttribute("listaClientes", listaClientes);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCliente.jsp");   
 	    rd.forward(request, response);
 	}
@@ -41,10 +38,9 @@ public class ServletListadoCliente extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		if (request.getParameter("btnMostrarClientes") != null) {
-			ArrayList<Cliente> listaClientes = cneg.readAll();
-			request.setAttribute("listaClientes", listaClientes);
-		}
+		ArrayList<Cliente> listaClientes = cneg.readAll();
+		request.setAttribute("listaClientes", listaClientes);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCliente.jsp");   
 	    rd.forward(request, response);
 	}

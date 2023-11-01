@@ -25,6 +25,9 @@ public class ServletEliminarCliente extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		ArrayList<Cliente> listaClientes = cneg.readAll();
+		request.setAttribute("listaClientes", listaClientes);
+		
 		if(request.getParameter("buttonEliminar") != null) {
 			
 			String DNI = request.getParameter("DNI");
@@ -32,7 +35,7 @@ public class ServletEliminarCliente extends HttpServlet {
 			boolean delete = cneg.delete(cliente);
 			request.setAttribute("delete", delete);
 			
-			ArrayList<Cliente> listaClientes = cneg.readAll();
+			listaClientes = cneg.readAll();
 			request.setAttribute("listaClientes", listaClientes);
 		}
 
@@ -45,20 +48,22 @@ public class ServletEliminarCliente extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-	if(request.getParameter("buttonEliminar") != null) {
+		ArrayList<Cliente> listaClientes = cneg.readAll();
+		request.setAttribute("listaClientes", listaClientes);
+		
+		if(request.getParameter("buttonEliminar") != null) {
 			
 			String DNI = request.getParameter("DNI");
 			Cliente cliente = cneg.getClientexDNI(DNI);
 			boolean delete = cneg.delete(cliente);
 			request.setAttribute("delete", delete);
 			
-			ArrayList<Cliente> listaClientes = cneg.readAll();
+			listaClientes = cneg.readAll();
 			request.setAttribute("listaClientes", listaClientes);
 		}
 
 		String url = "/eliminarCliente.jsp";
 		request.setAttribute("miUrl", url);
 		request.getRequestDispatcher(url).forward(request, response);
-		
-}
+	}
 }

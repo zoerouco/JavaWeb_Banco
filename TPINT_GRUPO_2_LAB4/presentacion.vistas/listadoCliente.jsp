@@ -23,10 +23,11 @@
                            Cuentas
                         </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="altaCuenta.jsp">Alta de cuentas</a>
-                        <a class="dropdown-item" href="#">Baja de cuentas</a>
-                        <a class="dropdown-item" href="#">Modificar Cuentas</a>
-                        <a class="dropdown-item" href="#">Listar Cuentas</a>
+                            <a class="dropdown-item" href="altaCuenta.jsp">Alta de cuentas</a>
+                            <a class="dropdown-item" href="#">Modificar Cuentas</a>
+                            <a class="dropdown-item" href="#">Listar Cuentas</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Baja de cuentas</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -34,10 +35,11 @@
                        Clientes
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="altaCliente.jsp">Alta de clientes</a>
-                        <a class="dropdown-item" href="eliminarCliente.jsp">Baja de clientes</a>
-                        <a class="dropdown-item" href="modificarCliente">Modificar clientes</a>
-                        <a class="dropdown-item" href="listadoCliente.jsp">Listar clientes</a>
+                        <a class="dropdown-item" href="ServletAltaCliente">Alta de clientes</a>
+                        <a class="dropdown-item" href="modificarCliente.jsp">Modificar clientes</a>
+                        <a class="dropdown-item" href="ServletListadoCliente">Listar clientes</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="ServletEliminarCliente">Baja de clientes</a>
                     </div>
                 </li>
                     <li class="nav-item dropdown">
@@ -57,16 +59,8 @@
                 </ul>
             </div> 
         </header>
-        <form action="ServletListadoCliente" method="post">
-        	<input type="submit" name="btnMostrarClientes" value="mostrarClientes" style="margin-top: 200px"> 
-        </form>
-        
-        <% ArrayList<Cliente> clientes = (ArrayList<Cliente>)request.getAttribute("listaClientes");
-        
-       // if(request.getParameter("listaClientes") != null) { 
-        	
-       // }%>
-        <div class="container-table"  id="table-usuarios">
+        <% ArrayList<Cliente> clientes = (ArrayList<Cliente>)request.getAttribute("listaClientes");%>
+        <div class="container-table"  id="table-usuarios" style="margin-top: 150px">
 	    	<h1> CLIENTES </h1>
 	        <table class="table">
 	        <thead>

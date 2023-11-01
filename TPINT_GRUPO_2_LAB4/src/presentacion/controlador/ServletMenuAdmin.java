@@ -53,6 +53,9 @@ public class ServletMenuAdmin extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		ArrayList<Cliente> listaClientes = cneg.readAll();
+		request.setAttribute("listaClientes", listaClientes);
+		
 		  usuario = (Usuario) request.getSession().getAttribute("usuario");
 		//  cliente = (Cliente) request.getSession().getAttribute("cliente_actual");
 		  
@@ -86,6 +89,9 @@ public class ServletMenuAdmin extends HttpServlet {
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		ArrayList<Cliente> listaClientes = cneg.readAll();
+		request.setAttribute("listaClientes", listaClientes);
 		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");
 		 // cliente = (Cliente) request.getSession().getAttribute("cliente_actual");

@@ -21,22 +21,24 @@
                            Cuentas
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Alta de cuentas</a>
-                            <a class="dropdown-item" href="#">Baja de cuentas</a>
+                            <a class="dropdown-item" href="altaCuenta.jsp">Alta de cuentas</a>
                             <a class="dropdown-item" href="#">Modificar Cuentas</a>
                             <a class="dropdown-item" href="#">Listar Cuentas</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Baja de cuentas</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class= "nav-link dropdown-toggle links-menu" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            Clientes
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="altaCliente.jsp">Alta de clientes</a>
-                            <a class="dropdown-item" href="listadoCliente.jsp">Baja de clientes</a>
-                            <a class="dropdown-item" href="modificarCliente.jsp">Modificar clientes</a>
-                            <a class="dropdown-item" href="eliminarCliente.jsp">Listar clientes</a>
-                        </div>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="ServletAltaCliente">Alta de clientes</a>
+                        <a class="dropdown-item" href="modificarCliente.jsp">Modificar clientes</a>
+                        <a class="dropdown-item" href="ServletListadoCliente">Listar clientes</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="ServletEliminarCliente">Baja de clientes</a>
+                    </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class= "nav-link dropdown-toggle links-menu" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

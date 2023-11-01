@@ -28,10 +28,11 @@
                            Cuentas
                         </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="altaCuenta.jsp">Alta de cuentas</a>
-                        <a class="dropdown-item" href="#">Baja de cuentas</a>
-                        <a class="dropdown-item" href="#">Modificar Cuentas</a>
-                        <a class="dropdown-item" href="#">Listar Cuentas</a>
+                            <a class="dropdown-item" href="altaCuenta.jsp">Alta de cuentas</a>
+                            <a class="dropdown-item" href="#">Modificar Cuentas</a>
+                            <a class="dropdown-item" href="#">Listar Cuentas</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Baja de cuentas</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -39,10 +40,11 @@
                        Clientes
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="altaCliente.jsp">Alta de clientes</a>
-                        <a class="dropdown-item" href="eliminarCliente.jsp">Baja de clientes</a>
-                        <a class="dropdown-item" href="modificarCliente">Modificar clientes</a>
-                        <a class="dropdown-item" href="listadoCliente.jsp">Listar clientes</a>
+                        <a class="dropdown-item" href="ServletAltaCliente">Alta de clientes</a>
+                        <a class="dropdown-item" href="modificarCliente.jsp">Modificar clientes</a>
+                        <a class="dropdown-item" href="ServletListadoCliente">Listar clientes</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="ServletEliminarCliente">Baja de clientes</a>
                     </div>
                 </li>
                     <li class="nav-item dropdown">
@@ -102,9 +104,8 @@
                     <div class="text-layout">
                         <label for="nationality">Nacionalidad<span class="required-fields">*</span></label>
                         <select name="nationality" id="nationality">
-                            <% ArrayList <Nacionalidad> nacionalidades;
-                           	   if (request.getParameter("listaNacionalidades") != null){
-                            		nacionalidades = (ArrayList <Nacionalidad>)request.getAttribute("listaNacionalidades");
+                            <% ArrayList <Nacionalidad> nacionalidades = (ArrayList <Nacionalidad>)request.getAttribute("listaNacionalidades");
+                           	   if (nacionalidades != null){
                         			for(Nacionalidad nacionalidad : nacionalidades) { %>
                         				<option><%=nacionalidad.getNombre_pais()%></option>
                         			<%}
@@ -131,7 +132,7 @@
                     </div>  
                     <div class="text-layout">
                         <label for="province">Provincia<span class="required-fields">*</span></label>
-                        <select name="province" id="province" onchange="habilitarLocalidades()">
+                        <select name="province" id="province"> <!--onchange="habilitarLocalidades()"-->
                             <% ArrayList <Provincia> provincias = (ArrayList <Provincia>)request.getAttribute("listaProvincias");
                         		if (provincias != null){
                         			for(Provincia provincia : provincias) { %>
@@ -144,11 +145,11 @@
                     </div>
                     <div class="text-layout">
                         <label for="locality">Localidad<span class="required-fields">*</span></label>
-                        <select name="locality" id="locality" disabled>
+                        <select name="locality" id="locality"> <!--disabled-->
                             <% ArrayList <Localidad> localidades = (ArrayList <Localidad>)request.getAttribute("listaLocalidades");
                         		if (localidades != null){
                         			for(Localidad localidad : localidades) { %>
-                        				<option value="">Selecciona una provincia primero</option>
+                        				<!--<option value="">Selecciona una provincia primero</option>-->
                         				<option><%=localidad.getNombre_localidad()%></option>
                         			<%}
                         		} else { %>
@@ -166,7 +167,7 @@
             	   Se agrego correctamente!
             <%}%>
         </div>
-        <script type="text/javascript">
+        <!--<script type="text/javascript">
 	        function habilitarLocalidades() {
 	            var provinciaSelect = document.getElementById("province");
 	            var localidadSelect = document.getElementById("locality");
@@ -174,12 +175,29 @@
 	            if (provinciaSelect.value) {
 	                localidadSelect.disabled = false;
 	                localidadSelect.innerHTML = '';
+
+	                var provinciaSelect = document.getElementById("province");
+
+	                if (provinciaSelect.value) {
+	                    var form = document.createElement("form");
+	                    form.setAttribute("method", "post");
+	                    form.setAttribute("action", "ServletAltaCliente");
+	                    
+	                    var methodField = document.createElement("input");
+	                    methodField.setAttribute("type", "hidden");
+	                    methodField.setAttribute("name", "method");
+	                    methodField.setAttribute("value", "post");
+	                    form.appendChild(methodField);
+
+	                    document.body.appendChild(form);
+	                    form.submit();
+	                }     
 	            } else {
 	                localidadSelect.disabled = true;
 	                localidadSelect.innerHTML = '<option value="">Selecciona una provincia primero</option>';
 	            }
 	        }
-        </script>
+        </script>-->
 	</body>
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
