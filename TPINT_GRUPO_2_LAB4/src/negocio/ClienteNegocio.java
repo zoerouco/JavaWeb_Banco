@@ -9,5 +9,6 @@ public interface ClienteNegocio {
 	public boolean delete (Cliente cliente);
 	public ArrayList<Cliente> readAll();
 	public boolean update (Cliente cliente);
+	public ArrayList<Cliente> readAllActivos();
 	
 }

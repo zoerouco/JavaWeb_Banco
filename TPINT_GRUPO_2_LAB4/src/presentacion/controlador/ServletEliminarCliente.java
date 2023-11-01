@@ -2,8 +2,6 @@ package presentacion.controlador;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +23,7 @@ public class ServletEliminarCliente extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Cliente> listaClientes = cneg.readAll();
+		ArrayList<Cliente> listaClientes = cneg.readAllActivos();
 		request.setAttribute("listaClientes", listaClientes);
 		
 		if(request.getParameter("buttonEliminar") != null) {
@@ -35,7 +33,7 @@ public class ServletEliminarCliente extends HttpServlet {
 			boolean delete = cneg.delete(cliente);
 			request.setAttribute("delete", delete);
 			
-			listaClientes = cneg.readAll();
+			listaClientes = cneg.readAllActivos();
 			request.setAttribute("listaClientes", listaClientes);
 		}
 
@@ -48,7 +46,7 @@ public class ServletEliminarCliente extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Cliente> listaClientes = cneg.readAll();
+		ArrayList<Cliente> listaClientes = cneg.readAllActivos();
 		request.setAttribute("listaClientes", listaClientes);
 		
 		if(request.getParameter("buttonEliminar") != null) {
@@ -58,12 +56,13 @@ public class ServletEliminarCliente extends HttpServlet {
 			boolean delete = cneg.delete(cliente);
 			request.setAttribute("delete", delete);
 			
-			listaClientes = cneg.readAll();
+			listaClientes = cneg.readAllActivos();
 			request.setAttribute("listaClientes", listaClientes);
 		}
 
 		String url = "/eliminarCliente.jsp";
 		request.setAttribute("miUrl", url);
 		request.getRequestDispatcher(url).forward(request, response);
+		
 	}
 }

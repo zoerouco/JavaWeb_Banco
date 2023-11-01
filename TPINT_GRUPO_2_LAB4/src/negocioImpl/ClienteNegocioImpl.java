@@ -38,4 +38,9 @@ public class ClienteNegocioImpl implements ClienteNegocio {
 	public Cliente getClientexDNI(String dNIClienteActual) {
 		return cdao.getClientexDNI(dNIClienteActual);
 	}
+
+	@Override
+	public ArrayList<Cliente> readAllActivos() {
+		return cdao.readAllActivos();
+	}
 }

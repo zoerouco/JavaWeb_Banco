@@ -10,4 +10,5 @@ public interface ClienteDao {
 	public boolean delete (Cliente cliente);
 	public ArrayList<Cliente> readAll();
 	public Cliente getClientexDNI (String DNI);
+	public ArrayList<Cliente> readAllActivos();
 }
