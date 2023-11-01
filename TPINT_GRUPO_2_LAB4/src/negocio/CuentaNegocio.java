@@ -5,7 +5,7 @@ import entidades.Cuenta;
 
 public interface CuentaNegocio {
 	
-	public int insert (Cuenta cuenta);
+	public boolean insert (Cuenta cuenta);
 	public boolean delete (Cuenta cuenta);
 	public ArrayList<Cuenta> readAll();
 	public boolean update (Cuenta cuenta);

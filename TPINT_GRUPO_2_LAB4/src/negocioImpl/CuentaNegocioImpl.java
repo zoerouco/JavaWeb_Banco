@@ -13,9 +13,10 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 	ArrayList<Cuenta> cuentas_cliente = new ArrayList<Cuenta>();
 
 	@Override
-	public int insert(Cuenta cuenta) {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean insert(Cuenta cuenta) {
+		boolean insert = false;
+		insert = cdao.insert(cuenta);
+		return insert;
 	}
 
 	@Override

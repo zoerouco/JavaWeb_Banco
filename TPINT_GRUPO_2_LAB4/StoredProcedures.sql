@@ -53,6 +53,21 @@ END;
 //
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE AgregarCuenta(
+	IN	CBU char(22) ,
+	IN	id_tipo char(5) ,
+	IN   DNI char(20),
+    IN nro_cuenta char(20) ,
+    IN saldo decimal(18,2) 
+)
+BEGIN
+INSERT INTO cuentas(CBU,id_tipo,DNI,fecha_creacion,nro_cuenta,saldo,estado)
+SELECT CBU,id_tipo,DNI,now(),nro_cuenta,saldo,true;
+END 
+//
+DELIMITER ;
+
 
 //IGNORAR ESTAS LINEAS SI YA LAS EJECUTARON
 ALTER TABLE prestamos
@@ -78,3 +93,7 @@ MODIFY estado VARCHAR(20);
 	INSERT INTO clientes(DNI, id_genero, id_nacionalidad, id_provincia, id_localidades, CUIL, nombre, apellido, fecha_nacimiento, direccion, 
 							correo_electronico, telefono_primario, telefono_secundario, estado)
 	SELECT '45879526', 'M', '1', '1', '1', '23458795263', 'Natalia', 'Gomez', '2000/08/03', 'velez 189', 'natigomez@gmail.com', '1189758630', '1178452033', 1;
+	
+	
+	
+	

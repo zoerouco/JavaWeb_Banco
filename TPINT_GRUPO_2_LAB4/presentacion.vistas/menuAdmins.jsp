@@ -32,7 +32,7 @@
                        Cuentas
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="altaCuenta.jsp">Alta de cuentas</a>
+                            <a class="dropdown-item" href="ServletAltaCuenta">Alta de cuentas</a>
                             <a class="dropdown-item" href="#">Modificar Cuentas</a>
                             <a class="dropdown-item" href="#">Listar Cuentas</a>
                             <div class="dropdown-divider"></div>

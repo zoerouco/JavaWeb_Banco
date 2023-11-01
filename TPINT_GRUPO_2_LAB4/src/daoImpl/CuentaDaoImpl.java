@@ -1,5 +1,6 @@
 package daoImpl;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,8 @@ import entidades.Tipo_cuenta;
 
 public class CuentaDaoImpl implements CuentaDao{
 	
-	private static final String insert = "INSERT INTO cuentas(CBU,id_tipo,DNI,fecha_creacion,nro_cuenta,saldo) values (?,?,?,?,?,?)";
+	private static final String insert = "CALL AgregarCuenta (?,?,?,?,?)";
+	
 	private static final String readall = "SELECT * FROM cuentas "
 			+ "INNER JOIN tipo_cuenta ON cuentas.id_tipo = tipo_cuenta.id_tipo "
 			+ "INNER JOIN clientes ON cuentas.DNI = clientes.DNI "
@@ -29,15 +31,13 @@ public class CuentaDaoImpl implements CuentaDao{
 	
 	@Override
 	public boolean insert(Cuenta cuenta) {
-		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
 		try {
-			statement = conexion.prepareStatement(insert);
+			CallableStatement statement = conexion.prepareCall(insert);
 			statement.setString(1, cuenta.getCBU());
-			statement.setObject(2, cuenta.getId_tipo());
-			statement.setObject(3, cuenta.getDNI());
-			statement.setDate(4, cuenta.getFecha_creacion());
+			statement.setString(2, cuenta.getId_tipo().getId_tipo());
+			statement.setString(3, cuenta.getDNI().getDNI());
 			statement.setString(5, cuenta.getNro_cuenta());
 			statement.setFloat(6, cuenta.getSaldo());
 			

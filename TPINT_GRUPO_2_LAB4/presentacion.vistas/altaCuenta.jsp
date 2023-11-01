@@ -1,7 +1,12 @@
+<%@page import="negocioImpl.CuentaNegocioImpl"%>
+<%@page import="entidades.Tipo_cuenta"%>
+<%@page import="daoImpl.Tipo_cuentaDaoImpl"%>
+<%@page import="negocioImpl.ClienteNegocioImpl"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="entidades.Usuario"%>
 <%@page import="entidades.Cliente" %>
+<%@ page import="entidades.Cuenta"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -30,7 +35,7 @@
                            Cuentas
                         </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="altaCuenta.jsp">Alta de cuentas</a>
+                            <a class="dropdown-item" href="ServletAltaCuenta">Alta de cuentas</a>
                             <a class="dropdown-item" href="#">Modificar Cuentas</a>
                             <a class="dropdown-item" href="#">Listar Cuentas</a>
                             <div class="dropdown-divider"></div>
@@ -68,12 +73,12 @@
         </header>
         <!--<h1 id="titulo">Alta de clientes</h1>-->
         <div class="form-alta-cuentas">
-            <form action="ServletCliente" method="get">
+            <form action="ServletAltaCuenta" method="get">
                 <p class="details">Asignar cuenta a un cliente:</p>
                 <div class="inputs">
                     <div class="text-layout">
                         <label for="CBUe">CBU<span class="required-fields">*</span></label>
-                        <input type="text" id="CBU" required>
+                        <input type="text" name="txtCbu" id="CBU" required>
                     </div>
                     
                     <div class="text-layout">
@@ -83,26 +88,31 @@
                     
                     <div class="text-layout">
                         <label for="T-Cuenta">Tipo de Cuenta<span class="required-fields">*</span></label>
-                        <select name="T-Cuenta" id="T-Cuenta">
+                        <select name="txtTipo" id="T-Cuenta">
                             <option value="M">Tipo A</option>
                         </select>
                     </div>
 
                     <div class="text-layout">
                         <label for="adress">Numero de Cuenta<span class="required-fields">*</span></label>
-                        <input type="text" id="adress" placeholder=" 123454" required>
+                        <input type="text" name="txtNroCuenta" id="adress" placeholder=" 123454" required>
                     </div>
 
                     <div class="text-layout">
                         <label for="number1">Saldo<span class="required-fields">*</span></label>
-                        <input type="number" id="number1" required>
+                        <input type="number" name="txtSaldo"id="number1" required>
                     </div>
 
                 </div>
                 <h6 class="required-fields">* - Campos obligatorios.</h6>
-                <button type="submit" id="buttonSubmit">Asignar</button>
+                <input type="submit" name="btnAceptar" value="Agregar" id="buttonSubmit"></input>
                 <button type="reset" id="buttonCancel">Cancelar</button>
             </form>
+                   <% Boolean insert = (Boolean)request.getAttribute("insert");
+               if (insert != null && insert) {%>
+            	   Se agrego correctamente!
+            <%}%>
+
         </div>
 	</body>
     
