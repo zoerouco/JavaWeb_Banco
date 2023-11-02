@@ -28,6 +28,9 @@ public class ClienteDaoImpl implements ClienteDao{
 			+ "INNER JOIN nacionalidades ON clientes.id_nacionalidad = nacionalidades.id "
 			+ "INNER JOIN provincias ON clientes.id_provincia = provincias.id "
 			+ "WHERE clientes.estado = 1";
+	private static final String modificar = "UPDATE clientes SET id_genero=?, id_nacionalidad=?, id_provincia=?,"
+			+ "id_localidades=?, CUIL=?, nombre=?, apellido=?, direccion=?, "
+			+ "correo_electronico=?, telefono_primario=?, telefono_secundario=?, estado=? WHERE DNI=?"; 
 
 	@Override
 	public boolean insert(Cliente cliente) {
@@ -181,12 +184,20 @@ public class ClienteDaoImpl implements ClienteDao{
 					
 					cliente.setDNI(resultSet.getString("DNI"));
 					genero.setId_genero(resultSet.getString("id_genero"));
+					genero.setDescripcion(resultSet.getString("descripcion"));
 					cliente.setId_genero(genero);
 					nacionalidad.setId(resultSet.getInt("id_nacionalidad"));
+					nacionalidad.setCode(resultSet.getShort("code"));
+					nacionalidad.setIso3166a1(resultSet.getString("iso3166a1"));
+					nacionalidad.setIso3166a2(resultSet.getString("iso3166a2"));
+					nacionalidad.setNombre_pais(resultSet.getString("nombre_pais"));					
 					cliente.setId_nacionalidad(nacionalidad);
 					provincia.setId(resultSet.getInt("id_provincia"));
+					provincia.setNombre_provincia(resultSet.getString("nombre_provincia"));					
 					cliente.setId_provincia(provincia);
 					localidad.setId(resultSet.getInt("id_localidades"));
+					localidad.setId_provincia(provincia);
+					localidad.setNombre_localidad(resultSet.getString("nombre_localidad"));					
 					cliente.setId_localidades(localidad);
 					cliente.setCUIL(resultSet.getString("CUIL"));
 					cliente.setNombre(resultSet.getString("nombre"));
@@ -275,5 +286,42 @@ public class ClienteDaoImpl implements ClienteDao{
 		}
 		
 		return lista;
+	}
+
+	@Override
+	public boolean modificar(Cliente cliente) {
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isUpdateExitoso = false;
+		
+		try {
+			PreparedStatement  statement = conexion.prepareStatement(modificar);
+			statement.setString(1, cliente.getId_genero().getId_genero());
+			statement.setInt(2, cliente.getId_nacionalidad().getId());
+			statement.setInt(3, cliente.getId_provincia().getId());
+			statement.setInt(4, cliente.getId_localidades().getId());
+			statement.setString(5, cliente.getCUIL());
+			statement.setString(6, cliente.getNombre());
+			statement.setString(7, cliente.getApellido());
+			statement.setString(8, cliente.getDireccion());
+			statement.setString(9, cliente.getCorreo_electronico());
+			statement.setString(10, cliente.getTelefono_primario());
+			statement.setString(11, cliente.getTelefono_secundario());
+			statement.setBoolean(12, cliente.isEstado());
+			statement.setString(13, cliente.getDNI());
+
+						
+			if(statement.executeUpdate() > 0) {
+				conexion.commit();
+				isUpdateExitoso = true;
+				
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+		return isUpdateExitoso;
 	}
 }
