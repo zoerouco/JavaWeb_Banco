@@ -7,6 +7,8 @@
 <%@ page import="entidades.Usuario"%>
 <%@page import="entidades.Cliente" %>
 <%@ page import="entidades.Cuenta"%>
+<%@ page import="java.util.ArrayList" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -94,7 +96,14 @@
                     <div class="text-layout">
                         <label for="T-Cuenta">Tipo de Cuenta<span class="required-fields">*</span></label>
                         <select name="txtTipo" id="T-Cuenta">
-                            <option value="CC">Tipo A</option>
+						<% ArrayList <Tipo_cuenta> tCuentas = (ArrayList <Tipo_cuenta>)request.getAttribute("listatCuentas");
+                           	   if (tCuentas != null){
+                        			for(Tipo_cuenta tcuenta : tCuentas) { %>
+                        				<option value="<%= tcuenta.getId_tipo()%>"><%=tcuenta.getDescripcion()%></option>
+                        			<%}
+                        		} else { %>
+                        			<option>NO HAY</option>
+                        	  <%}%>
                         </select>
                     </div>
 

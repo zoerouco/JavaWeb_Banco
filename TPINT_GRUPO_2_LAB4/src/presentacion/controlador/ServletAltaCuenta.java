@@ -1,6 +1,7 @@
 package presentacion.controlador;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,10 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import daoImpl.Tipo_cuentaDaoImpl;
 import entidades.Cliente;
 import entidades.Cuenta;
+import entidades.Genero;
 import entidades.Tipo_cuenta;
 import entidades.Usuario;
 import negocioImpl.ClienteNegocioImpl;
 import negocioImpl.CuentaNegocioImpl;
+import negocioImpl.Tipo_cuentaNegocioImpl;
 
 /**
  * Servlet implementation class ServletAltaCuenta
@@ -26,7 +29,15 @@ private static final long serialVersionUID = 1L;
 Cliente admin_actual = new Cliente();
 ClienteNegocioImpl clienteN = new ClienteNegocioImpl();
 Usuario usuario = new Usuario();
-	
+	Cuenta cuenta = new Cuenta();
+	Cliente cli= new Cliente();
+	Tipo_cuentaDaoImpl tipoCuentaDaoImpl= new Tipo_cuentaDaoImpl();
+	Tipo_cuenta tcuenta= new Tipo_cuenta();
+	ClienteNegocioImpl clineg=new ClienteNegocioImpl();
+	CuentaNegocioImpl cuenegImpl=new CuentaNegocioImpl();
+	Tipo_cuentaNegocioImpl tcuenegImpl= new Tipo_cuentaNegocioImpl();
+	ArrayList<Tipo_cuenta> tCuentas = new ArrayList<Tipo_cuenta>();
+
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -41,16 +52,10 @@ Usuario usuario = new Usuario();
 		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		 request.getSession().setAttribute("admin_actual", usuario);
-		
+		 tCuentas = tcuenegImpl.readAll();
+		 request.setAttribute("listatCuentas", tCuentas);
 		
     	if(request.getParameter("btnAceptar") != null){
-    		
-    		Cuenta cuenta = new Cuenta();
-    		Cliente cli= new Cliente();
-    		Tipo_cuentaDaoImpl tipoCuentaDaoImpl= new Tipo_cuentaDaoImpl();
-    		Tipo_cuenta tcuenta= new Tipo_cuenta();
-    		ClienteNegocioImpl clineg=new ClienteNegocioImpl();
-    		CuentaNegocioImpl cuenegImpl=new CuentaNegocioImpl();
     		
     		cuenta.setCBU(request.getParameter("txtCbu"));
     		tcuenta= tipoCuentaDaoImpl.getTipo_cuentaByID(request.getParameter("txtTipo"));
@@ -80,15 +85,8 @@ Usuario usuario = new Usuario();
 		 request.getSession().setAttribute("cliente_actual", admin_actual);
 		
 		
-   	if (request.getAttribute("btnAceptar") != null){
-   		
-   		Cuenta cuenta = new Cuenta();
-   		Cliente cli= new Cliente();
-   		Tipo_cuentaDaoImpl tipoCuentaDaoImpl= new Tipo_cuentaDaoImpl();
-   		Tipo_cuenta tcuenta= new Tipo_cuenta();
-   		ClienteNegocioImpl clineg=new ClienteNegocioImpl();
-   		CuentaNegocioImpl cuenegImpl=new CuentaNegocioImpl();
-   		
+   	if (request.getParameter("btnAceptar") != null){
+   		 		
    		cuenta.setCBU(request.getParameter("txtCbu"));
    		tcuenta= tipoCuentaDaoImpl.getTipo_cuentaByID(request.getParameter("txtTipo"));
    		cuenta.setId_tipo(tcuenta);
