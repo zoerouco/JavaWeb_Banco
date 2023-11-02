@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import daoImpl.ClienteDaoImpl;
 import entidades.Cliente;
@@ -52,9 +53,9 @@ public class ServletModificarCliente extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		if (request.getParameter("btnBuscarXDNI") != null) {
-			
-			String dni = request.getParameter("DNI");
+			String dni = request.getParameter("DNI"); 
 			Cliente cliente = cneg.getClientexDNI(dni);
 			if (cliente != null) {
 			    request.setAttribute("clienteDNI", cliente);
@@ -74,6 +75,7 @@ public class ServletModificarCliente extends HttpServlet {
 			
 			cliente.setNombre(request.getParameter("nombre"));
 			cliente.setApellido(request.getParameter("apellido"));
+			cliente.setDNI(request.getParameter("dni1"));
 			genero = gneg.getGeneroByID(request.getParameter("idGenero"));
 			cliente.setId_genero(genero);
 			nacionalidad = nneg.getNacionalidadByID(Integer.parseInt(request.getParameter("idNacionalidad")));
@@ -89,8 +91,8 @@ public class ServletModificarCliente extends HttpServlet {
 			cliente.setTelefono_secundario(request.getParameter("telSec"));
 			String estadoParam = request.getParameter("estado");
 			boolean estado = "on".equalsIgnoreCase(estadoParam);
-			cliente.setEstado(estado);
-			System.out.println(cliente);
+			cliente.setEstado(estado);;
+	
 
 			
 			boolean update = cneg.modificar(cliente);

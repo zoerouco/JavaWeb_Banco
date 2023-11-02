@@ -78,8 +78,9 @@
 		    <label for="apellido">Apellido:</label>
 		    <input type="text" name="apellido" value="<%= cliente.getApellido() %>">
 		    <br>
-		    <label for="dni">DNI:</label>
-			<label id="dni"><%= cliente.getDNI() %></label>
+		    <label for="dni1">DNI:</label>
+			<label><%= cliente.getDNI() %></label>
+			<input type="hidden" name="dni1" value="<%= cliente.getDNI() %>" >
 		    <br>
 		    <label for="idGenero">ID genero:</label>
 		    <input type="text" name="idGenero" value="<%= cliente.getId_genero().getId_genero() %>">
