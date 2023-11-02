@@ -63,5 +63,61 @@
                 </ul>
             </div> 
         </header>
+        <form action="ServletModificarCliente" method="post">
+         <label for="DNI">Buscar cliente por DNI:<span class="required-fields"></span></label>
+        	<input type="text" name="DNI" id="DNI" placeholder=" " >
+        	<input type="submit" name="btnBuscarXDNI" value="Aceptar" style="margin-top: 200px">
+        	<%  Cliente cliente = (Cliente) request.getAttribute("clienteDNI");
+        		if (cliente != null) {
+        	%>
+        	<br>
+        	<br>
+		    <label for="nombre">Nombre:</label>
+		    <input type="text" name="nombre" value="<%= cliente.getNombre() %>">
+		    <br>
+		    <label for="apellido">Apellido:</label>
+		    <input type="text" name="apellido" value="<%= cliente.getApellido() %>">
+		    <br>
+		    <label for="dni">DNI:</label>
+			<label id="dni"><%= cliente.getDNI() %></label>
+		    <br>
+		    <label for="idGenero">ID genero:</label>
+		    <input type="text" name="idGenero" value="<%= cliente.getId_genero().getId_genero() %>">
+		    <br>
+		    <label for="idNacionalidad">ID nacionalidad:</label>
+		    <input type="text" name="idNacionalidad" value="<%= cliente.getId_nacionalidad().getId() %>">
+		    <br>
+		    <label for="idProvincia">ID provincia:</label>
+		    <input type="text" name="idProvincia" value="<%= cliente.getId_provincia().getId() %>">
+		    <br>
+		    <label for="idLocalidad">ID localidad:</label>
+		    <input type="text" name="idLocalidad" value="<%= cliente.getId_localidades().getId() %>">
+		    <br>
+		    <label for="idCUIL">CUIL:</label>
+		    <input type="text" name="idCUIL" value="<%= cliente.getCUIL() %>">
+		    <br>
+		    <label for="fechaNac">Fecha de nacimiento:</label>
+			<label id="fechaNac"><%= cliente.getFecha_nacimiento() %></label>
+		    <br>
+			<label for="direc">Dirección:</label>
+		    <input type="text" name="direc" value="<%= cliente.getDireccion() %>">
+		    <br>
+		    <label for="correo">Correo electrónico:</label>
+		    <input type="text" name="correo" value="<%= cliente.getCorreo_electronico() %>">
+		    <br>
+		    <label for="telPrimario">Teléfono primario:</label>
+		    <input type="text" name="telPrimario" value="<%= cliente.getTelefono_primario() %>">
+		    <br>
+		    <label for="telSec">Teléfono secundario:</label>
+		    <input type="text" name="telSec" value="<%= cliente.getTelefono_secundario() %>">
+		    <br>
+		    <label for="estado">Estado:</label>
+		    <input type="checkbox" name="estado" <% if (cliente.isEstado()) out.print("checked"); %> value="true"> Activo
+		    <br>
+		    <input type="submit" name="btnGuardar" value="Guardar cambios"> 
+		    <% } %>
+        </form>
+        
+        
 	</body>
 </html>
