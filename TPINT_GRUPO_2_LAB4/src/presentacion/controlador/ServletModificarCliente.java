@@ -65,8 +65,8 @@ public class ServletModificarCliente extends HttpServlet {
 			    System.out.println("ID localidad: " + cliente.getId_localidades().getNombre_localidad());
 
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("/modificarCliente.jsp");   
-	    rd.forward(request, response);
+		/*RequestDispatcher rd = request.getRequestDispatcher("/modificarCliente.jsp");   
+	    rd.forward(request, response);*/
 	}
 		
 		if (request.getParameter("btnGuardar") != null) {

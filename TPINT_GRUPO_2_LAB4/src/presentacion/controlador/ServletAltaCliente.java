@@ -65,7 +65,7 @@ public class ServletAltaCliente extends HttpServlet {
 			cliente.setCUIL(request.getParameter("CUIL"));
 			cliente.setDireccion(request.getParameter("adress"));
 			cliente.setDNI(request.getParameter("DNI"));
-			cliente.setFecha_nacimiento(/*Date.valueOf(request.getParameter("birthdate"))*/new Date(07/07/2003));
+			cliente.setFecha_nacimiento(Date.valueOf(request.getParameter("birthdate"))/*new Date(07/07/2003)*/);
 			genero = gneg.getGeneroByID(request.getParameter("id_genero"));
 			cliente.setId_genero(genero);
 			localidad = lneg.getLocalidadByID(Integer.parseInt(request.getParameter("id_localidad")));
@@ -107,7 +107,7 @@ public class ServletAltaCliente extends HttpServlet {
 			cliente.setCUIL(request.getParameter("CUIL"));
 			cliente.setDireccion(request.getParameter("adress"));
 			cliente.setDNI(request.getParameter("DNI"));
-			cliente.setFecha_nacimiento(/*Date.valueOf(request.getParameter("birthdate"))*/new Date(07/07/2003));
+			cliente.setFecha_nacimiento(Date.valueOf(request.getParameter("birthdate"))/*new Date(07/07/2003)*/);
 			genero = gneg.getGeneroByID(request.getParameter("gender"));
 			cliente.setId_genero(genero);
 			localidad = lneg.getLocalidadByID(Integer.parseInt(request.getParameter("locality")));

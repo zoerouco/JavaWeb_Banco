@@ -2,6 +2,8 @@ package presentacion.controlador;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,12 +24,16 @@ public class ServletEliminarCliente extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		ArrayList<Cliente> listaClientes = cneg.readAllActivos();
 		request.setAttribute("listaClientes", listaClientes);
 		
 		if(request.getParameter("buttonEliminar") != null) {
-			
+			String DNI = request.getParameter("DNI");
+			Cliente cliente = cneg.getClientexDNI(DNI);
+			String confirm = "Esta seguro de que quiere eliminar a " + cliente.getNombre() + ", " + cliente.getApellido() + "?";
+       	 	request.setAttribute("confirm", confirm);
+		}
+		if(request.getParameter("confirmEliminar") != null) {
 			String DNI = request.getParameter("DNI");
 			Cliente cliente = cneg.getClientexDNI(DNI);
 			boolean delete = cneg.delete(cliente);
@@ -36,33 +42,13 @@ public class ServletEliminarCliente extends HttpServlet {
 			listaClientes = cneg.readAllActivos();
 			request.setAttribute("listaClientes", listaClientes);
 		}
-
 		String url = "/eliminarCliente.jsp";
 		request.setAttribute("miUrl", url);
 		request.getRequestDispatcher(url).forward(request, response);
-		
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		ArrayList<Cliente> listaClientes = cneg.readAllActivos();
-		request.setAttribute("listaClientes", listaClientes);
-		
-		if(request.getParameter("buttonEliminar") != null) {
-			
-			String DNI = request.getParameter("DNI");
-			Cliente cliente = cneg.getClientexDNI(DNI);
-			boolean delete = cneg.delete(cliente);
-			request.setAttribute("delete", delete);
-			
-			listaClientes = cneg.readAllActivos();
-			request.setAttribute("listaClientes", listaClientes);
-		}
-
-		String url = "/eliminarCliente.jsp";
-		request.setAttribute("miUrl", url);
-		request.getRequestDispatcher(url).forward(request, response);
-		
+	
 	}
 }

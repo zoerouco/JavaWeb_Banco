@@ -87,27 +87,35 @@
 	        </thead>
 	        <tbody>
 	         <% if(clientes != null) {
-		        		for(Cliente cliente: clientes) { %>
-				        	<tr>
-				        		<form action="ServletEliminarCliente" method="get">
-					        		<th scope="row"><%=cliente.getDNI()%> <input type="hidden" name="DNI" value="<%=cliente.getDNI()%>"></th>
-					        		<td><%=cliente.getNombre()%></td>
-					        		<td><%=cliente.getApellido()%></td>
-					        		<td><%=cliente.getId_genero().getDescripcion()%></td>
-					        		<td><%=cliente.getId_nacionalidad().getNombre_pais()%></td>
-					        		<td><%=cliente.getCUIL()%></td>
-					        		<td><%=cliente.getFecha_nacimiento()%></td>
-					        		<td><%=cliente.getDireccion()%></td>
-					        		<td><%=cliente.getCorreo_electronico()%></td>
-					        		<td><%=cliente.getId_provincia().getNombre_provincia()%></td>
-					        		<td><%=cliente.getId_localidades().getNombre_localidad()%></td>
-					        		<td><%=cliente.getTelefono_primario()%></td>
-					        		<td><%=cliente.getTelefono_secundario()%></td>
-					        		<td><input type="submit" name="buttonEliminar" value="eliminar"></td>
-				        		</form>
-				        	</tr>
-		        	 <%}
-		        }%>
+		        	for(Cliente cliente: clientes) { %>
+				        <tr>
+				        	<form action="ServletEliminarCliente" method="get">
+					        	<th scope="row"><%=cliente.getDNI()%> <input type="hidden" name="DNI" value="<%=cliente.getDNI()%>"></th>
+					        	<td><%=cliente.getNombre()%></td>
+					       		<td><%=cliente.getApellido()%></td>
+					       		<td><%=cliente.getId_genero().getDescripcion()%></td>
+					       		<td><%=cliente.getId_nacionalidad().getNombre_pais()%></td>
+					       		<td><%=cliente.getCUIL()%></td>
+					       		<td><%=cliente.getFecha_nacimiento()%></td>
+					       		<td><%=cliente.getDireccion()%></td>
+					       		<td><%=cliente.getCorreo_electronico()%></td>
+					       		<td><%=cliente.getId_provincia().getNombre_provincia()%></td>
+					       		<td><%=cliente.getId_localidades().getNombre_localidad()%></td>
+				        		<td><%=cliente.getTelefono_primario()%></td>
+				        		<td><%=cliente.getTelefono_secundario()%></td>
+				        		<td><input type="submit" name="buttonEliminar" value="eliminar"></td>
+								<div>
+				    				<%if(request.getAttribute("confirm") != null) { %>
+				    					<%=request.getAttribute("confirm")%>
+				    					<input type="submit" name="confirmEliminar" value="eliminar">
+				    				<%} else {
+				    										
+				    					}%>
+								</div>
+				       		</form>
+				   		</tr>
+				  <%}
+		    }%>
 	        </tbody>
 	    </table>
 	</div>
