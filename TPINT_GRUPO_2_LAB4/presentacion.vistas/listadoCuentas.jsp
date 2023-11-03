@@ -12,17 +12,14 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	    <link rel="stylesheet" type="text/css" href="Recursos/css/main.css">
-	    <link rel="stylesheet" type="text/css" href="Recursos/css/altaCliente.css">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
 	    <title>Globank | Agregar Cuenta</title>
 	</head>
 <body>
-<%
-	
-	Usuario admin = new Usuario ();
-	admin = (Usuario) request.getSession().getAttribute("admin_actual"); 
-	
+	<%
+	Cliente admin = new Cliente ();
+	admin = (Cliente) request.getSession().getAttribute("admin_actual"); 	
 	%>
     <header class="encabezado">
             <div class="contenedor-menu">
@@ -67,7 +64,7 @@
                         </div>
                     </li>
                     <li class="mensaje-bienvenida">
-                        <h1> Bienvenid@, <%= admin.getNombreUsuario() %></h1> 
+                        <h1> Bienvenid@, <%= admin.getNombre() %></h1> 
                     </li>
                 </ul>
             </div> 
@@ -93,7 +90,7 @@
 				        	<tr>
 				        		<th scope="row"><%=cuenta.getCBU()%></th>
 				        		<td><%=cuenta.getId_tipo()%></td>
-				        		<td><%=cuenta.getDNI()%></td>
+				        		<td><%=cuenta.getDNI().getDNI()%></td>
 				        		<td><%=cuenta.getFecha_creacion()%></td>
 				        		<td><%=cuenta.getNro_cuenta()%></td>
 				        		<td><%=cuenta.getSaldo()%></td>

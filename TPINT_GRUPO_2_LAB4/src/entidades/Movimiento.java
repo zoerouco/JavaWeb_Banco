@@ -19,9 +19,6 @@ public class Movimiento {
 	
 	// Constructor para Id_Mov
 	public Movimiento () {
-		ID_Movimiento = ID_Movimiento++;
-		
-		this.ID_Movimiento = ID_Movimiento ;
 		
 	}
 	
@@ -30,8 +27,7 @@ public class Movimiento {
 	
 		public Movimiento(Cuenta CBU, Cuenta CBU_Destino, Date Fecha_Transaccion, int Importe ,String Detalle, String TipoMovimiento, boolean estado) {
 			
-			ID_Movimiento = ID_Movimiento++;
-			this.ID_Movimiento = ID_Movimiento;
+
 			this.CBU=CBU;	
 			this.CBU_Destino=CBU_Destino;
 			this.Importe = Importe;

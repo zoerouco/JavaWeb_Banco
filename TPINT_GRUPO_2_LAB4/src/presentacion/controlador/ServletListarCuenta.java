@@ -1,5 +1,6 @@
 package presentacion.controlador;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -11,9 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import daoImpl.CuentaDaoImpl;
-import entidades.Cliente;
 import entidades.Cuenta;
-import negocioImpl.ClienteNegocioImpl;
 
 @WebServlet("/ServletListarCuenta")
 public class ServletListarCuenta extends HttpServlet {
@@ -32,7 +31,7 @@ public class ServletListarCuenta extends HttpServlet {
 		ArrayList<Cuenta> listaCuentas = cneg.readAll();
 		request.setAttribute("listaCuentas", listaCuentas);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/listadocuenta.jsp");   
+		RequestDispatcher rd = request.getRequestDispatcher("/listadoCuentas.jsp");   
 	    rd.forward(request, response);
 	}
 		
@@ -43,7 +42,7 @@ public class ServletListarCuenta extends HttpServlet {
 		ArrayList<Cuenta> listaCuentas = cneg.readAll();
 		request.setAttribute("listaCuentas", listaCuentas);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/listadoCliente.jsp");   
+		RequestDispatcher rd = request.getRequestDispatcher("/listadoCuentas.jsp");   
 	    rd.forward(request, response);
 	}
 }
