@@ -36,7 +36,7 @@
                             <a class="dropdown-item" href="#">Modificar Cuentas</a>
                             <a class="dropdown-item" href="ServletListarCuenta">Listar Cuentas</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Baja de cuentas</a>
+                            <a class="dropdown-item" href="ServletEliminarCuenta">Baja de cuentas</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
