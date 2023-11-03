@@ -21,8 +21,9 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 
 	@Override
 	public boolean delete(Cuenta cuenta) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean estado=false;
+		estado=cdao.delete(cuenta);
+		return estado;
 	}
 
 	@Override

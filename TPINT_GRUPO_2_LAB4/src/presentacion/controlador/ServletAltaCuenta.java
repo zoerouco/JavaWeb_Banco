@@ -26,6 +26,7 @@ import negocioImpl.Tipo_cuentaNegocioImpl;
 @WebServlet("/ServletAltaCuenta")
 public class ServletAltaCuenta extends HttpServlet {
 private static final long serialVersionUID = 1L;
+
 Cliente admin_actual = new Cliente();
 ClienteNegocioImpl clienteN = new ClienteNegocioImpl();
 Usuario usuario = new Usuario();
@@ -39,12 +40,9 @@ Usuario usuario = new Usuario();
 	ArrayList<Tipo_cuenta> tCuentas = new ArrayList<Tipo_cuenta>();
 
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ServletAltaCuenta() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
     
     
