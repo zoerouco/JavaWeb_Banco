@@ -105,12 +105,14 @@
 				        		<td><%=cliente.getTelefono_secundario()%></td>
 				        		<td><input type="submit" name="buttonEliminar" value="eliminar"></td>
 								<div>
-				    				<%if(request.getAttribute("confirm") != null) { %>
-				    					<%=request.getAttribute("confirm")%>
-				    					<input type="submit" name="confirmEliminar" value="eliminar">
-				    				<%} else {
-				    										
-				    					}%>
+								<%!int cont = 0; %>
+				    				<%if(request.getAttribute("confirm") != null) {
+				    					cont++;
+				    					if(cont <=1) {%>
+					    					<%=request.getAttribute("confirm")%>
+					    					<input type="submit" name="confirmEliminar" value="eliminar">
+				    					<%}
+				    				}%>
 								</div>
 				       		</form>
 				   		</tr>
