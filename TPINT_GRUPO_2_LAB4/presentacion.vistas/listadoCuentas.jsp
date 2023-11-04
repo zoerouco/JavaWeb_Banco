@@ -17,14 +17,14 @@
 </head>
 <body>
 	<%
-	Cliente admin = new Cliente ();
-	admin = (Cliente) request.getSession().getAttribute("admin_actual");
+	Usuario admin = new Usuario ();
+	admin = (Usuario) request.getAttribute("admin_actual");
 	%>
 		<header class="encabezado">
             <div class="contenedor-menu">
-             <a href="menuAdmins.jsp">
-                   <img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" /> 
-               </a> 
+			<a href="ServletMenuAdmin">
+           		<img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" /> 
+          	</a>
                 <h1 style="color:#ffefd5;"> GLOBANK </h1>
                 <ul class="contenedor-links-menu">  
                     <li class="nav-item dropdown">
@@ -63,7 +63,7 @@
                         </div>
                     </li>
                     <li class="mensaje-bienvenida">
-                        <h1> Bienvenid@, <%=admin.getNombre() %></h1> 
+                        <h1> Bienvenid@, <%=admin.getNombreUsuario() %></h1> 
                     </li>
                 </ul>
             </div> 

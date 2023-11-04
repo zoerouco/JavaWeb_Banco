@@ -45,7 +45,9 @@
 
 	<header class="encabezado">
 	<div class="contenedor-menu">
-		<img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" />
+			<a href="ServletMenuCliente">
+           		<img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" /> 
+          	</a> 
 		<h1 style="color: #ffefd5;">GLOBANK</h1>
 
 		<ul class="contenedor-links-menu">

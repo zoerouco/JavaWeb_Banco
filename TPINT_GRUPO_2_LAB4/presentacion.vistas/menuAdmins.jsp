@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="entidades.Usuario"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="entidades.Usuario" %>
 <%@page import="entidades.Cliente" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -16,14 +17,14 @@
 </head>
 <body>
 	<%
-	Cliente admin = new Cliente ();
-	admin = (Cliente) request.getSession().getAttribute("admin_actual");
+	Usuario admin = new Usuario ();
+	admin = (Usuario) request.getAttribute("admin_actual");
 	%>
     <header class="encabezado">
         <div class="contenedor-menu">
-           <a href="menuAdmins.jsp">
-           <img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" /> 
-           </a> 
+			<a href="ServletMenuAdmin">
+           		<img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" /> 
+          	</a>
             <h1 style="color:#ffefd5;"> GLOBANK </h1>
             <ul class="contenedor-links-menu">  
 
@@ -65,7 +66,7 @@
                 </li>
                 
                 <li class="mensaje-bienvenida">
-                <h1>Bienvenid@, <%= admin.getNombre()%></h1>
+                <h1>Bienvenid@, <%= admin.getNombreUsuario() %></h1>
             	</li>
             </ul>
         </div> 

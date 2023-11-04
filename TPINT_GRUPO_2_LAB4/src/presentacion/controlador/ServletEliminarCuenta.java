@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entidades.Cliente;
 import entidades.Cuenta;
+import entidades.Usuario;
 import negocioImpl.CuentaNegocioImpl;
 
 
@@ -19,7 +20,7 @@ public class ServletEliminarCuenta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	CuentaNegocioImpl cnegImpl = new CuentaNegocioImpl();
-	
+	Usuario usuario = new Usuario();
 	
     public ServletEliminarCuenta() {
         super();
@@ -28,6 +29,8 @@ public class ServletEliminarCuenta extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		usuario = (Usuario) request.getSession().getAttribute("usuario");  
+		request.setAttribute("admin_actual", usuario);
 		ArrayList<Cuenta> listaCuentas = cnegImpl.readAll();
 		request.setAttribute("listaCuentas", listaCuentas);
 		

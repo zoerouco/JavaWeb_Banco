@@ -42,7 +42,6 @@ public class ServletModificarCliente extends HttpServlet {
 	
     public ServletModificarCliente() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	

@@ -46,9 +46,10 @@ public class ServletMenuAdmin extends HttpServlet {
 		
 		if(request.getSession().getAttribute("usuario") != null) {
 			  
-			 usuario = (Usuario) request.getSession().getAttribute("usuario");  
-			 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
-			 request.getSession().setAttribute("cliente_actual", cliente);
+			 usuario = (Usuario) request.getSession().getAttribute("usuario");
+			 request.setAttribute("admin_actual", usuario);
+			// cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
+			// request.getSession().setAttribute("cliente_actual", cliente);
 		}
 	  	
 		String url = "/menuAdmins.jsp";

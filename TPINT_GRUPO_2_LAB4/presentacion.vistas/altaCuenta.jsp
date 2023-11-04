@@ -25,14 +25,14 @@
 	<%
 	
 	Usuario admin = new Usuario ();
-	admin = (Usuario) request.getSession().getAttribute("admin_actual"); 
+	admin = (Usuario) request.getAttribute("admin_actual"); 
 	
 	%>
         <header class="encabezado">
             <div class="contenedor-menu">
-	        <a href="menuAdmins.jsp">
-         	 	 <img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" /> 
-           	</a> 
+			<a href="ServletMenuAdmin">
+           		<img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" /> 
+          	</a>  
                 <h1 style="color:#ffefd5;"> GLOBANK </h1>
                 <ul class="contenedor-links-menu">  
                     <li class="nav-item dropdown">

@@ -49,7 +49,7 @@ Usuario usuario = new Usuario();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
-		 request.getSession().setAttribute("admin_actual", usuario);
+		 request.setAttribute("admin_actual", usuario);
 		 tCuentas = tcuenegImpl.readAll();
 		 request.setAttribute("listatCuentas", tCuentas);
 		
