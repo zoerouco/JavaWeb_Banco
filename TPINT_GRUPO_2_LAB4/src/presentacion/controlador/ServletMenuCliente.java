@@ -48,7 +48,7 @@ public class ServletMenuCliente extends HttpServlet {
 			 usuario = (Usuario) request.getSession().getAttribute("usuario");  
 			 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
 			 request.getSession().setAttribute("cliente_actual", cliente);
-			 cuentas_cliente = cuentaN.getCuentaxDNI(usuario.getDni().getDNI());
+			 cuentas_cliente = cuentaN.getCuentasxDNI(usuario.getDni().getDNI());
 			 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente);
 			 
 			
@@ -73,7 +73,7 @@ public class ServletMenuCliente extends HttpServlet {
 				 usuario = (Usuario) request.getSession().getAttribute("usuario");  
 				 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
 				 request.getSession().setAttribute("cliente_actual", cliente);
-				 cuentas_cliente = cuentaN.getCuentaxDNI(usuario.getDni().getDNI());
+				 cuentas_cliente = cuentaN.getCuentasxDNI(usuario.getDni().getDNI());
 				 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente);
 				 
 		

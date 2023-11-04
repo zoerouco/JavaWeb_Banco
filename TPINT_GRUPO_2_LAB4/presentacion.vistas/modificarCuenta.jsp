@@ -2,22 +2,28 @@
 <%@ page import="entidades.Usuario"%>
 <%@page import="entidades.Cliente" %>
 <%@ page import="entidades.Cuenta"%>
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	    <link rel="stylesheet" type="text/css" href="Recursos/css/main.css">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
+	    <title>Globank | Modificar Clientes</title>
+	</head>
+	
 <body>
-<header class="encabezado">
-<% 	Usuario admin = new Usuario ();
-        	admin = (Usuario) request.getAttribute("admin_actual");
-        	Cuenta cuenta = (Cuenta) request.getAttribute("cuentaDNI");
-    		if (cuenta != null) {
+
+<% 	
+Usuario admin = new Usuario ();
+admin = (Usuario) request.getAttribute("admin_actual");
+        	
         	%>
+
+<header class="encabezado">
             <div class="contenedor-menu">
 			<a href="ServletMenuAdmin">
            		<img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" /> 
@@ -65,35 +71,48 @@
                 </ul>
             </div> 
         </header>
-  <form action="ServletModificarCliente" method="post">
-         <label for="DNI">Buscar cuenta por DNI:<span class="required-fields"></span></label>
-        	<input type="text" name="DNI" id="DNI" placeholder=" " >
-        	<input type="submit" name="btnBuscarXDNI" value="Aceptar" style="margin-top: 200px">       	
+  <form action="ServletModificarCuenta" method="post">
+         <label for="CBU"> Buscar cuenta por CBU:<span class="required-fields"></span></label>
+        	<input type="text" name="CBU" id="CBU" placeholder=" " >
+        	<input type="submit" name="btnBuscarCBU" value="Aceptar" style="margin-top: 200px">       	
+	  <%
+	  Cuenta cuenta = (Cuenta) request.getAttribute("cuentaCBU");
+	  
+		if (cuenta != null) { %>
         	<br>
         	<br>
-		    <label for="nombre">CBU:</label>
-		    <input type="text" name="cbu" value="<%= cuenta.getCBU() %>">
+		    <label>CBU:</label>
+		    <label name="cbu-cliente"> <%= cuenta.getCBU() %></label>
 		    <br>
-		    <label for="apellido">Nro de cuenta:</label>
-		    <input type="text" name="cbu" value="<%= cuenta.getNro_cuenta() %>">
+		    <label>Nro de cuenta:</label>
+		    <label><%= cuenta.getNro_cuenta() %></label>
 		    <br>
-		    <label for="dni1">DNI:</label>
-			<label><%= cuenta.getDNI() %></label>
-			<input type="text" name="dn1" value="<%= cuenta.getDNI() %>" >
+		    <label>DNI:</label>
+			<label><%= cuenta.getDNI().getDNI() %></label>
 		     <br>		   
-		    <label for="Saldo">Saldo:</label>
-		    <input type="hidden" name="Saldo" value="<%= cuenta.getSaldo() %>" >
-		    <br>
+		    <label>Saldo:</label>
+		    <label><%= cuenta.getSaldo() %></label>
+		   <input type="number"  required name="Saldo" min="1000"
+					max="100000000" step="1000"></input>
 		     <br>		   
 		    <label for="IdTipo">IdTipo:</label>
-		    <input type="hidden" name="IdTipo" value="<%= cuenta.getId_tipo() %>" >
+		    <label> <%= cuenta.getId_tipo().getId_tipo() %></label>
 		    <br>
 		    <br>		   
-		    <label for="estado">Estado:</label>
-		    <input type="checkbox" name="estado" <% if (cuenta.getEstado()) out.print("checked"); %> value="true"> Activo
+		    <label>Estado:</label>
+		    <% if(cuenta.getEstado()){
+		    	%>
+		    	  <label> ACTIVA </label>
+		   <%}else{ %> 
+		 		 <label> INACTIVA </label>
+		 		 <%} %>
 		    <br>
 		    <input type="submit" name="btnGuardar" value="Guardar cambios"> 
-		    <% } %>
+		    
+        SE MODIFICO CORRECTAMENTE
+      
+		<%} %>
         </form>
+     
 </body>
 </html>

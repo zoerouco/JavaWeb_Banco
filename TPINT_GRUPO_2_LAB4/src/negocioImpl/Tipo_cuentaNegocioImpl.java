@@ -14,5 +14,13 @@ public class Tipo_cuentaNegocioImpl implements Tipo_cuentaNegocio {
 	public ArrayList<Tipo_cuenta> readAll() {
 		return tcdao.readAll();
 	}
+	
+	
+	public  Tipo_cuenta getTipo_cuentaByID(String id_tipo) {
+		
+		return tcdao.getTipo_cuentaByID(id_tipo);
+
+		
+	}
 
 }

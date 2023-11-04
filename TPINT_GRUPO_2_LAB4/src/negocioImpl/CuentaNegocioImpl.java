@@ -47,10 +47,17 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 		
 		return cuenta;
 	}
+	
 
-	@Override
-	public ArrayList<Cuenta> getCuentaxDNI(String DNI) {
+	public ArrayList<Cuenta> getCuentasxDNI (String DNI) {
 		return  cuentas_cliente = cdao.getCuentasxDNI(DNI);
+	}
+	
+public Cuenta getCuentaxDNI (String CBU) {
+		
+		cuenta = cdao.getCuentaxCBU(CBU);
+		
+		return cuenta;
 	}
 
 	public boolean modificar(Cuenta cuenta) {
@@ -58,4 +65,6 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 		update = cdao.modificar(cuenta);
 		return update;
 	}
+
+
 }
