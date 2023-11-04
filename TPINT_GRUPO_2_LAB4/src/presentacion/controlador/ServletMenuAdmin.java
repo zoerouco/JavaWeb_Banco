@@ -44,14 +44,12 @@ public class ServletMenuAdmin extends HttpServlet {
 		ArrayList<Cliente> listaClientes = cneg.readAll();
 		request.setAttribute("listaClientes", listaClientes);
 		
-		if(request.getSession().getAttribute("usuario") != null) {
-			  
-			 usuario = (Usuario) request.getSession().getAttribute("usuario");
-			 request.setAttribute("admin_actual", usuario);
-			// cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
-			// request.getSession().setAttribute("cliente_actual", cliente);
-		}
-	  	
+	     usuario = (Usuario) request.getSession().getAttribute("usuario");
+		 request.setAttribute("admin_actual", usuario);
+		
+		
+			 
+			 
 		String url = "/menuAdmins.jsp";
 		request.setAttribute("miUrl", url);
 		request.getRequestDispatcher(url).forward(request, response);
@@ -66,15 +64,15 @@ public class ServletMenuAdmin extends HttpServlet {
 		ArrayList<Cliente> listaClientes = cneg.readAll();
 		request.setAttribute("listaClientes", listaClientes);
 		
-		if(request.getSession().getAttribute("usuario") != null) {
-			  
-			 usuario = (Usuario) request.getSession().getAttribute("usuario");  
-			 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
-			 request.getSession().setAttribute("admin_actual", cliente);
-		}
-	  	
+	     usuario = (Usuario) request.getSession().getAttribute("usuario");
+		 request.setAttribute("admin_actual", usuario);
+		
+		
+			 
+			 
 		String url = "/menuAdmins.jsp";
 		request.setAttribute("miUrl", url);
 		request.getRequestDispatcher(url).forward(request, response);
-	}
+}
+
 }

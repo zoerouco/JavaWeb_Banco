@@ -64,7 +64,7 @@
                         <a class="dropdown-item" href="#">Eliminar Prestamos</a>
                     </div>
                 </li>
-                
+           
                 <li class="mensaje-bienvenida">
                 <h1>Bienvenid@, <%= admin.getNombreUsuario() %></h1>
             	</li>
