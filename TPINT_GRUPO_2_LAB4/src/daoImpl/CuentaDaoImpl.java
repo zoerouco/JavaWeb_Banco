@@ -28,6 +28,8 @@ public class CuentaDaoImpl implements CuentaDao{
 			+ "INNER JOIN localidades ON clientes.id_localidades = localidades.id "
 			+ "INNER JOIN nacionalidades ON clientes.id_nacionalidad = nacionalidades.id "
 			+ "INNER JOIN provincias ON clientes.id_provincia = provincias.id";
+	private static final String modificar = "UPDATE cuentas SET CBU=?, id_tipo=?, DNI=?, fecha_creacion=?, "
+		    + "nro_cuenta=?, saldo=?, estado=? WHERE CBU=?";
 	
 	@Override
 	public boolean insert(Cuenta cuenta) {
@@ -286,6 +288,37 @@ public class CuentaDaoImpl implements CuentaDao{
 		return cuenta;
 	
 }
+	
+	public boolean modificar(Cuenta cuenta) {
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isUpdateExitoso = false;
+		
+		try {
+			PreparedStatement  statement = conexion.prepareStatement(modificar);
+			
+			
+			statement.setString(1, cuenta.getCBU());
+			statement.setString(2, cuenta.getId_tipo().getId_tipo());
+			statement.setString(3, cuenta.getDNI().getDNI()); // Supongo que DNI es una instancia de Cliente
+			statement.setDate(4, new java.sql.Date(cuenta.getFecha_creacion().getTime()));
+			statement.setString(5, cuenta.getNro_cuenta());
+			statement.setFloat(6, cuenta.getSaldo());			
+			statement.setBoolean(7, cuenta.getEstado());
+						
+			if(statement.executeUpdate() > 0) {
+				conexion.commit();
+				isUpdateExitoso = true;
+				
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+		return isUpdateExitoso;
+	}
 
 }
 

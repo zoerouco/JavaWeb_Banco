@@ -10,5 +10,6 @@ public interface CuentaDao {
 	public ArrayList<Cuenta> readAll();
 	public ArrayList<Cuenta> getCuentasxDNI(String DNI);
 	public Cuenta getCuentaxCBU (String CBU);
+	public boolean modificar(Cuenta cuenta);
 	
 }

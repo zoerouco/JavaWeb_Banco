@@ -3,6 +3,7 @@ package negocioImpl;
 import java.util.ArrayList;
 import dao.CuentaDao;
 import daoImpl.CuentaDaoImpl;
+import entidades.Cliente;
 import entidades.Cuenta;
 import negocio.CuentaNegocio;
 
@@ -52,5 +53,9 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 		return  cuentas_cliente = cdao.getCuentasxDNI(DNI);
 	}
 
-	
+	public boolean modificar(Cuenta cuenta) {
+		boolean update = false;
+		update = cdao.modificar(cuenta);
+		return update;
+	}
 }
