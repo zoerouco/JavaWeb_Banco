@@ -17,6 +17,7 @@ import entidades.Genero;
 import entidades.Localidad;
 import entidades.Nacionalidad;
 import entidades.Provincia;
+import entidades.Usuario;
 import negocioImpl.ClienteNegocioImpl;
 import negocioImpl.GeneroNegocioImpl;
 import negocioImpl.LocalidadNegocioImpl;
@@ -39,6 +40,7 @@ public class ServletModificarCliente extends HttpServlet {
 	Localidad localidad = new Localidad();
 	ProvinciaNegocioImpl pneg = new ProvinciaNegocioImpl();
 	Provincia provincia = new Provincia();
+	Usuario usuario = new Usuario();
 	
     public ServletModificarCliente() {
         super();
@@ -46,12 +48,68 @@ public class ServletModificarCliente extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		usuario = (Usuario) request.getSession().getAttribute("usuario");  
+		 request.setAttribute("admin_actual", usuario);
+		
+		
+		if (request.getParameter("btnBuscarXDNI") != null) {
+			String dni = request.getParameter("DNI"); 
+			Cliente cliente = cneg.getClientexDNI(dni);
+			if (cliente != null) {
+			    request.setAttribute("clienteDNI", cliente);
+			    System.out.println("ID genero: " + cliente.getId_genero().getDescripcion());
+			    System.out.println("ID nacionalidad: " + cliente.getId_nacionalidad().getNombre_pais());
+			    System.out.println("ID provincia: " + cliente.getId_provincia().getNombre_provincia());
+			    System.out.println("ID localidad: " + cliente.getId_localidades().getNombre_localidad());
+
+		}
+		
+	}
+		
+		if (request.getParameter("btnGuardar") != null) {
+			
+			Cliente cliente = new Cliente();
+			
+			cliente.setNombre(request.getParameter("nombre"));
+			cliente.setApellido(request.getParameter("apellido"));
+			cliente.setDNI(request.getParameter("dni1"));
+			genero = gneg.getGeneroByID(request.getParameter("idGenero"));
+			cliente.setId_genero(genero);
+			nacionalidad = nneg.getNacionalidadByID(Integer.parseInt(request.getParameter("idNacionalidad")));
+			cliente.setId_nacionalidad(nacionalidad);
+			cliente.setCUIL(request.getParameter("idCUIL"));
+			cliente.setDireccion(request.getParameter("direc"));	
+			cliente.setCorreo_electronico(request.getParameter("correo"));
+			provincia = pneg.getProvinciaByID(Integer.parseInt(request.getParameter("idProvincia")));
+			cliente.setId_provincia(provincia);
+			localidad = lneg.getLocalidadByID(Integer.parseInt(request.getParameter("idLocalidad")));
+			cliente.setId_localidades(localidad);
+			cliente.setTelefono_primario(request.getParameter("telPrimario"));
+			cliente.setTelefono_secundario(request.getParameter("telSec"));
+			String estadoParam = request.getParameter("estado");
+			boolean estado = "on".equalsIgnoreCase(estadoParam);
+			cliente.setEstado(estado);;
+	
+
+			
+			boolean update = cneg.modificar(cliente);
+			request.setAttribute("update", update);
+			if(update) {
+				System.out.println("se modifico correctamente");
+			} else {
+				System.out.println("no se pudo modificar");
+			}
+		}
 		RequestDispatcher rd = request.getRequestDispatcher("/modificarCliente.jsp");   
 	    rd.forward(request, response);
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		usuario = (Usuario) request.getSession().getAttribute("usuario");  
+		 request.setAttribute("admin_actual", usuario);
 
 		if (request.getParameter("btnBuscarXDNI") != null) {
 			String dni = request.getParameter("DNI"); 
@@ -64,8 +122,7 @@ public class ServletModificarCliente extends HttpServlet {
 			    System.out.println("ID localidad: " + cliente.getId_localidades().getNombre_localidad());
 
 		}
-		/*RequestDispatcher rd = request.getRequestDispatcher("/modificarCliente.jsp");   
-	    rd.forward(request, response);*/
+		
 	}
 		
 		if (request.getParameter("btnGuardar") != null) {

@@ -15,8 +15,8 @@
 	</head>
 	<body>
 	<%
-	Cliente admin = new Cliente ();
-	admin = (Cliente) request.getSession().getAttribute("admin_actual");
+	Usuario admin = new Usuario ();
+	admin = (Usuario) request.getAttribute("admin_actual");
 	%>
 		<header class="encabezado">
             <div class="contenedor-menu">
@@ -34,7 +34,7 @@
                             <a class="dropdown-item" href="#">Modificar Cuentas</a>
                             <a class="dropdown-item" href="ServletListarCuenta">Listar Cuentas</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Baja de cuentas</a>
+                            <a class="dropdown-item" href="ServletEliminarCuenta">Baja de cuentas</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -43,7 +43,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="ServletAltaCliente">Alta de clientes</a>
-                        <a class="dropdown-item" href="modificarCliente.jsp">Modificar clientes</a>
+                        <a class="dropdown-item" href="ServletModificarCliente">Modificar clientes</a>
                         <a class="dropdown-item" href="ServletListadoCliente">Listar clientes</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="ServletEliminarCliente">Baja de clientes</a>
@@ -61,7 +61,7 @@
                         </div>
                     </li>
                     <li class="mensaje-bienvenida">
-                        <h1> Bienvenid@, <%=admin.getNombre() %></h1> 
+                        <h1> Bienvenid@, <%=admin.getNombreUsuario() %></h1> 
                     </li>
                 </ul>
             </div> 

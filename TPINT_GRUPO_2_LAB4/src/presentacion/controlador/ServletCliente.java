@@ -18,7 +18,7 @@ import negocioImpl.CuentaNegocioImpl;
 import negocioImpl.PrestamoNegocioImpl;
 
 
-@WebServlet("/ServletCliente")
+@WebServlet("/ServletCliente") //SERVLET DE PRÉSTAMOS!!!
 
 
 

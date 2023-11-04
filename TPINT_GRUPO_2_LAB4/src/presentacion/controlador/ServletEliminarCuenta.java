@@ -55,8 +55,29 @@ public class ServletEliminarCuenta extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		usuario = (Usuario) request.getSession().getAttribute("usuario");  
+		request.setAttribute("admin_actual", usuario);
+		ArrayList<Cuenta> listaCuentas = cnegImpl.readAll();
+		request.setAttribute("listaCuentas", listaCuentas);
+		
+		
+		if(request.getParameter("buttonEliminar") != null) {
+			String CBU = request.getParameter("CBU");
+			Cuenta cuenta = cnegImpl.getCuentaxCBU(CBU);
+			String confirm = "Esta seguro de que quiere eliminar a la cuenta nro :" + cuenta.getNro_cuenta() + "," + "?";
+       	 	request.setAttribute("confirm", confirm);
+		}
+		if(request.getParameter("confirmEliminar") != null) {
+			String CBU = request.getParameter("CBU");
+			Cuenta cuenta = cnegImpl.getCuentaxCBU(CBU);
+			boolean delete = cnegImpl.delete(cuenta);
+			request.setAttribute("delete", delete);
+			
+			request.setAttribute("listaCuentas", listaCuentas);
+		}
+		String url = "/eliminarCuenta.jsp";
+		request.setAttribute("miUrl", url);
+		request.getRequestDispatcher(url).forward(request, response);
 	}
 
 }

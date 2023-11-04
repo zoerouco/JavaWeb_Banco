@@ -13,11 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import daoImpl.CuentaDaoImpl;
 import entidades.Cuenta;
+import entidades.Usuario;
 
 @WebServlet("/ServletListarCuenta")
 public class ServletListarCuenta extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	Usuario usuario = new Usuario();
 	
 	CuentaDaoImpl cneg = new CuentaDaoImpl();
 	
@@ -27,6 +29,10 @@ public class ServletListarCuenta extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		usuario = (Usuario) request.getSession().getAttribute("usuario");  
+		 request.setAttribute("admin_actual", usuario);
 		
 		ArrayList<Cuenta> listaCuentas = cneg.readAll();
 		request.setAttribute("listaCuentas", listaCuentas);
@@ -39,6 +45,9 @@ public class ServletListarCuenta extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		usuario = (Usuario) request.getSession().getAttribute("usuario");  
+		 request.setAttribute("admin_actual", usuario);
+		 
 		ArrayList<Cuenta> listaCuentas = cneg.readAll();
 		request.setAttribute("listaCuentas", listaCuentas);
 		

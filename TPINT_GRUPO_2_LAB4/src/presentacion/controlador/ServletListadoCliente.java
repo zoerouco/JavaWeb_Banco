@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entidades.Cliente;
+import entidades.Usuario;
 import negocioImpl.ClienteNegocioImpl;
 
 @WebServlet("/ServletListadoCliente")
 public class ServletListadoCliente extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	Usuario usuario = new Usuario();
 	
 	ClienteNegocioImpl cneg = new ClienteNegocioImpl();
 	
@@ -30,6 +32,9 @@ public class ServletListadoCliente extends HttpServlet {
 		ArrayList<Cliente> listaClientes = cneg.readAll();
 		request.setAttribute("listaClientes", listaClientes);
 		
+		usuario = (Usuario) request.getSession().getAttribute("usuario");  
+		request.setAttribute("admin_actual", usuario);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCliente.jsp");   
 	    rd.forward(request, response);
 	}
@@ -40,6 +45,8 @@ public class ServletListadoCliente extends HttpServlet {
 		
 		ArrayList<Cliente> listaClientes = cneg.readAll();
 		request.setAttribute("listaClientes", listaClientes);
+		usuario = (Usuario) request.getSession().getAttribute("usuario");  
+		request.setAttribute("admin_actual", usuario);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCliente.jsp");   
 	    rd.forward(request, response);

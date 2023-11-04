@@ -14,6 +14,7 @@ import entidades.Genero;
 import entidades.Localidad;
 import entidades.Nacionalidad;
 import entidades.Provincia;
+import entidades.Usuario;
 import negocioImpl.ClienteNegocioImpl;
 import negocioImpl.GeneroNegocioImpl;
 import negocioImpl.LocalidadNegocioImpl;
@@ -26,6 +27,7 @@ public class ServletAltaCliente extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
+	Usuario usuario = new Usuario();
 	ClienteNegocioImpl cneg = new ClienteNegocioImpl();
 	Genero genero = new Genero();
 	GeneroNegocioImpl gneg = new GeneroNegocioImpl();
@@ -47,6 +49,11 @@ public class ServletAltaCliente extends HttpServlet {
 
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		usuario = (Usuario) request.getSession().getAttribute("usuario");  
+		request.setAttribute("admin_actual", usuario);
+		
+		
 		generos = gneg.readAll();
 		request.setAttribute("listaGeneros", generos);
 		nacionalidades = nneg.readAll();
@@ -88,6 +95,10 @@ public class ServletAltaCliente extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		usuario = (Usuario) request.getSession().getAttribute("usuario");  
+		request.setAttribute("admin_actual", usuario);
+		
 		
 		generos = gneg.readAll();
 		request.setAttribute("listaGeneros", generos);

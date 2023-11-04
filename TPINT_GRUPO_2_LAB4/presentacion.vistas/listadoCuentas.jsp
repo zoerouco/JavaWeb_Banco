@@ -36,7 +36,7 @@
                             <a class="dropdown-item" href="#">Modificar Cuentas</a>
                             <a class="dropdown-item" href="ServletListarCuenta">Listar Cuentas</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Baja de cuentas</a>
+                            <a class="dropdown-item" href="ServletEliminarCuenta">Baja de cuentas</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -45,7 +45,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="ServletAltaCliente">Alta de clientes</a>
-                        <a class="dropdown-item" href="modificarCliente.jsp">Modificar clientes</a>
+                        <a class="dropdown-item" href="ServletModificarCliente">Modificar clientes</a>
                         <a class="dropdown-item" href="ServletListadoCliente">Listar clientes</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="ServletEliminarCliente">Baja de clientes</a>

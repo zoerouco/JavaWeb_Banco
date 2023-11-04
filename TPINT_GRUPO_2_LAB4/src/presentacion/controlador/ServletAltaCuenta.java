@@ -78,13 +78,13 @@ Usuario usuario = new Usuario();
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		 usuario = (Usuario) request.getSession().getAttribute("usuario");  
-		 admin_actual = clienteN.getClientexDNI(usuario.getDni().getDNI());
-		 request.getSession().setAttribute("cliente_actual", admin_actual);
+		usuario = (Usuario) request.getSession().getAttribute("usuario");  
+		 request.setAttribute("admin_actual", usuario);
+		 tCuentas = tcuenegImpl.readAll();
+		 request.setAttribute("listatCuentas", tCuentas);
 		
-		
-   	if (request.getParameter("btnAceptar") != null){
-   		 		
+   	if(request.getParameter("btnAceptar") != null){
+   		
    		cuenta.setCBU(request.getParameter("txtCbu"));
    		tcuenta= tipoCuentaDaoImpl.getTipo_cuentaByID(request.getParameter("txtTipo"));
    		cuenta.setId_tipo(tcuenta);
@@ -102,6 +102,7 @@ Usuario usuario = new Usuario();
    	String url = "/altaCuenta.jsp";
 		request.setAttribute("miUrl", url);
 		request.getRequestDispatcher(url).forward(request, response);
-	}
+
+}
 
 }

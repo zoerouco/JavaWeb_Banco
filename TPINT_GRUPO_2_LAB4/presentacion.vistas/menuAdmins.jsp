@@ -46,7 +46,7 @@
                     </a>
                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="ServletAltaCliente">Alta de clientes</a>
-                        <a class="dropdown-item" href="modificarCliente.jsp">Modificar clientes</a>
+                        <a class="dropdown-item" href="ServletModificarCliente">Modificar clientes</a>
                         <a class="dropdown-item" href="ServletListadoCliente">Listar clientes</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="ServletEliminarCliente">Baja de clientes</a>
