@@ -28,7 +28,7 @@ public class ServletEliminarCliente extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
-		 request.setAttribute("admin_actual", usuario);
+		request.setAttribute("admin_actual", usuario);
 		 
 		ArrayList<Cliente> listaClientes = cneg.readAllActivos();
 		request.setAttribute("listaClientes", listaClientes);
@@ -37,7 +37,7 @@ public class ServletEliminarCliente extends HttpServlet {
 			String DNI = request.getParameter("DNI");
 			Cliente cliente = cneg.getClientexDNI(DNI);
 			String confirm = "Esta seguro de que quiere eliminar a " + cliente.getNombre() + ", " + cliente.getApellido() + "?";
-       	 	request.setAttribute("confirm", confirm);
+       	 	request.setAttribute("confirm" + DNI, confirm);
 		}
 		if(request.getParameter("confirmEliminar") != null) {
 			String DNI = request.getParameter("DNI");
@@ -57,7 +57,7 @@ public class ServletEliminarCliente extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
-		 request.setAttribute("admin_actual", usuario);
+		request.setAttribute("admin_actual", usuario);
 		 
 		ArrayList<Cliente> listaClientes = cneg.readAllActivos();
 		request.setAttribute("listaClientes", listaClientes);
@@ -66,7 +66,7 @@ public class ServletEliminarCliente extends HttpServlet {
 			String DNI = request.getParameter("DNI");
 			Cliente cliente = cneg.getClientexDNI(DNI);
 			String confirm = "Esta seguro de que quiere eliminar a " + cliente.getNombre() + ", " + cliente.getApellido() + "?";
-      	 	request.setAttribute("confirm", confirm);
+       	 	request.setAttribute("confirm" + DNI, confirm);
 		}
 		if(request.getParameter("confirmEliminar") != null) {
 			String DNI = request.getParameter("DNI");

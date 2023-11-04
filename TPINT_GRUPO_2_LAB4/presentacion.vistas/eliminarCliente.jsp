@@ -105,17 +105,16 @@
 					       		<td><%=cliente.getId_localidades().getNombre_localidad()%></td>
 				        		<td><%=cliente.getTelefono_primario()%></td>
 				        		<td><%=cliente.getTelefono_secundario()%></td>
-				        		<td><input type="submit" name="buttonEliminar" value="eliminar"></td>
+				        		<td><input type="submit" name="buttonEliminar" value="eliminar"></td> 		
 								<div>
-								<%!int cont = 0; %>
-				    				<%if(request.getAttribute("confirm") != null) {
-				    					cont++;
-				    					if(cont <=1) {%>
-					    					<%=request.getAttribute("confirm")%>
-					    					<input type="submit" name="confirmEliminar" value="eliminar">
-				    					<%}
-				    				}%>
-								</div>
+			                        <% if (request.getAttribute("confirm" + cliente.getDNI()) != null) { %>
+			                            <%= request.getAttribute("confirm" + cliente.getDNI()) %>
+			                            <form action="ServletEliminarCliente" method="get">
+			                                <input type="hidden" name="DNI" value="<%=cliente.getDNI()%>">
+			                                <input type="submit" name="confirmEliminar" value="Eliminar">
+			                            </form>
+			                        <% } %>
+			                    </div>
 				       		</form>
 				   		</tr>
 				  <%}
