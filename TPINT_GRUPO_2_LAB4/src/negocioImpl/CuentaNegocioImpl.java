@@ -31,7 +31,10 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 	public ArrayList<Cuenta> readAll() {
 		return cdao.readAll();
 	}
-
+	@Override
+	public ArrayList<Cuenta> readAllActivos() {
+		return cdao.readAllActivos();
+	}
 	@Override
 	public boolean update(Cuenta cuenta) {
 		// TODO Auto-generated method stub

@@ -32,7 +32,7 @@ public class ServletEliminarCuenta extends HttpServlet {
 		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		request.setAttribute("admin_actual", usuario);
-		ArrayList<Cuenta> listaCuentas = cnegImpl.readAll();
+		ArrayList<Cuenta> listaCuentas = cnegImpl.readAllActivos();
 		request.setAttribute("listaCuentas", listaCuentas);
 		
 		
@@ -48,7 +48,7 @@ public class ServletEliminarCuenta extends HttpServlet {
 			boolean delete = cnegImpl.delete(cuenta);
 			request.setAttribute("delete", delete);
 			
-			listaCuentas = cnegImpl.readAll();
+			listaCuentas = cnegImpl.readAllActivos();
 			request.setAttribute("listaCuentas", listaCuentas);
 		}
 		String url = "/eliminarCuenta.jsp";
@@ -60,7 +60,7 @@ public class ServletEliminarCuenta extends HttpServlet {
 		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		request.setAttribute("admin_actual", usuario);
-		ArrayList<Cuenta> listaCuentas = cnegImpl.readAll();
+		ArrayList<Cuenta> listaCuentas = cnegImpl.readAllActivos();
 		request.setAttribute("listaCuentas", listaCuentas);
 		
 		
@@ -76,7 +76,7 @@ public class ServletEliminarCuenta extends HttpServlet {
 			boolean delete = cnegImpl.delete(cuenta);
 			request.setAttribute("delete", delete);
 			
-			listaCuentas = cnegImpl.readAll();
+			listaCuentas = cnegImpl.readAllActivos();
 			request.setAttribute("listaCuentas", listaCuentas);
 		}
 		String url = "/eliminarCuenta.jsp";

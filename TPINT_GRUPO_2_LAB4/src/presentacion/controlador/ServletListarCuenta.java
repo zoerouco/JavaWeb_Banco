@@ -34,7 +34,7 @@ public class ServletListarCuenta extends HttpServlet {
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		 request.setAttribute("admin_actual", usuario);
 		
-		ArrayList<Cuenta> listaCuentas = cneg.readAll();
+		ArrayList<Cuenta> listaCuentas = cneg.readAllActivos();
 		request.setAttribute("listaCuentas", listaCuentas);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCuentas.jsp");   
@@ -48,7 +48,7 @@ public class ServletListarCuenta extends HttpServlet {
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		 request.setAttribute("admin_actual", usuario);
 		 
-		ArrayList<Cuenta> listaCuentas = cneg.readAll();
+		ArrayList<Cuenta> listaCuentas = cneg.readAllActivos();
 		request.setAttribute("listaCuentas", listaCuentas);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCuentas.jsp");   
