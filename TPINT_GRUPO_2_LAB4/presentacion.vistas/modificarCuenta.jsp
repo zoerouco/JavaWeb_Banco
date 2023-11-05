@@ -107,8 +107,18 @@
 		 		 <%} %>
 		    <br>
 		    <input type="submit" name="btnGuardar" value="Guardar cambios"> 
-		    
-        No se pudo modificar
+		    <% 
+		Boolean update = (Boolean) request.getAttribute("update");
+		
+		if(update != null && update){
+			%>
+			
+			<p class="mensajeSucceed"> La cuenta se modifico correctamente.</p>
+			
+		<% 
+		}
+		%>
+        
       
 		<%} %>
         </form>
