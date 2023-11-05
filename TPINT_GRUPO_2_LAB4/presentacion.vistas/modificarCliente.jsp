@@ -67,8 +67,17 @@
         </header>
         <form action="ServletModificarCliente" method="post">
          <label for="DNI">Buscar cliente por DNI:<span class="required-fields"></span></label>
-        	<input type="text" name="DNI" id="DNI" placeholder=" " >
+        	<input type="text" name="DNI" id="DNI" placeholder=" " required>
         	<input type="submit" name="btnBuscarXDNI" value="Aceptar" style="margin-top: 200px">
+        	<div class="error-message">
+    				<%= (request.getAttribute("errorMessage") != null) ? request.getAttribute("errorMessage") : "" %>
+			</div>
+		</form>
+		    <form action="ServletModificarCliente" method="post">
+			<div class="error-message">
+    				<%= (request.getAttribute("mensaje") != null) ? request.getAttribute("mensaje") : "" %>
+			</div>
+			
         	<%  Cliente cliente = (Cliente) request.getAttribute("clienteDNI");
         		if (cliente != null) {
         	%>

@@ -110,23 +110,25 @@ public class ServletModificarCliente extends HttpServlet {
 		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		 request.setAttribute("admin_actual", usuario);
+		 String errorMessage= "";
 
 		if (request.getParameter("btnBuscarXDNI") != null) {
 			String dni = request.getParameter("DNI"); 
 			Cliente cliente = cneg.getClientexDNI(dni);
 			if (cliente != null) {
 			    request.setAttribute("clienteDNI", cliente);
-			    System.out.println("ID genero: " + cliente.getId_genero().getDescripcion());
-			    System.out.println("ID nacionalidad: " + cliente.getId_nacionalidad().getNombre_pais());
-			    System.out.println("ID provincia: " + cliente.getId_provincia().getNombre_provincia());
-			    System.out.println("ID localidad: " + cliente.getId_localidades().getNombre_localidad());
+			    
+		} else {
+			errorMessage="El DNI ingresado no existe";
+			request.setAttribute("errorMessage", errorMessage);
 
 		}
 		
-	}
+	} 
 		
 		if (request.getParameter("btnGuardar") != null) {
 			
+			String mensaje= "";
 			Cliente cliente = new Cliente();
 			
 			cliente.setNombre(request.getParameter("nombre"));
@@ -154,9 +156,15 @@ public class ServletModificarCliente extends HttpServlet {
 			boolean update = cneg.modificar(cliente);
 			request.setAttribute("update", update);
 			if(update) {
-				System.out.println("se modifico correctamente");
+				mensaje= "Se modificó correctamente";
+				request.setAttribute("mensaje", mensaje);
+	           	RequestDispatcher rd = request.getRequestDispatcher("/modificarCliente.jsp");
+	           	rd.forward(request, response);
 			} else {
-				System.out.println("no se pudo modificar");
+				mensaje= "No se pudo modificar";
+				request.setAttribute("mensaje", mensaje);
+	           	RequestDispatcher rd = request.getRequestDispatcher("/modificarCliente.jsp");
+	           	rd.forward(request, response);
 			}
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("/modificarCliente.jsp");   

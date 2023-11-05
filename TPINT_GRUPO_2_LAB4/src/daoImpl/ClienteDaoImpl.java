@@ -12,6 +12,7 @@ import entidades.Genero;
 import entidades.Localidad;
 import entidades.Nacionalidad;
 import entidades.Provincia;
+import entidades.Usuario;
 
 public class ClienteDaoImpl implements ClienteDao{
 	
@@ -164,7 +165,7 @@ public class ClienteDaoImpl implements ClienteDao{
 			e.printStackTrace();
 		}
 		
-		Cliente cliente = new Cliente();
+		Cliente cliente = null;
 		Conexion conexion = Conexion.getConexion();
 		try{
 			
@@ -174,6 +175,8 @@ public class ClienteDaoImpl implements ClienteDao{
 			while(resultSet.next()){
 				
 				if(resultSet.getString("DNI").compareTo(DNI) == 0) {
+					
+					cliente = new Cliente();
 					
 					//clases necesarias para crear un obj cliente
 					Genero genero = new Genero();
@@ -211,8 +214,7 @@ public class ClienteDaoImpl implements ClienteDao{
 					
 					return cliente;
 					
-				}
-				
+				} 
 			}
 
 		conexion.cerrarConexion();
