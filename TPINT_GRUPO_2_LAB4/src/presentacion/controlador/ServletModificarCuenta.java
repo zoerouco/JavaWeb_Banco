@@ -63,37 +63,28 @@ public class ServletModificarCuenta extends HttpServlet {
 			    if (request.getParameter("btnGuardar") != null) {
 					
 			    	Cuenta newCuenta = new Cuenta();
-			    	String cbu = request.getParameter("CBU"); 
+			        String cbu = (String) request.getParameter("cbuActual"); 
 					cuenta = cneg.getCuentaxCBU(cbu);
-					cliente = clineg.getClientexDNI(cuenta.getDNI().getDNI());
-					tipoCuenta = TipNeg.getTipo_cuentaByID(cuenta.getId_tipo().getId_tipo());
-			    	  
-					newCuenta.setCBU(cuenta.getCBU());
-					newCuenta.setDNI(cliente);
-					newCuenta.setId_tipo(tipoCuenta);
-					newCuenta.setNro_cuenta(cuenta.getNro_cuenta());
-					newCuenta.setFecha_creacion(cuenta.getFecha_creacion());
 					float saldo = Float.parseFloat(request.getParameter("Saldo"));
+					
+			    	  
+					newCuenta.setCBU(cbu);
 					newCuenta.setSaldo(saldo);		
-					newCuenta.setEstado(cuenta.getEstado());
-
+					
 					boolean update = cneg.modificar(newCuenta);
 					request.setAttribute("update", update);
-					
-	
 		}
 			  
-
-		
+	
 		  RequestDispatcher rd = request.getRequestDispatcher("/modificarCuenta.jsp");   
 		    rd.forward(request, response);
-	}	
+	}
+	
 			
 	
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		 request.setAttribute("admin_actual", usuario);
 		
@@ -114,28 +105,19 @@ public class ServletModificarCuenta extends HttpServlet {
 			    if (request.getParameter("btnGuardar") != null) {
 					
 			    	Cuenta newCuenta = new Cuenta();
-			    	String cbu = request.getParameter("CBU"); 
+			        String cbu = (String) request.getParameter("cbuActual"); 
 					cuenta = cneg.getCuentaxCBU(cbu);
-					//cliente = clineg.getClientexDNI(cuenta.getDNI());
-					//tipoCuenta = TipNeg.getTipo_cuentaByID(cuenta.getId_tipo());
-			    	  
-					newCuenta.setCBU(cuenta.getCBU());
-					newCuenta.setDNI(cliente);
-					newCuenta.setId_tipo(tipoCuenta);
-					newCuenta.setNro_cuenta(cuenta.getNro_cuenta());
-					newCuenta.setFecha_creacion(cuenta.getFecha_creacion());
 					float saldo = Float.parseFloat(request.getParameter("Saldo"));
+					
+			    	  
+					newCuenta.setCBU(cbu);
 					newCuenta.setSaldo(saldo);		
-					newCuenta.setEstado(cuenta.getEstado());
-
+					
 					boolean update = cneg.modificar(newCuenta);
 					request.setAttribute("update", update);
-					
-	
 		}
 			  
-
-		
+	
 		  RequestDispatcher rd = request.getRequestDispatcher("/modificarCuenta.jsp");   
 		    rd.forward(request, response);
 	}	

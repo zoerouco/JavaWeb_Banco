@@ -71,10 +71,14 @@ admin = (Usuario) request.getAttribute("admin_actual");
                 </ul>
             </div> 
         </header>
+        
   <form action="ServletModificarCuenta" method="post">
-         <label for="CBU"> Buscar cuenta por CBU:<span class="required-fields"></span></label>
-        	<input type="text" name="CBU" id="CBU" placeholder=" " >
-        	<input type="submit" name="btnBuscarCBU" value="Aceptar" style="margin-top: 200px">       	
+  
+  
+        <label for="CBU"> Buscar cuenta por CBU:<span class="required-fields"></span></label>
+        <input type="text" name="CBU" id="CBU" placeholder=" " >
+        <input type="submit" name="btnBuscarCBU" value="Aceptar" style="margin-top: 200px">       	
+	  
 	  <%
 	  Cuenta cuenta = (Cuenta) request.getAttribute("cuentaCBU");
 	  
@@ -82,10 +86,11 @@ admin = (Usuario) request.getAttribute("admin_actual");
         	<br>
         	<br>
 		    <label>CBU:</label>
-		    <label name="cbu-cliente"> <%= cuenta.getCBU() %></label>
+		    <label> <%= cuenta.getCBU() %></label>
+		    <input name="cbuActual" type="hidden" value= "<%= cuenta.getCBU() %>"> </imput>
 		    <br>
 		    <label>Nro de cuenta:</label>
-		    <label><%= cuenta.getNro_cuenta() %></label>
+		     <label> <%= cuenta.getNro_cuenta() %></label>
 		    <br>
 		    <label>DNI:</label>
 			<label><%= cuenta.getDNI().getDNI() %></label>
@@ -105,14 +110,15 @@ admin = (Usuario) request.getAttribute("admin_actual");
 		    	  <label> ACTIVA </label>
 		   <%}else{ %> 
 		 		 <label> INACTIVA </label>
-		 		 <%} %>
 		    <br>
-		    <input type="submit" name="btnGuardar" value="Guardar cambios"> 
 		    
-        SE MODIFICO CORRECTAMENTE
-      
-		<%} %>
+    <%} }%>
+    <input type="submit" name="btnGuardar" value="Guardar cambios"> 
+  
         </form>
+        
+       
+		
      
 </body>
 </html>
