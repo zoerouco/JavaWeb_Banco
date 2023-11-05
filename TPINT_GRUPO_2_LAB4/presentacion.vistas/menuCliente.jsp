@@ -36,11 +36,14 @@
 	Cuenta cuenta = new Cuenta();
 	Usuario usuario = new Usuario();
 	ArrayList<Cuenta> cuentas_cliente_actual = new ArrayList<Cuenta>();
+	
+	
+	
 	cuentas_cliente_actual = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
 	usuario = (Usuario) request.getSession().getAttribute("usuario");
 	cliente = (Cliente) request.getSession().getAttribute("cliente_actual");
-	
-	
+	cuenta = (Cuenta) request.getSession().getAttribute("cuenta_actual"); 
+
 	%>
 
 	<header class="encabezado">
@@ -72,14 +75,82 @@
 
 	
 	<div class="panel-cliente">
-	<img src="Recursos/img/perfil-del-usuario.png">
+	<img src="Recursos/img/perfil-del-usuario.png" class="imagen-cliente">
 	<div class="info-cliente">
+	<h2>ESTÁS EN TU HOMEBANKING</h2>
+	<label> <%= cliente.getNombre() %>, <%= cliente.getApellido() %></label>
+	<label> <%= cliente.getId_localidades().getNombre_localidad() + " " + cliente.getId_provincia().getNombre_provincia()  + " " + cliente.getId_nacionalidad().getNombre_pais() %></label>
+	<label>E-mail dónde recibes información importante y promociones: <%= cliente.getCorreo_electronico() %></label>
 	</div>
 	
-	<div class="">
+
+	<% if((Cuenta) request.getSession().getAttribute("cuenta_actual") == null){%>
+	<div class="form-mostrar-cuentas">
+	
+	<form action="ServletMenuCliente" method="post">
+	
+<h3> Seleccione la cuenta para gestionar: </h3>
+
+	<select name="cuenta-cliente" id="cuentas-cliente">
+				<% 
+				ArrayList <Cuenta> cuentas = (ArrayList <Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
+				
+				if(cuentas != null){
+					 
+				   for(Cuenta cuentaCliente : cuentas){				   
+				  %>
+
+					<option><%=cuentaCliente.getCBU()%></option>
+				 <%
+				   }
+				}
+			    
+			    else { 
+                            %>
+                                <option>NO HAY</option>
+                       <% }
+				%>  
+                              
+                               </select>
+	  
+ 
+	  
+	  <input type="submit" name="btnMostrarCuenta" value="Mostrar información de la cuenta"
+					id="btnSolicitarPrestamo"></input>
+
+	</form>
+	
 	</div>
+	<%}else{ %>
+	
+	<label>CBU: <%= cuenta.getCBU() %></label>
+	<label>NRO. DE CUENTA: <%= cuenta.getNro_cuenta() %></label>
+	<h3>SALDO</h3>
+	<label><%= cuenta.getSaldo() %></label>
+	<% } %>
 	
 	
+	<div class="cartelera-avisos">
+	
+	<h3> AVISOS </h3>
+	
+	<ul>
+	<li> <p> A partir del día 5/11, todas las solicitudes de préstamos y cambios de información personal,<br>
+	 las realizará el Administrador del Banco que gestionó el alta de la cuenta. <br><br>
+	 Para más información por favor comuniquese vía e-mail: globank@support.com.ar
+	 </p> 
+	 </li>
+	 
+	 <li> <p> Para más seguridad se agregó un botón antes de mostrar tu información de la cuenta. <br>
+	 ¡Además ya puedes abrirte más de 1 cuenta! Todas las podes gestionar entrando con tu usuario único<br>
+	 Y eligiendo cuál deseas ver. Ponete en contacto con el Administrador del banco para más información.
+	  </p> </li>
+	
+	</ul>
+	
+
+	 
+	</div>
 	
 	</div>
 

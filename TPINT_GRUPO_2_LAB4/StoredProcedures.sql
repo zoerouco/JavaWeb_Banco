@@ -95,5 +95,11 @@ MODIFY estado VARCHAR(20);
 	SELECT '45879526', 'M', '1', '1', '1', '23458795263', 'Natalia', 'Gomez', '2000/08/03', 'velez 189', 'natigomez@gmail.com', '1189758630', '1178452033', 1;
 	
 	
+	//HACER- NUEVO
+	
+	alter table prestamos
+	modify id_prestamo int;
+	
+	//
 	
 	

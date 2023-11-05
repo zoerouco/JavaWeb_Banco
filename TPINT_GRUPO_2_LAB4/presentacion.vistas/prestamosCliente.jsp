@@ -6,6 +6,7 @@
 <%@ page import="entidades.Genero"%>
 <%@ page import="entidades.Prestamo"%>
 <%@ page import="entidades.Cliente"%>
+<%@ page import="entidades.Usuario"%>
 <%@ page import="entidades.Cuenta"%>
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -37,10 +38,11 @@
 	Localidad loc = new Localidad();
 	Provincia prov = new Provincia();
 	Genero genero = new Genero();
-	Prestamo prestamo = new Prestamo("x");
-	Cliente cliente = new Cliente ("01", "Jose", true);
 	Cuenta cuenta = new Cuenta();
-	   
+	Cliente cliente = new Cliente();
+	
+	cliente = (Cliente) request.getSession().getAttribute("cliente_actual");
+	
 	%>
 
 	<header class="encabezado">
@@ -98,7 +100,7 @@
 				Cuenta donde se depositará el préstamo: 
 				<select required name="cuentas-cliente" id="cuentas-cliente">
 				<% 
-				ArrayList <Cuenta> cuentas = (ArrayList <Cuenta>) request.getAttribute("listaCuentas");
+				ArrayList <Cuenta> cuentas = (ArrayList <Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
 				
 				if(cuentas != null){
 					 
@@ -132,7 +134,7 @@
 		if(inserto != null && inserto){
 			%>
 			
-			<p class="mensajeSucceed"> Se solicitó el préstamo correctamente. Por favor revisa el estado de tu solicitud en la pestaña "Mis préstamos". ¡Gracias!</p>
+			<p class="mensajeSucceed"> Se solicitó el préstamo correctamente.<br> Por favor revisa el estado de tu solicitud en la pestaña "Mis préstamos". ¡Gracias!</p>
 			
 		<% 
 		}

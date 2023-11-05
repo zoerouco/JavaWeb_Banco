@@ -13,6 +13,7 @@ import daoImpl.PrestamoDaoImpl;
 import entidades.Cliente;
 import entidades.Cuenta;
 import entidades.Prestamo;
+import entidades.Usuario;
 import negocioImpl.ClienteNegocioImpl;
 import negocioImpl.CuentaNegocioImpl;
 import negocioImpl.PrestamoNegocioImpl;
@@ -25,14 +26,13 @@ import negocioImpl.PrestamoNegocioImpl;
 public class ServletCliente extends HttpServlet {
 		
 	private static final long serialVersionUID = 1L;
-	ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
+	ArrayList<Cuenta> cuentas_cliente_actual = new ArrayList<Cuenta>();
 	Cliente cliente = new Cliente();
 	CuentaNegocioImpl cuentaN = new CuentaNegocioImpl();
-	
-	//solo deberian haber llamados al negocio (y en negocio al dao)
 	PrestamoDaoImpl prestamoD = new PrestamoDaoImpl();
 	PrestamoNegocioImpl prestamoN = new PrestamoNegocioImpl();
     ClienteNegocioImpl clienteN = new ClienteNegocioImpl();
+    Usuario usuario = new Usuario();
 	
 	Cuenta cuenta = new Cuenta();
 
@@ -41,13 +41,23 @@ public class ServletCliente extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-			String DNIClienteActual = request.getParameter("clienteActual");
-			cliente = clienteN.getClientexDNI(DNIClienteActual); //con el obj bien cargado en el dao se puede hacer el readAll()												 //como cambie abajo con cuentas
-			cuentas = cuentaN.readAll(); //usando negocio
-			request.setAttribute("listaCuentas", cuentas);
+		 
+		
+		
+		if(request.getSession().getAttribute("usuario") != null) {
+			  
+				 usuario = (Usuario) request.getSession().getAttribute("usuario");  
+				 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
+				 request.getSession().setAttribute("cliente_actual", cliente);
+				 cuentas_cliente_actual = cuentaN.getCuentasxDNI(usuario.getDni().getDNI());
+				 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente_actual);
+				 
+				
 			
-			if(request.getParameter("btnSolicitarPrestamo") != null) { //quiere un préstamo
+				  
+			  }
+			
+			if(request.getParameter("btnSolicitarPrestamo") != null) {
 				
 				Prestamo prestamo = new Prestamo();
 				int ultimoID = prestamoN.getUltimoID();
@@ -74,16 +84,23 @@ public class ServletCliente extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String DNIClienteActual = request.getParameter("clienteActual");
-		cliente = clienteN.getClientexDNI(DNIClienteActual);
-		cuentas = cuentaN.readAll(); 
-		request.setAttribute("listaCuentas", cuentas);
+
+		if(request.getSession().getAttribute("usuario") != null) {
+			  
+			 usuario = (Usuario) request.getSession().getAttribute("usuario");  
+			 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
+			 request.getSession().setAttribute("cliente_actual", cliente);
+			 cuentas_cliente_actual = cuentaN.getCuentasxDNI(usuario.getDni().getDNI());
+			 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente_actual);
+			 
+  
+		  }
 		
-		if(request.getParameter("btnSolicitarPrestamo") != null) { //quiere un préstamo
+		if(request.getParameter("btnSolicitarPrestamo") != null) {
 			
 			Prestamo prestamo = new Prestamo();
-			int ultimoID = prestamoN.getUltimoID();
-			prestamo.setId_prestamo(ultimoID + 1);
+			int ultimoID = (prestamoN.getUltimoID()+1);
+			prestamo.setId_prestamo(ultimoID);
 			prestamo.setImporte_pedido(Float.parseFloat(request.getParameter("importe_pedido")));
 			//calculo los intereses
 			float importe_con_intereses = prestamoN.calcularImporteConIntereses(Float.parseFloat(request.getParameter("importe_pedido")),Integer.parseInt(request.getParameter("cant_cuotas")));
@@ -97,11 +114,8 @@ public class ServletCliente extends HttpServlet {
 			request.setAttribute("inserto", inserto);
 		}
 		
-		
-			
-		
-			String url = "/prestamosCliente.jsp";
-			request.setAttribute("miUrl", url);
-			request.getRequestDispatcher(url).forward(request, response);
+		String url = "/prestamosCliente.jsp";
+		request.setAttribute("miUrl", url);
+		request.getRequestDispatcher(url).forward(request, response);
 	}
 }
