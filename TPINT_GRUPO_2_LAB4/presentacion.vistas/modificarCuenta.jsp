@@ -82,11 +82,11 @@
         	<br>
 		    <label>CBU:</label>
 		    <label> <%=cuenta.getCBU() %></label>
-		    <input>name="cbuActual" type="hidden" value= "<%=cuenta.getCBU() %>"</input>
+		    <input name ="cbuActual" type="hidden" value="<%= cuenta.getCBU() %>"></input>
 		    <label name="cbu-cliente"> <%= cuenta.getCBU() %></label>
 		    <br>
 		    <label>Nro de cuenta:</label>
-		    <label><%= cuenta.getNro_cuenta() %></label>
+		    <label> <%= cuenta.getNro_cuenta() %></label>
 		    <br>
 		    <label>DNI:</label>
 			<label><%= cuenta.getDNI().getDNI() %></label>
@@ -108,19 +108,7 @@
 		 		 <label> INACTIVA </label>
 		 		 <%} %>
 		    <br>
-		    <input type="submit" name="btnGuardar" value="Guardar cambios"> 
-		    <% 
-		Boolean update = (Boolean) request.getAttribute("update");
-		
-		if(update != null && update){
-			%>
-			
-			<p class="mensajeSucceed"> La cuenta se modifico correctamente.</p>
-			
-		<% 
-		}
-		%>
-        
+		    <input type="submit" name="btnGuardar" value="Guardar cambios"> 		         
       
 		<%} %>
         </form>
