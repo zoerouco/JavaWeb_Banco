@@ -81,6 +81,8 @@
         	<br>
         	<br>
 		    <label>CBU:</label>
+		    <label> <%=cuenta.getCBU() %></label>
+		    <input>name="cbuActual" type="hidden" value= "<%=cuenta.getCBU() %>"</input>
 		    <label name="cbu-cliente"> <%= cuenta.getCBU() %></label>
 		    <br>
 		    <label>Nro de cuenta:</label>
