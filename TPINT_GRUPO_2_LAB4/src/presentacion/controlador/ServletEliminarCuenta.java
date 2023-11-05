@@ -29,6 +29,7 @@ public class ServletEliminarCuenta extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		request.setAttribute("admin_actual", usuario);
 		ArrayList<Cuenta> listaCuentas = cnegImpl.readAll();
@@ -39,7 +40,7 @@ public class ServletEliminarCuenta extends HttpServlet {
 			String CBU = request.getParameter("CBU");
 			Cuenta cuenta = cnegImpl.getCuentaxCBU(CBU);
 			String confirm = "Esta seguro de que quiere eliminar a la cuenta nro :" + cuenta.getNro_cuenta() + "," + "?";
-       	 	request.setAttribute("confirm", confirm);
+       	 	request.setAttribute("confirm" + CBU, confirm);
 		}
 		if(request.getParameter("confirmEliminar") != null) {
 			String CBU = request.getParameter("CBU");
@@ -47,6 +48,7 @@ public class ServletEliminarCuenta extends HttpServlet {
 			boolean delete = cnegImpl.delete(cuenta);
 			request.setAttribute("delete", delete);
 			
+			listaCuentas = cnegImpl.readAll();
 			request.setAttribute("listaCuentas", listaCuentas);
 		}
 		String url = "/eliminarCuenta.jsp";
@@ -55,6 +57,7 @@ public class ServletEliminarCuenta extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		request.setAttribute("admin_actual", usuario);
 		ArrayList<Cuenta> listaCuentas = cnegImpl.readAll();
@@ -65,7 +68,7 @@ public class ServletEliminarCuenta extends HttpServlet {
 			String CBU = request.getParameter("CBU");
 			Cuenta cuenta = cnegImpl.getCuentaxCBU(CBU);
 			String confirm = "Esta seguro de que quiere eliminar a la cuenta nro :" + cuenta.getNro_cuenta() + "," + "?";
-       	 	request.setAttribute("confirm", confirm);
+       	 	request.setAttribute("confirm" + CBU, confirm);
 		}
 		if(request.getParameter("confirmEliminar") != null) {
 			String CBU = request.getParameter("CBU");
@@ -73,11 +76,11 @@ public class ServletEliminarCuenta extends HttpServlet {
 			boolean delete = cnegImpl.delete(cuenta);
 			request.setAttribute("delete", delete);
 			
+			listaCuentas = cnegImpl.readAll();
 			request.setAttribute("listaCuentas", listaCuentas);
 		}
 		String url = "/eliminarCuenta.jsp";
 		request.setAttribute("miUrl", url);
 		request.getRequestDispatcher(url).forward(request, response);
 	}
-
 }

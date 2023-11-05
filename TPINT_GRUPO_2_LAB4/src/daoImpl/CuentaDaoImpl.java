@@ -20,7 +20,8 @@ import entidades.Tipo_cuenta;
 public class CuentaDaoImpl implements CuentaDao{
 	
 	private static final String insert = "CALL AgregarCuenta (?,?,?,?,?)";
-	private static final String delete = "DELETE FROM cuentas WHERE DNI = ?";
+	//private static final String delete = "DELETE FROM cuentas WHERE DNI = ?";
+	private static final String delete = "UPDATE cuentas SET estado = 0 WHERE CBU = ?";
 	private static final String readall = "SELECT * FROM cuentas "
 			+ "INNER JOIN tipo_cuenta ON cuentas.id_tipo = tipo_cuenta.id_tipo "
 			+ "INNER JOIN clientes ON cuentas.DNI = clientes.DNI "
@@ -63,12 +64,13 @@ public class CuentaDaoImpl implements CuentaDao{
 
 	@Override
 	public boolean delete(Cuenta cuenta) {
+		
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isdeleteExitoso = false;
 		try {
 			statement = conexion.prepareStatement(delete);
-			statement.setString(1, cuenta.getDNI().getDNI());
+			statement.setString(1, cuenta.getCBU());
 			if(statement.executeUpdate() > 0) {
 				conexion.commit();
 				isdeleteExitoso = true;

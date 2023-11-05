@@ -92,16 +92,16 @@
 				        		<td><%=cuenta.getId_tipo()%></td>
 				        		<td><%=cuenta.getDNI().getDNI()%></td>				        		
 				        		<td><%=cuenta.getSaldo()%></td>
-
 				        		<td><input type="submit" name="buttonEliminar" value="eliminar"></td>
-								<div>
-				    				<%if(request.getAttribute("confirm") != null) { %>
-				    					<%=request.getAttribute("confirm")%>
-				    					<input type="submit" name="confirmEliminar" value="eliminar">
-				    				<%} else {
-				    										
-				    					}%>
-								</div>
+				        		<div>
+			                        <% if (request.getAttribute("confirm" + cuenta.getCBU()) != null) { %>
+			                            <%= request.getAttribute("confirm" + cuenta.getCBU()) %>
+			                            <form action="ServletEliminarCuenta" method="get">
+			                                <input type="hidden" name="DNI" value="<%=cuenta.getCBU()%>">
+			                                <input type="submit" name="confirmEliminar" value="Eliminar">
+			                            </form>
+			                        <% } %>
+			                    </div>
 				       		</form>
 				   		</tr>
 				  <%}
