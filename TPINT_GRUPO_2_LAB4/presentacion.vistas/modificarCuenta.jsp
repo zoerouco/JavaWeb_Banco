@@ -112,8 +112,12 @@ admin = (Usuario) request.getAttribute("admin_actual");
 		 		 <label> INACTIVA </label>
 		    <br>
 		    
-    <%} }%>
-    <input type="submit" name="btnGuardar" value="Guardar cambios"> 
+    <%} %>
+    
+        <input type="submit" name="btnGuardar" value="Guardar cambios"> 
+        
+     <%}%>
+
   
         </form>
         
