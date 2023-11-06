@@ -37,7 +37,7 @@
                         </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="ServletAltaCuenta">Alta de cuentas</a>
-                            <a class="dropdown-item" href="#">Modificar Cuentas</a>
+                            <a class="dropdown-item" href="ServletModificarCuenta">Modificar Cuentas</a>
                             <a class="dropdown-item" href="ServletListarCuenta">Listar Cuentas</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="ServletEliminarCuenta">Baja de cuentas</a>

@@ -30,7 +30,7 @@
                         </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="ServletAltaCuenta">Alta de cuentas</a>
-                            <a class="dropdown-item" href="#">Modificar Cuentas</a>
+                            <a class="dropdown-item" href="ServletModificarCuenta">Modificar Cuentas</a>
                             <a class="dropdown-item" href="ServletListarCuenta">Listar Cuentas</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="ServletEliminarCuenta">Baja de cuentas</a>
@@ -84,48 +84,48 @@
         	<br>
         	<br>
 		    <label for="nombre">Nombre:</label>
-		    <input type="text" name="nombre" value="<%= cliente.getNombre() %>">
+		    <input type="text" name="nombre" value="<%= cliente.getNombre() %>" required>
 		    <br>
 		    <label for="apellido">Apellido:</label>
-		    <input type="text" name="apellido" value="<%= cliente.getApellido() %>">
+		    <input type="text" name="apellido" value="<%= cliente.getApellido() %>" required>
 		    <br>
 		    <label for="dni1">DNI:</label>
 			<label><%= cliente.getDNI() %></label>
-			<input type="hidden" name="dni1" value="<%= cliente.getDNI() %>" >
+			<input type="hidden" name="dni1" value="<%= cliente.getDNI() %>" required>
 		    <br>
 		    <label for="idGenero">ID genero:</label>
-		    <input type="text" name="idGenero" value="<%= cliente.getId_genero().getId_genero() %>">
+		    <input type="text" name="idGenero" value="<%= cliente.getId_genero().getId_genero() %>" required>
 		    <br>
 		    <label for="idNacionalidad">ID nacionalidad:</label>
-		    <input type="text" name="idNacionalidad" value="<%= cliente.getId_nacionalidad().getId() %>">
+		    <input type="text" name="idNacionalidad" value="<%= cliente.getId_nacionalidad().getId() %>" required>
 		    <br>
 		    <label for="idProvincia">ID provincia:</label>
-		    <input type="text" name="idProvincia" value="<%= cliente.getId_provincia().getId() %>">
+		    <input type="text" name="idProvincia" value="<%= cliente.getId_provincia().getId() %>" required>
 		    <br>
 		    <label for="idLocalidad">ID localidad:</label>
-		    <input type="text" name="idLocalidad" value="<%= cliente.getId_localidades().getId() %>">
+		    <input type="text" name="idLocalidad" value="<%= cliente.getId_localidades().getId() %>" required>
 		    <br>
 		    <label for="idCUIL">CUIL:</label>
-		    <input type="text" name="idCUIL" value="<%= cliente.getCUIL() %>">
+		    <input type="text" name="idCUIL" value="<%= cliente.getCUIL() %>" required>
 		    <br>
 		    <label for="fechaNac">Fecha de nacimiento:</label>
 			<label id="fechaNac"><%= cliente.getFecha_nacimiento() %></label>
 		    <br>
 			<label for="direc">Dirección:</label>
-		    <input type="text" name="direc" value="<%= cliente.getDireccion() %>">
+		    <input type="text" name="direc" value="<%= cliente.getDireccion() %>" required>
 		    <br>
 		    <label for="correo">Correo electrónico:</label>
-		    <input type="text" name="correo" value="<%= cliente.getCorreo_electronico() %>">
+		    <input type="text" name="correo" value="<%= cliente.getCorreo_electronico() %>" required>
 		    <br>
 		    <label for="telPrimario">Teléfono primario:</label>
-		    <input type="text" name="telPrimario" value="<%= cliente.getTelefono_primario() %>">
+		    <input type="text" name="telPrimario" value="<%= cliente.getTelefono_primario() %>" required>
 		    <br>
 		    <label for="telSec">Teléfono secundario:</label>
-		    <input type="text" name="telSec" value="<%= cliente.getTelefono_secundario() %>">
+		    <input type="text" name="telSec" value="<%= cliente.getTelefono_secundario() %>" required>
 		    <br>
-		    <label for="estado">Estado:</label>
-		    <input type="checkbox" name="estado" <% if (cliente.isEstado()) out.print("checked"); %> value="true"> Activo
-		    <br>
+		    <!--<label for="estado">Estado:</label>
+		    <input type="checkbox" name="estado" <% if (cliente.isEstado()) out.print("checked"); %> value="true" required> Activo
+		    <br>-->
 		    <input type="submit" name="btnGuardar" value="Guardar cambios"> 
 		    <% } %>
         </form>

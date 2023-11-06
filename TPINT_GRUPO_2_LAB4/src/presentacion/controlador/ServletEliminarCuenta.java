@@ -39,7 +39,7 @@ public class ServletEliminarCuenta extends HttpServlet {
 		if(request.getParameter("buttonEliminar") != null) {
 			String CBU = request.getParameter("CBU");
 			Cuenta cuenta = cnegImpl.getCuentaxCBU(CBU);
-			String confirm = "Esta seguro de que quiere eliminar a la cuenta nro :" + cuenta.getNro_cuenta() + "," + "?";
+			String confirm = "Esta seguro de que quiere eliminar a la cuenta nro: " + cuenta.getNro_cuenta() + "?";
        	 	request.setAttribute("confirm" + CBU, confirm);
 		}
 		if(request.getParameter("confirmEliminar") != null) {
@@ -67,7 +67,7 @@ public class ServletEliminarCuenta extends HttpServlet {
 		if(request.getParameter("buttonEliminar") != null) {
 			String CBU = request.getParameter("CBU");
 			Cuenta cuenta = cnegImpl.getCuentaxCBU(CBU);
-			String confirm = "Esta seguro de que quiere eliminar a la cuenta nro :" + cuenta.getNro_cuenta() + "," + "?";
+			String confirm = "Esta seguro de que quiere eliminar a la cuenta nro: " + cuenta.getNro_cuenta() + "?";
        	 	request.setAttribute("confirm" + CBU, confirm);
 		}
 		if(request.getParameter("confirmEliminar") != null) {
