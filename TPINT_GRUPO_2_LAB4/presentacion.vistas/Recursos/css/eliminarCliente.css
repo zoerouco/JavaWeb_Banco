@@ -1,5 +1,69 @@
 @charset "ISO-8859-1";
 
+#button {
+    width: 80px;
+    border-radius: 5px;
+    border: none;
+    padding: 7px;
+    background-color:#0e6e11;
+    color: papayawhip;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#button:hover {
+    background-color: #3ea342;
+}
+
+#buttonSubmit{
+    width: 80px;
+    border: 2px solid #0e6e11;
+    border-radius: 5px;
+    padding: 7px;
+    background-color:white;
+    color: #0e6e11;
+    cursor: pointer;
+    font-size: 15px;
+    margin-right: 3px;
+    margin-left: 3px;
+}
+
+#buttonSubmit:hover {
+    background-color: #f2f2f2;;
+}
+
+.confirm-message {
+	text-align: center;
+	font-weight: 200px;
+	font-style: italic;
+	padding: 15px;
+}
+
+.table-header {
+	color: #003400;
+	text-align: center;
+	font-size: 15px;
+	font-weight: 300px;
+	border-radius: 5px;
+}
+
+.table-row-even {
+    background-color: #F2F2F2;
+}
+
+.table-row-odd {
+    background-color: #FFFFFF;
+}
+
+h2 {
+	text-align: center;
+	color: black;
+	font-size: 55px;
+	margin-bottom: 25px;
+}
+
+
+/*
 form .popup {
     width: 400px;
     background: #fff;
@@ -46,4 +110,4 @@ form .popup button {
     border-radius: 4px;
     cursor: pointer;
     box-shadow: 0 2px rgba(0,0,0,0.2);
-}
+}*/

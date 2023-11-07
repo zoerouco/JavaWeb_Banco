@@ -9,6 +9,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	    <link rel="stylesheet" type="text/css" href="Recursos/css/main.css">
+	    <link rel="stylesheet" type="text/css" href="Recursos/css/eliminarCliente.css">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
 	    <title>Globank | Listado Clientes</title>
@@ -68,29 +69,32 @@
         </header>
         <% ArrayList<Cliente> clientes = (ArrayList<Cliente>)request.getAttribute("listaClientes");%>
         <div class="container-table"  id="table-usuarios" style="margin-top: 150px">
-	    	<h1> CLIENTES </h1>
+	    	<h2> Clientes: </h2>
 	        <table class="table">
 	        <thead>
 	            <tr>
-	            	<th scope="col">DNI</th>
-		        	<th scope="col">Nombre</th>
-		        	<th scope="col">Apellido</th>
-		        	<th scope="col">Genero</th>
-		        	<th scope="col">Nacionalidad</th>
-		        	<th scope="col">CUIL</th>
-		        	<th scope="col">Fecha de nacimiento</th>
-		        	<th scope="col">Direccion</th>
-		        	<th scope="col">Correo electronico</th>
-		        	<th scope="col">Provincia</th>
-		        	<th scope="col">Localidad</th> 
-		        	<th scope="col">Telefono primario</th>
-		        	<th scope="col">Telefono secundario</th>
+	            	<th scope="col" class="table-header">DNI</th>
+		        	<th scope="col" class="table-header">Nombre</th>
+		        	<th scope="col" class="table-header">Apellido</th>
+		        	<th scope="col" class="table-header">Genero</th>
+		        	<th scope="col" class="table-header">Nacionalidad</th>
+		        	<th scope="col" class="table-header">CUIL</th>
+		        	<th scope="col" class="table-header">Fecha de nacimiento</th>
+		        	<th scope="col" class="table-header">Direccion</th>
+		        	<th scope="col" class="table-header">Correo electronico</th>
+		        	<th scope="col" class="table-header">Provincia</th>
+		        	<th scope="col" class="table-header">Localidad</th> 
+		        	<th scope="col" class="table-header">Telefono primario</th>
+		        	<th scope="col" class="table-header">Telefono secundario</th>
 	            </tr>
 	        </thead>
 	        <tbody>
 	         <% if(clientes != null) {
-		        		for(Cliente cliente: clientes) { %>
-				        	<tr>
+	        	 int cont = 0;
+		        	for(Cliente cliente: clientes) { 
+		        		cont++;
+		        		String rowClass = (cont % 2 == 0) ? "table-row-even" : "table-row-odd"; %>
+				        	<tr class="<%=rowClass%>">
 				        		<th scope="row"><%=cliente.getDNI()%></th>
 				        		<td><%=cliente.getNombre()%></td>
 				        		<td><%=cliente.getApellido()%></td>

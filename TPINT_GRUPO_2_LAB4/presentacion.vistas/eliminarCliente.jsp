@@ -9,6 +9,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	    <link rel="stylesheet" type="text/css" href="Recursos/css/main.css">
+	    <link rel="stylesheet" type="text/css" href="Recursos/css/eliminarCliente.css">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
 	    <title>Globank | Eliminar Cliente</title>
@@ -68,29 +69,33 @@
         </header>
         <% ArrayList<Cliente> clientes = (ArrayList<Cliente>)request.getAttribute("listaClientes");%>
         <div class="container-table"  id="table-usuarios" style="margin-top: 150px">
-	    	<h1> CLIENTES </h1>
+	    	<h2> Clientes: </h2>
 	        <table class="table">
 	        <thead>
 	            <tr>
-	            	<th scope="col">DNI</th>
-		        	<th scope="col">Nombre</th>
-		        	<th scope="col">Apellido</th>
-		        	<th scope="col">Genero</th>
-		        	<th scope="col">Nacionalidad</th>
-		        	<th scope="col">CUIL</th>
-		        	<th scope="col">Fecha de nacimiento</th>
-		        	<th scope="col">Direccion</th>
-		        	<th scope="col">Correo electronico</th>
-		        	<th scope="col">Provincia</th>
-		        	<th scope="col">Localidad</th> 
-		        	<th scope="col">Telefono primario</th>
-		        	<th scope="col">Telefono secundario</th>
+	            	<th scope="col" class="table-header">DNI</th>
+		        	<th scope="col" class="table-header">Nombre</th>
+		        	<th scope="col" class="table-header">Apellido</th>
+		        	<th scope="col" class="table-header">Genero</th>
+		        	<th scope="col" class="table-header">Nacionalidad</th>
+		        	<th scope="col" class="table-header">CUIL</th>
+		        	<th scope="col" class="table-header">Fecha de nacimiento</th>
+		        	<th scope="col" class="table-header">Direccion</th>
+		        	<th scope="col" class="table-header">Correo electronico</th>
+		        	<th scope="col" class="table-header">Provincia</th>
+		        	<th scope="col" class="table-header">Localidad</th> 
+		        	<th scope="col" class="table-header">Telefono primario</th>
+		        	<th scope="col" class="table-header">Telefono secundario</th>
+		        	<th scope="col" class="table-header"></th>
 	            </tr>
 	        </thead>
-	        <tbody>
+	        <tbody>    
 	         <% if(clientes != null) {
-		        	for(Cliente cliente: clientes) { %>
-				        <tr>
+	        	 	int cont = 0;
+		        	for(Cliente cliente: clientes) { 
+		        		cont++;
+		        		String rowClass = (cont % 2 == 0) ? "table-row-even" : "table-row-odd"; %>
+				        <tr class="<%=rowClass%>">
 				        	<form action="ServletEliminarCliente" method="get">
 					        	<th scope="row"><%=cliente.getDNI()%> <input type="hidden" name="DNI" value="<%=cliente.getDNI()%>"></th>
 					        	<td><%=cliente.getNombre()%></td>
@@ -105,14 +110,16 @@
 					       		<td><%=cliente.getId_localidades().getNombre_localidad()%></td>
 				        		<td><%=cliente.getTelefono_primario()%></td>
 				        		<td><%=cliente.getTelefono_secundario()%></td>
-				        		<td><input type="submit" name="buttonEliminar" value="eliminar"></td> 		
+				        		<td><input type="submit" name="buttonEliminar" value="eliminar" id="button" class="eliminar-button"></td> 		
 								<div>
 			                        <% if (request.getAttribute("confirm" + cliente.getDNI()) != null) { %>
-			                            <%= request.getAttribute("confirm" + cliente.getDNI()) %>
-			                            <form action="ServletEliminarCliente" method="get">
-			                                <input type="hidden" name="DNI" value="<%=cliente.getDNI()%>">
-			                                <input type="submit" name="confirmEliminar" value="Eliminar">
-			                            </form>
+			                        	<p class="confirm-message"><%= request.getAttribute("confirm" + cliente.getDNI()) %>
+				                            <form action="ServletEliminarCliente" method="get">
+				                                <input type="hidden" name="DNI" value="<%=cliente.getDNI()%>">
+				                                <input type="submit" name="confirmEliminar" id="buttonSubmit" value="Eliminar">
+				                                <input type="submit" name="buttonCancelar" id="button" value="Cancelar">
+				                            </form>
+			                            </p>
 			                        <% } %>
 			                    </div>
 				       		</form>
@@ -126,6 +133,19 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
+		
+	<script>
+	    document.addEventListener("DOMContentLoaded", function () {
+	    	var cancelButton = row.querySelector(".buttonCancelar");
+	
+	        if (cancelButton) {
+	        	cancelButton.addEventListener("click", function () {
+	            	buttonsInRow.forEach(function (btn) {
+	            		btn.disabled = false;
+	            	});
+	        	});
+	        }
+	    });
+	</script>
 	</body>
 </html>

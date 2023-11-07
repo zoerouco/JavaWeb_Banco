@@ -11,6 +11,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="Recursos/css/main.css">
+	<link rel="stylesheet" type="text/css" href="Recursos/css/eliminarCliente.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
 	<title>Globank | Listado Cuentas</title>
@@ -70,23 +71,26 @@
         </header>
         <% ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>)request.getAttribute("listaCuentas"); %>
         <div class="container-table"  id="table-usuarios" style="margin-top: 150px">
-	    	<h1> CUENTAS </h1>
+	    	<h2> Cuentas: </h2>
 	        <table class="table">
 	        <thead>
 	            <tr>
-	            	<th scope="col">CBU</th>
-		        	<th scope="col">ID TIPO</th>
-		        	<th scope="col">DNI</th>
-		        	<th scope="col">FECHA DE CREACION</th>
-		        	<th scope="col">NRO. DE CUENTA</th>
-		        	<th scope="col">SALDO</th>
-		        	<th scope="col">ESTADO</th>		       
+	            	<th scope="col" class="table-header">CBU</th>
+		        	<th scope="col" class="table-header">ID TIPO</th>
+		        	<th scope="col" class="table-header">DNI</th>
+		        	<th scope="col" class="table-header">FECHA DE CREACION</th>
+		        	<th scope="col" class="table-header">NRO. DE CUENTA</th>
+		        	<th scope="col" class="table-header">SALDO</th>
+		        	<th scope="col" class="table-header">ESTADO</th>		       
 	            </tr>
 	        </thead>
 	        <tbody>
 	        <% if(cuentas != null) {
-		        		for(Cuenta cuenta: cuentas) { %>
-				        	<tr>
+	        	int cont = 0;
+	        	for(Cuenta cuenta: cuentas) { 
+	        		cont++;
+	        		String rowClass = (cont % 2 == 0) ? "table-row-even" : "table-row-odd"; %>
+			        	<tr class="<%=rowClass%>">
 				        		<th scope="row"><%=cuenta.getCBU()%></th>
 				        		<td><%=cuenta.getId_tipo().getDescripcion()%></td>
 				        		<td><%=cuenta.getDNI().getDNI()%></td>
