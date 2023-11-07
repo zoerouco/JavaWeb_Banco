@@ -10,7 +10,7 @@ import entidades.Provincia;
 public class LocalidadDaoImpl implements LocalidadDao{
 	
 	private static final String readall = "SELECT * FROM localidades INNER JOIN provincias ON localidades.id_provincia = provincias.id";
-
+	
 	//HACER FUNCION READALL QUE DEPENDA DE LA PROVINCIA SELECCIONADA
 	@Override
 	public ArrayList<Localidad> readAll() {
@@ -84,5 +84,44 @@ public class LocalidadDaoImpl implements LocalidadDao{
 			e.printStackTrace();
 		}
 		return localidad;
+	}
+	
+	public ArrayList<Localidad> readLocalidadByProvince(int id_provincia) {
+		
+		String query = "SELECT * FROM localidades INNER JOIN provincias ON localidades.id_provincia = provincias.id WHERE provincias.id = " + id_provincia;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<Localidad> lista = new ArrayList<Localidad>();
+		
+		Conexion conexion = Conexion.getConexion();
+		try{
+			
+			PreparedStatement statement = conexion.getSQLConexion().prepareStatement(query);
+	        ResultSet resultSet = statement.executeQuery();
+		
+			while(resultSet.next()){
+				Provincia provincia = new Provincia();
+				provincia.setId(resultSet.getInt(4));
+				provincia.setNombre_provincia(resultSet.getString("nombre_provincia"));
+				
+				Localidad localidad = new Localidad();
+				localidad.setId(resultSet.getInt("id"));
+				localidad.setId_provincia(provincia);
+				localidad.setNombre_localidad(resultSet.getString("nombre_localidad"));
+				
+				lista.add(localidad);
+			}
+			
+		conexion.cerrarConexion();
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	
+		return lista;
 	}
 }

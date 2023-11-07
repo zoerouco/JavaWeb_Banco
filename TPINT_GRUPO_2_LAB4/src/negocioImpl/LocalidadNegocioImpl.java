@@ -22,4 +22,9 @@ public class LocalidadNegocioImpl implements LocalidadNegocio {
 		localidad = ldao.getLocalidadByID(id);
 		return localidad;
 	}
+
+	@Override
+	public ArrayList<Localidad> readLocalidadByProvince(int id_provincia) {
+		return ldao.readLocalidadByProvince(id_provincia);
+	}
 }
