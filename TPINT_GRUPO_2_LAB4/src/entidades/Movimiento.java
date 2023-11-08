@@ -25,13 +25,14 @@ public class Movimiento {
 	
 	
 	
-		public Movimiento(Cuenta CBU, Cuenta CBU_Destino, Date Fecha_Transaccion, int Importe ,String Detalle, String TipoMovimiento, boolean estado) {
+		public Movimiento(Cuenta CBU, Cuenta CBU_Destino, int Importe , Date Fecha_Transaccion,String Detalle, String TipoMovimiento, boolean estado) {
 			
 
 			this.CBU=CBU;	
 			this.CBU_Destino=CBU_Destino;
 			this.Importe = Importe;
 			this.Fecha_Transaccion = Fecha_Transaccion;
+			this.Detalle = Detalle;
 			this.Importe = Importe;
 			this.TipoMovimiento=TipoMovimiento;
 			this.estado = estado;
