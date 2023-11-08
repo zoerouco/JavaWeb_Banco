@@ -75,6 +75,9 @@
         <div class="form-alta-cuentas">
             <form action="ServletAltaCliente" method="post">
                 <p class="details"> Ingrese un nuevo cliente al sistema:</p>
+	               <% if (request.getAttribute("edad") != null) {%>
+	               <h2 class="required-fields"><%=request.getAttribute("edad") %></h2>
+	            <%}%>
                 <div class="inputs">
                     <div class="text-layout">
                         <label for="name">Nombre<span class="required-fields">*</span></label>

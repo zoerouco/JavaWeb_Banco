@@ -20,6 +20,9 @@ import negocioImpl.GeneroNegocioImpl;
 import negocioImpl.LocalidadNegocioImpl;
 import negocioImpl.NacionalidadNegocioImpl;
 import negocioImpl.ProvinciaNegocioImpl;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 
 @WebServlet("/ServletAltaCliente")
@@ -49,10 +52,8 @@ public class ServletAltaCliente extends HttpServlet {
 
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		request.setAttribute("admin_actual", usuario);
-		
 		
 		generos = gneg.readAll();
 		request.setAttribute("listaGeneros", generos);
@@ -63,32 +64,6 @@ public class ServletAltaCliente extends HttpServlet {
 		localidades = lneg.readAll();
 		request.setAttribute("listaLocalidades", localidades);
 		
-		if (request.getParameter("buttonSubmit") != null) {
-			
-			Cliente cliente = new Cliente();
-			
-			cliente.setApellido(request.getParameter("lastName"));
-			cliente.setCorreo_electronico(request.getParameter("email"));
-			cliente.setCUIL(request.getParameter("CUIL"));
-			cliente.setDireccion(request.getParameter("adress"));
-			cliente.setDNI(request.getParameter("DNI"));
-			cliente.setFecha_nacimiento(Date.valueOf(request.getParameter("birthdate"))/*new Date(07/07/2003)*/);
-			genero = gneg.getGeneroByID(request.getParameter("id_genero"));
-			cliente.setId_genero(genero);
-			localidad = lneg.getLocalidadByID(Integer.parseInt(request.getParameter("id_localidad")));
-			cliente.setId_localidades(localidad);
-			nacionalidad = nneg.getNacionalidadByID(Integer.parseInt(request.getParameter("id_nacionalidad")));
-			cliente.setId_nacionalidad(nacionalidad);
-			provincia = pneg.getProvinciaByID(Integer.parseInt(request.getParameter("id_provincia")));
-			cliente.setId_provincia(provincia);
-			cliente.setNombre(request.getParameter("name"));
-			cliente.setTelefono_primario(request.getParameter("number1"));
-			cliente.setTelefono_secundario(request.getParameter("number2"));
-			cliente.setEstado(true);
-			
-			boolean insert = cneg.insert(cliente);
-			request.setAttribute("insert", insert);
-		}
 		RequestDispatcher rd = request.getRequestDispatcher("/altaCliente.jsp");   
 	    rd.forward(request, response);
 	}
@@ -99,7 +74,6 @@ public class ServletAltaCliente extends HttpServlet {
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		request.setAttribute("admin_actual", usuario);
 		
-		
 		generos = gneg.readAll();
 		request.setAttribute("listaGeneros", generos);
 		nacionalidades = nneg.readAll();
@@ -111,29 +85,40 @@ public class ServletAltaCliente extends HttpServlet {
 		
 		if (request.getParameter("buttonSubmit") != null) {
 			
-			Cliente cliente = new Cliente();
+			DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate fechaNac = LocalDate.parse(request.getParameter("birthdate"), fmt);
+			LocalDate ahora = LocalDate.now();
+			Period periodo = Period.between(fechaNac, ahora);
 			
-			cliente.setApellido(request.getParameter("lastName"));
-			cliente.setCorreo_electronico(request.getParameter("email"));
-			cliente.setCUIL(request.getParameter("CUIL"));
-			cliente.setDireccion(request.getParameter("adress"));
-			cliente.setDNI(request.getParameter("DNI"));
-			cliente.setFecha_nacimiento(Date.valueOf(request.getParameter("birthdate"))/*new Date(07/07/2003)*/);
-			genero = gneg.getGeneroByID(request.getParameter("gender"));
-			cliente.setId_genero(genero);
-			localidad = lneg.getLocalidadByID(Integer.parseInt(request.getParameter("locality")));
-			cliente.setId_localidades(localidad);
-			nacionalidad = nneg.getNacionalidadByID(Integer.parseInt(request.getParameter("nationality")));
-			cliente.setId_nacionalidad(nacionalidad);
-			provincia = pneg.getProvinciaByID(Integer.parseInt(request.getParameter("province")));
-			cliente.setId_provincia(provincia);
-			cliente.setNombre(request.getParameter("name"));
-			cliente.setTelefono_primario(request.getParameter("number1"));
-			cliente.setTelefono_secundario(request.getParameter("number2"));
-			cliente.setEstado(true);
+			if (periodo.getYears() >= 13) {
 			
-			boolean insert = cneg.insert(cliente);
-			request.setAttribute("insert", insert);
+				Cliente cliente = new Cliente();
+				
+				cliente.setApellido(request.getParameter("lastName"));
+				cliente.setCorreo_electronico(request.getParameter("email"));
+				cliente.setCUIL(request.getParameter("CUIL"));
+				cliente.setDireccion(request.getParameter("adress"));
+				cliente.setDNI(request.getParameter("DNI"));
+				cliente.setFecha_nacimiento(Date.valueOf(request.getParameter("birthdate")));
+				genero = gneg.getGeneroByID(request.getParameter("id_genero"));
+				cliente.setId_genero(genero);
+				localidad = lneg.getLocalidadByID(Integer.parseInt(request.getParameter("locality")));
+				cliente.setId_localidades(localidad);
+				nacionalidad = nneg.getNacionalidadByID(Integer.parseInt(request.getParameter("nationality")));
+				cliente.setId_nacionalidad(nacionalidad);
+				provincia = pneg.getProvinciaByID(Integer.parseInt(request.getParameter("province")));
+				cliente.setId_provincia(provincia);
+				cliente.setNombre(request.getParameter("name"));
+				cliente.setTelefono_primario(request.getParameter("number1"));
+				cliente.setTelefono_secundario(request.getParameter("number2"));
+				cliente.setEstado(true);
+				
+				boolean insert = cneg.insert(cliente);
+				request.setAttribute("insert", insert);
+			} else {
+				String edad = "El nuevo cliente debe tener 13 años o mas!";
+				request.setAttribute("edad", edad);
+			}
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("/altaCliente.jsp");   
 	    rd.forward(request, response);
