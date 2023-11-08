@@ -15,22 +15,21 @@
                 <br>
                 <div class="text-layout">
                     <input type="text" name="userName" id="userName" placeholder=" " required>
-                    <label for="userName">Nombre de usuario<span class="required-fields">*</span></label>
+                    <label for="userName">Nombre de usuario</label>
                 </div>
                 <p id="examples">Ej: RamonaMartinez01</p>
                 <br>
                 <div class="text-layout">
                     <input type="password" name="password" id="password" placeholder=" " required>
-                    <label for="password">Contraseña<span class="required-fields">*</span></label>
+                    <label for="password">Contraseña</label>
                 </div>
                 <br>
                 <br>
-                <h6 class="required-fields">* - Campos obligatorios.</h6>
+                <br>
                 <button type="submit" name=buttonSubmit value="Ingresar" id="buttonSubmit">Log In</button>
                 <div class="error-message">
     				<%= (request.getAttribute("errorMessage") != null) ? request.getAttribute("errorMessage") : "" %>
-				</div>
-				                
+				</div>             
          </form>
          <br>
          <footer class="footer">

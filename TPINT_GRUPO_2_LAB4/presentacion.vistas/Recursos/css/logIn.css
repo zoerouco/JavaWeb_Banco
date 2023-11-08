@@ -91,7 +91,8 @@ body {
     border: none;
     padding: 7px;
     background-color:#0e6e11;
-    color: papayawhip
+    color: papayawhip;
+    margin-top: 50px;
 }
 
 #buttonSubmit:hover {
