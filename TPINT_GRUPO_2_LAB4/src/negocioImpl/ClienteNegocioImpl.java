@@ -43,11 +43,17 @@ public class ClienteNegocioImpl implements ClienteNegocio {
 	public ArrayList<Cliente> readAllActivos() {
 		return cdao.readAllActivos();
 	}
+	
 
 	@Override
 	public boolean modificar(Cliente cliente) {
 		boolean update = false;
 		update = cdao.modificar(cliente);
 		return update;
+	}
+
+	@Override
+	public ArrayList<Cliente> readAllInactivos() {
+		return cdao.readAllInactivos();
 	}
 }

@@ -11,5 +11,6 @@ public interface ClienteNegocio {
 	public boolean update (Cliente cliente);
 	public ArrayList<Cliente> readAllActivos();
 	public boolean modificar (Cliente cliente);
+	public ArrayList<Cliente> readAllInactivos();
 	
 }

@@ -12,4 +12,5 @@ public interface ClienteDao {
 	public Cliente getClientexDNI (String DNI);
 	public ArrayList<Cliente> readAllActivos();
 	public boolean modificar (Cliente cliente);
+	public ArrayList<Cliente> readAllInactivos();
 }

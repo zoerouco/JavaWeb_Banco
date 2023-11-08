@@ -70,49 +70,68 @@
         <% ArrayList<Cliente> clientes = (ArrayList<Cliente>)request.getAttribute("listaClientes");%>
         <div class="container-table"  id="table-usuarios" style="margin-top: 150px">
 	    	<h2> Clientes: </h2>
-	        <table class="table">
-	        <thead>
-	            <tr>
-	            	<th scope="col" class="table-header">DNI</th>
-		        	<th scope="col" class="table-header">Nombre</th>
-		        	<th scope="col" class="table-header">Apellido</th>
-		        	<th scope="col" class="table-header">Genero</th>
-		        	<th scope="col" class="table-header">Nacionalidad</th>
-		        	<th scope="col" class="table-header">CUIL</th>
-		        	<th scope="col" class="table-header">Fecha de nacimiento</th>
-		        	<th scope="col" class="table-header">Direccion</th>
-		        	<th scope="col" class="table-header">Correo electronico</th>
-		        	<th scope="col" class="table-header">Provincia</th>
-		        	<th scope="col" class="table-header">Localidad</th> 
-		        	<th scope="col" class="table-header">Telefono primario</th>
-		        	<th scope="col" class="table-header">Telefono secundario</th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	         <% if(clientes != null) {
-	        	 int cont = 0;
-		        	for(Cliente cliente: clientes) { 
-		        		cont++;
-		        		String rowClass = (cont % 2 == 0) ? "table-row-even" : "table-row-odd"; %>
-				        	<tr class="<%=rowClass%>">
-				        		<th scope="row"><%=cliente.getDNI()%></th>
-				        		<td><%=cliente.getNombre()%></td>
-				        		<td><%=cliente.getApellido()%></td>
-				        		<td><%=cliente.getId_genero().getDescripcion()%></td>
-				        		<td><%=cliente.getId_nacionalidad().getNombre_pais()%></td>
-				        		<td><%=cliente.getCUIL()%></td>
-				        		<td><%=cliente.getFecha_nacimiento()%></td>
-				        		<td><%=cliente.getDireccion()%></td>
-				        		<td><%=cliente.getCorreo_electronico()%></td>
-				        		<td><%=cliente.getId_provincia().getNombre_provincia()%></td>
-				        		<td><%=cliente.getId_localidades().getNombre_localidad()%></td>
-				        		<td><%=cliente.getTelefono_primario()%></td>
-				        		<td><%=cliente.getTelefono_secundario()%></td>
-				        	</tr>
-		        	 <%}
-		        }%>
-	        </tbody>
-	    </table>
+	    	<form action="ServletListadoCliente" method="post">
+		    	<div class="d-flex justify-content-center mb-3">
+			    	<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+			    		<button type="submit" class="btn btn-success" name="activos">Solo activos</button>
+					  	<button type="submit" class="btn btn-warning" name="todos">Todos los clientes</button>
+					  	<button type="submit" class="btn btn-danger" name="inactivos">Solo inactivos</button>
+					</div>
+				</div>
+		        <table class="table">
+		        <thead>
+		            <tr>
+		            	<th scope="col" class="table-header">DNI</th>
+			        	<th scope="col" class="table-header">Nombre</th>
+			        	<th scope="col" class="table-header">Apellido</th>
+			        	<th scope="col" class="table-header">Genero</th>
+			        	<th scope="col" class="table-header">Nacionalidad</th>
+			        	<th scope="col" class="table-header">CUIL</th>
+			        	<th scope="col" class="table-header">Fecha de nacimiento</th>
+			        	<th scope="col" class="table-header">Direccion</th>
+			        	<th scope="col" class="table-header">Correo electronico</th>
+			        	<th scope="col" class="table-header">Provincia</th>
+			        	<th scope="col" class="table-header">Localidad</th> 
+			        	<th scope="col" class="table-header">Telefono primario</th>
+			        	<th scope="col" class="table-header">Telefono secundario</th>
+			        	<th scope="col" class="table-header">Estado</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		         <% if(clientes != null) {
+		        	 int cont = 0;
+			        	for(Cliente cliente: clientes) { 
+			        		cont++;
+			        		String rowClass = (cont % 2 == 0) ? "table-row-even" : "table-row-odd"; %>
+					        	<tr class="<%=rowClass%>">
+					        		<th scope="row"><%=cliente.getDNI()%></th>
+					        		<td><%=cliente.getNombre()%></td>
+					        		<td><%=cliente.getApellido()%></td>
+					        		<td><%=cliente.getId_genero().getDescripcion()%></td>
+					        		<td><%=cliente.getId_nacionalidad().getNombre_pais()%></td>
+					        		<td><%=cliente.getCUIL()%></td>
+					        		<td><%=cliente.getFecha_nacimiento()%></td>
+					        		<td><%=cliente.getDireccion()%></td>
+					        		<td><%=cliente.getCorreo_electronico()%></td>
+					        		<td><%=cliente.getId_provincia().getNombre_provincia()%></td>
+					        		<td><%=cliente.getId_localidades().getNombre_localidad()%></td>
+					        		<td><%=cliente.getTelefono_primario()%></td>
+					        		<%if(cliente.getTelefono_secundario() != null) { %>
+					        			<td><%=cliente.getTelefono_secundario()%></td>
+					        		<%} else {%>
+					        				<td style="text-align: center;"> - </td>
+					        		<%}
+					        		if(cliente.isEstado()){%>
+		    	  						<td>Activo</td>
+		   							<%} else { %> 
+							 		 	<td>Inactivo</td>
+							 		 <%} %>
+							 	</tr>
+			        	 <%}
+			        }%>
+		        </tbody>
+		    </table>
+		</form>
 	</div>
 		
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

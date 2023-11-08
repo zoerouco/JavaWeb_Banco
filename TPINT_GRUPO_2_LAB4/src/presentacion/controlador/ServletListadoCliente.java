@@ -43,11 +43,19 @@ public class ServletListadoCliente extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Cliente> listaClientes = cneg.readAllActivos();
-		request.setAttribute("listaClientes", listaClientes);
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		request.setAttribute("admin_actual", usuario);
 		
+		if(request.getParameter("todos") != null) {
+			ArrayList<Cliente> listaClientes = cneg.readAll();
+			request.setAttribute("listaClientes", listaClientes);
+		} else if (request.getParameter("activos") != null) {
+			ArrayList<Cliente> listaClientes = cneg.readAllActivos();
+			request.setAttribute("listaClientes", listaClientes);
+		} else if (request.getParameter("inactivos") != null) {
+			ArrayList<Cliente> listaClientes = cneg.readAllInactivos();
+			request.setAttribute("listaClientes", listaClientes);
+		}
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCliente.jsp");   
 	    rd.forward(request, response);
 	}

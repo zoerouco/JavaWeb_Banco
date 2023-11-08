@@ -23,10 +23,7 @@
                     <input type="password" name="password" id="password" placeholder=" " required>
                     <label for="password">Contraseña</label>
                 </div>
-                <br>
-                <br>
-                <br>
-                <button type="submit" name=buttonSubmit value="Ingresar" id="buttonSubmit">Log In</button>
+                <button type="submit" name=buttonSubmit value="Ingresar" id="buttonSubmit">Ingresar</button>
                 <div class="error-message">
     				<%= (request.getAttribute("errorMessage") != null) ? request.getAttribute("errorMessage") : "" %>
 				</div>             
