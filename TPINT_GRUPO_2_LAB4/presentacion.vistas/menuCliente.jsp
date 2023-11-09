@@ -17,7 +17,7 @@
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
 <link rel="stylesheet" type="text/css"
-	href="Recursos/css/stylesCliente.css">
+	href="Recursos/css/menuCliente.css">
 <link rel="stylesheet" type="text/css" href="Recursos/css/main.css">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -59,7 +59,7 @@
 			<li class="links-menu"><a class="links-menu"
 				href="movimientosCliente.jsp"> Mis movimientos</a></li>
 			<li class="links-menu"><a class="links-menu"
-				href="prestamosCliente.jsp" id="mis-prestamos"> Mis préstamos </a></li>
+				href="ServletCliente" id="mis-prestamos"> Mis préstamos </a></li>
 			<li class="links-menu"><a class="links-menu" href="#">Ajustes
 					</a></li>
 
@@ -80,7 +80,7 @@
 	<h2>ESTÁS EN TU HOMEBANKING</h2>
 	<label> <%= cliente.getNombre() %>, <%= cliente.getApellido() %></label>
 	<label> <%= cliente.getId_localidades().getNombre_localidad() + " " + cliente.getId_provincia().getNombre_provincia()  + " " + cliente.getId_nacionalidad().getNombre_pais() %></label>
-	<label>E-mail dónde recibes información importante y promociones: <%= cliente.getCorreo_electronico() %></label>
+	<label>E-mail dónde recibes información importante y promociones:<br> <%= cliente.getCorreo_electronico() %></label>
 	</div>
 	
 

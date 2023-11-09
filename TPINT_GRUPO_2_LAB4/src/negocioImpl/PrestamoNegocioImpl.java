@@ -3,6 +3,7 @@ package negocioImpl;
 import java.util.ArrayList;
 import dao.PrestamoDao;
 import daoImpl.PrestamoDaoImpl;
+import entidades.Cuenta;
 import entidades.Prestamo;
 import negocio.PrestamoNegocio;
 
@@ -83,6 +84,13 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 		return importe_con_intereses/cant_cuotas;
 		
 	
+		
+	}
+	
+	public ArrayList<Prestamo> getPrestamoxCuentas (ArrayList <Cuenta> cuentasCliente) {
+		
+		
+		return pdao.getPrestamoxCuentas(cuentasCliente);
 		
 	}
 	

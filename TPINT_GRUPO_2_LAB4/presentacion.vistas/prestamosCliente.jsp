@@ -15,6 +15,7 @@
 <link rel="stylesheet" type="text/css"
 	href="Recursos/css/stylesCliente.css">
 <link rel="stylesheet" type="text/css" href="Recursos/css/main.css">
+<link rel="stylesheet" type="text/css" href="Recursos/css/prestamos.css">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -156,39 +157,57 @@
 	
 	
 	<div class="container-table" id="table-prestamos">
+	
+	<%
+	ArrayList <Prestamo> prestamosCliente = (ArrayList <Prestamo>) request.getAttribute("prestamosCliente");
+	%>
+
 
 		<h1 class="text-center">MIS PRÉSTAMOS</h1>
+			<%if(prestamosCliente != null){ %>
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">Nro Prestamo</th>
+					<th scope="col">ID Préstamo</th>
 					<th scope="col">CBU Origen</th>
-					<th scope="col">Monto</th>
-					<th scope="col">Nro de cuota</th>
+					<th scope="col">Fecha</th>
+					<th scope="col">Importe pedido</th>
+					<th scope="col">Importe c/ intereses</th>
+					<th scope="col">Monto por mes</th>
+					<th scope="col">Cantidad de cuotas</th>
+					<th scope="col">Estado</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>533332213234565</td>
-					<td>2000</td>
-					<td>1</td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td>533332213234568</td>
-					<td>30000</td>
-					<td>2</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>533332213234565</td>
-					<td>40020</td>
-					<td>3</td>
-				</tr>
+				<tbody>
+					<%
+					for (Prestamo prestamo : prestamosCliente){
+					%>	
+					
+					<tr>
+					<td><%= prestamo.getId_prestamo() %> </td>
+					<td><%=prestamo.getCBU().getCBU() %></td>
+					<td><%=prestamo.getFecha_realizacion()%></td>
+					<td><%=prestamo.getImporte_pedido() %></td>
+					<td><%=prestamo.getImporte_con_intereses() %></td>
+					<td><%=prestamo.getMonto_x_mes() %></td>
+					<td><%=prestamo.getCant_cuotas() %></td>
+					
+					<%
+					if(prestamo.getEstado().compareTo("Solicitado") == 0){
+					%>
+					<td>SOLICITADO</td>
+					<%}else if (prestamo.getEstado().compareTo("Aprobado") == 0){ %>
+					<td><img class="icon-estado" src="Recursos/img/tick-verde.png"> </img></td>
+					<%}else{ %>
+					<td><img class="icon-estado" src="Recursos/img/rechazado.png"> </img></td>
+					</tr>
+					<%} }%>			
 			</tbody>
 		</table>
-
+	<%} else{%>
+	
+	<h2>No tiene préstamos actualmente. Para realizar un préstamo, haga click en el botón "Solicitar préstamo"</h2>
+	<%} %>
 	</div>
 	<footer class="Z-footer">
 	<p>Todos los derechos reservados &copy; Globank 2023</p>

@@ -33,6 +33,7 @@ public class ServletCliente extends HttpServlet {
 	PrestamoNegocioImpl prestamoN = new PrestamoNegocioImpl();
     ClienteNegocioImpl clienteN = new ClienteNegocioImpl();
     Usuario usuario = new Usuario();
+
 	
 	Cuenta cuenta = new Cuenta();
 
@@ -52,6 +53,8 @@ public class ServletCliente extends HttpServlet {
 				 cuentas_cliente_actual = cuentaN.getCuentasxDNI(usuario.getDni().getDNI());
 				 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente_actual);
 				 
+				ArrayList <Prestamo> prestamosCliente = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
+				request.setAttribute("prestamosCliente", prestamosCliente); 
 				
 			
 				  
@@ -70,7 +73,7 @@ public class ServletCliente extends HttpServlet {
 				prestamo.setMonto_x_mes(prestamoN.calcularMontoxMes(Integer.parseInt(request.getParameter("cant_cuotas")), importe_con_intereses));
 				cuenta = cuentaN.getCuentaxCBU(request.getParameter("cuentas-cliente"));
 				prestamo.setCBU(cuenta);
-				prestamo.setEstado("Solicitado");
+				prestamo.setEstado("Rechazado");
 				boolean inserto = prestamoN.insert(prestamo);
 				request.setAttribute("inserto", inserto);
 			}
@@ -85,37 +88,42 @@ public class ServletCliente extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 
+
 		if(request.getSession().getAttribute("usuario") != null) {
 			  
-			 usuario = (Usuario) request.getSession().getAttribute("usuario");  
-			 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
-			 request.getSession().setAttribute("cliente_actual", cliente);
-			 cuentas_cliente_actual = cuentaN.getCuentasxDNI(usuario.getDni().getDNI());
-			 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente_actual);
-			 
-  
-		  }
-		
-		if(request.getParameter("btnSolicitarPrestamo") != null) {
+				 usuario = (Usuario) request.getSession().getAttribute("usuario");  
+				 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
+				 request.getSession().setAttribute("cliente_actual", cliente);
+				 cuentas_cliente_actual = cuentaN.getCuentasxDNI(usuario.getDni().getDNI());
+				 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente_actual);
+				 
+				ArrayList <Prestamo> prestamosCliente = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
+				request.setAttribute("prestamosCliente", prestamosCliente); 
+				
 			
-			Prestamo prestamo = new Prestamo();
-			int ultimoID = (prestamoN.getUltimoID()+1);
-			prestamo.setId_prestamo(ultimoID);
-			prestamo.setImporte_pedido(Float.parseFloat(request.getParameter("importe_pedido")));
-			//calculo los intereses
-			float importe_con_intereses = prestamoN.calcularImporteConIntereses(Float.parseFloat(request.getParameter("importe_pedido")),Integer.parseInt(request.getParameter("cant_cuotas")));
-			prestamo.setImporte_con_intereses(importe_con_intereses);
-			prestamo.setCant_cuotas(Integer.parseInt(request.getParameter("cant_cuotas")));
-			prestamo.setMonto_x_mes(prestamoN.calcularMontoxMes(Integer.parseInt(request.getParameter("cant_cuotas")), importe_con_intereses));
-			cuenta = cuentaN.getCuentaxCBU(request.getParameter("cuentas-cliente"));
-			prestamo.setCBU(cuenta);
-			prestamo.setEstado("Solicitado");
-			boolean inserto = prestamoN.insert(prestamo);
-			request.setAttribute("inserto", inserto);
-		}
-		
-		String url = "/prestamosCliente.jsp";
-		request.setAttribute("miUrl", url);
-		request.getRequestDispatcher(url).forward(request, response);
+				  
+			  }
+			
+			if(request.getParameter("btnSolicitarPrestamo") != null) {
+				
+				Prestamo prestamo = new Prestamo();
+				int ultimoID = prestamoN.getUltimoID();
+				prestamo.setId_prestamo(ultimoID + 1);
+				prestamo.setImporte_pedido(Float.parseFloat(request.getParameter("importe_pedido")));
+				//calculo los intereses
+				float importe_con_intereses = prestamoN.calcularImporteConIntereses(Float.parseFloat(request.getParameter("importe_pedido")),Integer.parseInt(request.getParameter("cant_cuotas")));
+				prestamo.setImporte_con_intereses(importe_con_intereses);
+				prestamo.setCant_cuotas(Integer.parseInt(request.getParameter("cant_cuotas")));
+				prestamo.setMonto_x_mes(prestamoN.calcularMontoxMes(Integer.parseInt(request.getParameter("cant_cuotas")), importe_con_intereses));
+				cuenta = cuentaN.getCuentaxCBU(request.getParameter("cuentas-cliente"));
+				prestamo.setCBU(cuenta);
+				prestamo.setEstado("Rechazado");
+				boolean inserto = prestamoN.insert(prestamo);
+				request.setAttribute("inserto", inserto);
+			}
+			
+			String url = "/prestamosCliente.jsp";
+			request.setAttribute("miUrl", url);
+			request.getRequestDispatcher(url).forward(request, response);
 	}
 }

@@ -1,0 +1,41 @@
+@charset "ISO-8859-1";
+
+
+* {
+	padding: 0px;
+	margin: 0px;
+	font-family: sans-serif; 
+}
+
+.panel-cliente{
+	
+display: flex;	
+flex-direction: row;
+align-items: center;
+}
+
+.panel-cliente img{
+height: 270px;	
+width: 270px;
+}
+
+.info-cliente{
+font-size: 18px; 
+font-weight: 400; 
+color: #ffffff; 
+background:#ee046;
+}
+
+.form-mostrar-cuentas{
+	
+}
+
+.cartelera-avisos{
+	
+}
+
+.Z-footer{
+	
+	
+	
+}

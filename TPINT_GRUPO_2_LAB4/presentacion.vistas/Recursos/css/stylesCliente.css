@@ -38,7 +38,7 @@ body {
 
 
 .form-prestamo {
-	margin-top: -360px;
+	margin-top: -450px;
 	transition: 2s all ease;
 	display: flex;
 	height: 21.5rem;
@@ -98,12 +98,7 @@ body {
 	margin-bottom: 50px;
 }
 
-.imagen-cliente{
-	
-height: 100px;	
-	
-	
-}
+
 
 
 
