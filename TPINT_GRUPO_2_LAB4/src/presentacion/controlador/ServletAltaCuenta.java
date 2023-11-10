@@ -52,7 +52,7 @@ Usuario usuario = new Usuario();
 		 request.setAttribute("admin_actual", usuario);
 		 tCuentas = tcuenegImpl.readAll();
 		 request.setAttribute("listatCuentas", tCuentas);
-		
+		 
     	if(request.getParameter("btnAceptar") != null){
     		
     		cuenta.setCBU(request.getParameter("txtCbu"));

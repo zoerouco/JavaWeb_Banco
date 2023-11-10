@@ -124,12 +124,23 @@
                 <button type="reset" id="buttonCancel">Cancelar</button>
                 
             </form>
-            
-             <% Boolean insert = (Boolean)request.getAttribute("insert");
-               if (insert != null && insert) {%>
-            	   Se agrego correctamente!
-            <%}%>
-
+            <%
+			Boolean insert = (Boolean) request.getAttribute("insert");
+			String formSubmitted = request.getParameter("btnAceptar");
+				
+				if (formSubmitted != null) {
+				    	if (insert != null && insert) {
+					%>
+			    <div class="alta-cuentas-succes">
+				          Se agregó correctamente.
+			    </div>
+				<%} else {%>
+				<div class="alta-cuentas-error">
+				   Se produjo un error en la carga del Cliente, corrobore los datos.
+				</div>
+				<%}}%>
+			
+			
         </div>
 	</body>
     
