@@ -1,7 +1,7 @@
   var btnOculto = false;
   
   
-document.addEventListener("DOMContentLoaded", function () {
+/*document.addEventListener("DOMContentLoaded", function () {
     var btnMenuPrestamo = document.getElementById("btnMenuPrestamo");
     var formPrestamo = document.getElementById("form-prestamo");
     var confirmacion = document.getElementById("txtConfirmacion");
@@ -18,17 +18,29 @@ document.addEventListener("DOMContentLoaded", function () {
     btnMenuPrestamo.addEventListener("click", function () {
     	
     	 formPrestamo.style.marginTop = "80px"; 
+    	 btnMenuPrestamo.style.display = "none";
    
         });
     
-    if( currentURL == "http://localhost:8080/TPINT_GRUPO_2_LAB4/ServletCliente"){
+    
+    ocultar.addEventListener("click", function()){
     	
-    	formPrestamo.style.marginTop = "80px";
+    	
+    formPrestamo.style.marginTop = "-450px"; 
+   	 btnMenuPrestamo.style.display = "flex";
+    	
+    	
+    }
+    
+   if( currentURL == "http://localhost:8080/TPINT_GRUPO_2_LAB4/ServletCliente"){
+    	
+	   formPrestamo.style.marginTop = "-450px";
     	btnMenuPrestamo.style.display = "none";
     }
+  
   
 
 
 });
-
+*/
 

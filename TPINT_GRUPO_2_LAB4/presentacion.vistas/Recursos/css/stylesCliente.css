@@ -9,57 +9,12 @@ body {
 	
 }
 
-
-
-
-#btnMenuPrestamo {
-	display: flex;
-	font-size: x-large;
-	flex-direction: row;
-	justify-content: center;
-	transition: 0.2 all ease;
-    align-items: flex-end;
-    margin-top: 50px;
+h1{
+	
+	margin-bottom: 50px;
 }
 
-#btnMenuPrestamo input{
-	padding: 20px;
-	cursor: pointer;
-	border-radius: 36px;
-	margin-top: 110px;
-}
 
-#btnMenuPrestamo input:hover {
-	background-color: #62c06d;
-	color: #ffefd5;
-}
-
-#btnOcultar{padding: 4px 115px;background-color: #ddba79;border-radius: 37px;/* margin-top: 20px; */margin-right: 47px;}
-
-
-.form-prestamo {
-	margin-top: -450px;
-	transition: 2s all ease;
-	display: flex;
-	height: 21.5rem;
-	flex-direction: column;
-	flex-wrap: wrap;
-	justify-content: space-evenly;
-	align-items: center;
-	border-style: solid;
-	border-width: 2px;
-	border-color: black;
-	color: beige;
-	background: #6953df;
-	font-size: larger;
-	z-index: 0;
-}
-
-.form-prestamo p {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-}
 
 .form-movimientos {
 	margin-top: 300px;
@@ -85,18 +40,6 @@ body {
 	align-items: flex-start;
 }
 
-
-#btnSolicitarPrestamo {
-	padding: 4px 115px;
-	background-color: #ddba79;
-	border-radius: 37px;
-	margin-top: 20px;
-}
-
-#table-prestamos {
-	margin-top: 90px;
-	margin-bottom: 50px;
-}
 
 
 
