@@ -54,21 +54,18 @@
 		<h1 style="color: #ffefd5;">GLOBANK</h1>
 
 		<ul class="contenedor-links-menu">
-			<li class="links-menu"><a class="links-menu" href="#"> Home
+			<li class="links-menu"><a class="links-menu" href="ServletMenuCliente"> Home
 			</a></li>
 			<li class="links-menu"><a class="links-menu"
 				href="movimientosCliente.jsp"> Mis movimientos</a></li>
 			<li class="links-menu"><a class="links-menu"
 				href="ServletCliente" id="mis-prestamos"> Mis préstamos </a></li>
-			<li class="links-menu"><a class="links-menu" href="#">Ajustes
-					</a></li>
+			<li class="links-menu"><a class="links-menu" href="#">Mis pagos</a></li>
 
 			<li class="mensaje-bienvenida">
 			<h1>Bienvenid@, <%= cliente.getNombre()%></h1>
 			</li>
-
 		</ul>
-		 <input type="hidden" name="clienteActual" value="<%= cliente.getDNI()%>">
 	</div>
 	</header>
 	

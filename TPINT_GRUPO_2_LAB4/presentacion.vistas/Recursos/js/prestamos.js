@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var ocultar = document.getElementById("btnOcultar");
 
     var currentURL = window.location.href;
-    var jspURL = 'http://localhost:8080/TPINT_GRUPO_2_LAB4/prestamosCliente.jsp';
+    var jspURL = 'http://localhost:8080/TPINT_GRUPO_2_LAB4/ServletCliente';
     console.log(currentURL);
 	 
     
@@ -27,18 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
     	btnMenuPrestamo.style.display = "none";
     }
   
-    
-    ocultar.addEventListener("click", function () {
-
-    	window.history.pushState({}, '', jspURL);
-    	history.go(jspURL);
-   	 
-   	 
-       });
-  
-    
- 
-
 
 
 });
