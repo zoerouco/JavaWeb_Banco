@@ -2,6 +2,11 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="entidades.Usuario"%>
 <%@page import="entidades.Cliente" %>
+<%@ page import="entidades.Genero"%>
+<%@ page import="entidades.Nacionalidad"%>
+<%@ page import="entidades.Provincia"%>
+<%@ page import="entidades.Localidad"%>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -91,19 +96,56 @@
 		    <br>
 		    <label for="dni1">DNI:</label>
 			<label><%= cliente.getDNI() %></label>
-			<input type="hidden" name="dni1" value="<%= cliente.getDNI() %>" required>
+			<input type="hidden" name="dni1" value="<%= cliente.getDNI() %>" >
 		    <br>
-		    <label for="idGenero">ID genero:</label>
-		    <input type="text" name="idGenero" value="<%= cliente.getId_genero().getId_genero() %>" required>
+                        <label for="gender">Genero</label>
+                         <select name="gender" name="gender">
+                           	<% ArrayList <Genero> generos = (ArrayList <Genero>)request.getAttribute("listaGeneros");
+                        		if (generos != null){
+                        			for(Genero genero : generos) { %>
+                        				<option value="<%=genero.getId_genero()%>"><%=genero.getDescripcion()%></option>
+                        			<%}
+                        		} else { %>
+                        			<option>NO HAY</option>
+                        	  <%}%>
+                        </select>
 		    <br>
-		    <label for="idNacionalidad">ID nacionalidad:</label>
-		    <input type="text" name="idNacionalidad" value="<%= cliente.getId_nacionalidad().getId() %>" required>
+		    <label for="nationality">Nacionalidad</label>
+                        <select name="nationality" name="nationality">
+                            <% ArrayList <Nacionalidad> nacionalidades = (ArrayList <Nacionalidad>)request.getAttribute("listaNacionalidades");
+                           	   if (nacionalidades != null){
+                        			for(Nacionalidad nacionalidad : nacionalidades) { %>
+                        				<option value="<%=nacionalidad.getId()%>"><%=nacionalidad.getNombre_pais()%></option>
+                        			<%}
+                        		} else { %>
+                        			<option>NO HAY</option>
+                        	  <%}%>
+                        </select>
 		    <br>
-		    <label for="idProvincia">ID provincia:</label>
-		    <input type="text" name="idProvincia" value="<%= cliente.getId_provincia().getId() %>" required>
+		     <label for="province">Provincia</label>
+                        <select name="province" name="province"> <!--onchange="habilitarLocalidades()"-->
+                            <% ArrayList <Provincia> provincias = (ArrayList <Provincia>)request.getAttribute("listaProvincias");
+                        		if (provincias != null){
+                        			for(Provincia provincia : provincias) { %>
+                        				<option value="<%=provincia.getId()%>"><%=provincia.getNombre_provincia()%></option>
+                        			<%}
+                        		} else { %>
+                        			<option>NO HAY</option>
+                        	  <%}%>
+                        </select>
 		    <br>
-		    <label for="idLocalidad">ID localidad:</label>
-		    <input type="text" name="idLocalidad" value="<%= cliente.getId_localidades().getId() %>" required>
+		    <label for="locality">Localidad</label>
+                        <select name="locality" name="locality"> <!--disabled-->
+                            <% ArrayList <Localidad> localidades = (ArrayList <Localidad>)request.getAttribute("listaLocalidades");
+                        		if (localidades != null){
+                        			for(Localidad localidad : localidades) { %>
+                        				<!--<option value="">Selecciona una provincia primero</option>-->
+                        				<option value="<%=localidad.getId()%>"><%=localidad.getNombre_localidad()%></option>
+                        			<%}
+                        		} else { %>
+                        			<option>NO HAY</option>
+                        	  <%}%>
+                        </select>
 		    <br>
 		    <label for="idCUIL">CUIL:</label>
 		    <input type="text" name="idCUIL" value="<%= cliente.getCUIL() %>" required>
