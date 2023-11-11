@@ -94,7 +94,7 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 		
 	}
 	
-<<<<<<< HEAD
+
 	public ArrayList<Prestamo> getPrestamosxCBU (String CBU, ArrayList <Cuenta> cuentasCliente){
 		
 		
@@ -102,15 +102,16 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 			
 			if(cuenta.getCBU().compareTo(CBU) == 0) { //validacion de que el cbu que consulte sea del cliente
 				
-				pdao.getPrestamosxCBU(CBU);
+				return pdao.getPrestamosxCBU(CBU);
 			}
 		}
 		
 		return null;
-=======
+	}
+	
 	public ArrayList<Prestamo> readAllByEstado(String estado){
 		return pdao.readAllByEstado(estado);
->>>>>>> b8e7ea639bb6c7d018e220d5024bb4dd2cfca2ec
+
 	}
 	
 	

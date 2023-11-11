@@ -12,9 +12,6 @@ public interface PrestamoDao {
 	public ArrayList<Prestamo> readAll();
 	public int getUltimoID();
 	public ArrayList<Prestamo> getPrestamoxCuentas(ArrayList<Cuenta> cuentasCliente);
-<<<<<<< HEAD
 	public ArrayList<Prestamo> getPrestamosxCBU (String CBU);
-=======
 	public ArrayList<Prestamo> readAllByEstado(String estado);
->>>>>>> b8e7ea639bb6c7d018e220d5024bb4dd2cfca2ec
 }
