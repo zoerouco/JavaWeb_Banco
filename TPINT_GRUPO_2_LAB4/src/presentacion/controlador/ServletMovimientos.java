@@ -55,31 +55,48 @@ public class ServletMovimientos extends HttpServlet {
 			 request.setAttribute("cuentas_cliente_actual",cuentas_cliente_actual);
 		  }
 		if (request.getParameter("btnMovimiento") != null) {
+			//int validacion;
+			//guardar el SALDO "anterior" del cliente cuenta.getsaldo();
+			// validar si lo que se quiere transferir es menor o igual al monto del saldo actual.
+			//si no pasa la validacion se retorna un int -2 => error de que esta queriendo transferir monto que no tiene.
 			
+			
+			//if(validarMovimiento()){ => si devuelve true 
 			Movimiento movimiento = new Movimiento();
 			int ultimoID = movimientoN.getUltimoID();
+			float importeMovimiento = Float.parseFloat(request.getParameter("importe_transferir"));
+
 			movimiento.setId_movimiento(ultimoID+1);
 			cuenta = cuentaN.getCuentaxCBU(cuenta.getCBU()); //EL OBJETO CUENTA OJO CON LO QUE LO PISAS.
 			movimiento.setCBU(cuenta);
 			cuenta = cuentaN.getCuentaxCBU(request.getParameter("cbu_destino"));
 			movimiento.setCBU_Destino(cuenta);
 			movimiento.setDetalle("transferencia_enviada");
-			movimiento.setImporte((int) Float.parseFloat(request.getParameter("importe_transferir")));
+			movimiento.setImporte(importeMovimiento);
 			tipoMovimiento = tipoMovimientoN.getTipo_MovimientoByID("transferencia_enviada");		
 			movimiento.setTipoMovimiento(tipoMovimiento);
 			movimiento.setEstado(true);
 			
-			 cuenta = (Cuenta)request.getSession().getAttribute("cuenta_actual"); // restablecemos a la cuenta del cliente
-
+		 cuenta = (Cuenta)request.getSession().getAttribute("cuenta_actual"); // restablecemos a la cuenta del cliente
+		 	//validacion = 1;
 			boolean inserto = movimientoN.insert(movimiento);
 			request.setAttribute("inserto", inserto);
+			//UPDATE CLIENTE ACTUAL:
+			//cuenta.setSaldo(importeMovimiento - saldo);
+			//boolean update = cuentaN.modificar(cuenta); => modificar saldo.
+			//request.setAttribute("update", update);
+			//}
 			
+			
+			//validacion = -2
+			//request.setAttribute("validacion", validacion); => si validacion es -2 se debe mostrar el mensaje aclaratorio.
 			
 		}
 		String url = "/movimientosCliente.jsp";
 		request.setAttribute("miUrl", url);
 		request.getRequestDispatcher(url).forward(request, response);
 	}
+	
 		
 	
 
