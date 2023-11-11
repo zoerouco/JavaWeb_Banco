@@ -103,3 +103,4 @@ MODIFY estado VARCHAR(20);
 	//
 	
 	
+	

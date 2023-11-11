@@ -20,5 +20,13 @@ INSERT INTO clientes(DNI, id_genero, id_nacionalidad, id_provincia, id_localidad
 SELECT '01', 'NULL', '1', '1', '1', '01', NULL, NULL, NULL, 'globank 0101', 'support_globank@gmail.com', '1105263398', NULL, 1 UNION
 SELECT '45879526', 'M', '1', '1', '1', '23458795263', 'Natalia', 'Gomez', '2000/08/03', 'velez 189', 'natigomez@gmail.com', '1189758630', '1178452033', 1;
 
-INSERT INTO usuarios(DNI, esAdmin, id_ref, contrase�a, nombre_usuario, estado)
-SELECT '01', 1, 1, 'globankroot', 'admin_banco', 1; 
+INSERT INTO usuarios(id_usuario,DNI, esAdmin, id_ref, contraseña, nombre_usuario, estado)
+SELECT '00','45879526', 1, 1, 'globankroot', 'admin_banco', 1; 
+INSERT INTO usuarios(id_usuario,DNI, esAdmin, id_ref, contraseña, nombre_usuario, estado)
+SELECT '2','45879526', 1, 1, 'globankuser', 'user', 1; 
+
+INSERT INTO usuarios(id_usuario,DNI, esAdmin, id_ref, contraseña, nombre_usuario, estado)
+SELECT '3','45879526', 0, 1, 'user', 'user1', 1; 
+
+
+Select * from bdglobank.usuarios;

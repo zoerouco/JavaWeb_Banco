@@ -4,13 +4,17 @@ import java.sql.Date;
 
 public class Movimiento {
 	
+	public static void setID_Movimiento(int iD_Movimiento) {
+		ID_Movimiento = iD_Movimiento;
+	}
+
 	private static int ID_Movimiento = 0;
 	private Cuenta CBU;	
 	private Cuenta CBU_Destino;
 	private Date Fecha_Transaccion;
 	private int Importe;
 	private String Detalle;	
-	private String TipoMovimiento;
+	private Tipo_Movimiento TipoMovimiento;
 	private boolean estado;
 	
 	 
@@ -25,9 +29,9 @@ public class Movimiento {
 	
 	
 	
-		public Movimiento(Cuenta CBU, Cuenta CBU_Destino, int Importe , Date Fecha_Transaccion,String Detalle, String TipoMovimiento, boolean estado) {
+		public Movimiento(int id_Movimiento,Cuenta CBU, Cuenta CBU_Destino, int Importe , Date Fecha_Transaccion,String Detalle, Tipo_Movimiento TipoMovimiento, boolean estado) {
 			
-
+			this.ID_Movimiento=id_Movimiento;
 			this.CBU=CBU;	
 			this.CBU_Destino=CBU_Destino;
 			this.Importe = Importe;
@@ -79,15 +83,15 @@ public class Movimiento {
 			this.Detalle = Detalle;
 		}
 		
-		public String getTipoMovimiento() {
-			return TipoMovimiento;
+		public Tipo_Movimiento getTipoMovimiento() {
+			return getTipoMovimiento();
 		}
 		
-		public void setTipoMovimiento(String TipoMovimiento) {
+		public void setTipoMovimiento(Tipo_Movimiento TipoMovimiento) {
 			this.TipoMovimiento = TipoMovimiento;
 		}
 		
-		public boolean isEstado() {
+		public boolean getEstado() {
 			return estado;
 		}
 		

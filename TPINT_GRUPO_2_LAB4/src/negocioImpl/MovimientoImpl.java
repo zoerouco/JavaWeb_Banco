@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import dao.MovimientoDao;
 import daoImpl.MovimientoDaoImpl;
+import entidades.Cuenta;
 import entidades.Movimiento;
+import entidades.Prestamo;
 import negocio.MovimientoNegocio;
 
 
@@ -13,9 +15,10 @@ public class MovimientoImpl implements MovimientoNegocio {
 MovimientoDao mdao = new MovimientoDaoImpl();
 	
 	@Override
-	public int insert(Movimiento movimiento) {
-		// TODO Auto-generated method stub
-		return 0;
+	public boolean insert(Movimiento movimiento) {
+		boolean filas = false;
+		filas = mdao.insert(movimiento);
+		return filas;
 	}
 
 	@Override
@@ -29,9 +32,21 @@ MovimientoDao mdao = new MovimientoDaoImpl();
 		return mdao.readAll();
 	}
 
+	public ArrayList<Movimiento> getMovimientoXCuenta (ArrayList <Cuenta> cuentasCliente) {
+		
+		
+		return mdao.getMovimientoXCuenta(cuentasCliente);
+		
+	}
+	
 	@Override
 	public boolean update(Movimiento movimiento) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public int getUltimoID() {
+		// TODO Auto-generated method stub
+		return mdao.getUltimoID();
 	}
 }
