@@ -26,6 +26,7 @@ import negocioImpl.PrestamoNegocioImpl;
 public class ServletCliente extends HttpServlet {
 		
 	private static final long serialVersionUID = 1L;
+	
 	ArrayList<Cuenta> cuentas_cliente_actual = new ArrayList<Cuenta>();
 	Cliente cliente = new Cliente();
 	CuentaNegocioImpl cuentaN = new CuentaNegocioImpl();
@@ -50,9 +51,11 @@ public class ServletCliente extends HttpServlet {
 				 request.getSession().setAttribute("cliente_actual", cliente);
 				 cuentas_cliente_actual = cuentaN.getCuentasxDNI(usuario.getDni().getDNI());
 				 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente_actual);
-				 
+				
+				ArrayList <Prestamo> prestamosClienteAux = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
 				ArrayList <Prestamo> prestamosCliente = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
 				request.setAttribute("prestamosCliente", prestamosCliente);
+				request.setAttribute("prestamosClienteAux", prestamosClienteAux);
 				 }
 				 
 			  
@@ -70,7 +73,7 @@ public class ServletCliente extends HttpServlet {
 				prestamo.setMonto_x_mes(prestamoN.calcularMontoxMes(Integer.parseInt(request.getParameter("cant_cuotas")), importe_con_intereses));
 				cuenta = cuentaN.getCuentaxCBU(request.getParameter("cuentas-cliente"));
 				prestamo.setCBU(cuenta);
-				prestamo.setEstado("Solicitado");
+				prestamo.setEstado("Aprobado");
 				boolean inserto = prestamoN.insert(prestamo);
 				request.setAttribute("inserto", inserto);
 			}
@@ -79,12 +82,14 @@ public class ServletCliente extends HttpServlet {
 				
 				String cbu = request.getParameter("filtro-cuentas-cliente");
 				ArrayList <Prestamo> prestamosxCBU = prestamoN.getPrestamosxCBU(cbu, cuentas_cliente_actual);	
+				ArrayList <Prestamo> prestamosClienteAux = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
 			    ArrayList <Prestamo> prestamosCliente = null;
 				
 				request.setAttribute("filtro", prestamosxCBU);
 			    request.setAttribute("hayFiltro", true);
 			   
 				request.setAttribute("prestamosCliente", prestamosCliente);
+				request.setAttribute("prestamosClienteAux", prestamosClienteAux);
 			    
 			}
 			
@@ -136,7 +141,7 @@ public class ServletCliente extends HttpServlet {
 			prestamo.setMonto_x_mes(prestamoN.calcularMontoxMes(Integer.parseInt(request.getParameter("cant_cuotas")), importe_con_intereses));
 			cuenta = cuentaN.getCuentaxCBU(request.getParameter("cuentas-cliente"));
 			prestamo.setCBU(cuenta);
-			prestamo.setEstado("Solicitado");
+			prestamo.setEstado("Aprobado");
 			boolean inserto = prestamoN.insert(prestamo);
 			request.setAttribute("inserto", inserto);
 		}

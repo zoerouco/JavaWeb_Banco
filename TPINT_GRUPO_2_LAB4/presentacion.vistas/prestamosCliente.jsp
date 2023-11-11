@@ -61,6 +61,7 @@
    
    <%
    ArrayList <Prestamo> prestamosCliente = (ArrayList <Prestamo>) request.getAttribute("prestamosCliente");
+   ArrayList<Prestamo> prestamosClienteAux =  (ArrayList<Prestamo>) request.getAttribute("prestamosClienteAux");
    ArrayList <Prestamo> prestamosxCBU = (ArrayList <Prestamo>) request.getAttribute("filtro");
    Boolean hayFiltro = (Boolean) request.getAttribute("hayFiltro");
    
@@ -84,6 +85,7 @@
         <p>Buscar préstamos por CBU:</p>
          <select required name="filtro-cuentas-cliente" id="cuentas-cliente">
                     <%
+                       
                         ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
                         if (cuentas != null) {
                             for (Cuenta cuentaCliente : cuentas) {
@@ -334,19 +336,19 @@
 	
 	 <select required name="prestamos-cliente" id="prestamos-cliente">
                     <%
-                        if (prestamosCliente != null) {
-                            for (Prestamo prestamo : prestamosCliente) {
+                    		int contAux = 0;
+                    	if(prestamosClienteAux != null){
+							 for (Prestamo prestamo : prestamosClienteAux) {
                             	if(prestamo.getEstado().compareTo("Aprobado") == 0){
+                            		contAux++;
                     %>
                                 <option> <%=prestamo.getId_prestamo()%> </option>
+                            
                     <%
-                            }
-                        } }else {
-                    %>
-                            <option>NO TIENE PRÉSTAMOS APROBADOS</option>
-                    <%
-                        }
-                    %>
+                         }}} if(contAux == 0) {
+                    	%>
+                    	<option>NO TIENE PRÉSTAMOS APROBADOS</option>
+                   <% }%>
                 </select>
                 
                <input class="buttons" type="submit" name="btnConsultarPagos" value="Consultar" id="btnConsultarPagos"></input> 
