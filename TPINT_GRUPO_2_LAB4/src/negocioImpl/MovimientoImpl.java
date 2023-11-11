@@ -32,10 +32,10 @@ MovimientoDao mdao = new MovimientoDaoImpl();
 		return mdao.readAll();
 	}
 
-	public ArrayList<Movimiento> getMovimientoXCuenta (ArrayList <Cuenta> cuentasCliente) {
+	public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuenta) {
 		
 		
-		return mdao.getMovimientoXCuenta(cuentasCliente);
+		return mdao.getMovimientosXCuenta(cuenta);
 		
 	}
 	

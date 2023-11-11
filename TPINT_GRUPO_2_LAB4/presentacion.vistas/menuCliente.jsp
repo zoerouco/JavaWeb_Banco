@@ -57,7 +57,7 @@
 			<li class="links-menu"><a class="links-menu" href="ServletMenuCliente"> Home
 			</a></li>
 			<li class="links-menu"><a class="links-menu"
-				href="movimientosCliente.jsp"> Mis movimientos</a></li>
+				href="ServletMovimientos"> Mis movimientos</a></li>
 			<li class="links-menu"><a class="links-menu"
 				href="ServletCliente" id="mis-prestamos"> Mis préstamos </a></li>
 			<li class="links-menu"><a class="links-menu" href="#">Mis pagos</a></li>

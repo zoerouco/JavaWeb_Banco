@@ -48,13 +48,12 @@ public class ServletMovimientos extends HttpServlet {
 			  
 			 usuario = (Usuario) request.getSession().getAttribute("usuario");  
 			 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
-			 request.getSession().setAttribute("cliente_actual", cliente);
-			 cuentas_cliente_actual = cuentaN.getCuentasxDNI(usuario.getDni().getDNI());
-			 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente_actual);
-			 
-			 ArrayList<Movimiento> movimientosCliente = movimientoN.getMovimientoXCuenta(cuentas_cliente_actual);
+			 request.getSession().setAttribute("cliente_actual", cliente);			 			 					 			 
+			 ArrayList<Movimiento> movimientosCliente = movimientoN.getMovimientosXCuenta((Cuenta) request.getSession().getAttribute("cuenta_actual"));
 			 request.setAttribute("movimientosCliente", movimientosCliente);
 			 
+			 ArrayList<Cuenta> cuentas_cliente_actual = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
+			 request.setAttribute("cuentas_cliente_actual",cuentas_cliente_actual);
 		  }
 		if (request.getParameter("btnMovimiento") != null) {
 			Movimiento movimiento = new Movimiento();
@@ -85,13 +84,12 @@ public class ServletMovimientos extends HttpServlet {
 			  
 			 usuario = (Usuario) request.getSession().getAttribute("usuario");  
 			 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
-			 request.getSession().setAttribute("cliente_actual", cliente);
-			 cuentas_cliente_actual = cuentaN.getCuentasxDNI(usuario.getDni().getDNI());
-			 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente_actual);
-			 
-			 ArrayList<Movimiento> movimientosCliente = movimientoN.getMovimientoXCuenta(cuentas_cliente_actual);
+			 request.getSession().setAttribute("cliente_actual", cliente);			 			 					 			 
+			 ArrayList<Movimiento> movimientosCliente = movimientoN.getMovimientosXCuenta((Cuenta) request.getSession().getAttribute("cuenta_actual"));
 			 request.setAttribute("movimientosCliente", movimientosCliente);
 			 
+			 ArrayList<Cuenta> cuentas_cliente_actual = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
+			 request.setAttribute("cuentas_cliente_actual",cuentas_cliente_actual);
 		  }
 		if (request.getParameter("btnMovimiento") != null) {
 			Movimiento movimiento = new Movimiento();

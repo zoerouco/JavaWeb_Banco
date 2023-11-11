@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.sql.CallableStatement;
+
+
 import dao.MovimientoDao;
 import entidades.Cliente;
 import entidades.Cuenta;
@@ -20,18 +23,21 @@ import entidades.Tipo_cuenta;
 public class MovimientoDaoImpl implements MovimientoDao {
 	
 	
-	private static final String readall = "SELECT * FROM movimientos WHERE CBU= ?";
-	private static final String insert = "INSERT INTO movimientos(id_movimiento,CBU,CBU_destino) VALUES(?, ?, ?)";
+	private static final String readall = "SELECT * FROM movimientos";	
 	private static final String update = "UPDATE movimientos SET  = ?,  = ? WHERE CBU = ?";
+	private static final String movimientosXcuenta = "SELECT * FROM movimientos " + 
+			"INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo " + 
+			"WHERE CBU = ?";
+	
 	@Override
 	public boolean insert(Movimiento movimiento) {
-		String query =  "CALL AgregarMovimiento(?, ?, ?, ?, ?, ?, ?,?)";
+		String query =  "CALL AgregarMovimiento(?, ?, ?, ?, ?, ?, ?, ?)";
 		
-		PreparedStatement statement;
+	
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
-		try {
-			statement = conexion.prepareStatement(query);
+		try { 
+			CallableStatement statement = conexion.prepareCall(query);			
 			statement.setInt(1, movimiento.getID_Movimiento());
 			statement.setString(2, movimiento.getCBU().getCBU());
 			statement.setString(3, movimiento.getCBU_Destino().getCBU());
@@ -178,16 +184,15 @@ public int getUltimoID() {
 	    return UltimoId;
 	}
 
-public ArrayList<Movimiento> getMovimientoXCuenta (ArrayList<Cuenta> cuentasCliente) {
-	
-	ArrayList<Movimiento> movimientosCliente = new ArrayList<Movimiento>();
-	Cuenta cuentaAux = new Cuenta();
-	Cuenta cuentaDestino = new Cuenta();
-	Boolean bandera = false;
-	
-	int length = cuentasCliente.size();
+
+
+public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaAux) {
 	
 	
+	Cuenta cuenta = new Cuenta();
+	Tipo_Movimiento tipoMovimiento =new Tipo_Movimiento();
+	Cuenta cuentaDest =new Cuenta();
+	ArrayList<Movimiento> movimientosCliente = new ArrayList<Movimiento>();		
 	try {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 	} catch (ClassNotFoundException e) {
@@ -197,51 +202,43 @@ public ArrayList<Movimiento> getMovimientoXCuenta (ArrayList<Cuenta> cuentasClie
 	Conexion conexion = Conexion.getConexion();
 	
 	try{
-		PreparedStatement statement = conexion.getSQLConexion().prepareStatement(readall);
+		PreparedStatement statement = conexion.getSQLConexion().prepareStatement(movimientosXcuenta);
+		statement.setString(1, cuenta.getCBU());
 		ResultSet resultSet = statement.executeQuery();
 		
 		while(resultSet.next()){
 			
-			for(int i= 0; i<length; i++) {
-				
-				cuentaAux = cuentasCliente.get(i);
-				
-				if(resultSet.getString("CBU").compareTo(cuentaAux.getCBU()) == 0) bandera = true;
-				else bandera = false;
-				
-				
-				if(bandera)
-				{
-					
-					Cuenta cuenta = new Cuenta();
-					
-					
+										
 					Movimiento movimiento = new Movimiento();					
-					Tipo_Movimiento tipoMovimiento =new Tipo_Movimiento();
+					
+					cuenta.setCBU(resultSet.getString("CBU"));					
 					tipoMovimiento.setId_tipo(resultSet.getString("id_tipo"));
 					tipoMovimiento.setDescripcion((resultSet.getString("descripcion")));
-					cuenta.setCBU(resultSet.getString("CBU"));
-					cuenta.setDNI(cuentaAux.getDNI());
-					cuenta.setEstado(cuentaAux.getEstado());
+						
+					cuentaDest.setCBU(resultSet.getString("CBU_Destino"));
+					
 					cuenta.setFecha_creacion(cuentaAux.getFecha_creacion());
+					cuenta.setDNI(cuentaAux.getDNI());
+					cuenta.setEstado(cuentaAux.getEstado());					
 					cuenta.setSaldo(cuentaAux.getSaldo());
 					cuenta.setNro_cuenta(cuentaAux.getNro_cuenta());
-					cuenta.setId_tipo(cuentaAux.getId_tipo());					
+					cuenta.setId_tipo(cuentaAux.getId_tipo());	
+					
+					movimiento.setID_Movimiento(resultSet.getInt("id_movimiento"));
 					movimiento.setCBU(cuenta);
-					movimiento.setCBU_Destino(cuentaAux);				
-					movimiento.setDetalle(resultSet.getString("detalle"));
-					movimiento.setDetalle(resultSet.getString("detalle"));
+					movimiento.setCBU_Destino(cuentaDest);	
+					movimiento.setDetalle(resultSet.getString("detalle"));					
 					movimiento.setEstado(resultSet.getBoolean("estado"));					
 					movimiento.setFecha_Transaccion(resultSet.getDate("fecha_realizacion"));
 					movimiento.setImporte(resultSet.getInt("importe"));
-					movimiento.setTipoMovimiento(tipoMovimiento);
-						
+					movimiento.setTipoMovimiento(tipoMovimiento);						
 					movimientosCliente.add(movimiento);
+					
 				}
 
-			}
+			
 
-		}
+		
 		
 	conexion.cerrarConexion();
 		

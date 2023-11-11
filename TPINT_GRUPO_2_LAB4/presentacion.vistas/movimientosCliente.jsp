@@ -44,7 +44,7 @@
     %>
 	<header class="encabezado">
 	<div class="contenedor-menu">
-			<a href="ServletMenuCliente">
+			<a href="ServletMovimientos">
            		<img class="imagen-menu" src="Recursos/img/BancoLogo.png" alt="nav" /> 
           	</a> 
 		<h1 style="color: #ffefd5;">GLOBANK</h1>
@@ -132,7 +132,7 @@
 
 		<h1>TRANSFERENCIAS</h1>
 
-		<form action="ServletCliente" method="post">
+		<form action="ServletMovimientos" method="post">
 
 			<p>
 				Importe: <input type="number" name="importe_pedido"></input>
@@ -142,9 +142,12 @@
 			</p>
 			<p>
 				Seleccionar cuenta donde se depositará transferencias : <select name="cuentas-propias">
-					<option value="cbu-1"></option>
-					<option value="cbu-2"></option>
-					<option value="cbu-3"></option>
+				<%if (cuenta != null){
+					
+					for(Cuenta cuentaAux : cuentas_cliente_actual){%>
+				
+					<option value="cbu-1"><%= cuentaAux.getCBU()%></option>					
+									<%}} %>
 				</select>
 			</p>
 

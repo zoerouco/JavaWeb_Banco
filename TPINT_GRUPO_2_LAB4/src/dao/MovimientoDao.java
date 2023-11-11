@@ -10,6 +10,6 @@ public interface MovimientoDao {
 	public boolean insert (Movimiento movimiento);
 	public boolean delete (Movimiento movimiento);
 	public ArrayList<Movimiento> readAll();
-	public ArrayList<Movimiento> getMovimientoXCuenta(ArrayList<Cuenta> cuentasCliente);
+	public ArrayList<Movimiento> getMovimientosXCuenta(Cuenta cuenta);
 	public int getUltimoID();
 }
