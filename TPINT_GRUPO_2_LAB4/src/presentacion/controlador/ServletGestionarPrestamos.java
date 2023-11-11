@@ -9,22 +9,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import entidades.Prestamo;
 import entidades.Usuario;
 import negocioImpl.PrestamoNegocioImpl;
 
-
-@WebServlet("/ServletListarPrestamos")
-public class ServletListarPrestamos extends HttpServlet {
+@WebServlet("/ServletGestionarPrestamos")
+public class ServletGestionarPrestamos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Usuario usuario = new Usuario();
 	PrestamoNegocioImpl pneg = new PrestamoNegocioImpl();
     
-    public ServletListarPrestamos() {
+    public ServletGestionarPrestamos() {
         super();
     }
 
-    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		request.setAttribute("admin_actual", usuario);
@@ -32,7 +31,7 @@ public class ServletListarPrestamos extends HttpServlet {
 		ArrayList<Prestamo> listaPrestamos = pneg.readAll();
 		request.setAttribute("listaPrestamos", listaPrestamos);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/listadoPrestamos.jsp");   
+		RequestDispatcher rd = request.getRequestDispatcher("/gestionPrestamos.jsp");   
 	    rd.forward(request, response);
 	}
 
@@ -51,7 +50,22 @@ public class ServletListarPrestamos extends HttpServlet {
 			request.setAttribute("listaPrestamos", listaPrestamos);
 		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/listadoPrestamos.jsp");   
+		if(request.getParameter("buttonAceptar") != null) {
+			Prestamo prestamo = new Prestamo();
+			Prestamo prestamoSeleccionado = (Prestamo) request.getAttribute("prestamo");
+			
+			prestamo.setId_prestamo(prestamoSeleccionado.getId_prestamo());
+			prestamo.setCant_cuotas(prestamoSeleccionado.getCant_cuotas());
+			prestamo.setCBU(prestamoSeleccionado.getCBU());
+			prestamo.setEstado(prestamoSeleccionado.getEstado());
+			prestamo.setFecha_realizacion(prestamoSeleccionado.getFecha_realizacion());
+			prestamo.setImporte_con_intereses(prestamoSeleccionado.getImporte_con_intereses());
+			prestamo.setImporte_pedido(prestamoSeleccionado.getImporte_pedido());
+			prestamo.setMonto_x_mes(prestamoSeleccionado.getMonto_x_mes());
+		}
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/gestionPrestamos.jsp");   
 	    rd.forward(request, response);
 	}
+
 }

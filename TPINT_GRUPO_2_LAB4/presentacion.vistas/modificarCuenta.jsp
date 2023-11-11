@@ -59,7 +59,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="ServletListarPrestamos">Ver todos los prestamos</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Gestionar prestamos</a>
+                            <a class="dropdown-item" href="ServletGestionarPrestamos">Gestionar prestamos</a>
                     </div>
                 </li>
            

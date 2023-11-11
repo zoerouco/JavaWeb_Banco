@@ -57,7 +57,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="ServletListarPrestamos">Ver todos los prestamos</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Gestionar prestamos</a>
+                            <a class="dropdown-item" href="ServletGestionarPrestamos">Gestionar prestamos</a>
                         </div>
                     </li>
                     <li class="mensaje-bienvenida">
@@ -109,7 +109,7 @@
 					       		<td><%=cliente.getId_localidades().getNombre_localidad()%></td>
 				        		<td><%=cliente.getTelefono_primario()%></td>
 				        		<td><%=cliente.getTelefono_secundario()%></td>
-				        		<td><input type="submit" name="buttonEliminar" value="eliminar" id="button" class="eliminar-button"></td> 		
+				        		<td><input type="submit" name="buttonEliminar" value="Eliminar" class="button-eliminar" class="eliminar-button"></td> 		
 								<div>
 			                        <% if (request.getAttribute("confirm" + cliente.getDNI()) != null) { %>
 			                        	<p class="confirm-message"><%= request.getAttribute("confirm" + cliente.getDNI()) %>

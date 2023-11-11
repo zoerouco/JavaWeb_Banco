@@ -7,14 +7,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	    <link rel="stylesheet" type="text/css" href="Recursos/css/main.css">
 	    <link rel="stylesheet" type="text/css" href="Recursos/css/eliminarCliente.css">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
-	    <title>Globank | Listado Clientes</title>
+	    <title>Globank | Listado Prestamos</title>
 	</head>
 	<body>
 	<%
@@ -59,7 +58,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="ServletListarPrestamos">Ver todos los prestamos</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Gestionar prestamos</a>
+                            <a class="dropdown-item" href="ServletGestionarPrestamos">Gestionar prestamos</a>
                         </div>
                     </li>
                     <li class="mensaje-bienvenida">
