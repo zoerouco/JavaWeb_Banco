@@ -22,4 +22,5 @@ public class Tipo_MovimientoNegocioImpl implements Tipo_MovimientoNegocio{
 
 		
 	}
+
 }

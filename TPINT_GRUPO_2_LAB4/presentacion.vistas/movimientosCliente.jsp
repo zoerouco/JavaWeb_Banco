@@ -66,23 +66,26 @@
 		</ul>
 	</div>
 	</header>
+	
+	<%
+	  ArrayList<Movimiento> movimientosCliente = (ArrayList <Movimiento>) request.getAttribute("movimientosCliente");
+            if (movimientosCliente != null) { %>
 	<main>
+	
 	<div class="container-table" id="table-movimientos">
-		<% ArrayList<Movimiento> movimientosCliente = (ArrayList <Movimiento>) request.getAttribute("movimientosCliente");
-		int itemsPerPage = 6;
-        int totalPages = (int) Math.ceil((double) movimientosCliente.size() / itemsPerPage);
-        int currentPage = 1;
-        if (request.getParameter("page") != null) {
-            currentPage = Integer.parseInt(request.getParameter("page"));
-        }
-        int startIndex = (currentPage - 1) * itemsPerPage;
-        int endIndex = Math.min(startIndex + itemsPerPage, movimientosCliente.size());
+
+		<%	int itemsPerPage = 6;
+        	int totalPages = (int) Math.ceil((double) movimientosCliente.size() / itemsPerPage);
+        	int currentPage = 1;
+        	if (request.getParameter("page") != null) {
+           		 currentPage = Integer.parseInt(request.getParameter("page"));
+        	}
+       	    int startIndex = (currentPage - 1) * itemsPerPage;
+        	int endIndex = Math.min(startIndex + itemsPerPage, movimientosCliente.size());
 		%>
 		
 		<h1>MIS MOVIMIENTOS</h1>
-<%
-            if (movimientosCliente != null) {
-        %>
+
 		  <table class="table">
                     <thead>
                         <tr>
@@ -102,13 +105,13 @@
                                 Movimiento movimiento = movimientosCliente.get(i);
                         %>
                                 <tr>
-                                    <td><%= movimiento.getID_Movimiento() %></td>
-                                    <td><%= movimiento.getCBU_Destino().getCBU() %></td>
+                                    <td><%= movimiento.getId_movimiento() %></td>
                                     <td><%= movimiento.getCBU().getCBU() %></td>
+                                    <td><%= movimiento.getCBU_Destino().getCBU() %></td>         
                                     <td><%= movimiento.getDetalle() %></td>
                                     <td><%= movimiento.getFecha_Transaccion() %></td>
                                     <td><%= movimiento.getImporte() %></td>
-                                    <td><%= movimiento.getTipoMovimiento() %></td>                                                                    
+                                    <td><%= movimiento.getTipoMovimiento().getId_tipo() %></td>                                                                    
                         <%  
                             }
                         %>
@@ -128,6 +131,7 @@
             }
         %>
 	</div>
+		<%if (cuenta != null){%>
 	<div class="form-movimientos">
 
 		<h1>TRANSFERENCIAS</h1>
@@ -135,26 +139,21 @@
 		<form action="ServletMovimientos" method="post">
 
 			<p>
-				Importe: <input type="number" name="importe_pedido"></input>
+				Importe: <input type="number" name="importe_transferir"></input>
 			</p>
 			<p>
-				Indique CBU: <input type="number" name="importe_pedido"></input>
+				Indique CBU: <input type="number" name="cbu_destino"></input>
 			</p>
-			<p>
-				Seleccionar cuenta donde se depositará transferencias : <select name="cuentas-propias">
-				<%if (cuenta != null){
 					
-					for(Cuenta cuentaAux : cuentas_cliente_actual){%>
-				
-					<option value="cbu-1"><%= cuentaAux.getCBU()%></option>					
-									<%}} %>
-				</select>
-			</p>
-
 			<input type="submit" name="btnMovimiento" value="Realizar"
 				id="btnMovimiento"></input>
 		</form>
 	</div>
+<%}else{ %>
+		
+		<p>Para poder realizar un movimiento, debe seleccionar una cuenta a gestionar en la pestaña HOME </p>
+
+<%}%>
 
 	<footer class="Z-footer">
 	<p>Todos los derechos reservados &copy; Globank 2023</p>

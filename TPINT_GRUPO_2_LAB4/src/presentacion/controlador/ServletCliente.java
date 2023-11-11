@@ -96,6 +96,10 @@ public class ServletCliente extends HttpServlet {
 				request.setAttribute("prestamosCliente", prestamosCliente);
 			}
 			
+			if(request.getParameter("btnConsultarPagos") != null) {
+				
+			}
+			
 			String url = "/prestamosCliente.jsp";
 			request.setAttribute("miUrl", url);
 			request.getRequestDispatcher(url).forward(request, response);

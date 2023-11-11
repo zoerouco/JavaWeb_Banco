@@ -9,10 +9,12 @@ public class Movimiento {
 	}
 
 	private static int ID_Movimiento = 0;
+	
+	private int id_movimiento;
 	private Cuenta CBU;	
 	private Cuenta CBU_Destino;
 	private Date Fecha_Transaccion;
-	private int Importe;
+	private float Importe;
 	private String Detalle;	
 	private Tipo_Movimiento TipoMovimiento;
 	private boolean estado;
@@ -23,15 +25,15 @@ public class Movimiento {
 	
 	// Constructor para Id_Mov
 	public Movimiento () {
-		
+		ID_Movimiento++;
 	}
 	
 	
 	
 	
-		public Movimiento(int id_Movimiento,Cuenta CBU, Cuenta CBU_Destino, int Importe , Date Fecha_Transaccion,String Detalle, Tipo_Movimiento TipoMovimiento, boolean estado) {
+		public Movimiento(int id_Movimiento,Cuenta CBU, Cuenta CBU_Destino, float Importe , Date Fecha_Transaccion,String Detalle, Tipo_Movimiento TipoMovimiento, boolean estado) {
 			
-			this.ID_Movimiento=id_Movimiento;
+			this.id_movimiento=id_Movimiento;
 			this.CBU=CBU;	
 			this.CBU_Destino=CBU_Destino;
 			this.Importe = Importe;
@@ -40,6 +42,15 @@ public class Movimiento {
 			this.Importe = Importe;
 			this.TipoMovimiento=TipoMovimiento;
 			this.estado = estado;
+		}
+		
+		public int getId_movimiento() {
+			return id_movimiento;
+		}
+
+
+		public void setId_movimiento(int id_movimiento) {
+			this.id_movimiento = id_movimiento;
 		}
 	
 		
@@ -67,11 +78,11 @@ public class Movimiento {
 			this.Fecha_Transaccion = Fecha_Transaccion;
 		}
 		
-		public int getImporte() {
+		public float getImporte() {
 			return Importe;
 		}
 		
-		public void setImporte(int Importe) {
+		public void setImporte(float Importe) {
 			this.Importe = Importe;
 		}
 		
@@ -84,7 +95,7 @@ public class Movimiento {
 		}
 		
 		public Tipo_Movimiento getTipoMovimiento() {
-			return getTipoMovimiento();
+			return TipoMovimiento;
 		}
 		
 		public void setTipoMovimiento(Tipo_Movimiento TipoMovimiento) {

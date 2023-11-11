@@ -48,7 +48,7 @@
                 <li class="links-menu"><a class="links-menu" href=""> Mis movimientos</a></li>
                 <li class="links-menu"><a class="links-menu" href="ServletCliente" id="mis-prestamos"> Mis préstamos
                     </a></li>
-                <li class="links-menu"><a class="links-menu" href="#">Mis pagos</a></li>
+                <li class="links-menu"><a class="links-menu" href="#mispagos">Mis pagos</a></li>
 
                 <li class="mensaje-bienvenida">
                     <h1>Bienvenido, <%= cliente.getNombre()%></h1>
@@ -320,7 +320,44 @@
         %>
     </div>
 
-
+	<section id="mispagos">
+	
+	<div class="container-mispagos">
+	
+	   <img src="Recursos/img/salario.png" height="64px"> <h1>MIS PAGOS</h1> <img>
+	   <p>Por el mes de Noviembre, si te atrasas en un pago no hay intereses, sin embargo baja el porcentaje de que tu próximo préstamo sea aprobado.</p>
+	   
+                   
+	<form action="ServletCliente" method="Post">
+	
+	<p>Consultar pagos</p>
+	
+	 <select required name="prestamos-cliente" id="prestamos-cliente">
+                    <%
+                        if (prestamosCliente != null) {
+                            for (Prestamo prestamo : prestamosCliente) {
+                            	if(prestamo.getEstado().compareTo("Aprobado") == 0){
+                    %>
+                                <option> <%=prestamo.getId_prestamo()%> </option>
+                    <%
+                            }
+                        } }else {
+                    %>
+                            <option>NO TIENE PRÉSTAMOS APROBADOS</option>
+                    <%
+                        }
+                    %>
+                </select>
+                
+               <input class="buttons" type="submit" name="btnConsultarPagos" value="Consultar" id="btnConsultarPagos"></input> 
+	
+	</form>
+	
+	
+	</div>
+	
+	
+	</section>
 
     <footer class="Z-footer">
         <p>Todos los derechos reservados &copy; Globank 2023</p>

@@ -23,29 +23,31 @@ import entidades.Tipo_cuenta;
 public class MovimientoDaoImpl implements MovimientoDao {
 	
 	
-	private static final String readall = "SELECT * FROM movimientos";	
-	private static final String update = "UPDATE movimientos SET  = ?,  = ? WHERE CBU = ?";
+	private static final String readall = "SELECT * FROM movimientos INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo";	
+	//private static final String update = "UPDATE movimientos SET  = ?,  = ? WHERE CBU = ?";
 	private static final String movimientosXcuenta = "SELECT * FROM movimientos " + 
 			"INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo " + 
 			"WHERE CBU = ?";
 	
 	@Override
 	public boolean insert(Movimiento movimiento) {
-		String query =  "CALL AgregarMovimiento(?, ?, ?, ?, ?, ?, ?, ?)";
+		String query =  "CALL AgregarMovimiento(?, ?, ?, ?, ?, ?, ?)";
 		
 	
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
 		try { 
-			CallableStatement statement = conexion.prepareCall(query);			
-			statement.setInt(1, movimiento.getID_Movimiento());
+			CallableStatement statement = conexion.prepareCall(query);
+			
+			statement.setString(1, movimiento.getTipoMovimiento().getId_tipo());
 			statement.setString(2, movimiento.getCBU().getCBU());
 			statement.setString(3, movimiento.getCBU_Destino().getCBU());
-			statement.setString(4, movimiento.getDetalle());
-			statement.setBoolean(5, movimiento.getEstado());
-			statement.setDate(6, movimiento.getFecha_Transaccion());
-			statement.setFloat(7, movimiento.getImporte());
-			statement.setString(8, movimiento.getTipoMovimiento().getId_tipo());
+			statement.setDate(4, movimiento.getFecha_Transaccion());
+			statement.setFloat(5, movimiento.getImporte());
+			statement.setString(6, movimiento.getDetalle());
+			statement.setBoolean(7, movimiento.getEstado());
+			
+
 
 			if(statement.executeUpdate() > 0) {
 				conexion.commit();
@@ -71,7 +73,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 	}
 
 	@Override
-	public ArrayList<Movimiento> readAll() {
+	/*public ArrayList<Movimiento> readAll() {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -138,12 +140,11 @@ public class MovimientoDaoImpl implements MovimientoDao {
 
 				//clases necesarias para crear un obj Movimiento
 				Movimiento movimiento = new Movimiento();
-				Cuenta cuentaDest = new Cuenta();	
 				// Cargar los atributos
 				Cuenta cbu = movimiento.getCBU();
 				Cuenta cbuDestino = movimiento.getCBU_Destino();
 				Date fechaTransaccion = movimiento.getFecha_Transaccion();
-				int importe = movimiento.getImporte();
+				float importe = movimiento.getImporte();
 				String detalle = movimiento.getDetalle();
 			Tipo_Movimiento tipoMovimiento = movimiento.getTipoMovimiento();
 				boolean estado = movimiento.getEstado();
@@ -158,7 +159,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		}
 		
 		return lista;
-	}
+	}*/
 	
 public int getUltimoID() {
 		
@@ -188,11 +189,12 @@ public int getUltimoID() {
 
 public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaAux) {
 	
-	
-	Cuenta cuenta = new Cuenta();
+	String cbu = cuentaAux.getCBU();
 	Tipo_Movimiento tipoMovimiento =new Tipo_Movimiento();
 	Cuenta cuentaDest =new Cuenta();
-	ArrayList<Movimiento> movimientosCliente = new ArrayList<Movimiento>();		
+	ArrayList<Movimiento> movimientosCliente = new ArrayList<Movimiento>();	
+	
+	
 	try {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 	} catch (ClassNotFoundException e) {
@@ -203,35 +205,27 @@ public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaAux) {
 	
 	try{
 		PreparedStatement statement = conexion.getSQLConexion().prepareStatement(movimientosXcuenta);
-		statement.setString(1, cuenta.getCBU());
+		statement.setString(1, cbu);
 		ResultSet resultSet = statement.executeQuery();
 		
 		while(resultSet.next()){
 			
 										
 					Movimiento movimiento = new Movimiento();					
-					
-					cuenta.setCBU(resultSet.getString("CBU"));					
+										
 					tipoMovimiento.setId_tipo(resultSet.getString("id_tipo"));
-					tipoMovimiento.setDescripcion((resultSet.getString("descripcion")));
-						
+					tipoMovimiento.setDescripcion((resultSet.getString("descripcion")));	
 					cuentaDest.setCBU(resultSet.getString("CBU_Destino"));
 					
-					cuenta.setFecha_creacion(cuentaAux.getFecha_creacion());
-					cuenta.setDNI(cuentaAux.getDNI());
-					cuenta.setEstado(cuentaAux.getEstado());					
-					cuenta.setSaldo(cuentaAux.getSaldo());
-					cuenta.setNro_cuenta(cuentaAux.getNro_cuenta());
-					cuenta.setId_tipo(cuentaAux.getId_tipo());	
-					
-					movimiento.setID_Movimiento(resultSet.getInt("id_movimiento"));
-					movimiento.setCBU(cuenta);
+					movimiento.setCBU(cuentaAux);
 					movimiento.setCBU_Destino(cuentaDest);	
 					movimiento.setDetalle(resultSet.getString("detalle"));					
 					movimiento.setEstado(resultSet.getBoolean("estado"));					
-					movimiento.setFecha_Transaccion(resultSet.getDate("fecha_realizacion"));
+					movimiento.setFecha_Transaccion(resultSet.getDate("fecha"));
 					movimiento.setImporte(resultSet.getInt("importe"));
-					movimiento.setTipoMovimiento(tipoMovimiento);						
+					movimiento.setTipoMovimiento(tipoMovimiento);	
+					
+					
 					movimientosCliente.add(movimiento);
 					
 				}
