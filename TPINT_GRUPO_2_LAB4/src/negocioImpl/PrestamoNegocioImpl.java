@@ -94,6 +94,7 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 		
 	}
 	
+<<<<<<< HEAD
 	public ArrayList<Prestamo> getPrestamosxCBU (String CBU, ArrayList <Cuenta> cuentasCliente){
 		
 		
@@ -106,6 +107,10 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 		}
 		
 		return null;
+=======
+	public ArrayList<Prestamo> readAllByEstado(String estado){
+		return pdao.readAllByEstado(estado);
+>>>>>>> b8e7ea639bb6c7d018e220d5024bb4dd2cfca2ec
 	}
 	
 	
