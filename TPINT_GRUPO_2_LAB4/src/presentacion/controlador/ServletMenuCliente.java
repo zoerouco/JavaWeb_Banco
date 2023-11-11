@@ -56,6 +56,12 @@ public class ServletMenuCliente extends HttpServlet {
 		  request.getSession().setAttribute("cuenta_actual", cuenta); 
 			 
 		 }
+		 
+		 if(request.getParameter("btnElegirCuenta") != null) {
+			 
+			 cuenta = null;
+			 request.getSession().setAttribute("cuenta_actual", cuenta); 
+		 }
 		
 			String url = "/menuCliente.jsp";
 			request.setAttribute("miUrl", url);
@@ -66,34 +72,32 @@ public class ServletMenuCliente extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
-		  if(request.getSession().getAttribute("usuario") != null) {
+		 if(request.getSession().getAttribute("usuario") != null) {
 			  
-				 usuario = (Usuario) request.getSession().getAttribute("usuario");  
-				 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
-				 request.getSession().setAttribute("cliente_actual", cliente);
-				 cuentas_cliente = cuentaN.getCuentasxDNI(cliente.getDNI());
-				 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente);
-				 
+			 usuario = (Usuario) request.getSession().getAttribute("usuario");  
+			 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
+			 request.getSession().setAttribute("cliente_actual", cliente);
+			 cuentas_cliente = cuentaN.getCuentasxDNI(cliente.getDNI());
+			 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente);		  
+		  }
+		  
+		  
+		 if (request.getParameter("btnMostrarCuenta") != null){ //se switchea la variable session que contiene la cuenta actual.
+			 
+		  String cbu = (String) request.getParameter("cuenta-cliente");
+		  cuenta = cuentaN.getCuentaxCBU(cbu);
+		  request.getSession().setAttribute("cuenta_actual", cuenta); 
+			 
+		 }
+		 
+		 if(request.getParameter("btnElegirCuenta") != null) {
+			 
+			 cuenta = null;
+			 request.getSession().setAttribute("cuenta_actual", cuenta); 
+		 }
 		
-				  
-			  }
-		  
-			 if (request.getParameter("btnMostrarCuenta") != null){ //se switchea la variable session que contiene la cuenta actual.
-				 
-				  String cbu = (String) request.getParameter("cuenta-cliente");
-				  cuenta = cuentaN.getCuentaxCBU(cbu);
-				  request.getSession().setAttribute("cuenta_actual", cuenta); 
-					 
-				 }
-		  
-		  
-		  
-		  
-		  
 			String url = "/menuCliente.jsp";
 			request.setAttribute("miUrl", url);
 			request.getRequestDispatcher(url).forward(request, response);
-			
 	}
-
 }

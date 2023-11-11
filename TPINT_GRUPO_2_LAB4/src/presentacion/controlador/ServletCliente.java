@@ -42,9 +42,7 @@ public class ServletCliente extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 
-		
-		
+
 		if(request.getSession().getAttribute("usuario") != null) {
 			  
 				 usuario = (Usuario) request.getSession().getAttribute("usuario");  
@@ -55,8 +53,9 @@ public class ServletCliente extends HttpServlet {
 				 
 				ArrayList <Prestamo> prestamosCliente = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
 				request.setAttribute("prestamosCliente", prestamosCliente);
+				 }
 				 
-			  }
+			  
 			
 			if(request.getParameter("btnSolicitarPrestamo") != null) {
 				
@@ -71,9 +70,30 @@ public class ServletCliente extends HttpServlet {
 				prestamo.setMonto_x_mes(prestamoN.calcularMontoxMes(Integer.parseInt(request.getParameter("cant_cuotas")), importe_con_intereses));
 				cuenta = cuentaN.getCuentaxCBU(request.getParameter("cuentas-cliente"));
 				prestamo.setCBU(cuenta);
-				prestamo.setEstado("Rechazado");
+				prestamo.setEstado("Solicitado");
 				boolean inserto = prestamoN.insert(prestamo);
 				request.setAttribute("inserto", inserto);
+			}
+			
+			if(request.getParameter("btnBuscarXCbu") != null) {
+				
+				String cbu = request.getParameter("filtro-cuentas-cliente");
+				ArrayList <Prestamo> prestamosxCBU = prestamoN.getPrestamosxCBU(cbu, cuentas_cliente_actual);	
+			    ArrayList <Prestamo> prestamosCliente = null;
+				
+				request.setAttribute("filtro", prestamosxCBU);
+			    request.setAttribute("hayFiltro", true);
+			   
+				request.setAttribute("prestamosCliente", prestamosCliente);
+			    
+			}
+			
+			if(request.getParameter("btnLimpiarFiltro") != null) {
+				
+				request.setAttribute("hayFiltro", false);
+				ArrayList <Prestamo> prestamosxCBU = null;	
+				ArrayList <Prestamo> prestamosCliente = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
+				request.setAttribute("prestamosCliente", prestamosCliente);
 			}
 			
 			String url = "/prestamosCliente.jsp";
@@ -95,8 +115,9 @@ public class ServletCliente extends HttpServlet {
 			 
 			ArrayList <Prestamo> prestamosCliente = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
 			request.setAttribute("prestamosCliente", prestamosCliente);
+			 }
 			 
-		  }
+		  
 		
 		if(request.getParameter("btnSolicitarPrestamo") != null) {
 			
@@ -111,9 +132,30 @@ public class ServletCliente extends HttpServlet {
 			prestamo.setMonto_x_mes(prestamoN.calcularMontoxMes(Integer.parseInt(request.getParameter("cant_cuotas")), importe_con_intereses));
 			cuenta = cuentaN.getCuentaxCBU(request.getParameter("cuentas-cliente"));
 			prestamo.setCBU(cuenta);
-			prestamo.setEstado("Rechazado");
+			prestamo.setEstado("Solicitado");
 			boolean inserto = prestamoN.insert(prestamo);
 			request.setAttribute("inserto", inserto);
+		}
+		
+		if(request.getParameter("btnBuscarXCbu") != null) {
+			
+			String cbu = request.getParameter("filtro-cuentas-cliente");
+			ArrayList <Prestamo> prestamosxCBU = prestamoN.getPrestamosxCBU(cbu, cuentas_cliente_actual);	
+		    ArrayList <Prestamo> prestamosCliente = null;
+			
+			request.setAttribute("filtro", prestamosxCBU);
+		    request.setAttribute("hayFiltro", true);
+		   
+			request.setAttribute("prestamosCliente", prestamosCliente);
+		    
+		}
+		
+		if(request.getParameter("btnLimpiarFiltro") != null) {
+			
+			request.setAttribute("hayFiltro", false);
+			ArrayList <Prestamo> prestamosxCBU = null;	
+			ArrayList <Prestamo> prestamosCliente = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
+			request.setAttribute("prestamosCliente", prestamosCliente);
 		}
 		
 		String url = "/prestamosCliente.jsp";

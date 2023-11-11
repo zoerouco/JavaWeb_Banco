@@ -12,6 +12,7 @@ import entidades.Prestamo;
 public class PrestamoDaoImpl implements PrestamoDao{
 	
 	private static final String readall = "SELECT * FROM prestamos";
+	private static final String getPrestamosxCBU = "SELECT * FROM prestamos where CBU = ?";
 		
 	@Override
 	public boolean insert(Prestamo prestamo) {
@@ -193,5 +194,52 @@ public class PrestamoDaoImpl implements PrestamoDao{
 
 		
 	}
+	
+	
+	
+	public ArrayList<Prestamo> getPrestamosxCBU (String CBU){
+		
+		ArrayList<Prestamo> prestamosxCBU = new ArrayList<Prestamo>();
 
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+				
+		Conexion conexion = Conexion.getConexion();
+		PreparedStatement statement;
+		
+		try{
+		    statement = conexion.getSQLConexion().prepareStatement(getPrestamosxCBU);
+		    statement.setString(1, CBU);
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next()){
+				
+						Cuenta cuenta = new Cuenta();
+						Prestamo prestamo = new Prestamo();
+						prestamo.setId_prestamo(resultSet.getInt("id_prestamo"));
+						cuenta.setCBU(resultSet.getString("CBU")); 
+						prestamo.setCBU(cuenta);
+						prestamo.setFecha_realizacion(resultSet.getDate("fecha_realizacion"));
+						prestamo.setImporte_con_intereses(resultSet.getFloat("importe_con_intereses"));
+						prestamo.setImporte_pedido(resultSet.getFloat("importe_pedido"));
+						prestamo.setMonto_x_mes(resultSet.getFloat("monto_x_mes"));
+						prestamo.setCant_cuotas(resultSet.getInt("cantidad_cuotas"));
+						prestamo.setEstado(resultSet.getString("estado"));	
+							
+						prestamosxCBU.add(prestamo);
+					}
+	
+	
+		conexion.cerrarConexion();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return prestamosxCBU;
+
+	}
 }

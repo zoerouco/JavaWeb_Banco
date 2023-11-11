@@ -94,5 +94,19 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 		
 	}
 	
+	public ArrayList<Prestamo> getPrestamosxCBU (String CBU, ArrayList <Cuenta> cuentasCliente){
+		
+		
+		for(Cuenta cuenta : cuentasCliente) {
+			
+			if(cuenta.getCBU().compareTo(CBU) == 0) { //validacion de que el cbu que consulte sea del cliente
+				
+				pdao.getPrestamosxCBU(CBU);
+			}
+		}
+		
+		return null;
+	}
+	
 	
 }

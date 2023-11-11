@@ -112,20 +112,35 @@
 	  
  
 	  
-	  <input type="submit" name="btnMostrarCuenta" value="Mostrar información de la cuenta"
-					id="btnSolicitarPrestamo"></input>
-
+	  <input class="buttons" type="submit" name="btnMostrarCuenta" value="Mostrar información de la cuenta"
+					id="btnMostrarCuenta"></input>
 	</form>
 	
 	</div>
 	<%}else{ %>
 	
-	<label>CBU: <%= cuenta.getCBU() %></label>
-	<label>NRO. DE CUENTA: <%= cuenta.getNro_cuenta() %></label>
+	<form action="ServletMenuCliente" method="Post">
+	
+
+	<div class="info-cuenta">
+	<h3>CBU</h3>
+	<label><%= cuenta.getCBU() %></label>
+	<h3>NÚMERO DE CUENTA</h3>
+	<label><%= cuenta.getNro_cuenta()%></label>
 	<h3>SALDO</h3>
 	<label><%= cuenta.getSaldo() %></label>
+	
+	<input class="buttons" type="submit" name="btnElegirCuenta" value="Elegir otra cuenta"
+	id="btnElegirCuenta"></input>
+	
+	</div>
+		
+	</form>
+
 	<% } %>
 	
+
+	</div>
 	
 	<div class="cartelera-avisos">
 	
@@ -147,8 +162,6 @@
 	
 
 	 
-	</div>
-	
 	</div>
 
 	<footer class="Z-footer">

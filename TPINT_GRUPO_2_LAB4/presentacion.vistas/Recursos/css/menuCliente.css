@@ -9,9 +9,19 @@
 
 .panel-cliente{
 	
-display: flex;	
+display: flex;
+	
 flex-direction: row;
+	
+background: aliceblue;
+	
 align-items: center;
+	
+flex-wrap: wrap;
+	
+height: 600px;
+	
+justify-content: space-around;
 }
 
 .panel-cliente img{
@@ -19,19 +29,64 @@ height: 270px;
 width: 270px;
 }
 
-.info-cliente{
-font-size: 18px; 
-font-weight: 400; 
-color: #ffffff; 
-background:#ee046;
+.info-cliente{font-size: 18px;font-weight: 400;display: flex;flex-direction: column;}
+
+.info-cuenta{
+	
+display: flex;
+	
+flex-direction: column;
+	
+height: 40%;
+	
+background: #62c06d;
+	
+justify-content: space-evenly;
+	
+border-radius: 9%;
+	
+padding: 80px;
 }
 
-.form-mostrar-cuentas{
+
+.info-cuenta label{
 	
+	color: white;
+	font-size: 45px;
+}
+
+
+.form-mostrar-cuentas{
+	display: flex;
+    background: #62c06d;
+    border-radius: 9%;
+    padding: 50px;
+}
+
+.buttons{
+		padding: 4px 50px;
+	background-color: #ddba79;
+	border-radius: 37px;
+	margin-top: 20px;
+}
+
+.form-mostrar-cuentas select{
+	font-size: 20px;
 }
 
 .cartelera-avisos{
 	
+background: #713ddb;
+	
+color: white;
+	
+display: flex;
+	
+font-size: 22px;
+	
+flex-direction: column;
+	
+align-items: center;
 }
 
 .Z-footer{

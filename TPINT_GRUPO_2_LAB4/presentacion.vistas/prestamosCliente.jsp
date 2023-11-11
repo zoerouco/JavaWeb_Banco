@@ -58,9 +58,16 @@
         </div>
     </header>
    
+   
+   <%
+   ArrayList <Prestamo> prestamosCliente = (ArrayList <Prestamo>) request.getAttribute("prestamosCliente");
+   ArrayList <Prestamo> prestamosxCBU = (ArrayList <Prestamo>) request.getAttribute("filtro");
+   Boolean hayFiltro = (Boolean) request.getAttribute("hayFiltro");
+   
+   if(prestamosCliente != null || hayFiltro == null ) { %>
     <div class="container-table" id="table-prestamos">
         <%
-    		ArrayList <Prestamo> prestamosCliente = (ArrayList <Prestamo>) request.getAttribute("prestamosCliente");
+    		
             int itemsPerPage = 6;
             int totalPages = (int) Math.ceil((double) prestamosCliente.size() / itemsPerPage);
             int currentPage = 1;
@@ -70,10 +77,34 @@
             int startIndex = (currentPage - 1) * itemsPerPage;
             int endIndex = Math.min(startIndex + itemsPerPage, prestamosCliente.size());
         %>
-        <h1 class="titulo">Mis préstamos</h1>
-        <%
-            if (prestamosCliente != null) {
-        %>
+        
+        
+       <form action="ServletCliente" method="Get" class="buscarXCbu">
+      
+        <p>Buscar préstamos por CBU:</p>
+         <select required name="filtro-cuentas-cliente" id="cuentas-cliente">
+                    <%
+                        ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
+                        if (cuentas != null) {
+                            for (Cuenta cuentaCliente : cuentas) {
+                    %>
+                                <option><%=cuentaCliente.getCBU()%></option>
+                    <%
+                            }
+                        } else {
+                    %>
+                            <option>NO HAY</option>
+                    <%
+                        }
+                    %>
+                </select>
+        <input class="buttons" type="submit" name="btnBuscarXCbu" value="Buscar" id="btnBuscarXCbu"></input>
+		<input class="buttons" type="submit" name="btnLimpiarFiltro" value="Quitar filtro" id="btnLimpiarFiltro"></input>
+         </form>
+
+          <h1 class="titulo">Mis préstamos</h1>
+    
+      
                 <table class="table">
                     <thead>
                         <tr>
@@ -129,10 +160,115 @@
                     }
                 %>
                    </div>
+                   
+                  
+       
+        
+            </div>
+ <%}else if(prestamosxCBU != null && hayFiltro){ %>
+    <div class="container-table" id="table-prestamos">
         <%
+    		
+            int itemsPerPage = 6;
+            int totalPages = (int) Math.ceil((double) prestamosxCBU.size() / itemsPerPage);
+            int currentPage = 1;
+            if (request.getParameter("page") != null) {
+                currentPage = Integer.parseInt(request.getParameter("page"));
             }
+            int startIndex = (currentPage - 1) * itemsPerPage;
+            int endIndex = Math.min(startIndex + itemsPerPage, prestamosxCBU.size());
         %>
-    </div>
+        
+        
+       <form action="ServletCliente" method="Get" class="buscarXCbu">
+      
+        <p>Buscar préstamos por CBU:</p>
+         <select required name="filtro-cuentas-cliente" id="cuentas-cliente">
+                    <%
+                        ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
+                        if (cuentas != null) {
+                            for (Cuenta cuentaCliente : cuentas) {
+                    %>
+                                <option><%=cuentaCliente.getCBU()%></option>
+                    <%
+                            }
+                        } else {
+                    %>
+                            <option>NO HAY</option>
+                    <%
+                        }
+                    %>
+                </select>
+        <input class="buttons" type="submit" name="btnBuscarXCbu" value="Buscar" id="btnBuscarXCbu"></input>
+		<input class="buttons" type="submit" name="btnLimpiarFiltro" value="Quitar filtro" id="btnLimpiarFiltro"></input>
+         </form>
+
+          <h1 class="titulo">Mis préstamos</h1>
+    
+      
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID Préstamo</th>
+                            <th scope="col">CBU Origen</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Importe pedido</th>
+                            <th scope="col">Importe c/ intereses</th>
+                            <th scope="col">Monto por mes</th>
+                            <th scope="col">Cantidad de cuotas</th>
+                            <th scope="col">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            for (int i = startIndex; i < endIndex; i++) {
+                                Prestamo prestamo = prestamosxCBU.get(i);
+                        %>
+                                <tr>
+                                    <td><%= prestamo.getId_prestamo() %></td>
+                                    <td><%= prestamo.getCBU().getCBU() %></td>
+                                    <td><%= prestamo.getFecha_realizacion() %></td>
+                                    <td><%= prestamo.getImporte_pedido() %></td>
+                                    <td><%= prestamo.getImporte_con_intereses() %></td>
+                                    <td><%= prestamo.getMonto_x_mes() %></td>
+                                    <td><%= prestamo.getCant_cuotas() %></td>
+                                    <%
+                                        if (prestamo.getEstado().compareTo("Solicitado") == 0) {
+                                    %>
+                                            <td>SOLICITADO</td>
+                                    <%
+                                        } else if (prestamo.getEstado().compareTo("Aprobado") == 0) {
+                                    %>
+                                            <td><img class="icon-estado" src="Recursos/img/tick-verde.png"></td>
+                                    <%
+                                        } else {
+                                    %>
+                                            <td><img class="icon-estado" src="Recursos/img/rechazado.png"></td>
+                                    </tr>
+                        <%
+                                }
+                            }
+                        %>
+                    </tbody>
+                </table>
+                <div class="paginado">
+                <% 
+                    for (int i = 1; i <= totalPages; i++) {
+                %>
+                    <a href="?page=<%= i %>"><%= i %></a>
+
+                <%
+                    }
+                %>
+                   </div>
+                   
+                  
+       
+        
+            </div>
+ 
+ 
+ <%}%>
    
     <div class="form-prestamo" id="form-prestamo">
     
@@ -157,8 +293,7 @@
                 Cuenta donde se depositará el préstamo:
                 <select required name="cuentas-cliente" id="cuentas-cliente">
                     <%
-                        ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getSession()
-                                .getAttribute("cuentas_cliente_actual");
+                        ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
                         if (cuentas != null) {
                             for (Cuenta cuentaCliente : cuentas) {
                     %>
@@ -185,13 +320,7 @@
         %>
     </div>
 
-    <form action="ServletCliente" method="post">
-        <div id="btnMenuPrestamo">
-            
-        </div>
-    </form>
 
-   
 
     <footer class="Z-footer">
         <p>Todos los derechos reservados &copy; Globank 2023</p>
