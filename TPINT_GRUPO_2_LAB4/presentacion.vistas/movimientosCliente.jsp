@@ -50,12 +50,12 @@
 		<h1 style="color: #ffefd5;">GLOBANK</h1>
 
 		<ul class="contenedor-links-menu">
-			<li class="links-menu"><a class="links-menu" href="#"> Home
+			<li class="links-menu"><a class="links-menu" href="ServletMenuCliente"> Home
 			</a></li>
 			<li class="links-menu"><a class="links-menu"
 				href="ServletMovimientos"> Mis movimientos</a></li>
 			<li class="links-menu"><a class="links-menu"
-				href="prestamosCliente.jsp"> Mis préstamos </a></li>
+				href="ServletCliente"> Mis préstamos </a></li>
 			<li class="links-menu"><a class="links-menu" href="#">Ajustes
 					de la cuenta</a></li>
 
@@ -147,9 +147,12 @@
 					
 			<input type="submit" name="btnMovimiento" value="Realizar"
 				id="btnMovimiento"></input>
-		</form>
+		</form>		
 	</div>
-<%}else{ %>
+	
+	<%-- int validacion = (int) request.getAttribute("validacion"); <% %> --%>
+	<% }					
+		else{ %>
 		
 		<p>Para poder realizar un movimiento, debe seleccionar una cuenta a gestionar en la pestaña HOME </p>
 

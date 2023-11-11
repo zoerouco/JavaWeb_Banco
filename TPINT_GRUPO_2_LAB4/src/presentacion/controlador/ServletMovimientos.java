@@ -42,6 +42,7 @@ public class ServletMovimientos extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		if(request.getSession().getAttribute("usuario") != null) {
 			  
 			 usuario = (Usuario) request.getSession().getAttribute("usuario");  
@@ -55,16 +56,15 @@ public class ServletMovimientos extends HttpServlet {
 			 request.setAttribute("cuentas_cliente_actual",cuentas_cliente_actual);
 		  }
 		if (request.getParameter("btnMovimiento") != null) {
-			//int validacion;
+			//int validacion=0;
+			float saldoAnterior = cuenta.getSaldo();
+			float importeMovimiento = Float.parseFloat(request.getParameter("importe_transferir"));
 			//guardar el SALDO "anterior" del cliente cuenta.getsaldo();
-			// validar si lo que se quiere transferir es menor o igual al monto del saldo actual.
-			//si no pasa la validacion se retorna un int -2 => error de que esta queriendo transferir monto que no tiene.
-			
-			
+			//if(saldoAnterior <= importeMovimiento) {			
 			//if(validarMovimiento()){ => si devuelve true 
 			Movimiento movimiento = new Movimiento();
 			int ultimoID = movimientoN.getUltimoID();
-			float importeMovimiento = Float.parseFloat(request.getParameter("importe_transferir"));
+			
 
 			movimiento.setId_movimiento(ultimoID+1);
 			cuenta = cuentaN.getCuentaxCBU(cuenta.getCBU()); //EL OBJETO CUENTA OJO CON LO QUE LO PISAS.
@@ -78,30 +78,34 @@ public class ServletMovimientos extends HttpServlet {
 			movimiento.setEstado(true);
 			
 		 cuenta = (Cuenta)request.getSession().getAttribute("cuenta_actual"); // restablecemos a la cuenta del cliente
-		 	//validacion = 1;
+		 //	validacion = 1;
 			boolean inserto = movimientoN.insert(movimiento);
 			request.setAttribute("inserto", inserto);
 			//UPDATE CLIENTE ACTUAL:
-			//cuenta.setSaldo(importeMovimiento - saldo);
-			//boolean update = cuentaN.modificar(cuenta); => modificar saldo.
-			//request.setAttribute("update", update);
-			//}
+			float saldo = saldoAnterior - importeMovimiento;
+			cuenta.setSaldo(saldo);
+			boolean update = cuentaN.modificar(cuenta);
+			request.setAttribute("update", update);
+			}
 			
 			
-			//validacion = -2
-			//request.setAttribute("validacion", validacion); => si validacion es -2 se debe mostrar el mensaje aclaratorio.
 			
-		}
+			//request.setAttribute("validacion", validacion);
+			
+		//}
+		
 		String url = "/movimientosCliente.jsp";
 		request.setAttribute("miUrl", url);
 		request.getRequestDispatcher(url).forward(request, response);
 	}
+	
+	
+	
 	
 		
 	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		if(request.getSession().getAttribute("usuario") != null) {
 			  
 			 usuario = (Usuario) request.getSession().getAttribute("usuario");  
@@ -115,16 +119,15 @@ public class ServletMovimientos extends HttpServlet {
 			 request.setAttribute("cuentas_cliente_actual",cuentas_cliente_actual);
 		  }
 		if (request.getParameter("btnMovimiento") != null) {
-			//int validacion;
+			//int validacion=0;
+			float saldoAnterior = cuenta.getSaldo();
+			float importeMovimiento = Float.parseFloat(request.getParameter("importe_transferir"));
 			//guardar el SALDO "anterior" del cliente cuenta.getsaldo();
-			// validar si lo que se quiere transferir es menor o igual al monto del saldo actual.
-			//si no pasa la validacion se retorna un int -2 => error de que esta queriendo transferir monto que no tiene.
-			
-			
+			//if(saldoAnterior <= importeMovimiento) {			
 			//if(validarMovimiento()){ => si devuelve true 
 			Movimiento movimiento = new Movimiento();
 			int ultimoID = movimientoN.getUltimoID();
-			float importeMovimiento = Float.parseFloat(request.getParameter("importe_transferir"));
+			
 
 			movimiento.setId_movimiento(ultimoID+1);
 			cuenta = cuentaN.getCuentaxCBU(cuenta.getCBU()); //EL OBJETO CUENTA OJO CON LO QUE LO PISAS.
@@ -138,22 +141,24 @@ public class ServletMovimientos extends HttpServlet {
 			movimiento.setEstado(true);
 			
 		 cuenta = (Cuenta)request.getSession().getAttribute("cuenta_actual"); // restablecemos a la cuenta del cliente
-		 	//validacion = 1;
+		 //	validacion = 1;
 			boolean inserto = movimientoN.insert(movimiento);
 			request.setAttribute("inserto", inserto);
 			//UPDATE CLIENTE ACTUAL:
-			//cuenta.setSaldo(importeMovimiento - saldo);
-			//boolean update = cuentaN.modificar(cuenta); => modificar saldo.
-			//request.setAttribute("update", update);
-			//}
+			float saldo = saldoAnterior - importeMovimiento;
+			cuenta.setSaldo(saldo);
+			boolean update = cuentaN.modificar(cuenta);
+			request.setAttribute("update", update);
+			}
 			
 			
-			//validacion = -2
-			//request.setAttribute("validacion", validacion); => si validacion es -2 se debe mostrar el mensaje aclaratorio.
 			
-		}
+			//request.setAttribute("validacion", validacion);
+			
+		//}
+		
 		String url = "/movimientosCliente.jsp";
 		request.setAttribute("miUrl", url);
 		request.getRequestDispatcher(url).forward(request, response);
-	}
 }
+	}
