@@ -1,10 +1,12 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="entidades.Cliente" %>
 <%@ page import="entidades.Usuario"%>
+<%@ page import="entidades.Prestamo"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+	<head>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -66,65 +68,45 @@
                 </ul>
             </div> 
         </header>
-        <% ArrayList<Cliente> clientes = (ArrayList<Cliente>)request.getAttribute("listaClientes");%>
+        <% ArrayList<Prestamo> prestamos = (ArrayList<Prestamo>)request.getAttribute("listaPrestamos");%>
         <div class="container-table"  id="table-usuarios" style="margin-top: 150px">
-	    	<h2> Clientes: </h2>
-	    	<form action="ServletListadoCliente" method="post">
+	    	<h2> Prestamos: </h2>
+	    	<form action="ServletListarPrestamos" method="post">
 		    	<div class="d-flex justify-content-center mb-3">
 			    	<div class="btn-group" role="group" aria-label="Basic mixed styles example">
-			    		<button type="submit" class="btn btn-success" name="activos">Solo activos</button>
-					  	<button type="submit" class="btn btn-warning" name="todos">Todos los clientes</button>
-					  	<button type="submit" class="btn btn-danger" name="inactivos">Solo inactivos</button>
+			    		<button type="submit" class="btn btn-success" name="aceptado">Aceptados</button>
+					  	<button type="submit" class="btn btn-warning" name="solicitado">Solicitados</button>
+					  	<button type="submit" class="btn btn-danger" name="rechazado">Rechazados</button>
 					</div>
 				</div>
 		        <table class="table">
 		        <thead>
 		            <tr>
-		            	<th scope="col" class="table-header">DNI</th>
-			        	<th scope="col" class="table-header">Nombre</th>
-			        	<th scope="col" class="table-header">Apellido</th>
-			        	<th scope="col" class="table-header">Genero</th>
-			        	<th scope="col" class="table-header">Nacionalidad</th>
-			        	<th scope="col" class="table-header">CUIL</th>
-			        	<th scope="col" class="table-header">Fecha de nacimiento</th>
-			        	<th scope="col" class="table-header">Direccion</th>
-			        	<th scope="col" class="table-header">Correo electronico</th>
-			        	<th scope="col" class="table-header">Provincia</th>
-			        	<th scope="col" class="table-header">Localidad</th> 
-			        	<th scope="col" class="table-header">Telefono primario</th>
-			        	<th scope="col" class="table-header">Telefono secundario</th>
+		            	<th scope="col" class="table-header">ID</th>
+			        	<th scope="col" class="table-header">CBU</th>
+			        	<th scope="col" class="table-header">Fecha de realización</th>
+			        	<th scope="col" class="table-header">Importe pedido</th>
+			        	<th scope="col" class="table-header">Importe con intereses</th>
+			        	<th scope="col" class="table-header">Monto por mes</th>
+			        	<th scope="col" class="table-header">Cantidad de cuotas</th>
 			        	<th scope="col" class="table-header">Estado</th>
 		            </tr>
 		        </thead>
 		        <tbody>
-		         <% if(clientes != null) {
+		         <% if(prestamos != null) {
 		        	 int cont = 0;
-			        	for(Cliente cliente: clientes) { 
+			        	for(Prestamo prestamo: prestamos) { 
 			        		cont++;
 			        		String rowClass = (cont % 2 == 0) ? "table-row-even" : "table-row-odd"; %>
 					        	<tr class="<%=rowClass%>">
-					        		<th scope="row"><%=cliente.getDNI()%></th>
-					        		<td><%=cliente.getNombre()%></td>
-					        		<td><%=cliente.getApellido()%></td>
-					        		<td><%=cliente.getId_genero().getDescripcion()%></td>
-					        		<td><%=cliente.getId_nacionalidad().getNombre_pais()%></td>
-					        		<td><%=cliente.getCUIL()%></td>
-					        		<td><%=cliente.getFecha_nacimiento()%></td>
-					        		<td><%=cliente.getDireccion()%></td>
-					        		<td><%=cliente.getCorreo_electronico()%></td>
-					        		<td><%=cliente.getId_provincia().getNombre_provincia()%></td>
-					        		<td><%=cliente.getId_localidades().getNombre_localidad()%></td>
-					        		<td><%=cliente.getTelefono_primario()%></td>
-					        		<%if(cliente.getTelefono_secundario() != null) { %>
-					        			<td><%=cliente.getTelefono_secundario()%></td>
-					        		<%} else {%>
-					        				<td style="text-align: center;"> - </td>
-					        		<%}
-					        		if(cliente.isEstado()){%>
-		    	  						<td>Activo</td>
-		   							<%} else { %> 
-							 		 	<td>Inactivo</td>
-							 		 <%} %>
+					        		<th scope="row"><%=prestamo.getId_prestamo()%></th>
+					        		<td><%=prestamo.getCBU().getCBU()%></td>
+					        		<td><%=prestamo.getFecha_realizacion()%></td>
+					        		<td><%=prestamo.getImporte_pedido()%></td>
+					        		<td><%=prestamo.getImporte_con_intereses()%></td>
+					        		<td><%=prestamo.getMonto_x_mes()%></td>
+					        		<td><%=prestamo.getCant_cuotas()%></td>
+					        		<td><%=prestamo.getEstado()%></td>
 							 	</tr>
 			        	 <%}
 			        }%>

@@ -99,6 +99,48 @@ public class PrestamoDaoImpl implements PrestamoDao{
 		return lista;
 	}
 	
+	public ArrayList<Prestamo> readAllByEstado(String estado) {
+		String query = "SELECT * FROM prestamos WHERE estado = '" + estado + "'";
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+				
+		ArrayList<Prestamo> lista = new ArrayList<Prestamo>();
+		Conexion conexion = Conexion.getConexion();
+		try{
+			PreparedStatement statement = conexion.getSQLConexion().prepareStatement(query);
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next()){
+					
+				//clases necesarias para crear un obj prestamo
+				Prestamo prestamo = new Prestamo(); //pasa por el constructor que no incrementa prestamos.
+				Cuenta cuenta = new Cuenta();
+					
+				prestamo.setId_prestamo(resultSet.getInt("id_prestamo"));
+				cuenta.setCBU(resultSet.getString("CBU")); //habria que llamar a lo demas en la query
+				prestamo.setCBU(cuenta);
+				prestamo.setFecha_realizacion(resultSet.getDate("fecha_realizacion"));
+				prestamo.setImporte_con_intereses(resultSet.getFloat("importe_con_intereses"));
+				prestamo.setImporte_pedido(resultSet.getFloat("importe_pedido"));
+				prestamo.setMonto_x_mes(resultSet.getFloat("monto_x_mes"));
+				prestamo.setCant_cuotas(resultSet.getInt("cantidad_cuotas"));
+				prestamo.setEstado(resultSet.getString("estado"));	
+					
+				lista.add(prestamo);		
+			}
+			
+		conexion.cerrarConexion();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return lista;
+	}
+	
 	public int getUltimoID() {
 		
 	    int UltimoId = 0;

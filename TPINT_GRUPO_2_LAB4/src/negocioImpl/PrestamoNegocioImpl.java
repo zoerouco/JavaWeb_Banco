@@ -94,5 +94,9 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 		
 	}
 	
+	public ArrayList<Prestamo> readAllByEstado(String estado){
+		return pdao.readAllByEstado(estado);
+	}
+	
 	
 }
