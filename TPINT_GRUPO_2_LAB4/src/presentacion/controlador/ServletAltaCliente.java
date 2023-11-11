@@ -90,7 +90,7 @@ public class ServletAltaCliente extends HttpServlet {
 			LocalDate ahora = LocalDate.now();
 			Period periodo = Period.between(fechaNac, ahora);
 			
-			if (periodo.getYears() >= 13) {
+			if (periodo.getYears() >= 18) {
 			
 				Cliente cliente = new Cliente();
 				
