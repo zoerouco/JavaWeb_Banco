@@ -83,13 +83,12 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE AgregarMovimiento(
+ CREATE PROCEDURE AgregarMovimiento(
     IN id_tipo CHAR(30),
     IN CBU CHAR(22),
     IN CBU_Destino CHAR(22),
-    IN Importe INT,
+    IN Importe decimal,
     IN Detalle VARCHAR(255),
-    IN TipoMovimiento VARCHAR(50),
     IN Estado BOOLEAN
 )
 BEGIN
@@ -98,6 +97,7 @@ BEGIN
 END //
 
 DELIMITER ;
+
 
 /*----------------------------------*/
 

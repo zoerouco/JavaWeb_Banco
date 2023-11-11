@@ -31,7 +31,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 	
 	@Override
 	public boolean insert(Movimiento movimiento) {
-		String query =  "CALL AgregarMovimiento(?, ?, ?, ?, ?, ?, ?)";
+		String query =  "CALL AgregarMovimiento(?, ?, ?, ?, ?, ?)";
 		
 	
 		Connection conexion = Conexion.getConexion().getSQLConexion();
@@ -42,12 +42,9 @@ public class MovimientoDaoImpl implements MovimientoDao {
 			statement.setString(1, movimiento.getTipoMovimiento().getId_tipo());
 			statement.setString(2, movimiento.getCBU().getCBU());
 			statement.setString(3, movimiento.getCBU_Destino().getCBU());
-			statement.setDate(4, movimiento.getFecha_Transaccion());
-			statement.setFloat(5, movimiento.getImporte());
-			statement.setString(6, movimiento.getDetalle());
-			statement.setBoolean(7, movimiento.getEstado());
-			
-
+			statement.setFloat(4, movimiento.getImporte());
+			statement.setString(5, movimiento.getDetalle());
+			statement.setBoolean(6, movimiento.getEstado());
 
 			if(statement.executeUpdate() > 0) {
 				conexion.commit();
