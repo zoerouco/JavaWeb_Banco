@@ -17,8 +17,10 @@ SELECT 'transferencia_recibida','Genera un movimiento de dinero positivo en la c
 
 INSERT INTO clientes(DNI, id_genero, id_nacionalidad, id_provincia, id_localidades, CUIL, nombre, apellido, fecha_nacimiento, direccion, 
 						correo_electronico, telefono_primario, telefono_secundario, estado)
-SELECT '40789452', 'NULL', '1', '1', '1', '23407894523', 'admin_banco', 'ramirez', NULL, 'globank 0101', 'support_globank@gmail.com', '1105263398', NULL, 1 UNION
+SELECT '40789452', 'NULL', '1', '1', '1', '23407894523', 'admin', '_banco', NULL, 'globank 0101', 'support_globank@gmail.com', '1105263398', NULL, 1 UNION
 SELECT '45879526', 'M', '1', '1', '1', '23458795263', 'Natalia', 'Gomez', '2000/08/03', 'velez 189', 'natigomez@gmail.com', '1189758630', '1178452033', 1;
 
-INSERT INTO usuarios(DNI, esAdmin, id_ref, contraseña, nombre_usuario, estado)
-SELECT '45879526', 1, 1, 'globankroot', 'admin_banco', 1;
+UPDATE usuarios SET esAdmin = 1, id_ref = 1 WHERE DNI = '40789452';
+
+INSERT INTO cuentas(CBU, id_tipo, DNI, fecha_creacion, nro_cuenta, saldo, estado)
+SELECT '0008745130','CA','45879526',NOW(),'326589','95000',1;
