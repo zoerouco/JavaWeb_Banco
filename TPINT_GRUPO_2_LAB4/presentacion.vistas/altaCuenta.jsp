@@ -75,7 +75,7 @@
                 </ul>
             </div> 
         </header>
-        <!--<h1 id="titulo">Alta de clientes</h1>-->
+        
         <div class="form-alta-cuentas">
         
             <form action="ServletAltaCuenta" method="get">
@@ -113,7 +113,6 @@
 
                 </div>
                 <h6 class="required-fields">* - Campos obligatorios.</h6>
-                
                 <input type="submit" name="btnAceptar" value="Agregar" id="buttonSubmit"></input>
                 <button type="reset" id="buttonCancel">Cancelar</button>
                 
