@@ -84,7 +84,7 @@
                 <div class="inputs">
                     <div class="text-layout">
                         <label for="CBUe">CBU<span class="required-fields">*</span></label>
-                        <input type="text" name="txtCbu" minlength="11" maxlength="11" id="CBU" required>
+                        <input type="text" name="txtCbu" minlength="22" maxlength="22" id="CBU" required>
                     </div>
                     
                     <div class="text-layout">
