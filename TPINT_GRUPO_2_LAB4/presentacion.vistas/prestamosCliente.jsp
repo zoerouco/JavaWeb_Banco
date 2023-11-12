@@ -414,13 +414,16 @@
                     }
                 %>
                    </div>
+                   
+              <form action="ServletCliente" method=post>   
               <%
               if((Boolean)request.getAttribute("debePagar") == true ){
               Prestamo prestamo = (Prestamo) request.getAttribute("prestamo_consultado");
               int nro_cuota = (int) request.getAttribute("nro_cuota");%>
               
+              
               <h4> CUOTA N°: <%= nro_cuota  %> de <%= prestamo.getCant_cuotas() %></h4>
-              <label id="monto_x_mes" value=<%=prestamo.getMonto_x_mes() %>> Monto cuota: $<%= prestamo.getMonto_x_mes() %> </label>
+              <label name="monto_x_mes" id="monto_x_mes" value=<%=prestamo.getMonto_x_mes() %>> Monto cuota: $<%= prestamo.getMonto_x_mes() %> </label>
               
            <select required name="cbu_origen" id="cbu_origen">
                     <%
@@ -439,8 +442,10 @@
                         }
                     %>
                 </select>
+                
+         <input type="hidden" name="prestamo" value="<%= prestamo.getId_prestamo() %>" id="prestamo"></input>       
         <input class="buttons" type="submit" name="btnRealizarpago" value="Realizar Pago" id="btnRealizarPago"></input>
-            	  
+            </form> 	  
             	  
              <% }else{%>    
               <h4> ¡Sus préstamos están al día!</h4>
@@ -449,6 +454,19 @@
 	<%}else{ %>
 	<h3> NO HAY PAGOS PARA MOSTRAR<h3>
 	<%} %>
+	
+	<%
+	if(request.getAttribute("pagoCorrectamente")!= null){
+		
+	if((Boolean)request.getAttribute("pagoCorrectamente")){
+		%>
+		<h4> Tu pago fue realizado correctamente.</h4>
+		
+	<%	
+	}else{%>
+		<h4> El pago no se pudo realizar.</h4>
+	
+	<%} }%>
 
 </section>
 

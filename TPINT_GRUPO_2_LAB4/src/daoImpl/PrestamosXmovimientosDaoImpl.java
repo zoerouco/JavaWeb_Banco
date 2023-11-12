@@ -1,7 +1,10 @@
 package daoImpl;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dao.PrestamosXmovimientosDao;
@@ -18,6 +21,8 @@ public class PrestamosXmovimientosDaoImpl implements PrestamosXmovimientosDao {
 	
 	private static final String readall = "SELECT * FROM movimientosxprestamos inner join prestamos on movimientosxprestamos.id_prestamo = prestamos.id_prestamo " +
 	"inner join movimientos on movimientosxprestamos.id_movimiento = movimientos.id_movimiento and movimientosxprestamos.CBU = movimientos.CBU inner join cuentas on movimientos.CBU = cuentas.CBU";
+	
+	private static final String insert = "CALL AgregarMovimientoxPrestamo(?, ?, ?)";
 	
 	
 	public ArrayList<PrestamosXmovimientos> readAll(){
@@ -109,6 +114,40 @@ public class PrestamosXmovimientosDaoImpl implements PrestamosXmovimientosDao {
 		
 		
 		return pagosPrestamos;
+	}
+
+	@Override
+	public boolean insert(PrestamosXmovimientos pxm) {
+		
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		
+		boolean isInsertExitoso = false;
+		
+		try {
+			CallableStatement statement = conexion.prepareCall(insert);
+			
+			statement.setInt(1, pxm.getId_movimiento().getId_movimiento());
+			statement.setString(2, pxm.getCBU().getCBU());
+			statement.setInt(3, pxm.getId_prestamo().getId_prestamo());
+		
+						
+			if(statement.executeUpdate() > 0) {
+				conexion.commit();
+				isInsertExitoso = true;
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return isInsertExitoso;
+		
+		
 	}
 	
 	

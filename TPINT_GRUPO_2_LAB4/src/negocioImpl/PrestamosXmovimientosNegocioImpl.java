@@ -23,4 +23,11 @@ public class PrestamosXmovimientosNegocioImpl implements PrestamosXmovimientosNe
 		return pxmD.getPrestamosXmovimientosByID(id_prestamo);
 	}
 
+	@Override
+	public boolean insert(PrestamosXmovimientos pxm) {
+	
+		return pxmD.insert(pxm);
+		
+	}
+
 }

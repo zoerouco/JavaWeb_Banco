@@ -14,14 +14,18 @@ import org.eclipse.jdt.internal.compiler.parser.ParserBasicInformation;
 import daoImpl.PrestamoDaoImpl;
 import entidades.Cliente;
 import entidades.Cuenta;
+import entidades.Movimiento;
 import entidades.Prestamo;
 import entidades.PrestamosXmovimientos;
+import entidades.Tipo_Movimiento;
 import entidades.Usuario;
 import negocioImpl.ClienteNegocioImpl;
 import negocioImpl.CuentaNegocioImpl;
 import negocioImpl.MovimientoImpl;
 import negocioImpl.PrestamoNegocioImpl;
 import negocioImpl.PrestamosXmovimientosNegocioImpl;
+import negocioImpl.Tipo_MovimientoNegocioImpl;
+import negocioImpl.Tipo_cuentaNegocioImpl;
 
 
 @WebServlet("/ServletCliente") //SERVLET DE PRÉSTAMOS!!!
@@ -42,6 +46,7 @@ public class ServletCliente extends HttpServlet {
     Usuario usuario = new Usuario();
     Prestamo prestamo = new Prestamo();
     MovimientoImpl movimientoN = new MovimientoImpl();
+    Tipo_MovimientoNegocioImpl tmN = new Tipo_MovimientoNegocioImpl();
 
 	
 	Cuenta cuenta = new Cuenta();
@@ -128,7 +133,7 @@ public class ServletCliente extends HttpServlet {
 					request.setAttribute("debePagar", false);
 				}else {
 					int cuotas_faltantes = cant_cuotas - pagosPrestamos.size();
-					int nro_cuota = pagosPrestamos.size();
+					int nro_cuota = pagosPrestamos.size()+1;
 					request.setAttribute("debePagar", true);
 					request.setAttribute("prestamo_consultado",prestamo);
 					request.setAttribute("nro_cuota", nro_cuota);
@@ -138,7 +143,45 @@ public class ServletCliente extends HttpServlet {
 			request.setAttribute("prestamosClienteAux", prestamosClienteAux);
 			request.setAttribute("pagosPrestamos", pagosPrestamos);
 			
+				}
 		}
+		
+if(request.getParameter("btnRealizarpago") != null) {
+			
+			Cuenta cuentaOrigen = new Cuenta();
+			Cuenta cuentaDestino = new Cuenta();
+			cuentaDestino.setCBU("000000001");
+			Tipo_Movimiento tm = new Tipo_Movimiento();
+			Movimiento movimiento = new Movimiento();
+			int idPrestamo  = Integer.parseInt(request.getParameter("prestamo"));
+			Prestamo prestamo_actual = prestamoN.getPrestamoByID(idPrestamo);
+			PrestamosXmovimientos pxm = new PrestamosXmovimientos();
+			String cbu = request.getParameter("cbu_origen");
+			cuentaOrigen = cuentaN.getCuentaxCBU(cbu);
+			tm = tmN.getTipo_MovimientoByID("pago_prestamo");
+			float importe_cuota = prestamo_actual.getMonto_x_mes();
+			
+			
+			movimiento.setId_movimiento(movimientoN.getUltimoID()+1);
+			movimiento.setCBU(cuentaOrigen);
+			movimiento.setCBU_Destino(cuentaDestino);
+			movimiento.setTipoMovimiento(tm);
+			movimiento.setDetalle("pago_prestamo");
+			movimiento.setImporte(importe_cuota);
+			movimiento.setEstado(true);
+
+			Boolean inserto = movimientoN.insert(movimiento);
+			
+			
+			pxm.setCBU(cuentaOrigen);
+			pxm.setId_movimiento(movimiento);
+			pxm.setId_prestamo(prestamo_actual);
+			
+			
+			Boolean inserto2 = pxmN.insert(pxm);
+			
+			if(inserto && inserto2) request.setAttribute("pagoCorrectamente", inserto);
+			
 		}
 		
 		String url = "/prestamosCliente.jsp";
@@ -225,7 +268,7 @@ public class ServletCliente extends HttpServlet {
 					request.setAttribute("debePagar", false);
 				}else {
 					int cuotas_faltantes = cant_cuotas - pagosPrestamos.size();
-					int nro_cuota = pagosPrestamos.size();
+					int nro_cuota = pagosPrestamos.size()+1;
 					request.setAttribute("debePagar", true);
 					request.setAttribute("prestamo_consultado",prestamo);
 					request.setAttribute("nro_cuota", nro_cuota);
@@ -240,7 +283,38 @@ public class ServletCliente extends HttpServlet {
 		
 		if(request.getParameter("btnRealizarpago") != null) {
 			
+			Cuenta cuentaOrigen = new Cuenta();
+			Cuenta cuentaDestino = new Cuenta();
+			cuentaDestino.setCBU("000000001");
+			Tipo_Movimiento tm = new Tipo_Movimiento();
+			Movimiento movimiento = new Movimiento();
+			int idPrestamo  = Integer.parseInt(request.getParameter("prestamo"));
+			Prestamo prestamo_actual = prestamoN.getPrestamoByID(idPrestamo);
+			PrestamosXmovimientos pxm = new PrestamosXmovimientos();
+			String cbu = request.getParameter("cbu_origen");
+			cuentaOrigen = cuentaN.getCuentaxCBU(cbu);
+			tm = tmN.getTipo_MovimientoByID("pago_prestamo");
+			float importe_cuota = prestamo_actual.getMonto_x_mes();
 			
+			movimiento.setId_movimiento(movimientoN.getUltimoID()+1);
+			movimiento.setCBU(cuentaOrigen);
+			movimiento.setCBU_Destino(cuentaDestino);
+			movimiento.setTipoMovimiento(tm);
+			movimiento.setDetalle("pago_prestamo");
+			movimiento.setImporte(importe_cuota);
+			movimiento.setEstado(true);
+
+			Boolean inserto = movimientoN.insert(movimiento);
+			
+			
+			pxm.setCBU(cuentaOrigen);
+			pxm.setId_movimiento(movimiento);
+			pxm.setId_prestamo(prestamo_actual);
+			
+			
+			Boolean inserto2 = pxmN.insert(pxm);
+			
+			if(inserto && inserto2) request.setAttribute("pagoCorrectamente", inserto);
 			
 		}
 		
