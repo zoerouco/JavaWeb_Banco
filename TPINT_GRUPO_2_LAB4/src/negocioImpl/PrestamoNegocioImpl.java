@@ -106,15 +106,9 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 			}
 		}
 		
-<<<<<<< HEAD
+
 		return null;}
 
-	public ArrayList<Prestamo> readAllByEstado(String estado){
-		return pdao.readAllByEstado(estado);
-
-=======
-		return null;
-	}
 	
 	public ArrayList<Prestamo> readAllByEstado(String estado){
 		return pdao.readAllByEstado(estado);
@@ -124,7 +118,7 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 	public Prestamo getPrestamoByID (int idPrestamo){
 		
 		return pdao.getPrestamoByID(idPrestamo);
->>>>>>> ce26d532f2bae2d49cd5b5baf4cac18efea89343
+
 	}
 	
 	
