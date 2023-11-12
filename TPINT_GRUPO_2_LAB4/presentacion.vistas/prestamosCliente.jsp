@@ -6,6 +6,7 @@
 <%@ page import="entidades.Genero"%>
 <%@ page import="entidades.Prestamo"%>
 <%@ page import="entidades.Cliente"%>
+<%@ page import="entidades.PrestamosXmovimientos"%>
 <%@ page import="entidades.Usuario"%>
 <%@ page import="entidades.Cuenta"%>
 <%@ page import="java.util.ArrayList" %>
@@ -33,9 +34,14 @@
         Genero genero = new Genero();
         Cuenta cuenta = new Cuenta();
         Cliente cliente = new Cliente();
+        PrestamosXmovimientos pxm = new PrestamosXmovimientos();
         cliente = (Cliente) request.getSession().getAttribute("cliente_actual");
         
         Cuenta cuentaActual = (Cuenta) request.getSession().getAttribute("cuenta_actual");
+        ArrayList <Prestamo> prestamosCliente = (ArrayList <Prestamo>) request.getAttribute("prestamosCliente");
+        ArrayList<Prestamo> prestamosClienteAux =  (ArrayList<Prestamo>) request.getAttribute("prestamosClienteAux");
+        ArrayList <Prestamo> prestamosxCBU = (ArrayList <Prestamo>) request.getAttribute("filtro");
+        Boolean hayFiltro = (Boolean) request.getAttribute("hayFiltro");
     %>
 
     <header class="encabezado">
@@ -62,10 +68,7 @@
    
    
    <%
-   ArrayList <Prestamo> prestamosCliente = (ArrayList <Prestamo>) request.getAttribute("prestamosCliente");
-   ArrayList<Prestamo> prestamosClienteAux =  (ArrayList<Prestamo>) request.getAttribute("prestamosClienteAux");
-   ArrayList <Prestamo> prestamosxCBU = (ArrayList <Prestamo>) request.getAttribute("filtro");
-   Boolean hayFiltro = (Boolean) request.getAttribute("hayFiltro");
+
    
    if(prestamosCliente != null || hayFiltro == null ) { %>
     <div class="container-table" id="table-prestamos">
@@ -334,11 +337,11 @@
                    
 	<form action="ServletCliente" method="Post">
 	
-	<p>Consultar pagos</p>
+	<h2>Consultar pagos</h2>
 	
-	 <select required name="prestamos-cliente" id="prestamos-cliente">
+	 <select required name="prestamo-cliente" id="prestamo-cliente">
                     <%
-                    		int contAux = 0;
+                    	int contAux = 0;
                     	if(prestamosClienteAux != null){
 							 for (Prestamo prestamo : prestamosClienteAux) {
                             	if(prestamo.getEstado().compareTo("Aprobado") == 0){
@@ -347,7 +350,7 @@
                                 <option> <%=prestamo.getId_prestamo()%> </option>
                             
                     <%
-                         }}} if(contAux == 0) {
+                         }}}if(contAux == 0) {
                     	%>
                     	<option>NO TIENE PRÉSTAMOS APROBADOS</option>
                    <% }%>
@@ -357,11 +360,116 @@
 	
 	</form>
 	
-	
+	<%
+	ArrayList<PrestamosXmovimientos> pagosPrestamos = (ArrayList<PrestamosXmovimientos>) request.getAttribute("pagosPrestamos");
+	if(pagosPrestamos != null){ %>
+	 <h1 class="titulo">Mis Pagos</h1>
+    
+       <%
+            int itemsPerPage = 6;
+            int totalPages = (int) Math.ceil((double) pagosPrestamos.size() / itemsPerPage);
+            int currentPage = 1;
+            if (request.getParameter("page") != null) {
+                currentPage = Integer.parseInt(request.getParameter("page"));
+            }
+            int startIndex = (currentPage - 1) * itemsPerPage;
+            int endIndex = Math.min(startIndex + itemsPerPage, pagosPrestamos.size());
+        %>
+        
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID Movimiento</th>
+                            <th scope="col">CBU Origen</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Importe</th>
+                            <th scope="col">N° de cuota</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            for (int i = startIndex; i < endIndex; i++) {
+                            	PrestamosXmovimientos PrestamosXmovimientos = pagosPrestamos.get(i);
+                        %>
+                                <tr>
+                                    <td><%= PrestamosXmovimientos.getId_movimiento().getId_movimiento() %></td>
+                                    <td><%= PrestamosXmovimientos.getCBU().getCBU()%></td>
+                                    <td><%= PrestamosXmovimientos.getId_movimiento().getFecha_Transaccion() %></td>
+                                    <td><%= PrestamosXmovimientos.getId_movimiento().getImporte() %></td>
+                                    <td><%= 1  %></td>
+								     <td><img class="icon-estado" src="Recursos/img/tick-verde.png"></td>                
+                                    </tr>
+                        <%
+                                }
+                            
+                        %>
+                    </tbody>
+                </table>
+                <div class="paginado">
+                <% 
+                    for (int i = 1; i <= totalPages; i++) {
+                %>
+                    <a href="?page=<%= i %>"><%= i %></a>
+
+                <%
+                    }
+                %>
+                   </div>
+                   
+              <form action="ServletCliente" method=post>   
+              <%
+              if((Boolean)request.getAttribute("debePagar") == true ){
+              Prestamo prestamo = (Prestamo) request.getAttribute("prestamo_consultado");
+              int nro_cuota = (int) request.getAttribute("nro_cuota");%>
+              
+              
+              <h4> CUOTA N°: <%= nro_cuota  %> de <%= prestamo.getCant_cuotas() %></h4>
+              <label name="monto_x_mes" id="monto_x_mes" value=<%=prestamo.getMonto_x_mes() %>> Monto cuota: $<%= prestamo.getMonto_x_mes() %> </label>
+              
+           <select required name="cbu_origen" id="cbu_origen">
+                    <%
+                       
+                        ArrayList<Cuenta> cbu_origen = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
+                        if (cbu_origen != null) {
+                            for (Cuenta cuentaCliente : cbu_origen) {
+                    %>
+                                <option><%=cuentaCliente.getCBU()%></option>
+                    <%
+                            }
+                        } else {
+                    %>
+                            <option>NO HAY</option>
+                    <%
+                        }
+                    %>
+                </select>
+                
+         <input type="hidden" name="prestamo" value="<%= prestamo.getId_prestamo() %>" id="prestamo"></input>       
+        <input class="buttons" type="submit" name="btnRealizarpago" value="Realizar Pago" id="btnRealizarPago"></input>
+            </form> 	  
+            	  
+             <% }else{%>    
+              <h4> ¡Sus préstamos están al día!</h4>
+<%}%>
 	</div>
+	<%}else{ %>
+	<h3> NO HAY PAGOS PARA MOSTRAR<h3>
+	<%} %>
 	
+	<%
+	if(request.getAttribute("pagoCorrectamente")!= null){
+		
+	if((Boolean)request.getAttribute("pagoCorrectamente")){
+		%>
+		<h4> Tu pago fue realizado correctamente.</h4>
+		
+	<%	
+	}else{%>
+		<h4> El pago no se pudo realizar.</h4>
 	
-	</section>
+	<%} }%>
+
+</section>
 
     <footer class="Z-footer">
         <p>Todos los derechos reservados &copy; Globank 2023</p>

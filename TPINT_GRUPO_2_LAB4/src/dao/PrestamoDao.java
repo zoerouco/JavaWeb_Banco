@@ -14,4 +14,5 @@ public interface PrestamoDao {
 	public ArrayList<Prestamo> getPrestamoxCuentas(ArrayList<Cuenta> cuentasCliente);
 	public ArrayList<Prestamo> getPrestamosxCBU (String CBU);
 	public ArrayList<Prestamo> readAllByEstado(String estado);
+	public Prestamo getPrestamoByID(int idPrestamo);
 }
