@@ -25,9 +25,10 @@ public class MovimientoDaoImpl implements MovimientoDao {
 	
 	private static final String readall = "SELECT * FROM movimientos INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo";	
 	//private static final String update = "UPDATE movimientos SET  = ?,  = ? WHERE CBU = ?";
-	private static final String movimientosXcuenta = "SELECT * FROM movimientos " + 
-			"INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo " + 
-			"WHERE CBU = ?";
+	private static final String movimientosXcuenta = "SELECT * FROM movimientos" + 
+			" INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo" + 
+			" WHERE CBU = ?" +
+			" ORDER BY id_movimiento DESC";
 	
 	@Override
 	public boolean insert(Movimiento movimiento) {
@@ -214,11 +215,12 @@ public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaAux) {
 					tipoMovimiento.setDescripcion((resultSet.getString("descripcion")));	
 					cuentaDest.setCBU(resultSet.getString("CBU_Destino"));
 					
+					movimiento.setId_movimiento(resultSet.getInt("id_movimiento"));
 					movimiento.setCBU(cuentaAux);
 					movimiento.setCBU_Destino(cuentaDest);	
 					movimiento.setDetalle(resultSet.getString("detalle"));					
 					movimiento.setEstado(resultSet.getBoolean("estado"));					
-					movimiento.setFecha_Transaccion(resultSet.getDate("fecha"));
+					movimiento.setFecha_Transaccion(new java.sql.Date(resultSet.getTimestamp("fecha").getTime()));
 					movimiento.setImporte(resultSet.getInt("importe"));
 					movimiento.setTipoMovimiento(tipoMovimiento);	
 					

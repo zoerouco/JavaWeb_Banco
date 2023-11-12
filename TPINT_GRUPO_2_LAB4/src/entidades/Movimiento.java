@@ -115,7 +115,7 @@ public class Movimiento {
 		}
 		
 		public int getID_MovimientoInstancia() {
-			return this.ID_Movimiento;
+			return this.id_movimiento;
 		}
 		
 	
