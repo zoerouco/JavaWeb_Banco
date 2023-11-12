@@ -9,7 +9,7 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="Recursos/css/main.css">
+    <link rel="stylesheet" type="text/css" href="Recursos/css/mainAdmin.css">
     <link rel="stylesheet" type="text/css" href="Recursos/css/styleAdmin.css">
     <link rel="stylesheet" type="text/css" href="Recursos/css/eliminarCliente.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">

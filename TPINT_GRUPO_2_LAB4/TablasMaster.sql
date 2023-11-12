@@ -10,19 +10,6 @@ CREATE TABLE `nacionalidades` (
 ) ;
 
 INSERT INTO `nacionalidades` VALUES (1, 4, 'AF', 'AFG', 'Afganistán');
-
-USE bdGlobank; 
- 
-CREATE TABLE `nacionalidades` (
-	  `id` int(11) NOT NULL,
-	  `code` smallint(6) default NULL,
-	  `iso3166a1` char(2) default NULL,
-	  `iso3166a2` char(3) default NULL,
-	  `nombre_pais` varchar(128) default NULL,
-	  PRIMARY KEY  (`id`)
-) ;
-
-INSERT INTO `nacionalidades` VALUES (1, 4, 'AF', 'AFG', 'Afganistán');
 INSERT INTO `nacionalidades` VALUES (2, 248, 'AX', 'ALA', 'Islas Gland');
 INSERT INTO `nacionalidades` VALUES (3, 8, 'AL', 'ALB', 'Albania');
 INSERT INTO `nacionalidades` VALUES (4, 276, 'DE', 'DEU', 'Alemania');

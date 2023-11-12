@@ -68,19 +68,6 @@ CREATE TABLE `movimientos`(
 	PRIMARY KEY (id_movimiento, CBU)
 );
 
-/*---------NUEVA--------*/
-
-CREATE TABLE movimientosXprestamos (
-    id_movimiento int NOT NULL,
-    CBU char(22) NOT NULL,
-    id_prestamo INT NOT NULL,
-    
-    FOREIGN KEY (id_movimiento, CBU) REFERENCES movimientos (id_movimiento, CBU),
-    FOREIGN KEY (id_prestamo) REFERENCES prestamos (id_prestamo),
-    PRIMARY KEY (id_movimiento, CBU, id_prestamo)
-);
-/*---------------------*/
-
 CREATE TABLE `usuarios`(
 	`id_usuario` int AUTO_INCREMENT NOT NULL,
     `DNI` char(20) UNIQUE NOT NULL,
@@ -105,3 +92,16 @@ CREATE TABLE `prestamos`(
     FOREIGN KEY (CBU) REFERENCES cuentas (CBU),
     PRIMARY KEY (id_prestamo)
 );
+
+/*---------NUEVA--------*/
+
+CREATE TABLE movimientosXprestamos (
+    id_movimiento int NOT NULL,
+    CBU char(22) NOT NULL,
+    id_prestamo INT NOT NULL,
+    
+    FOREIGN KEY (id_movimiento, CBU) REFERENCES movimientos (id_movimiento, CBU),
+    FOREIGN KEY (id_prestamo) REFERENCES prestamos (id_prestamo),
+    PRIMARY KEY (id_movimiento, CBU, id_prestamo)
+);
+/*---------------------*/

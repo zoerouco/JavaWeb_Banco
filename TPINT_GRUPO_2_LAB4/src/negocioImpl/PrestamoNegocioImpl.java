@@ -31,12 +31,6 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 	public ArrayList<Prestamo> readAll() {
 		return pdao.readAll();
 	}
-
-	@Override
-	public boolean update(Prestamo prestamo) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
 	public int getUltimoID() {
 		
@@ -120,6 +114,11 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 		return pdao.getPrestamoByID(idPrestamo);
 
 	}
-	
-	
+
+	@Override
+	public boolean update(int prestamo, String estado) {
+		boolean update = false;
+		update = pdao.update(prestamo, estado);
+		return update;
+	}
 }

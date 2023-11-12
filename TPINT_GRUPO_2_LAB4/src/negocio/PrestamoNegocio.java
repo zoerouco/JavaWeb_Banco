@@ -10,7 +10,7 @@ public interface PrestamoNegocio {
 	public boolean insert (Prestamo prestamo);
 	public boolean delete (Prestamo prestamo);
 	public ArrayList<Prestamo> readAll();
-	public boolean update (Prestamo prestamo);
+	public boolean update (int prestamo, String estado);
 	public float calcularImporteConIntereses(float importe_pedido, int cant_cuotas);
 	public float calcularMontoxMes(int cant_cuotas, float importe_con_intereses);
 	public ArrayList<Prestamo> getPrestamoxCuentas(ArrayList<Cuenta> cuentasCliente);
