@@ -55,7 +55,7 @@ CREATE TABLE `tipo_movimiento`(
 );
 
 CREATE TABLE `movimientos`(
-	`id_movimiento` char(20) NOT NULL,
+	`id_movimiento` int AUTO_INCREMENT NOT NULL,
 	`CBU` char(22) NOT NULL,
     `id_tipo` char(30) NOT NULL,
     `CBU_destino` char(22) NOT NULL,
@@ -67,6 +67,19 @@ CREATE TABLE `movimientos`(
     FOREIGN KEY (id_tipo) REFERENCES tipo_movimiento (id_tipo),
 	PRIMARY KEY (id_movimiento, CBU)
 );
+
+/*---------NUEVA--------*/
+
+CREATE TABLE movimientosXprestamos (
+    id_movimiento int NOT NULL,
+    CBU char(22) NOT NULL,
+    id_prestamo INT NOT NULL,
+    
+    FOREIGN KEY (id_movimiento, CBU) REFERENCES movimientos (id_movimiento, CBU),
+    FOREIGN KEY (id_prestamo) REFERENCES prestamos (id_prestamo),
+    PRIMARY KEY (id_movimiento, CBU, id_prestamo)
+);
+/*---------------------*/
 
 CREATE TABLE `usuarios`(
 	`id_usuario` int AUTO_INCREMENT NOT NULL,
@@ -81,7 +94,7 @@ CREATE TABLE `usuarios`(
 );
 
 CREATE TABLE `prestamos`(
-	`id_prestamo` char(20) NOT NULL,
+	`id_prestamo` INT AUTO_INCREMENT NOT NULL,
 	`CBU` char(22) NOT NULL,
     `fecha_realizacion` datetime,
     `importe_con_intereses` decimal(18,2) DEFAULT 0,

@@ -102,15 +102,29 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 			
 			if(cuenta.getCBU().compareTo(CBU) == 0) { //validacion de que el cbu que consulte sea del cliente
 				
-				pdao.getPrestamosxCBU(CBU);
+				return pdao.getPrestamosxCBU(CBU);
 			}
 		}
 		
+<<<<<<< HEAD
 		return null;}
 
 	public ArrayList<Prestamo> readAllByEstado(String estado){
 		return pdao.readAllByEstado(estado);
 
+=======
+		return null;
+	}
+	
+	public ArrayList<Prestamo> readAllByEstado(String estado){
+		return pdao.readAllByEstado(estado);
+
+	}
+	
+	public Prestamo getPrestamoByID (int idPrestamo){
+		
+		return pdao.getPrestamoByID(idPrestamo);
+>>>>>>> ce26d532f2bae2d49cd5b5baf4cac18efea89343
 	}
 	
 	

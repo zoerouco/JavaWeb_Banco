@@ -1,3 +1,20 @@
+
+/*
+ * LISTA de SP:
+ - AgregarCliente
+ - AgregarPrestamos
+ - AgregarCuenta
+ - AgregarMovimiento
+ 
+ *ALTER TABLES
+ 
+ * TRIGGERS:
+ -TR_CrearUsuario
+ 
+   */
+
+
+/*----------------------------------*/
 DELIMITER //
 
 CREATE PROCEDURE AgregarCliente(
@@ -25,6 +42,8 @@ END //
 
 DELIMITER ;
 
+/*----------------------------------*/
+
 DELIMITER //
 
 CREATE PROCEDURE AgregarPrestamo(
@@ -43,15 +62,7 @@ END //
 
 DELIMITER ;
 
-DELIMITER //
-CREATE TRIGGER TR_CrearUsuario AFTER INSERT ON clientes
-FOR EACH ROW
-BEGIN
-    INSERT INTO usuarios(DNI, esAdmin, id_ref, contraseña, nombre_usuario, estado)
-    VALUES (NEW.DNI, false, 0, NEW.DNI, CONCAT(NEW.nombre, NEW.apellido), true);
-END;
-//
-DELIMITER ;
+/*----------------------------------*/
 
 DELIMITER //
 CREATE PROCEDURE AgregarCuenta(
@@ -68,39 +79,63 @@ END
 //
 DELIMITER ;
 
+/*----------------------------------*/
 
-//IGNORAR ESTAS LINEAS SI YA LAS EJECUTARON
-ALTER TABLE prestamos
-MODIFY estado VARCHAR(20);
+DELIMITER //
 
-	//Nuevas para el trigger
+ CREATE PROCEDURE AgregarMovimiento(
+    IN id_tipo CHAR(30),
+    IN CBU CHAR(22),
+    IN CBU_Destino CHAR(22),
+    IN Importe decimal,
+    IN Detalle VARCHAR(255),
+    IN Estado BOOLEAN
+)
+BEGIN
+    INSERT INTO Movimientos (id_tipo, CBU, CBU_Destino, fecha, Importe, Detalle, Estado)
+    VALUES (id_tipo, CBU, CBU_Destino, NOW(), Importe, Detalle, Estado);
+END //
+
+DELIMITER ;
+
+
+/*--------------NUEVO 11/11--------------------*/
+
+
+DELIMITER //
+
+ CREATE PROCEDURE AgregarMovimientoxPrestamo(
+	IN id_movimiento int,
+    IN CBU char(22),
+    IN id_prestamo int
+)
+BEGIN
+    INSERT INTO movimientosxprestamos (id_movimiento, CBU, id_prestamo)
+    VALUES (id_movimiento, CBU, id_prestamo);
+END //
+
+DELIMITER ;
+
+/*----------------------------------*/
+
+/*----------------------------------*/
+
+
+ /* ------- ALTERS TABLES ------- */
+
+
 	
-	DELETE FROM usuarios
-	WHERE DNI = '01';
+	/*------- TRIGGERS -------*/
 	
-	ALTER TABLE usuarios
-	MODIFY id_usuario INT auto_increment;
+	DELIMITER //
+	CREATE TRIGGER TR_CrearUsuario AFTER INSERT ON clientes
+	FOR EACH ROW
 	
-	ALTER TABLE usuarios
-	MODIFY DNI char(20) UNIQUE;
-	
-	ALTER TABLE clientes
-	MODIFY fecha_nacimiento date;
-	
-	INSERT INTO usuarios(DNI, esAdmin, id_ref, contraseña, nombre_usuario, estado)
-	SELECT '01', 1, 1, 'globankroot', 'admin_banco', 1; 
-	
-	INSERT INTO clientes(DNI, id_genero, id_nacionalidad, id_provincia, id_localidades, CUIL, nombre, apellido, fecha_nacimiento, direccion, 
-							correo_electronico, telefono_primario, telefono_secundario, estado)
-	SELECT '45879526', 'M', '1', '1', '1', '23458795263', 'Natalia', 'Gomez', '2000/08/03', 'velez 189', 'natigomez@gmail.com', '1189758630', '1178452033', 1;
-	
-	
-	//HACER- NUEVO
-	
-	alter table prestamos
-	modify id_prestamo int;
-	
-	//
-	
+	BEGIN
+    INSERT INTO usuarios(DNI, esAdmin, id_ref, contraseña, nombre_usuario, estado)
+    VALUES (NEW.DNI, false, 0, NEW.DNI, CONCAT(NEW.nombre, NEW.apellido), true);
+	END;
+//
+DELIMITER ;
 	
 	

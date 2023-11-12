@@ -10,7 +10,7 @@
 	</head>
 	<body>
         <form class="custom-form" action="ServletUsuario" method="post">
-                <p id="welcome">Bienvenido!</p>
+                <p id="welcome">Bienvenid@!</p>
                 <p>Ingrese a tu cuenta de Globank:</p>
                 <br>
                 <div class="text-layout">

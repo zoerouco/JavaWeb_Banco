@@ -41,9 +41,9 @@
 .links-menu {
 	font-size: 20px;
 	padding: 0 18px;
-	color: papayawhip;
+	color: #212529;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	transition: all 0.4s ease-in-out;
+	transition: all 0.2s ease-in-out;
 }
 
 .links-menu:hover {
@@ -71,8 +71,12 @@
 .contenedor-menu {
     margin-left: 10px;
     display: flex;
-    align-items: center;
     width: 100%;
+    margin-top: 8px;
+}
+
+.contenedor-menu h1 {
+	color: #ffefd5; font-weight: bolder; margin-top: 10px; margin-left: 10px;
 }
 
 .imagen-menu:hover {

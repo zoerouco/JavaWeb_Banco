@@ -27,15 +27,15 @@ MovimientoDao mdao = new MovimientoDaoImpl();
 		return false;
 	}
 
-	@Override
-	public ArrayList<Movimiento> readAll() {
-		return mdao.readAll();
-	}
 
-	public ArrayList<Movimiento> getMovimientoXCuenta (ArrayList <Cuenta> cuentasCliente) {
+	/*public ArrayList<Movimiento> readAll() {
+		return mdao.readAll();
+	}*/
+
+	public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuenta) {
 		
 		
-		return mdao.getMovimientoXCuenta(cuentasCliente);
+		return mdao.getMovimientosXCuenta(cuenta);
 		
 	}
 	

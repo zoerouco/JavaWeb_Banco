@@ -12,106 +12,113 @@ import daoImpl.MovimientoDaoImpl;
 import entidades.Cliente;
 import entidades.Cuenta;
 import entidades.Movimiento;
+import entidades.Tipo_Movimiento;
 import entidades.Usuario;
 import negocioImpl.ClienteNegocioImpl;
 import negocioImpl.CuentaNegocioImpl;
 import negocioImpl.MovimientoImpl;
+import negocioImpl.Tipo_MovimientoNegocioImpl;
 
-/**
- * Servlet implementation class ServletMovimientos
- */
 @WebServlet("/ServletMovimientos")
+
 public class ServletMovimientos extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 	ArrayList<Cuenta> cuentas_cliente_actual = new ArrayList<Cuenta>();
 	Cliente cliente = new Cliente();
 	CuentaNegocioImpl cuentaN = new CuentaNegocioImpl();
-	MovimientoDaoImpl movimientoDao = new MovimientoDaoImpl();
 	MovimientoImpl movimientoN = new MovimientoImpl();
-    ClienteNegocioImpl clienteN = new ClienteNegocioImpl();
-    Usuario usuario = new Usuario();
-    
+	ClienteNegocioImpl clienteN = new ClienteNegocioImpl();
+	Usuario usuario = new Usuario();
+	Tipo_MovimientoNegocioImpl tipoMovimientoN = new Tipo_MovimientoNegocioImpl();
+	Tipo_Movimiento tipoMovimiento = new Tipo_Movimiento();
+
 	Cuenta cuenta = new Cuenta();
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletMovimientos() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getSession().getAttribute("usuario") != null) {
-			  
-			 usuario = (Usuario) request.getSession().getAttribute("usuario");  
-			 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
-			 request.getSession().setAttribute("cliente_actual", cliente);
-			 cuentas_cliente_actual = cuentaN.getCuentasxDNI(usuario.getDni().getDNI());
-			 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente_actual);
-			 
-			 ArrayList<Movimiento> movimientosCliente = movimientoN.getMovimientoXCuenta(cuentas_cliente_actual);
-			 request.setAttribute("movimientosCliente", movimientosCliente);
-			 
-		  }
+	public ServletMovimientos() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		accion(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		accion(request, response);
+	}
+
+	private void accion(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		if (request.getSession().getAttribute("usuario") != null) {
+
+			usuario = (Usuario) request.getSession().getAttribute("usuario");
+			cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
+			request.getSession().setAttribute("cliente_actual", cliente);
+			cuenta = (Cuenta) request.getSession().getAttribute("cuenta_actual");
+			ArrayList<Movimiento> movimientosCliente = movimientoN.getMovimientosXCuenta(cuenta);
+			request.setAttribute("movimientosCliente", movimientosCliente);
+
+			ArrayList<Cuenta> cuentas_cliente_actual = (ArrayList<Cuenta>) request.getSession()
+					.getAttribute("cuentas_cliente_actual");
+			request.setAttribute("cuentas_cliente_actual", cuentas_cliente_actual);
+		}
 		if (request.getParameter("btnMovimiento") != null) {
+			// int validacion=0;
+			float saldoAnterior = cuenta.getSaldo();
+			float importeMovimiento = Float.parseFloat(request.getParameter("importe_transferir"));
+			// guardar el SALDO "anterior" del cliente cuenta.getsaldo();
+			// if(saldoAnterior <= importeMovimiento) {
+			// if(validarMovimiento()){ => si devuelve true
 			Movimiento movimiento = new Movimiento();
 			int ultimoID = movimientoN.getUltimoID();
-			movimiento.setID_Movimiento(ultimoID + 1);
-			cuenta = cuentaN.getCuentaxCBU(request.getParameter("cuentas-cliente"));
-			cuenta = cuentaN.getCuentaxCBU(request.getParameter("cuenta-destino"));
+
+			movimiento.setId_movimiento(ultimoID + 1);
+			cuenta = cuentaN.getCuentaxCBU(cuenta.getCBU()); // EL OBJETO CUENTA OJO CON LO QUE LO PISAS.
+			movimiento.setCBU(cuenta);
+			cuenta = cuentaN.getCuentaxCBU(request.getParameter("cbu_destino"));
+			movimiento.setCBU_Destino(cuenta);
 			movimiento.setDetalle("transferencia_enviada");
+			movimiento.setImporte(importeMovimiento);
+			tipoMovimiento = tipoMovimientoN.getTipo_MovimientoByID("transferencia_enviada");
+			movimiento.setTipoMovimiento(tipoMovimiento);
 			movimiento.setEstado(true);
-			movimiento.setImporte((int) Float.parseFloat(request.getParameter("importe")));
-			
+
+			cuenta = (Cuenta) request.getSession().getAttribute("cuenta_actual"); // restablecemos a la cuenta del
+																					// cliente
+			// validacion = 1;
+
+			// se guarda el movimiento
 			boolean inserto = movimientoN.insert(movimiento);
+
 			request.setAttribute("inserto", inserto);
-			
-			
+			// UPDATE CLIENTE ACTUAL:
+			float saldo = saldoAnterior - importeMovimiento;
+			cuenta.setSaldo(saldo);
+
+			// se actualiza la cuenta emisora
+			boolean update = cuentaN.modificar(cuenta);
+
+			// obtenemos la cuenta receptora por CBU para actualizar el saldo
+			Cuenta cuentaDestino = cuentaN.getCuentaxCBU(request.getParameter("cbu_destino"));
+
+			float nuevoSaldo = cuentaDestino.getSaldo() + importeMovimiento;
+			cuentaDestino.setSaldo(nuevoSaldo);
+
+			// se actualiza la cuenta receptora
+			cuentaN.modificar(cuentaDestino);
+
+			request.setAttribute("update", update);
 		}
+
+		// request.setAttribute("validacion", validacion);
+
+		// }
+
 		String url = "/movimientosCliente.jsp";
 		request.setAttribute("miUrl", url);
 		request.getRequestDispatcher(url).forward(request, response);
-		
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getSession().getAttribute("usuario") != null) {
-			  
-			 usuario = (Usuario) request.getSession().getAttribute("usuario");  
-			 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
-			 request.getSession().setAttribute("cliente_actual", cliente);
-			 cuentas_cliente_actual = cuentaN.getCuentasxDNI(usuario.getDni().getDNI());
-			 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente_actual);
-			 
-			 ArrayList<Movimiento> movimientosCliente = movimientoN.getMovimientoXCuenta(cuentas_cliente_actual);
-			 request.setAttribute("movimientosCliente", movimientosCliente);
-			 
-		  }
-		if (request.getParameter("btnMovimiento") != null) {
-			Movimiento movimiento = new Movimiento();
-			int ultimoID = movimientoN.getUltimoID();
-			movimiento.setID_Movimiento(ultimoID + 1);
-			cuenta = cuentaN.getCuentaxCBU(request.getParameter("cuentas-cliente"));
-			cuenta = cuentaN.getCuentaxCBU(request.getParameter("cuenta-destino"));
-			movimiento.setDetalle("transferencia_enviada");
-			movimiento.setEstado(true);
-			movimiento.setImporte((int) Float.parseFloat(request.getParameter("importe")));
-			
-			boolean inserto = movimientoN.insert(movimiento);
-			request.setAttribute("inserto", inserto);
-			
-			
-		}
-		String url = "/movimientosCliente.jsp";
-		request.setAttribute("miUrl", url);
-		request.getRequestDispatcher(url).forward(request, response);
-	}
-	
-
 }
