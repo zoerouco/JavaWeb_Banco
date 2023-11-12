@@ -5,7 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.Collections;
+import java.util.List;
+
+
 import java.sql.CallableStatement;
 
 
@@ -25,10 +30,16 @@ public class MovimientoDaoImpl implements MovimientoDao {
 	
 	private static final String readall = "SELECT * FROM movimientos INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo";	
 	//private static final String update = "UPDATE movimientos SET  = ?,  = ? WHERE CBU = ?";
-	private static final String movimientosXcuenta = "SELECT * FROM movimientos" + 
+	private static final String movimientosXcuentaEmisoras = "SELECT * FROM movimientos" + 
 			" INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo" + 
-			" WHERE CBU = ? " +
+			" WHERE CBU = ? and detalle = 'transferencia_enviada'" +
 			" ORDER BY id_movimiento DESC";
+	
+	private static final String movimientosXcuentaReceptoras = "SELECT * FROM movimientos" + 
+			" INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo" + 
+			" WHERE CBU_destino = ? and detalle = 'transferencia_recibida' " +
+			" ORDER BY id_movimiento DESC";
+	
 	
 	@Override
 	public boolean insert(Movimiento movimiento) {
@@ -192,7 +203,7 @@ public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaAux) {
 	Tipo_Movimiento tipoMovimiento =new Tipo_Movimiento();
 	Cuenta cuentaDest =new Cuenta();
 	ArrayList<Movimiento> movimientosCliente = new ArrayList<Movimiento>();	
-	
+
 	
 	try {
 		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -202,8 +213,8 @@ public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaAux) {
 			
 	Conexion conexion = Conexion.getConexion();
 	
-	try{
-		PreparedStatement statement = conexion.getSQLConexion().prepareStatement(movimientosXcuenta);
+	try{ //se ejecuta movimientos x cuentas receptoras
+		PreparedStatement statement = conexion.getSQLConexion().prepareStatement(movimientosXcuentaEmisoras);
 		statement.setString(1, cbu);
 		ResultSet resultSet = statement.executeQuery();
 		
@@ -214,7 +225,7 @@ public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaAux) {
 										
 					tipoMovimiento.setId_tipo(resultSet.getString("id_tipo"));
 					tipoMovimiento.setDescripcion((resultSet.getString("descripcion")));	
-					cuentaDest.setCBU(resultSet.getString("CBU_Destino"));
+					cuentaDest.setCBU(resultSet.getString(4));
 					
 					movimiento.setId_movimiento(resultSet.getInt("id_movimiento"));
 					movimiento.setCBU(cuentaAux);
@@ -230,15 +241,52 @@ public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaAux) {
 					
 				}
 
+		
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+	
+	try{ //se ejecuta movimientos x cuentas receptoras
+		PreparedStatement statement = conexion.getSQLConexion().prepareStatement(movimientosXcuentaReceptoras);
+		statement.setString(1, cbu);
+		ResultSet resultSet = statement.executeQuery();
+		
+		while(resultSet.next()){
 			
-
-		
-		
+										
+					Movimiento movimiento = new Movimiento();					
+										
+					tipoMovimiento.setId_tipo(resultSet.getString("id_tipo"));
+					tipoMovimiento.setDescripcion((resultSet.getString("descripcion")));	
+					cuentaDest.setCBU(cuentaAux.getCBU());
+					cuentaAux.setCBU(resultSet.getString("CBU"));
+					
+					movimiento.setId_movimiento(resultSet.getInt("id_movimiento"));
+					movimiento.setCBU(cuentaDest);
+					movimiento.setCBU_Destino(cuentaAux);	
+					movimiento.setDetalle(resultSet.getString("detalle"));					
+					movimiento.setEstado(resultSet.getBoolean("estado"));					
+					movimiento.setFecha_Transaccion(new java.sql.Date(resultSet.getTimestamp("fecha").getTime()));
+					movimiento.setImporte(resultSet.getInt("importe"));
+					movimiento.setTipoMovimiento(tipoMovimiento);	
+					
+					
+					
+					movimientosCliente.add(movimiento);
+					
+		}
 	conexion.cerrarConexion();
 		
 	}catch(Exception e){
 		e.printStackTrace();
 	}
+	
+	Collections.sort(movimientosCliente, new Comparator<Movimiento>() {
+        @Override
+        public int compare(Movimiento m1, Movimiento m2) {
+            return Integer.compare(m1.getId_movimiento(), m2.getId_movimiento());
+        }
+    });
 	
 	return movimientosCliente;
 

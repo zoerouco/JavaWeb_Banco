@@ -35,13 +35,8 @@ public class PrestamosXmovimientosDaoImpl implements PrestamosXmovimientosDao {
 		
 		ArrayList<PrestamosXmovimientos> pagosPrestamos = new ArrayList<PrestamosXmovimientos>();
 		Prestamo prestamo = new Prestamo();
-		Movimiento movimiento = new Movimiento();
-		Cuenta cuenta = new Cuenta();
-		Cuenta cuenta_solicitante = new Cuenta();
-		Cuenta cuenta_dest = new Cuenta();
-		Cliente cliente = new Cliente();
-		Tipo_Movimiento tm = new Tipo_Movimiento();
-		Tipo_cuenta tp = new Tipo_cuenta();
+		
+		
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -59,6 +54,13 @@ public class PrestamosXmovimientosDaoImpl implements PrestamosXmovimientosDao {
 			while(resultSet.next()){
 					
 				PrestamosXmovimientos pxm = new PrestamosXmovimientos();
+				Movimiento movimiento = new Movimiento();
+				Cuenta cuenta = new Cuenta();
+				Cuenta cuenta_solicitante = new Cuenta();
+				Cuenta cuenta_dest = new Cuenta();
+				Cliente cliente = new Cliente();
+				Tipo_Movimiento tm = new Tipo_Movimiento();
+				Tipo_cuenta tp = new Tipo_cuenta();
 				
 				cliente.setDNI(resultSet.getString("DNI"));
 				

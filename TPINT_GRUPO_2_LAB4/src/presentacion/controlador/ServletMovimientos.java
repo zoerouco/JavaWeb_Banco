@@ -34,7 +34,7 @@ public class ServletMovimientos extends HttpServlet {
 	Tipo_Movimiento tipoMovimiento = new Tipo_Movimiento();
 
 	Cuenta cuenta = new Cuenta();
-	Cuenta cuentaDestino  = new Cuenta();
+	Cuenta cuentaDestinoTransfe  = new Cuenta();
 
 	public ServletMovimientos() {
 		super();
@@ -62,8 +62,7 @@ public class ServletMovimientos extends HttpServlet {
 			ArrayList<Movimiento> movimientosCliente = movimientoN.getMovimientosXCuenta(cuenta);
 			request.setAttribute("movimientosCliente", movimientosCliente);
 
-			ArrayList<Cuenta> cuentas_cliente_actual = (ArrayList<Cuenta>) request.getSession()
-					.getAttribute("cuentas_cliente_actual");
+			ArrayList<Cuenta> cuentas_cliente_actual = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
 			request.setAttribute("cuentas_cliente_actual", cuentas_cliente_actual);
 		}
 		if (request.getParameter("btnMovimiento") != null) {
@@ -78,8 +77,8 @@ public class ServletMovimientos extends HttpServlet {
 			movimiento_emitido.setId_movimiento(ultimoID + 1);
 			cuenta = cuentaN.getCuentaxCBU(cuenta.getCBU()); // EL OBJETO CUENTA OJO CON LO QUE LO PISAS.
 			movimiento_emitido.setCBU(cuenta);
-			cuentaDestino = cuentaN.getCuentaxCBU(request.getParameter("cbu_destino"));
-			movimiento_emitido.setCBU_Destino(cuenta);
+			cuentaDestinoTransfe = cuentaN.getCuentaxCBU(request.getParameter("cbu_destino"));
+			movimiento_emitido.setCBU_Destino(cuentaDestinoTransfe);
 			movimiento_emitido.setDetalle("transferencia_enviada");
 			movimiento_emitido.setImporte(importeMovimiento);
 			tipoMovimiento = tipoMovimientoN.getTipo_MovimientoByID("transferencia_enviada");
@@ -87,14 +86,14 @@ public class ServletMovimientos extends HttpServlet {
 			movimiento_emitido.setEstado(true);
 			
 			// se guarda el movimiento EMITIDO
-						boolean insert = movimientoN.insert(movimiento_emitido);
+		boolean insert = movimientoN.insert(movimiento_emitido);
 						
 			//SE CARGA EL OBJETO MOVIMIENTO RECIBIDO
 			movimiento_recibido.setId_movimiento(ultimoID + 1);
-			cuenta = cuentaN.getCuentaxCBU(cuentaDestino.getCBU()); // EL OBJETO CUENTA OJO CON LO QUE LO PISAS.
+			cuentaDestinoTransfe = cuentaN.getCuentaxCBU(request.getParameter("cbu_destino"));
+			cuenta = cuentaN.getCuentaxCBU(cuenta.getCBU());
 			movimiento_recibido.setCBU(cuenta);
-			cuentaDestino = cuentaN.getCuentaxCBU(request.getParameter(cuenta.getCBU()));
-			movimiento_recibido.setCBU_Destino(cuenta);
+			movimiento_recibido.setCBU_Destino(cuentaDestinoTransfe);
 			movimiento_recibido.setDetalle("transferencia_recibida");
 			movimiento_recibido.setImporte(importeMovimiento);
 			tipoMovimiento = tipoMovimientoN.getTipo_MovimientoByID("transferencia_recibida");
@@ -102,7 +101,7 @@ public class ServletMovimientos extends HttpServlet {
 			movimiento_recibido.setEstado(true);
 			
 			// se guarda el movimiento EMITIDO
-				boolean insert2 = movimientoN.insert(movimiento_recibido);
+		boolean insert2 = movimientoN.insert(movimiento_recibido);
 			
 				
 			

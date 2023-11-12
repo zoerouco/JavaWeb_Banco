@@ -366,7 +366,7 @@
 	 <h1 class="titulo">Mis Pagos</h1>
     
        <%
-            int itemsPerPage = 6;
+            int itemsPerPage = 3;
             int totalPages = (int) Math.ceil((double) pagosPrestamos.size() / itemsPerPage);
             int currentPage = 1;
             if (request.getParameter("page") != null) {
@@ -396,7 +396,7 @@
                                     <td><%= PrestamosXmovimientos.getCBU().getCBU()%></td>
                                     <td><%= PrestamosXmovimientos.getId_movimiento().getFecha_Transaccion() %></td>
                                     <td><%= PrestamosXmovimientos.getId_movimiento().getImporte() %></td>
-                                    <td><%= 1  %></td>
+                                    <td><%= i + 1 %></td>
 								     <td><img class="icon-estado" src="Recursos/img/tick-verde.png"></td>                
                                     </tr>
                         <%
@@ -449,7 +449,7 @@
             </form> 	  
             	  
              <% }else{%>    
-              <h4> ¡Sus préstamos están al día!</h4>
+              <h4> ¡Su préstamo está al día!</h4>
 <%}%>
 	</div>
 	<%}else{ %>
@@ -490,3 +490,5 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
+
+
