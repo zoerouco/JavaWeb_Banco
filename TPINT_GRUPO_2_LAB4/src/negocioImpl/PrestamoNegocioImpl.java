@@ -114,5 +114,10 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 
 	}
 	
+	public Prestamo getPrestamoByID (int idPrestamo){
+		
+		return pdao.getPrestamoByID(idPrestamo);
+	}
+	
 	
 }

@@ -336,7 +336,7 @@
                    
 	<form action="ServletCliente" method="Post">
 	
-	<p>Consultar pagos</p>
+	<h2>Consultar pagos</h2>
 	
 	 <select required name="prestamo-cliente" id="prestamo-cliente">
                     <%
@@ -349,7 +349,7 @@
                                 <option> <%=prestamo.getId_prestamo()%> </option>
                             
                     <%
-                         }}} else if(contAux == 0) {
+                         }}}if(contAux == 0) {
                     	%>
                     	<option>NO TIENE PRÉSTAMOS APROBADOS</option>
                    <% }%>
@@ -366,13 +366,13 @@
     
        <%
             int itemsPerPage = 6;
-            int totalPages = (int) Math.ceil((double) prestamosxCBU.size() / itemsPerPage);
+            int totalPages = (int) Math.ceil((double) pagosPrestamos.size() / itemsPerPage);
             int currentPage = 1;
             if (request.getParameter("page") != null) {
                 currentPage = Integer.parseInt(request.getParameter("page"));
             }
             int startIndex = (currentPage - 1) * itemsPerPage;
-            int endIndex = Math.min(startIndex + itemsPerPage, prestamosxCBU.size());
+            int endIndex = Math.min(startIndex + itemsPerPage, pagosPrestamos.size());
         %>
         
                 <table class="table">
@@ -416,12 +416,11 @@
                    </div>
               <%
               if((Boolean)request.getAttribute("debePagar") == true ){
-              int cuotas_faltantes = (int) request.getAttribute("cuotas_faltantes");
-              float monto_x_mes = (float) request.getAttribute("monto_x_mes"); 
+              Prestamo prestamo = (Prestamo) request.getAttribute("prestamo_consultado");
               int nro_cuota = (int) request.getAttribute("nro_cuota");%>
-              <h4> N° CUOTA: <%= nro_cuota %></h4>
               
-              <label id="monto_x_mes" value=<%=monto_x_mes%>> Monto cuota: $<%= monto_x_mes %> </label>
+              <h4> CUOTA N°: <%= nro_cuota  %> de <%= prestamo.getCant_cuotas() %></h4>
+              <label id="monto_x_mes" value=<%=prestamo.getMonto_x_mes() %>> Monto cuota: $<%= prestamo.getMonto_x_mes() %> </label>
               
            <select required name="cbu_origen" id="cbu_origen">
                     <%
@@ -443,14 +442,12 @@
         <input class="buttons" type="submit" name="btnRealizarpago" value="Realizar Pago" id="btnRealizarPago"></input>
             	  
             	  
-             <% }%>     
-
+             <% }else{%>    
+              <h4> ¡Sus préstamos están al día!</h4>
+<%}%>
 	</div>
 	<%}else{ %>
-	
-	
-		<h4> No tiene pagos realizados.</h4>
-	
+	<h3> NO HAY PAGOS PARA MOSTRAR<h3>
 	<%} %>
 
 </section>
