@@ -20,7 +20,7 @@ public class PrestamosXmovimientosDaoImpl implements PrestamosXmovimientosDao {
 	
 	
 	private static final String readall = "SELECT * FROM movimientosxprestamos inner join prestamos on movimientosxprestamos.id_prestamo = prestamos.id_prestamo " +
-	"inner join movimientos on movimientosxprestamos.id_movimiento = movimientos.id_movimiento and movimientosxprestamos.CBU = movimientos.CBU inner join cuentas on movimientos.CBU = cuentas.CBU";
+	"inner join movimientos on movimientosxprestamos.id_movimiento = movimientos.id_movimiento and movimientosxprestamos.CBU = movimientos.CBU inner join cuentas on movimientos.CBU = cuentas.CBU where movimientosxprestamos.id_prestamo = ?";
 	
 	private static final String insert = "CALL AgregarMovimientoxPrestamo(?, ?, ?)";
 	
@@ -53,6 +53,7 @@ public class PrestamosXmovimientosDaoImpl implements PrestamosXmovimientosDao {
 		
 		try{
 			PreparedStatement statement = conexion.getSQLConexion().prepareStatement(readall);
+			statement.setInt(1, id_prestamo);
 			ResultSet resultSet = statement.executeQuery();
 			
 			while(resultSet.next()){
@@ -77,7 +78,7 @@ public class PrestamosXmovimientosDaoImpl implements PrestamosXmovimientosDao {
 				cuenta.setSaldo(resultSet.getFloat("saldo"));
 				cuenta.setEstado(resultSet.getBoolean(26));
 				
-
+				movimiento.setId_movimiento(resultSet.getInt("id_movimiento"));
 				movimiento.setCBU(cuenta);
 				movimiento.setCBU_Destino(cuenta_dest);
 				movimiento.setDetalle(resultSet.getString("detalle"));
@@ -107,9 +108,6 @@ public class PrestamosXmovimientosDaoImpl implements PrestamosXmovimientosDao {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		
-		
 		
 		
 		
