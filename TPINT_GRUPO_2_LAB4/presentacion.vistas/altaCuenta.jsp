@@ -114,7 +114,8 @@
                 </div>
                 <h6 class="required-fields">* - Campos obligatorios.</h6>
                 <input type="submit" name="btnAceptar" value="Agregar" id="buttonSubmit"></input>
-                <button type="reset" id="buttonCancel">Cancelar</button>
+                <button type="button" id="buttonCancel" onclick="window.location.href='ServletMenuAdmin';">Cancelar</button>
+                
                 
             </form>
             <%
