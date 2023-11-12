@@ -22,7 +22,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
-<title>Globank | Bienvenido</title>
+<title>Globank | Bienvenid@</title>
 </head>
 <body>
 	<%
@@ -58,9 +58,10 @@
 					de la cuenta</a></li>
 
 			<li class="mensaje-bienvenida">
-				<h1>
+				<h1 style="margin: 0;">
 					Bienvenid@,
 					<%=cliente.getNombre()%></h1>
+					<% if (cuenta != null) { %> <p style="color: floralwhite;margin: 0;font-weight: bold;">CBU seleccionado: <%=cuenta.getCBU()%></p><% } %>
 			</li>
 
 		</ul>
@@ -87,7 +88,8 @@
 				int endIndex = Math.min(startIndex + itemsPerPage, movimientosCliente.size());
 		%>
 
-		<h1>MIS MOVIMIENTOS</h1>
+		<h1 style="text-align: center; margin-top: 25px; margin-bottom: 35px;">MIS
+			MOVIMIENTOS</h1>
 
 		<table class="table">
 			<thead>
@@ -95,7 +97,6 @@
 					<th scope="col">ID Movimiento</th>
 					<th scope="col">CBU Origen</th>
 					<th scope="col">CBU Destino</th>
-					<th scope="col">Detalle</th>
 					<th scope="col">Fecha de transacción</th>
 					<th scope="col">Importe</th>
 					<th scope="col">Tipo de movimiento</th>
@@ -111,11 +112,39 @@
 					<td><%=movimiento.getId_movimiento()%></td>
 					<td><%=movimiento.getCBU().getCBU()%></td>
 					<td><%=movimiento.getCBU_Destino().getCBU()%></td>
-					<td><%=movimiento.getDetalle()%></td>
-					<% java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm"); %>
-					<td><%= df.format(movimiento.getFecha_Transaccion())%></td>
+					<%
+						java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm");
+					%>
+					<td><%=df.format(movimiento.getFecha_Transaccion())%></td>
 					<td><%=movimiento.getImporte()%></td>
-					<td><%=movimiento.getTipoMovimiento().getId_tipo()%></td>
+					<td>
+						<%
+							switch (movimiento.getDetalle()) {
+									case "transferencia_enviada":
+						%> <img style="height: 24px; width: 24px; margin-right: 3px;"
+						src="Recursos/img/flecha-enviado.png"> Transferencia enviada
+						<%
+ 	break;
+ 			case "transferencia_recibida":
+ %> <img style="height: 24px; width: 24px; margin-right: 3px;"
+						src="Recursos/img/flecha-recibido.png"> Transferencia
+						recibida <%
+ 	break;
+ 			case "alta_cuenta":
+ %> <img style="height: 24px; width: 24px; margin-right: 3px;"
+						src="Recursos/img/alta-cuenta.png"> Alta cuenta <%
+ 	break;
+ 			case "alta_prestamo":
+ %> <img style="height: 24px; width: 24px; margin-right: 3px;"
+						src="Recursos/img/alta-prestamo.png"> Alta préstamo <%
+ 	break;
+ 			case "pago_prestamo":
+ %> <img style="height: 24px; width: 24px; margin-right: 3px;"
+						src="Recursos/img/flecha-enviado.png"> Pago préstamo <%
+ 	break;
+ 			}
+ %>
+					</td>
 					<%
 						}
 					%>
@@ -126,7 +155,7 @@
 			<%
 				for (int i = 1; i <= totalPages; i++) {
 			%>
-			<a style="padding:3px;" href="?page=<%=i%>"><%=i%></a>
+			<a style="padding: 3px;" href="?page=<%=i%>"><%=i%></a>
 
 			<%
 				}
@@ -141,19 +170,21 @@
 	%>
 	<div class="form-movimientos">
 
-		<h1>TRANSFERENCIAS</h1>
+		<h1 style="margin-bottom: 0px;">TRANSFERENCIAS</h1>
 
-		<form action="ServletMovimientos" method="post">
+		<form action="ServletMovimientos" method="post"
+			style="display: flex; flex-direction: row; align-items: center;">
 
-			<p>
+			<p style="margin-right: 20px;">
 				Importe: <input type="number" name="importe_transferir"></input>
 			</p>
-			<p>
+			<p style="margin-right: 20px;">
 				Indique CBU: <input type="number" name="cbu_destino"></input>
 			</p>
 
-			<input type="submit" name="btnMovimiento" value="Realizar"
-				id="btnMovimiento"></input>
+			<input type="submit" name="btnMovimiento" value="Transferir"
+				id="btnMovimiento"
+				 style="margin-right: 20px;padding: 3px 25px; height: 45px; background-color: #ddba79; border-radius: 37px; font-size: 20px; margin-top: 10px;"></input>
 		</form>
 	</div>
 

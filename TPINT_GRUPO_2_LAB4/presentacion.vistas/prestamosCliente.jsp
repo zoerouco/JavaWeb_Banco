@@ -34,6 +34,8 @@
         Cuenta cuenta = new Cuenta();
         Cliente cliente = new Cliente();
         cliente = (Cliente) request.getSession().getAttribute("cliente_actual");
+        
+        Cuenta cuentaActual = (Cuenta) request.getSession().getAttribute("cuenta_actual");
     %>
 
     <header class="encabezado">
@@ -45,13 +47,13 @@
 
             <ul class="contenedor-links-menu">
                 <li class="links-menu"><a class="links-menu" href="ServletMenuCliente"> Home </a></li>
-                <li class="links-menu"><a class="links-menu" href=""> Mis movimientos</a></li>
+                <li class="links-menu"><a class="links-menu" href="ServletMovimientos"> Mis movimientos</a></li>
                 <li class="links-menu"><a class="links-menu" href="ServletCliente" id="mis-prestamos"> Mis préstamos
                     </a></li>
                 <li class="links-menu"><a class="links-menu" href="#mispagos">Mis pagos</a></li>
 
                 <li class="mensaje-bienvenida">
-                    <h1>Bienvenido, <%= cliente.getNombre()%></h1>
+                    <h1>Bienvenid@, <%= cliente.getNombre()%></h1><% if (cuentaActual != null) { %> <p style="color: floralwhite;margin: 0;font-weight: bold;">CBU seleccionado: <%=cuentaActual.getCBU()%></p><% } %>
                 </li>
             </ul>
             <input type="hidden" name="clienteActual" value="<%= cliente.getDNI() %>">

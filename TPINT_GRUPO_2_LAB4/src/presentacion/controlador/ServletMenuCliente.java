@@ -17,11 +17,10 @@ import negocioImpl.ClienteNegocioImpl;
 import negocioImpl.CuentaNegocioImpl;
 import negocioImpl.UsuarioNegocioImpl;
 
-
 @WebServlet("/ServletMenuCliente")
 public class ServletMenuCliente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	Cliente cliente = new Cliente();
 	Usuario usuario = new Usuario();
 	Cuenta cuenta = new Cuenta();
@@ -29,75 +28,59 @@ public class ServletMenuCliente extends HttpServlet {
 	ClienteNegocioImpl clienteN = new ClienteNegocioImpl();
 	ArrayList<Cuenta> cuentas_cliente = new ArrayList<Cuenta>();
 	CuentaNegocioImpl cuentaN = new CuentaNegocioImpl();
-	
-    public ServletMenuCliente() {
-        super();
- 
-    }
 
+	public ServletMenuCliente() {
+		super();
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-
-		  if(request.getSession().getAttribute("usuario") != null) {
-			  
-			 usuario = (Usuario) request.getSession().getAttribute("usuario");  
-			 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
-			 request.getSession().setAttribute("cliente_actual", cliente);
-			 cuentas_cliente = cuentaN.getCuentasxDNI(cliente.getDNI());
-			 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente);		  
-		  }
-		  
-		  
-		 if (request.getParameter("btnMostrarCuenta") != null){ //se switchea la variable session que contiene la cuenta actual.
-			 
-		  String cbu = (String) request.getParameter("cuenta-cliente");
-		  cuenta = cuentaN.getCuentaxCBU(cbu);
-		  request.getSession().setAttribute("cuenta_actual", cuenta); 
-			 
-		 }
-		 
-		 if(request.getParameter("btnElegirCuenta") != null) {
-			 
-			 cuenta = null;
-			 request.getSession().setAttribute("cuenta_actual", cuenta); 
-		 }
-		
-			String url = "/menuCliente.jsp";
-			request.setAttribute("miUrl", url);
-			request.getRequestDispatcher(url).forward(request, response);
-		
 	}
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		accion(request, response);
+	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
-		 if(request.getSession().getAttribute("usuario") != null) {
-			  
-			 usuario = (Usuario) request.getSession().getAttribute("usuario");  
-			 cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
-			 request.getSession().setAttribute("cliente_actual", cliente);
-			 cuentas_cliente = cuentaN.getCuentasxDNI(cliente.getDNI());
-			 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente);		  
-		  }
-		  
-		  
-		 if (request.getParameter("btnMostrarCuenta") != null){ //se switchea la variable session que contiene la cuenta actual.
-			 
-		  String cbu = (String) request.getParameter("cuenta-cliente");
-		  cuenta = cuentaN.getCuentaxCBU(cbu);
-		  request.getSession().setAttribute("cuenta_actual", cuenta); 
-			 
-		 }
-		 
-		 if(request.getParameter("btnElegirCuenta") != null) {
-			 
-			 cuenta = null;
-			 request.getSession().setAttribute("cuenta_actual", cuenta); 
-		 }
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		accion(request, response);
+	}
+
+	protected void accion(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String cbuCuentaCliente = (String) request.getParameter("cuenta-cliente");
 		
-			String url = "/menuCliente.jsp";
-			request.setAttribute("miUrl", url);
-			request.getRequestDispatcher(url).forward(request, response);
+		if (request.getSession().getAttribute("usuario") != null) {
+
+			usuario = (Usuario) request.getSession().getAttribute("usuario");
+			cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
+			request.getSession().setAttribute("cliente_actual", cliente);
+			cuentas_cliente = cuentaN.getCuentasxDNI(cliente.getDNI());
+			request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente);
+			
+			// se obtiene la primer cuenta por defecto por si es la primera carga
+			if (((Cuenta)request.getSession().getAttribute("cuenta_actual")) == null && (cbuCuentaCliente == null || cbuCuentaCliente.length() == 0) && cuentas_cliente.size() > 0)
+			{				
+				request.getSession().setAttribute("cuenta_actual", cuentas_cliente.get(0));
+			}
+		}
+
+		// if (request.getParameter("btnMostrarCuenta") != null){ //se switchea la
+		// variable session que contiene la cuenta actual.
+
+		if (cbuCuentaCliente != null && cbuCuentaCliente.length() > 0) {
+			cuenta = cuentaN.getCuentaxCBU(cbuCuentaCliente);
+			request.getSession().setAttribute("cuenta_actual", cuenta);
+		}
+
+		// }
+
+		/*
+		 * if(request.getParameter("btnElegirCuenta") != null) {
+		 * 
+		 * cuenta = null; request.getSession().setAttribute("cuenta_actual", cuenta); }
+		 */
+
+		String url = "/menuCliente.jsp";
+		request.setAttribute("miUrl", url);
+		request.getRequestDispatcher(url).forward(request, response);
 	}
 }
