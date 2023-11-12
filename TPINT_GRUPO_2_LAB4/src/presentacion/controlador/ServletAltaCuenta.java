@@ -61,7 +61,6 @@ Usuario usuario = new Usuario();
     		cuenta.setNro_cuenta(request.getParameter("txtNroCuenta"));
     		cli = clineg.getClientexDNI((request.getParameter("txtDni")));
     		cuenta.setDNI(cli);
-    		cuenta.setSaldo(Float.parseFloat(request.getParameter("txtSaldo")));
             
         boolean guardo= cuenegImpl.insert(cuenta);
         

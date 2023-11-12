@@ -71,6 +71,14 @@
         <% ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>)request.getAttribute("listaCuentas"); %>
         <div class="container-table"  id="table-usuarios" style="margin-top: 150px">
 	    	<h2> Cuentas: </h2>
+	    	<form action="ServletListarCuenta" method="post">
+	    	<div class="d-flex justify-content-center mb-3">
+			    	<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+			    		<button type="submit" class="btn btn-success" name="activos">Solo activos</button>
+					  	<button type="submit" class="btn btn-warning" name="todos">Todos los clientes</button>
+					  	<button type="submit" class="btn btn-danger" name="inactivos">Solo inactivos</button>
+					</div>
+				</div>
 	        <table class="table">
 	        <thead>
 	            <tr>
@@ -102,6 +110,16 @@
 		        }%>
 	        </tbody>
 	    </table>
+		<nav aria-label="...">
+		  <ul class="pagination pagination-lg">
+		    <li class="page-item disabled">
+		      <a class="page-link" href="#" tabindex="-1">1</a>
+		    </li>
+		    <li class="page-item"><a class="page-link" href="#">2</a></li>
+		    <li class="page-item"><a class="page-link" href="#">3</a></li>
+		  </ul>
+		</nav>
+	    </form>
 	</div>
 		
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

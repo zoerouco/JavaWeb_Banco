@@ -84,12 +84,12 @@
                 <div class="inputs">
                     <div class="text-layout">
                         <label for="CBUe">CBU<span class="required-fields">*</span></label>
-                        <input type="text" name="txtCbu" id="CBU" required>
+                        <input type="text" name="txtCbu" minlength="11" maxlength="11" id="CBU" required>
                     </div>
                     
                     <div class="text-layout">
                         <label for="DNI">DNI<span class="required-fields">*</span></label>
-                        <input type="number" id="DNI" placeholder=" XX-XXX-XXX" name="txtDni" required>
+                        <input type="number" minlength="7" maxlength="9" id="DNI" placeholder=" XX-XXX-XXX" name="txtDni" required>
                     </div>
                     
                     <div class="text-layout">
@@ -109,11 +109,6 @@
                     <div class="text-layout">
                         <label for="adress">Numero de Cuenta<span class="required-fields">*</span></label>
                         <input type="text" name="txtNroCuenta" id="adress" placeholder=" 123454" required>
-                    </div>
-
-                    <div class="text-layout">
-                        <label for="number1">Saldo<span class="required-fields">*</span></label>
-                        <input type="number" name="txtSaldo" id="number1" required>
                     </div>
 
                 </div>

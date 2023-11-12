@@ -38,7 +38,17 @@ public class CuentaDaoImpl implements CuentaDao{
 	        + "INNER JOIN nacionalidades ON clientes.id_nacionalidad = nacionalidades.id "
 	        + "INNER JOIN provincias ON clientes.id_provincia = provincias.id WHERE cuentas.estado = 1";
 	
+	private static final String readAllInactivos = "SELECT * FROM cuentas "
+	        + "INNER JOIN tipo_cuenta ON cuentas.id_tipo = tipo_cuenta.id_tipo "
+	        + "INNER JOIN clientes ON cuentas.DNI = clientes.DNI "
+	        + "INNER JOIN generos ON clientes.id_genero = generos.id_genero "
+	        + "INNER JOIN localidades ON clientes.id_localidades = localidades.id "
+	        + "INNER JOIN nacionalidades ON clientes.id_nacionalidad = nacionalidades.id "
+	        + "INNER JOIN provincias ON clientes.id_provincia = provincias.id WHERE cuentas.estado = 0";
+	
 	private static final String modificar = "UPDATE cuentas SET saldo=? WHERE CBU=?";
+	
+
 	
 	@Override
 	public boolean insert(Cuenta cuenta) {
@@ -185,6 +195,85 @@ public class CuentaDaoImpl implements CuentaDao{
 		try{
 			
 			PreparedStatement statement = conexion.getSQLConexion().prepareStatement(readAllActivos);
+	        ResultSet resultSet = statement.executeQuery();
+		
+			while(resultSet.next()){
+				
+				//clases necesarias para crear un obj cuenta
+				Tipo_cuenta tipoCuenta = new Tipo_cuenta();
+				tipoCuenta.setId_tipo(resultSet.getString(8));
+				tipoCuenta.setDescripcion(resultSet.getString(9));
+				
+				Genero genero = new Genero();
+				genero.setId_genero(resultSet.getString(24));
+				genero.setDescripcion(resultSet.getString(25));
+				
+				Nacionalidad nacionalidad = new Nacionalidad();
+				nacionalidad.setId(resultSet.getInt(29));
+				nacionalidad.setCode(resultSet.getShort(30));
+				nacionalidad.setIso3166a1(resultSet.getString(31));
+				nacionalidad.setIso3166a2(resultSet.getString(32));
+				nacionalidad.setNombre_pais(resultSet.getString(33));
+				
+				Provincia provincia = new Provincia();
+				provincia.setId(resultSet.getInt("id_provincia"));
+				provincia.setNombre_provincia(resultSet.getString(35));
+				
+				Localidad localidad = new Localidad();
+				localidad.setId(resultSet.getInt("id_localidades"));
+				localidad.setId_provincia(provincia);
+				localidad.setNombre_localidad(resultSet.getString("nombre_localidad"));
+				
+				Cliente cliente = new Cliente();
+				cliente.setDNI(resultSet.getString("DNI"));
+				cliente.setId_genero(genero);
+				cliente.setId_nacionalidad(nacionalidad);
+				cliente.setId_provincia(provincia);
+				cliente.setId_localidades(localidad);
+				cliente.setCUIL(resultSet.getString("CUIL"));
+				cliente.setNombre(resultSet.getString("nombre"));
+				cliente.setApellido(resultSet.getString("apellido"));
+				cliente.setFecha_nacimiento(resultSet.getDate("fecha_nacimiento"));
+				cliente.setDireccion(resultSet.getString("direccion"));
+				cliente.setCorreo_electronico(resultSet.getString("correo_electronico"));
+				cliente.setTelefono_primario(resultSet.getString("telefono_primario"));
+				cliente.setTelefono_secundario(resultSet.getString("telefono_secundario"));
+				
+				Cuenta cuenta = new Cuenta();
+				cuenta.setCBU(resultSet.getString("CBU"));
+				cuenta.setId_tipo(tipoCuenta);
+				cuenta.setDNI(cliente);
+				cuenta.setFecha_creacion(resultSet.getDate("fecha_creacion"));
+				cuenta.setNro_cuenta(resultSet.getString("nro_cuenta"));
+				cuenta.setSaldo(resultSet.getFloat("saldo"));
+				cuenta.setEstado(resultSet.getBoolean("estado"));
+				
+				lista.add(cuenta);
+			}
+			
+		conexion.cerrarConexion();
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	
+		return lista;
+	}
+	
+	@Override
+	public ArrayList<Cuenta> readAllInactivos() {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<Cuenta> lista = new ArrayList<Cuenta>();
+		
+		Conexion conexion = Conexion.getConexion();
+		try{
+			
+			PreparedStatement statement = conexion.getSQLConexion().prepareStatement(readAllInactivos);
 	        ResultSet resultSet = statement.executeQuery();
 		
 			while(resultSet.next()){

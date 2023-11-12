@@ -9,6 +9,7 @@ public interface CuentaDao {
 	public boolean delete (Cuenta cuenta);
 	public ArrayList<Cuenta> readAll();
 	public ArrayList<Cuenta> readAllActivos();
+	public ArrayList<Cuenta> readAllInactivos();
 	public ArrayList<Cuenta> getCuentasxDNI(String DNI);
 	public Cuenta getCuentaxCBU (String CBU);
 	public boolean modificar(Cuenta cuenta);

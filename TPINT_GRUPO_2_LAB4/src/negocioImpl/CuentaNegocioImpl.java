@@ -3,7 +3,6 @@ package negocioImpl;
 import java.util.ArrayList;
 import dao.CuentaDao;
 import daoImpl.CuentaDaoImpl;
-import entidades.Cliente;
 import entidades.Cuenta;
 import negocio.CuentaNegocio;
 
@@ -34,6 +33,10 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 	@Override
 	public ArrayList<Cuenta> readAllActivos() {
 		return cdao.readAllActivos();
+	}
+	@Override
+	public ArrayList<Cuenta> readAllInactivos() {
+		return cdao.readAllInactivos();
 	}
 	@Override
 	public boolean update(Cuenta cuenta) {

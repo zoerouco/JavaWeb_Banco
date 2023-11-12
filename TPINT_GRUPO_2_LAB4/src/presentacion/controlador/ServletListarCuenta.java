@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import daoImpl.CuentaDaoImpl;
+
 import entidades.Cuenta;
 import entidades.Usuario;
 
@@ -47,9 +48,17 @@ public class ServletListarCuenta extends HttpServlet {
 		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		 request.setAttribute("admin_actual", usuario);
-		 
-		ArrayList<Cuenta> listaCuentas = cneg.readAllActivos();
-		request.setAttribute("listaCuentas", listaCuentas);
+		
+		if(request.getParameter("todos") != null) {
+			ArrayList<Cuenta> listaCuentas = cneg.readAll();
+			request.setAttribute("listaCuentas", listaCuentas);
+		} else if (request.getParameter("activos") != null) {
+			ArrayList<Cuenta> listaCuentas = cneg.readAllActivos();
+			request.setAttribute("listaCuentas", listaCuentas);
+		} else if (request.getParameter("inactivos") != null) {
+			ArrayList<Cuenta> listaCuentas = cneg.readAllInactivos();
+			request.setAttribute("listaCuentas", listaCuentas);
+		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCuentas.jsp");   
 	    rd.forward(request, response);
