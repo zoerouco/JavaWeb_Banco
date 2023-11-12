@@ -14,6 +14,7 @@ public class PrestamoDaoImpl implements PrestamoDao{
 	private static final String readall = "SELECT * FROM prestamos";
 	private static final String getPrestamosxCBU = "SELECT * FROM prestamos where CBU = ?";
 	private static final String getPrestamoxID = "SELECT * FROM prestamos where id_prestamo = ?";
+	private static final String update = "UPDATE prestamos SET estado = ? WHERE id_prestamo = ?";
 		
 	@Override
 	public boolean insert(Prestamo prestamo) {
@@ -329,5 +330,26 @@ public class PrestamoDaoImpl implements PrestamoDao{
 		
 		return prestamo;
 
+	}
+
+	@Override
+	public boolean update (int idPrestamo, String estado) {
+		
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isUpdateExitoso = false;
+		try {
+			statement = conexion.prepareStatement(update);
+			statement.setString(1, estado);
+			statement.setInt(2, idPrestamo);
+			if(statement.executeUpdate() > 0) {
+				conexion.commit();
+				isUpdateExitoso = true;
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return isUpdateExitoso;
 	}
 }

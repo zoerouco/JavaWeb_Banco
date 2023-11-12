@@ -9,7 +9,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	    <link rel="stylesheet" type="text/css" href="Recursos/css/main.css">
+	    <link rel="stylesheet" type="text/css" href="Recursos/css/mainAdmin.css">
 	    <link rel="stylesheet" type="text/css" href="Recursos/css/eliminarCliente.css">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <link rel="icon" type="image/png" href="Recursos/img/BancoLogo.png" />
@@ -70,10 +70,10 @@
         <% ArrayList<Prestamo> prestamos = (ArrayList<Prestamo>)request.getAttribute("listaPrestamos");%>
         <div class="container-table"  id="table-usuarios" style="margin-top: 150px">
 	    	<h2> Prestamos: </h2>
-	    	<form action="ServletListarPrestamos" method="post">
+	    	<form action="ServletGestionarPrestamos" method="post">
 		    	<div class="d-flex justify-content-center mb-3">
 			    	<div class="btn-group" role="group" aria-label="Basic mixed styles example">
-			    		<button type="submit" class="btn btn-success" name="aceptado">Aceptados</button>
+			    		<button type="submit" class="btn btn-success" name="aprobado">Aprobado</button>
 					  	<button type="submit" class="btn btn-warning" name="solicitado">Solicitados</button>
 					  	<button type="submit" class="btn btn-danger" name="rechazado">Rechazados</button>
 					</div>
@@ -99,20 +99,33 @@
 			        		cont++;
 			        		String rowClass = (cont % 2 == 0) ? "table-row-even" : "table-row-odd"; %>
 					        	<tr class="<%=rowClass%>">
-					        		<th scope="row"><%=prestamo.getId_prestamo()%></th>
-					        		<td><%=prestamo.getCBU().getCBU()%></td>
-					        		<td><%=prestamo.getFecha_realizacion()%></td>
-					        		<td><%=prestamo.getImporte_pedido()%></td>
-					        		<td><%=prestamo.getImporte_con_intereses()%></td>
-					        		<td><%=prestamo.getMonto_x_mes()%></td>
-					        		<td><%=prestamo.getCant_cuotas()%></td>
-					        		<td><%=prestamo.getEstado()%></td>
-					        		<% request.setAttribute("prestamo", prestamo);
-					        			if(prestamo.getEstado().equalsIgnoreCase("Solicitado")) {%>
-						        			<td><input type="submit" name="buttonAceptar" value="Aceptar" id="button" class="eliminar-button"></td>
-						        			<td><input type="submit" name="buttonRechazar" value="Rechazar" id="button" class="eliminar-button"></td>
-					        		<%}%>
-							 	</tr>
+					        		<form action="ServletGestionarPrestamos" method="post">
+						        		<th scope="row"><%=prestamo.getId_prestamo()%><input type="hidden" name="DNI" value="<%=prestamo.getId_prestamo()%>"></th>
+						        		<td><%=prestamo.getCBU().getCBU()%></td>
+						        		<td><%=prestamo.getFecha_realizacion()%></td>
+						        		<td><%=prestamo.getImporte_pedido()%></td>
+						        		<td><%=prestamo.getImporte_con_intereses()%></td>
+						        		<td><%=prestamo.getMonto_x_mes()%></td>
+						        		<td><%=prestamo.getCant_cuotas()%></td>
+						        		<td><%=prestamo.getEstado()%></td>
+						        		<% request.setAttribute("prestamo", prestamo);
+						        			if(prestamo.getEstado().equalsIgnoreCase("Solicitado")) {%>
+							        			<td><input type="submit" name="buttonAprobar" value="Aprobar" id="button" class="eliminar-button"></td>
+							        			<td><input type="submit" name="buttonRechazar" value="Rechazar" id="button" class="eliminar-button"></td>
+						        		<%}%>
+						        		<div>
+				                        <% if (request.getAttribute("confirm" + prestamo.getId_prestamo()) != null) { %>
+				                        	<p class="confirm-message"><%= request.getAttribute("confirm" + prestamo.getId_prestamo()) %>
+					                            <form action="ServletGestionarPrestamos" method="post">
+					                                <input type="hidden" name="ID" value="<%=prestamo.getId_prestamo()%>">
+					                                <input type="submit" name="confirmRechazar" id="buttonSubmit" value="Rechazar">
+					                                <input type="submit" name="buttonCancelar" id="button" value="Cancelar">
+					                            </form>
+				                            </p>
+				                        <% } %>
+				                    </div>
+			                    </form>
+							 </tr>
 			        	 <%}
 			        }%>
 		        </tbody>

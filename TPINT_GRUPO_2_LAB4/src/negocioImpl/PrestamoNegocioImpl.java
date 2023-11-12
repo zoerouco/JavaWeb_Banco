@@ -31,12 +31,6 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 	public ArrayList<Prestamo> readAll() {
 		return pdao.readAll();
 	}
-
-	@Override
-	public boolean update(Prestamo prestamo) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
 	public int getUltimoID() {
 		
@@ -107,19 +101,32 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 		}
 		
 
+<<<<<<< HEAD
 		return null;}
 
-	
+=======
+		return null;
+		}
+
 	public ArrayList<Prestamo> readAllByEstado(String estado){
 		return pdao.readAllByEstado(estado);
-
 	}
+>>>>>>> 07b539d8948d554dbceea380d7061f5307f78c7c
+	
 	
 	public Prestamo getPrestamoByID (int idPrestamo){
 		
 		return pdao.getPrestamoByID(idPrestamo);
 
+<<<<<<< HEAD
+=======
 	}
-	
-	
+
+	@Override
+	public boolean update(int prestamo, String estado) {
+		boolean update = false;
+		update = pdao.update(prestamo, estado);
+		return update;
+>>>>>>> 07b539d8948d554dbceea380d7061f5307f78c7c
+	}
 }

@@ -46,6 +46,7 @@ public class ServletMenuCliente extends HttpServlet {
 
 	protected void accion(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		String cbuCuentaCliente = (String) request.getParameter("cuenta-cliente");
 		
 		if (request.getSession().getAttribute("usuario") != null) {

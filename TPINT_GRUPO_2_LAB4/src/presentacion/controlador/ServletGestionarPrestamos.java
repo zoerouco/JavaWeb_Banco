@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entidades.Cliente;
 import entidades.Prestamo;
 import entidades.Usuario;
 import negocioImpl.PrestamoNegocioImpl;
@@ -39,8 +40,8 @@ public class ServletGestionarPrestamos extends HttpServlet {
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		request.setAttribute("admin_actual", usuario);
 		
-		if(request.getParameter("aceptado") != null) {
-			ArrayList<Prestamo> listaPrestamos = pneg.readAllByEstado("Aceptado");
+		if(request.getParameter("aprobado") != null) {
+			ArrayList<Prestamo> listaPrestamos = pneg.readAllByEstado("Aprobado");
 			request.setAttribute("listaPrestamos", listaPrestamos);
 		} else if (request.getParameter("solicitado") != null) {
 			ArrayList<Prestamo> listaPrestamos = pneg.readAllByEstado("Solicitado");
@@ -50,7 +51,21 @@ public class ServletGestionarPrestamos extends HttpServlet {
 			request.setAttribute("listaPrestamos", listaPrestamos);
 		}
 		
-		if(request.getParameter("buttonAceptar") != null) {
+		if(request.getParameter("buttonRechazar") != null) {
+			int ID = Integer.parseInt(request.getParameter("ID"));
+			Prestamo prestamo = pneg.getPrestamoByID(ID);
+			String confirm = "Esta seguro de que quiere rechazar el prestamo " + prestamo.getId_prestamo() + "?";
+       	 	request.setAttribute("confirm" + ID, confirm);
+		}
+		
+		if(request.getParameter("confirmRechazar") != null) {
+			int ID = Integer.parseInt(request.getParameter("ID"));
+			
+			boolean rechazar = pneg.update(ID, "Rechazado");
+			request.setAttribute("rechazar", rechazar);
+		}
+		/*
+		if(request.getParameter("buttonAprobar") != null) {
 			Prestamo prestamo = new Prestamo();
 			Prestamo prestamoSeleccionado = (Prestamo) request.getAttribute("prestamo");
 			
@@ -63,7 +78,7 @@ public class ServletGestionarPrestamos extends HttpServlet {
 			prestamo.setImporte_pedido(prestamoSeleccionado.getImporte_pedido());
 			prestamo.setMonto_x_mes(prestamoSeleccionado.getMonto_x_mes());
 		}
-		
+		*/
 		RequestDispatcher rd = request.getRequestDispatcher("/gestionPrestamos.jsp");   
 	    rd.forward(request, response);
 	}
