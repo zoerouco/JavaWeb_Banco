@@ -74,7 +74,7 @@ CREATE PROCEDURE AgregarCuenta(
 )
 BEGIN
 INSERT INTO cuentas(CBU,id_tipo,DNI,fecha_creacion,nro_cuenta,saldo,estado)
-SELECT CBU,id_tipo,DNI,now(),nro_cuenta,saldo,true;
+SELECT CBU,id_tipo,DNI,now(),nro_cuenta,10000,true;
 END 
 //
 DELIMITER ;
