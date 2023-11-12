@@ -99,9 +99,26 @@ END //
 DELIMITER ;
 
 
+/*--------------NUEVO 11/11--------------------*/
+
+
+DELIMITER //
+
+ CREATE PROCEDURE AgregarMovimientoxPrestamo(
+	IN id_movimiento int,
+    IN CBU char(22),
+    IN id_prestamo int
+)
+BEGIN
+    INSERT INTO movimientosxprestamos (id_movimiento, CBU, id_prestamo)
+    VALUES (id_movimiento, CBU, id_prestamo);
+END //
+
+DELIMITER ;
+
 /*----------------------------------*/
 
-
+/*----------------------------------*/
 
 
  /* ------- ALTERS TABLES ------- */

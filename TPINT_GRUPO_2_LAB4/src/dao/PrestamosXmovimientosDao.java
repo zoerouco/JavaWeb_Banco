@@ -8,6 +8,6 @@ public interface PrestamosXmovimientosDao {
 	
 	
 	public ArrayList<PrestamosXmovimientos> readAll();
-	
+	public ArrayList<PrestamosXmovimientos> getPrestamosXmovimientosByID(int id_prestamo);
 	
 }

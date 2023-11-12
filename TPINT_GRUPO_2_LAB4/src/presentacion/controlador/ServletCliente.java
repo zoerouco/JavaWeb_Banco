@@ -9,14 +9,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.eclipse.jdt.internal.compiler.parser.ParserBasicInformation;
+
 import daoImpl.PrestamoDaoImpl;
 import entidades.Cliente;
 import entidades.Cuenta;
 import entidades.Prestamo;
+import entidades.PrestamosXmovimientos;
 import entidades.Usuario;
 import negocioImpl.ClienteNegocioImpl;
 import negocioImpl.CuentaNegocioImpl;
 import negocioImpl.PrestamoNegocioImpl;
+import negocioImpl.PrestamosXmovimientosNegocioImpl;
 
 
 @WebServlet("/ServletCliente") //SERVLET DE PRÉSTAMOS!!!
@@ -33,7 +37,9 @@ public class ServletCliente extends HttpServlet {
 	PrestamoDaoImpl prestamoD = new PrestamoDaoImpl();
 	PrestamoNegocioImpl prestamoN = new PrestamoNegocioImpl();
     ClienteNegocioImpl clienteN = new ClienteNegocioImpl();
+    PrestamosXmovimientosNegocioImpl pxmN = new PrestamosXmovimientosNegocioImpl();
     Usuario usuario = new Usuario();
+    Prestamo prestamo = new Prestamo();
 
 	
 	Cuenta cuenta = new Cuenta();
@@ -103,6 +109,35 @@ public class ServletCliente extends HttpServlet {
 			
 			if(request.getParameter("btnConsultarPagos") != null) {
 				
+				int idPrestamo = Integer.parseInt(request.getParameter("prestamo-cliente"));
+				ArrayList<PrestamosXmovimientos> pagosPrestamos = pxmN.getPrestamosXmovimientosByID(idPrestamo);		
+				//acá tengo el ID del préstamo a PAGAR y un array con los pagos de ese prestamo.
+				
+				if(pagosPrestamos.size() != 0) {
+					
+					Boolean debePagar = false;
+					PrestamosXmovimientos prestamosxmovimientos = pagosPrestamos.get(0);
+					int cant_cuotas = prestamosxmovimientos.getId_prestamo().getCant_cuotas();
+					float monto_x_mes = prestamosxmovimientos.getId_prestamo().getMonto_x_mes();
+					
+					if(pagosPrestamos.size() == cant_cuotas) {
+						
+						request.setAttribute("debePagar", false);
+					}else {
+						int cuotas_faltantes = cant_cuotas - pagosPrestamos.size();
+						int nro_cuota = pagosPrestamos.size();
+						request.setAttribute("debePagar", true);
+						request.setAttribute("monto_x_mes", monto_x_mes);
+						request.setAttribute("cuotas_faltantes", cuotas_faltantes);
+						request.setAttribute("nro_cuota", nro_cuota);
+					}
+					
+					}
+					
+				ArrayList <Prestamo> prestamosClienteAux = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
+				request.setAttribute("prestamosClienteAux", prestamosClienteAux);
+				request.setAttribute("pagosPrestamos", pagosPrestamos);
+				
 			}
 			
 			String url = "/prestamosCliente.jsp";
@@ -121,9 +156,11 @@ public class ServletCliente extends HttpServlet {
 			 request.getSession().setAttribute("cliente_actual", cliente);
 			 cuentas_cliente_actual = cuentaN.getCuentasxDNI(usuario.getDni().getDNI());
 			 request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente_actual);
-			 
+			
+			ArrayList <Prestamo> prestamosClienteAux = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
 			ArrayList <Prestamo> prestamosCliente = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
 			request.setAttribute("prestamosCliente", prestamosCliente);
+			request.setAttribute("prestamosClienteAux", prestamosClienteAux);
 			 }
 			 
 		  
@@ -150,12 +187,14 @@ public class ServletCliente extends HttpServlet {
 			
 			String cbu = request.getParameter("filtro-cuentas-cliente");
 			ArrayList <Prestamo> prestamosxCBU = prestamoN.getPrestamosxCBU(cbu, cuentas_cliente_actual);	
+			ArrayList <Prestamo> prestamosClienteAux = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
 		    ArrayList <Prestamo> prestamosCliente = null;
 			
 			request.setAttribute("filtro", prestamosxCBU);
 		    request.setAttribute("hayFiltro", true);
 		   
 			request.setAttribute("prestamosCliente", prestamosCliente);
+			request.setAttribute("prestamosClienteAux", prestamosClienteAux);
 		    
 		}
 		
@@ -165,6 +204,19 @@ public class ServletCliente extends HttpServlet {
 			ArrayList <Prestamo> prestamosxCBU = null;	
 			ArrayList <Prestamo> prestamosCliente = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
 			request.setAttribute("prestamosCliente", prestamosCliente);
+		}
+		
+		if(request.getParameter("btnConsultarPagos") != null) {
+			
+			int idPrestamo = Integer.parseInt(request.getParameter("prestamo-cliente"));
+			ArrayList<PrestamosXmovimientos> pagosPrestamos = pxmN.getPrestamosXmovimientosByID(idPrestamo);
+			//acá tengo el ID del préstamo a PAGAR y un array con los pagos de ese prestamo.
+
+			
+			ArrayList <Prestamo> prestamosClienteAux = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
+			request.setAttribute("prestamosClienteAux", prestamosClienteAux);
+			request.setAttribute("pagosPrestamos", pagosPrestamos);
+			
 		}
 		
 		String url = "/prestamosCliente.jsp";
