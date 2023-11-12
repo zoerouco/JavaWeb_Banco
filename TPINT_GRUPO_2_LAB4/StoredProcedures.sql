@@ -123,25 +123,6 @@ DELIMITER ;
 
  /* ------- ALTERS TABLES ------- */
 
-	ALTER TABLE prestamos
-	MODIFY estado VARCHAR(20);
-
-	
-	ALTER TABLE usuarios
-	MODIFY id_usuario INT auto_increment;
-	
-	ALTER TABLE usuarios
-	MODIFY DNI char(20) UNIQUE;
-	
-	ALTER TABLE clientes
-	MODIFY fecha_nacimiento date;
-	
-	alter table prestamos
-	modify id_prestamo int;
-	
-		/*NUEVO*/
-	 ALTER TABLE movimientos
-    MODIFY id_movimiento int auto_increment;
 
 	
 	/*------- TRIGGERS -------*/
