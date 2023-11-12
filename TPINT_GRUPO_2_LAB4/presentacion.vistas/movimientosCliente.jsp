@@ -99,7 +99,7 @@
 					<th scope="col">CBU Destino</th>
 					<th scope="col">Fecha de transacción</th>
 					<th scope="col">Importe</th>
-					<th scope="col">Tipo de movimiento</th>
+					<th scope="col">Tipo de movimiento</th>					
 
 				</tr>
 			</thead>
@@ -116,7 +116,7 @@
 						java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm");
 					%>
 					<td><%=df.format(movimiento.getFecha_Transaccion())%></td>
-					<td><%=movimiento.getImporte()%></td>
+					<td><%=movimiento.getImporte()%></td>					
 					<td>
 						<%
 							switch (movimiento.getDetalle()) {
@@ -186,9 +186,23 @@
 				id="btnMovimiento"
 				 style="margin-right: 20px;padding: 3px 25px; height: 45px; background-color: #ddba79; border-radius: 37px; font-size: 20px; margin-top: 10px;"></input>
 		</form>
+		 <%
+			Boolean insert = (Boolean) request.getAttribute("insert");
+			String formSubmitted = request.getParameter("btnMovimiento");
+				
+				if (formSubmitted != null) {
+				    	if (insert != null && insert) {
+					%>
+			    <div class="alta-movimiento-succes">
+				          Se realizo la transferencia correctamente.
+			    </div>
+				<%} else {%>
+				<div class="alta-movimiento-error">
+				   Se produjo un error en la Transferencia, corrobore el cbu y saldo.
+				</div>
+				<%}}%>
 	</div>
 
-	<%-- int validacion = (int) request.getAttribute("validacion"); <% %> --%>
 	<%
 		} else {
 	%>

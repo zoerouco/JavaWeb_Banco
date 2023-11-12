@@ -27,7 +27,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 	//private static final String update = "UPDATE movimientos SET  = ?,  = ? WHERE CBU = ?";
 	private static final String movimientosXcuenta = "SELECT * FROM movimientos" + 
 			" INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo" + 
-			" WHERE CBU = ?" +
+			" WHERE CBU = ? " +
 			" ORDER BY id_movimiento DESC";
 	
 	@Override
@@ -186,6 +186,7 @@ public int getUltimoID() {
 
 
 public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaAux) {
+	
 	
 	String cbu = cuentaAux.getCBU();
 	Tipo_Movimiento tipoMovimiento =new Tipo_Movimiento();

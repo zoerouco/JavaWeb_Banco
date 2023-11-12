@@ -75,7 +75,7 @@
                 </ul>
             </div> 
         </header>
-        <!--<h1 id="titulo">Alta de clientes</h1>-->
+        
         <div class="form-alta-cuentas">
         
             <form action="ServletAltaCuenta" method="get">
@@ -84,7 +84,7 @@
                 <div class="inputs">
                     <div class="text-layout">
                         <label for="CBUe">CBU<span class="required-fields">*</span></label>
-                        <input type="text" name="txtCbu" minlength="11" maxlength="11" id="CBU" required>
+                        <input type="text" name="txtCbu" minlength="22" maxlength="22" id="CBU" required>
                     </div>
                     
                     <div class="text-layout">
@@ -113,9 +113,9 @@
 
                 </div>
                 <h6 class="required-fields">* - Campos obligatorios.</h6>
-                
                 <input type="submit" name="btnAceptar" value="Agregar" id="buttonSubmit"></input>
-                <button type="reset" id="buttonCancel">Cancelar</button>
+                <button type="button" id="buttonCancel" onclick="window.location.href='ServletMenuAdmin';">Cancelar</button>
+                
                 
             </form>
             <%

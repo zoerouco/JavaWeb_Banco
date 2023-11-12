@@ -62,10 +62,12 @@ Usuario usuario = new Usuario();
     		cli = clineg.getClientexDNI((request.getParameter("txtDni")));
     		cuenta.setDNI(cli);
             
-        boolean guardo= cuenegImpl.insert(cuenta);
-        
+    		boolean guardo=false;
+        ArrayList<Cuenta> cuentascliente= cuenegImpl.getCuentasxDNI(request.getParameter("txtDni"));
+        if(cuentascliente.size()<3) {
+        	 guardo=cuenegImpl.insert(cuenta);	
+        }
         request.setAttribute("insert", guardo);
-        
     	}
     	
     	String url = "/altaCuenta.jsp";

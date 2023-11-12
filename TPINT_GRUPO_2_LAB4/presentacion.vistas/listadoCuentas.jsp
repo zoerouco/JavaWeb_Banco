@@ -69,6 +69,19 @@
             </div> 
         </header>
         <% ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>)request.getAttribute("listaCuentas"); %>
+		<%
+		    int itemsPerPage = 3; 
+		    int totalPages = (int) Math.ceil((double) cuentas.size() / itemsPerPage);
+		    int currentPage = 1;
+		
+		    if (request.getParameter("page") != null) {
+		        currentPage = Integer.parseInt(request.getParameter("page"));
+		    }
+		
+		    int startIndex = (currentPage - 1) * itemsPerPage;
+		    int endIndex = Math.min(startIndex + itemsPerPage, cuentas.size());
+		%>
+		
         <div class="container-table"  id="table-usuarios" style="margin-top: 150px">
 	    	<h2> Cuentas: </h2>
 	    	<form action="ServletListarCuenta" method="post">
@@ -92,35 +105,44 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-	        <% if(cuentas != null) {
-	        	int cont = 0;
-	        	for(Cuenta cuenta: cuentas) { 
-	        		cont++;
-	        		String rowClass = (cont % 2 == 0) ? "table-row-even" : "table-row-odd"; %>
-			        	<tr class="<%=rowClass%>">
-				        		<th scope="row"><%=cuenta.getCBU()%></th>
-				        		<td><%=cuenta.getId_tipo().getDescripcion()%></td>
-				        		<td><%=cuenta.getDNI().getDNI()%></td>
-				        		<td><%=cuenta.getFecha_creacion()%></td>
-				        		<td><%=cuenta.getNro_cuenta()%></td>
-				        		<td><%=cuenta.getSaldo()%></td>
-				        		<td><%=cuenta.getEstado()%></td>				        		
-				        	</tr>
-		        	 <%}
-		        }%>
+               <%
+                   for (int i = startIndex; i < endIndex; i++) {
+                     Cuenta cuenta= cuentas.get(i);
+                 %>
+                  <tr>
+                  		<th scope="row"><%=cuenta.getCBU()%></th>
+				        <td><%=cuenta.getId_tipo().getDescripcion()%></td>
+				        <td><%=cuenta.getDNI().getDNI()%></td>
+				        <td><%=cuenta.getFecha_creacion()%></td>
+				        <td><%=cuenta.getNro_cuenta()%></td>
+				        <td><%=cuenta.getSaldo()%></td>
+				        <td><%=cuenta.getEstado()%></td>	
+					                
+                 </tr>
+               <%
+                                }
+                            
+                %>
 	        </tbody>
 	    </table>
-		<nav aria-label="...">
-		  <ul class="pagination pagination-lg">
-		    <li class="page-item disabled">
-		      <a class="page-link" href="#" tabindex="-1">1</a>
-		    </li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		  </ul>
-		</nav>
-	    </form>
-	</div>
+<nav aria-label="...">
+  <ul class="pagination pagination-lg">
+    <%
+      for (int i = 1; i <= totalPages; i++) {
+        if (i == currentPage) {
+    %>
+          <li class="page-item active"><a class="page-link" href="#"><%= i %></a></li>
+    <%
+        } else {
+    %>
+          <li class="page-item"><a class="page-link" href="ServletListarCuenta?page=<%= i %>"><%= i %></a></li>
+    <%
+        }
+      }
+    %>
+  </ul>
+</nav>
+
 		
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

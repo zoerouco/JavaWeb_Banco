@@ -22,5 +22,8 @@ SELECT '45879526', 'M', '1', '1', '1', '23458795263', 'Natalia', 'Gomez', '2000/
 
 UPDATE usuarios SET esAdmin = 1, id_ref = 1 WHERE DNI = '40789452';
 
+
+
 INSERT INTO cuentas(CBU, id_tipo, DNI, fecha_creacion, nro_cuenta, saldo, estado)
-SELECT '0008745130','CA','45879526',NOW(),'326589','95000',1;
+SELECT '0008745130','CA','45879526',NOW(),'326589','95000',1 UNION
+SELECT '1000000001','CA', '45879526', NOW(),999,1000000,1;
