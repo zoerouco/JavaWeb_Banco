@@ -174,8 +174,10 @@ public class ServletCliente extends HttpServlet {
 			movimiento.setDetalle("pago_prestamo");
 			movimiento.setImporte(importe_cuota);
 			movimiento.setEstado(true);
-
+			
 			Boolean inserto = movimientoN.insert(movimiento);
+			
+			movimiento.setId_movimiento(movimientoN.getUltimoID());
 
 			pxm.setCBU(cuentaOrigen);
 			pxm.setId_movimiento(movimiento);
