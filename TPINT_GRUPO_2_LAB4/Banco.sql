@@ -70,15 +70,15 @@ CREATE TABLE `movimientos`(
 
 /*---------NUEVA--------*/
 
-CREATE TABLE `movimientosXprestamos` (
-    `id_movimiento` char(20) NOT NULL,
-    `CBU` char(22) NOT NULL,
-    `id_prestamo` char(20) NOT NULL,
-    PRIMARY KEY (`id_movimiento`, `CBU`, `id_prestamo`),
-    FOREIGN KEY (`id_movimiento`, `CBU`) REFERENCES `movimientos` (`id_movimiento`, `CBU`),
-    FOREIGN KEY (`id_prestamo`) REFERENCES `prestamos` (`id_prestamo`)
+CREATE TABLE movimientosXprestamos (
+    id_movimiento int NOT NULL,
+    CBU char(22) NOT NULL,
+    id_prestamo INT NOT NULL,
+    
+    FOREIGN KEY (id_movimiento, CBU) REFERENCES movimientos (id_movimiento, CBU),
+    FOREIGN KEY (id_prestamo) REFERENCES prestamos (id_prestamo),
+    PRIMARY KEY (id_movimiento, CBU, id_prestamo)
 );
-
 /*---------------------*/
 
 CREATE TABLE `usuarios`(
