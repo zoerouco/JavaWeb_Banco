@@ -55,7 +55,7 @@ CREATE TABLE `tipo_movimiento`(
 );
 
 CREATE TABLE `movimientos`(
-	`id_movimiento` char(20) NOT NULL,
+	`id_movimiento` int AUTO_INCREMENT NOT NULL,
 	`CBU` char(22) NOT NULL,
     `id_tipo` char(30) NOT NULL,
     `CBU_destino` char(22) NOT NULL,
@@ -94,7 +94,7 @@ CREATE TABLE `usuarios`(
 );
 
 CREATE TABLE `prestamos`(
-	`id_prestamo` char(20) NOT NULL,
+	`id_prestamo` INT AUTO_INCREMENT NOT NULL,
 	`CBU` char(22) NOT NULL,
     `fecha_realizacion` datetime,
     `importe_con_intereses` decimal(18,2) DEFAULT 0,
