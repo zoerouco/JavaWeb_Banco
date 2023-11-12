@@ -186,9 +186,23 @@
 				id="btnMovimiento"
 				 style="margin-right: 20px;padding: 3px 25px; height: 45px; background-color: #ddba79; border-radius: 37px; font-size: 20px; margin-top: 10px;"></input>
 		</form>
+		 <%
+			Boolean insert = (Boolean) request.getAttribute("insert");
+			String formSubmitted = request.getParameter("btnMovimiento");
+				
+				if (formSubmitted != null) {
+				    	if (insert != null && insert) {
+					%>
+			    <div class="alta-movimiento-succes">
+				          Se realizo la transferencia correctamente.
+			    </div>
+				<%} else {%>
+				<div class="alta-movimiento-error">
+				   Se produjo un error en la Transferencia, corrobore el cbu y saldo.
+				</div>
+				<%}}%>
 	</div>
 
-	<%-- int validacion = (int) request.getAttribute("validacion"); <% %> --%>
 	<%
 		} else {
 	%>

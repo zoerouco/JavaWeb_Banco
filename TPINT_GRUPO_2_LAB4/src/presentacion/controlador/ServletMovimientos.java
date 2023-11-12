@@ -91,9 +91,9 @@ public class ServletMovimientos extends HttpServlet {
 			// validacion = 1;
 
 			// se guarda el movimiento
-			boolean inserto = movimientoN.insert(movimiento);
+			boolean insert = movimientoN.insert(movimiento);
 
-			request.setAttribute("inserto", inserto);
+			request.setAttribute("insert", insert);
 			// UPDATE CLIENTE ACTUAL:
 			float saldo = saldoAnterior - importeMovimiento;
 			cuenta.setSaldo(saldo);
