@@ -22,3 +22,6 @@ SELECT '45879526', 'M', '1', '1', '1', '23458795263', 'Natalia', 'Gomez', '2000/
 
 INSERT INTO usuarios(DNI, esAdmin, id_ref, contraseña, nombre_usuario, estado)
 SELECT '45879526', 1, 1, 'globankroot', 'admin_banco', 1;
+
+INSERT INTO cuentas(CBU,Id_Tipo,DNI,fecha_creacion,nro_cuenta,saldo,estado)
+SELECT '1000000000000000000001','CA', '45879526', NOW(),999,1000000,1;
