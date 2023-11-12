@@ -34,6 +34,7 @@ public class ServletMovimientos extends HttpServlet {
 	Tipo_Movimiento tipoMovimiento = new Tipo_Movimiento();
 
 	Cuenta cuenta = new Cuenta();
+	Cuenta cuentaDestino  = new Cuenta();
 
 	public ServletMovimientos() {
 		super();
@@ -66,34 +67,50 @@ public class ServletMovimientos extends HttpServlet {
 			request.setAttribute("cuentas_cliente_actual", cuentas_cliente_actual);
 		}
 		if (request.getParameter("btnMovimiento") != null) {
-			// int validacion=0;
+			
 			float saldoAnterior = cuenta.getSaldo();
 			float importeMovimiento = Float.parseFloat(request.getParameter("importe_transferir"));
-			// guardar el SALDO "anterior" del cliente cuenta.getsaldo();
-			// if(saldoAnterior <= importeMovimiento) {
-			// if(validarMovimiento()){ => si devuelve true
-			Movimiento movimiento = new Movimiento();
+			
+			Movimiento movimiento_emitido = new Movimiento();
+			Movimiento movimiento_recibido = new Movimiento();
 			int ultimoID = movimientoN.getUltimoID();
-
-			movimiento.setId_movimiento(ultimoID + 1);
+			//SE CARGA EL OBJETO MOVIMIENTO EMITIDO.
+			movimiento_emitido.setId_movimiento(ultimoID + 1);
 			cuenta = cuentaN.getCuentaxCBU(cuenta.getCBU()); // EL OBJETO CUENTA OJO CON LO QUE LO PISAS.
-			movimiento.setCBU(cuenta);
-			cuenta = cuentaN.getCuentaxCBU(request.getParameter("cbu_destino"));
-			movimiento.setCBU_Destino(cuenta);
-			movimiento.setDetalle("transferencia_enviada");
-			movimiento.setImporte(importeMovimiento);
+			movimiento_emitido.setCBU(cuenta);
+			cuentaDestino = cuentaN.getCuentaxCBU(request.getParameter("cbu_destino"));
+			movimiento_emitido.setCBU_Destino(cuenta);
+			movimiento_emitido.setDetalle("transferencia_enviada");
+			movimiento_emitido.setImporte(importeMovimiento);
 			tipoMovimiento = tipoMovimientoN.getTipo_MovimientoByID("transferencia_enviada");
-			movimiento.setTipoMovimiento(tipoMovimiento);
-			movimiento.setEstado(true);
-
-			cuenta = (Cuenta) request.getSession().getAttribute("cuenta_actual"); // restablecemos a la cuenta del
-																					// cliente
-			// validacion = 1;
-
-			// se guarda el movimiento
-			boolean insert = movimientoN.insert(movimiento);
-
-			request.setAttribute("insert", insert);
+			movimiento_emitido.setTipoMovimiento(tipoMovimiento);
+			movimiento_emitido.setEstado(true);
+			
+			// se guarda el movimiento EMITIDO
+						boolean insert = movimientoN.insert(movimiento_emitido);
+						
+			//SE CARGA EL OBJETO MOVIMIENTO RECIBIDO
+			movimiento_recibido.setId_movimiento(ultimoID + 1);
+			cuenta = cuentaN.getCuentaxCBU(cuentaDestino.getCBU()); // EL OBJETO CUENTA OJO CON LO QUE LO PISAS.
+			movimiento_recibido.setCBU(cuenta);
+			cuentaDestino = cuentaN.getCuentaxCBU(request.getParameter(cuenta.getCBU()));
+			movimiento_recibido.setCBU_Destino(cuenta);
+			movimiento_recibido.setDetalle("transferencia_recibida");
+			movimiento_recibido.setImporte(importeMovimiento);
+			tipoMovimiento = tipoMovimientoN.getTipo_MovimientoByID("transferencia_recibida");
+			movimiento_recibido.setTipoMovimiento(tipoMovimiento);
+			movimiento_recibido.setEstado(true);
+			
+			// se guarda el movimiento EMITIDO
+				boolean insert2 = movimientoN.insert(movimiento_recibido);
+			
+				
+			
+				request.setAttribute("insert", insert);
+				request.setAttribute("insert2", insert2);
+			
+			
+			
 			// UPDATE CLIENTE ACTUAL:
 			float saldo = saldoAnterior - importeMovimiento;
 			cuenta.setSaldo(saldo);
@@ -105,7 +122,7 @@ public class ServletMovimientos extends HttpServlet {
 			Cuenta cuentaDestino = cuentaN.getCuentaxCBU(request.getParameter("cbu_destino"));
 
 			float nuevoSaldo = cuentaDestino.getSaldo() + importeMovimiento;
-			cuentaDestino.setSaldo(nuevoSaldo);
+			cuentaDestino.setSaldo(nuevoSaldo);			
 
 			// se actualiza la cuenta receptora
 			cuentaN.modificar(cuentaDestino);

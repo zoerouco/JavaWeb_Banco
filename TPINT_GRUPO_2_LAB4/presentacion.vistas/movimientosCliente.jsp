@@ -99,7 +99,7 @@
 					<th scope="col">CBU Destino</th>
 					<th scope="col">Fecha de transacción</th>
 					<th scope="col">Importe</th>
-					<th scope="col">Tipo de movimiento</th>
+					<th scope="col">Tipo de movimiento</th>					
 
 				</tr>
 			</thead>
@@ -116,7 +116,7 @@
 						java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm");
 					%>
 					<td><%=df.format(movimiento.getFecha_Transaccion())%></td>
-					<td><%=movimiento.getImporte()%></td>
+					<td><%=movimiento.getImporte()%></td>					
 					<td>
 						<%
 							switch (movimiento.getDetalle()) {
