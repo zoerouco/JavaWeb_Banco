@@ -73,7 +73,7 @@
 	    	<form action="ServletListarPrestamos" method="post">
 		    	<div class="d-flex justify-content-center mb-3">
 			    	<div class="btn-group" role="group" aria-label="Basic mixed styles example">
-			    		<button type="submit" class="btn btn-success" name="aceptado">Aceptados</button>
+			    		<button type="submit" class="btn btn-success" name="aprobado">Aprobados</button>
 					  	<button type="submit" class="btn btn-warning" name="solicitado">Solicitados</button>
 					  	<button type="submit" class="btn btn-danger" name="rechazado">Rechazados</button>
 					</div>

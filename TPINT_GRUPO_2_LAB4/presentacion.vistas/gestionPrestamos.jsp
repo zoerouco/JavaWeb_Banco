@@ -78,6 +78,7 @@
 					  	<button type="submit" class="btn btn-danger" name="rechazado">Rechazados</button>
 					</div>
 				</div>
+				</form>
 		        <table class="table">
 		        <thead>
 		            <tr>
@@ -100,7 +101,7 @@
 			        		String rowClass = (cont % 2 == 0) ? "table-row-even" : "table-row-odd"; %>
 					        	<tr class="<%=rowClass%>">
 					        		<form action="ServletGestionarPrestamos" method="post">
-						        		<th scope="row"><%=prestamo.getId_prestamo()%><input type="hidden" name="DNI" value="<%=prestamo.getId_prestamo()%>"></th>
+						        		<th scope="row"><%=prestamo.getId_prestamo()%><input type="hidden" name="ID" value="<%=prestamo.getId_prestamo()%>"></th>
 						        		<td><%=prestamo.getCBU().getCBU()%></td>
 						        		<td><%=prestamo.getFecha_realizacion()%></td>
 						        		<td><%=prestamo.getImporte_pedido()%></td>
@@ -130,7 +131,6 @@
 			        }%>
 		        </tbody>
 		    </table>
-		</form>
 	</div>
 		
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
