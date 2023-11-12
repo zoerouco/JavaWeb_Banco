@@ -14,15 +14,8 @@ public interface PrestamoNegocio {
 	public float calcularImporteConIntereses(float importe_pedido, int cant_cuotas);
 	public float calcularMontoxMes(int cant_cuotas, float importe_con_intereses);
 	public ArrayList<Prestamo> getPrestamoxCuentas(ArrayList<Cuenta> cuentasCliente);
-<<<<<<< HEAD
-
-	public ArrayList<Prestamo> getPrestamosxCBU (String CBU, ArrayList <Cuenta> cuentasCliente);
-
-	public ArrayList<Prestamo> readAllByEstado(String estado);
-
-=======
 	public ArrayList<Prestamo> getPrestamosxCBU (String CBU, ArrayList <Cuenta> cuentasCliente);
 	public ArrayList<Prestamo> readAllByEstado(String estado);
 	public Prestamo getPrestamoByID(int idPrestamo);
->>>>>>> ce26d532f2bae2d49cd5b5baf4cac18efea89343
+
 }
