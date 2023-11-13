@@ -116,7 +116,7 @@ public class ServletAltaCliente extends HttpServlet {
 				boolean insert = cneg.insert(cliente);
 				request.setAttribute("insert", insert);
 			} else {
-				String edad = "El nuevo cliente debe tener 13 años o mas!";
+				String edad = "El nuevo cliente debe tener 18 años o mas!";
 				request.setAttribute("edad", edad);
 			}
 		}

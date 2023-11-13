@@ -130,7 +130,7 @@
 			    </div>
 				<%} else {%>
 				<div class="alta-cuentas-error">
-				   Se produjo un error en la carga del Cliente, corrobore los datos.
+				   Se produjo un error en la carga de la cuenta, corrobore los datos.
 				</div>
 				<%}}%>
 			

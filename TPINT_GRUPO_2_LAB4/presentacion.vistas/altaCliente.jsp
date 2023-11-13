@@ -21,6 +21,9 @@
   			<symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
     			<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
   			</symbol>
+			<symbol id="check-circle-fill" viewBox="0 0 16 16">
+			    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+			</symbol>
 		</svg>
 	    <title>Globank | Agregar Cliente</title>
 	</head>
@@ -79,37 +82,70 @@
         <div class="form-alta-cuentas">
             <form action="ServletAltaCliente" method="post">
                 <p class="details"> Ingrese un nuevo cliente al sistema:</p>
-	            <% if (request.getAttribute("edad") != null) { %>
-  					<div class="alert alert-danger d-flex align-items-center" role="alert">
-    					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      						<span aria-hidden="true">&times;</span>
-    					</button>
-    					<div class="d-flex align-items-center">
-      						<svg xmlns="http://www.w3.org/2000/svg" class="bi flex-shrink-0 me-2" width="16" height="16" role="img" aria-label="Warning:">
-        						<use xlink:href="#exclamation-triangle-fill" />
-      						</svg>
-      						<div>
-        						<%= request.getAttribute("edad") %>
-      						</div>
-    					</div>
-  					</div>
-				<% } %>
+	            <%  Boolean insert = (Boolean)request.getAttribute("insert");
+            	 	String formSubmitted = request.getParameter("buttonSubmit");
+				
+					if (formSubmitted != null) {
+				    	if (insert != null && insert) {%>
+				    		<div class="alert alert-success d-flex align-items-center" role="alert">
+				    			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		      						<span aria-hidden="true">&times;</span>
+		    					</button>
+		    					<div class="d-flex align-items-center">
+		      						<svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:" width="24" height="24" viewBox="0 0 16 16">
+		      							<use xlink:href="#check-circle-fill"/>
+		      						</svg>
+								  	<div>
+								    	Se agregó correctamente!
+								  	</div>
+		    					</div>
+							</div>
+				  		<%} else if(request.getAttribute("edad") != null) { %>
+			  					<div class="alert alert-danger d-flex align-items-center" role="alert">
+			    					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			      						<span aria-hidden="true">&times;</span>
+			    					</button>
+			    					<div class="d-flex align-items-center">
+			      						<svg class="bi flex-shrink-0 me-2" role="img" aria-label="Warning:" width="24" height="24" viewBox="0 0 16 16">
+			      							<use xlink:href="#exclamation-triangle-fill"/>
+			      						</svg>
+			      						<div>
+			        						<%= request.getAttribute("edad") %>
+			      						</div>
+			    					</div>
+			  					</div>
+							 <% } else {%>
+				  			<div class="alert alert-danger d-flex align-items-center" role="alert">
+		    					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		      						<span aria-hidden="true">&times;</span>
+		    					</button>
+		    					<div class="d-flex align-items-center">
+		      						<svg class="bi flex-shrink-0 me-2" role="img" aria-label="Warning:" width="24" height="24" viewBox="0 0 16 16">
+      									<use xlink:href="#exclamation-triangle-fill"/>
+      								</svg>
+		      						<div>
+		        						Se produjo un error en la carga del cliente, corrobore los datos.
+		      						</div>
+		    					</div>
+		  					</div>
+					  <%}
+				 }%>
                 <div class="inputs">
                     <div class="text-layout">
                         <label for="name">Nombre<span class="required-fields">*</span></label>
-                        <input type="text" name="name" required>
+                        <input type="text" name="name" maxlength="40" required>
                     </div>
                     <div class="text-layout">
                         <label for="lastName">Apellido<span class="required-fields">*</span></label>
-                        <input type="text" name="lastName" required>
+                        <input type="text" name="lastName" maxlength="40" required>
                     </div>
                     <div class="text-layout">
                         <label for="DNI">DNI<span class="required-fields">*</span></label>
-                        <input type="number" name="DNI" placeholder=" XX-XXX-XXX" required>
+                        <input type="number" name="DNI" minlength="8" maxlength="9" placeholder=" XX-XXX-XXX" required>
                     </div>
                     <div class="text-layout">
                         <label for="CUIL">CUIL<span class="required-fields">*</span></label>
-                        <input type="number" name="CUIL" placeholder=" XX-XXXXXXXX-X" required>
+                        <input type="number" name="CUIL" minlength="11" maxlength="11" placeholder=" XX-XXXXXXXX-X" required>
                     </div>
                     <div class="text-layout">
                         <label for="birthdate">Fecha de nacimiento<span class="required-fields">*</span></label>
@@ -143,19 +179,19 @@
                     </div>
                     <div class="text-layout">
                         <label for="adress">Direccion<span class="required-fields">*</span></label>
-                        <input type="text" name="adress" placeholder=" Caballito 123" required>
+                        <input type="text" name="adress" maxlength="40" placeholder=" Caballito 123" required>
                     </div>
                     <div class="text-layout">
                         <label for="email">Correo electronico<span class="required-fields">*</span></label>
-                        <input type="email" name="email" placeholder=" example@example.com" required>
+                        <input type="email" name="email" maxlength="100" placeholder=" example@example.com" required>
                     </div>
                     <div class="text-layout">
                         <label for="number1">Numero de telefono<span class="required-fields">*</span></label>
-                        <input type="number" name="number1" required>
+                        <input type="number" minlength="10" maxlength="10" name="number1" placeholder=" (11)XXXXXXXX" required>
                     </div>
                     <div class="text-layout">
                         <label for="number2">Numero de telefono secundario</label>
-                        <input type="number" name="number2">
+                        <input type="number" minlength="10" maxlength="10" name="number2">
                     </div>  
                     <div class="text-layout">
                         <label for="province">Provincia<span class="required-fields">*</span></label>
@@ -189,10 +225,6 @@
                 <input type="submit" name="buttonSubmit" value="Agregar" id="buttonSubmit"></input>
                 <button type="reset" name="buttonReset" id="buttonCancel">Cancelar</button>
             </form>     
-            <% Boolean insert = (Boolean)request.getAttribute("insert");
-               if (insert != null && insert) {%>
-            	   Se agrego correctamente!
-            <%}%>
         </div>
         <!--<script type="text/javascript">
 	        function habilitarLocalidades() {
