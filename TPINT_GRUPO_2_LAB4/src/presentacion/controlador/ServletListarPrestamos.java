@@ -40,14 +40,20 @@ public class ServletListarPrestamos extends HttpServlet {
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		request.setAttribute("admin_actual", usuario);
 		
+		ArrayList<Prestamo> listaPrestamos = new ArrayList<>();
+		
+		if(request.getParameter("mostrarTodos") != null) {
+			listaPrestamos = pneg.readAll();
+			request.setAttribute("listaPrestamos", listaPrestamos);
+		}
 		if(request.getParameter("aprobado") != null) {
-			ArrayList<Prestamo> listaPrestamos = pneg.readAllByEstado("Aprobado");
+			listaPrestamos = pneg.readAllByEstado("Aprobado");
 			request.setAttribute("listaPrestamos", listaPrestamos);
 		} else if (request.getParameter("solicitado") != null) {
-			ArrayList<Prestamo> listaPrestamos = pneg.readAllByEstado("Solicitado");
+			listaPrestamos = pneg.readAllByEstado("Solicitado");
 			request.setAttribute("listaPrestamos", listaPrestamos);
 		} else if (request.getParameter("rechazado") != null) {
-			ArrayList<Prestamo> listaPrestamos = pneg.readAllByEstado("Rechazado");
+			listaPrestamos = pneg.readAllByEstado("Rechazado");
 			request.setAttribute("listaPrestamos", listaPrestamos);
 		}
 		
