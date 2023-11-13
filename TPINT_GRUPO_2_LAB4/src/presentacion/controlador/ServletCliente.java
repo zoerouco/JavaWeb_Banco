@@ -82,7 +82,6 @@ public class ServletCliente extends HttpServlet {
 			int ultimoID = prestamoN.getUltimoID();
 			prestamo.setId_prestamo(ultimoID + 1);
 			prestamo.setImporte_pedido(Float.parseFloat(request.getParameter("importe_pedido")));
-			// calculo los intereses
 			float importe_con_intereses = prestamoN.calcularImporteConIntereses(
 					Float.parseFloat(request.getParameter("importe_pedido")),
 					Integer.parseInt(request.getParameter("cant_cuotas")));
@@ -92,7 +91,7 @@ public class ServletCliente extends HttpServlet {
 					importe_con_intereses));
 			cuenta = cuentaN.getCuentaxCBU(request.getParameter("cuentas-cliente"));
 			prestamo.setCBU(cuenta);
-			prestamo.setEstado("Aprobado");
+			prestamo.setEstado("Solicitado");
 			boolean inserto = prestamoN.insert(prestamo);
 			request.setAttribute("inserto", inserto);
 			ArrayList<Prestamo> prestamosClienteAux = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
@@ -128,8 +127,6 @@ public class ServletCliente extends HttpServlet {
 
 				int idPrestamo = Integer.parseInt(request.getParameter("prestamo-cliente"));
 				ArrayList<PrestamosXmovimientos> pagosPrestamos = pxmN.getPrestamosXmovimientosByID(idPrestamo);
-				// acá tengo el ID del préstamo a PAGAR y un array con los pagos de ese
-				// prestamo.
 				Boolean debePagar = false;
 				Prestamo prestamo = prestamoN.getPrestamoByID(idPrestamo);
 				int cant_cuotas = prestamo.getCant_cuotas();
@@ -156,8 +153,7 @@ public class ServletCliente extends HttpServlet {
 		if (request.getParameter("btnRealizarpago") != null) {
 
 			Cuenta cuentaOrigen = new Cuenta();
-			Cuenta cuentaDestino = new Cuenta();
-			cuentaDestino.setCBU("000000001");
+			Cuenta cuentaDestino = cuentaN.getCuentaxCBU("1000000000000000000001");
 			Tipo_Movimiento tm = new Tipo_Movimiento();
 			Movimiento movimiento = new Movimiento();
 			int idPrestamo = Integer.parseInt(request.getParameter("prestamo"));
