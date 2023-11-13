@@ -40,6 +40,8 @@ public class MovimientoDaoImpl implements MovimientoDao {
 			" WHERE CBU_destino = ? and detalle = 'transferencia_recibida' " +
 			" ORDER BY id_movimiento DESC";
 	
+	CuentaDaoImpl cuentaDaoImpl = new CuentaDaoImpl();
+	
 	
 	@Override
 	public boolean insert(Movimiento movimiento) {
@@ -196,10 +198,10 @@ public int getUltimoID() {
 
 
 
-public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaAux) {
+public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaConsultante) {
 	
 	
-	String cbu = cuentaAux.getCBU();
+	String cbu = cuentaConsultante.getCBU();
 	Tipo_Movimiento tipoMovimiento =new Tipo_Movimiento();
 	Cuenta cuentaDest =new Cuenta();
 	ArrayList<Movimiento> movimientosCliente = new ArrayList<Movimiento>();	
@@ -224,11 +226,12 @@ public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaAux) {
 					Movimiento movimiento = new Movimiento();					
 										
 					tipoMovimiento.setId_tipo(resultSet.getString("id_tipo"));
-					tipoMovimiento.setDescripcion((resultSet.getString("descripcion")));	
+					tipoMovimiento.setDescripcion((resultSet.getString("descripcion")));
 					cuentaDest.setCBU(resultSet.getString(4));
 					
+					
 					movimiento.setId_movimiento(resultSet.getInt("id_movimiento"));
-					movimiento.setCBU(cuentaAux);
+					movimiento.setCBU(cuentaConsultante);
 					movimiento.setCBU_Destino(cuentaDest);	
 					movimiento.setDetalle(resultSet.getString("detalle"));					
 					movimiento.setEstado(resultSet.getBoolean("estado"));					
@@ -238,13 +241,16 @@ public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaAux) {
 					
 					
 					movimientosCliente.add(movimiento);
-					
+					System.out.println("Consulta SQL: " + movimientosCliente);
 				}
 
-		
+		  conexion.cerrarConexion();
+		  
 	}catch(Exception e){
 		e.printStackTrace();
 	}
+	
+	 conexion = Conexion.getConexion();
 	
 	try{ //se ejecuta movimientos x cuentas receptoras
 		PreparedStatement statement = conexion.getSQLConexion().prepareStatement(movimientosXcuentaReceptoras);
@@ -257,13 +263,12 @@ public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaAux) {
 					Movimiento movimiento = new Movimiento();					
 										
 					tipoMovimiento.setId_tipo(resultSet.getString("id_tipo"));
-					tipoMovimiento.setDescripcion((resultSet.getString("descripcion")));	
-					cuentaDest.setCBU(cuentaAux.getCBU());
-					cuentaAux.setCBU(resultSet.getString("CBU"));
+					tipoMovimiento.setDescripcion((resultSet.getString("descripcion")));
+					cuentaDest.setCBU(resultSet.getString(2));	
 					
 					movimiento.setId_movimiento(resultSet.getInt("id_movimiento"));
 					movimiento.setCBU(cuentaDest);
-					movimiento.setCBU_Destino(cuentaAux);	
+					movimiento.setCBU_Destino(cuentaConsultante);	
 					movimiento.setDetalle(resultSet.getString("detalle"));					
 					movimiento.setEstado(resultSet.getBoolean("estado"));					
 					movimiento.setFecha_Transaccion(new java.sql.Date(resultSet.getTimestamp("fecha").getTime()));
@@ -273,10 +278,12 @@ public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaAux) {
 					
 					
 					movimientosCliente.add(movimiento);
-					
+					System.out.println("Consulta SQL: " + movimientosCliente);
 		}
-	conexion.cerrarConexion();
+		  conexion.cerrarConexion();
+		  
 		
+
 	}catch(Exception e){
 		e.printStackTrace();
 	}
