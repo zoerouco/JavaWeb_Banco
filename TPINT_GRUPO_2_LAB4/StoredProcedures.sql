@@ -162,7 +162,7 @@ DELIMITER ;
 				INSERT INTO movimientos(CBU, id_tipo, CBU_destino, fecha, detalle, importe, estado)
 	            VALUES ('1000000000000000000001', 'alta_prestamo', NEW.CBU, NOW(), 'alta_prestamo', NEW.importe_pedido, 1);
 				
-	            UPDATE cuentas SET saldo = saldo + NEW.importe_pedido WHERE cuentas.CBU = '1000000000000000000001';
+	            UPDATE cuentas SET saldo = saldo + NEW.importe_pedido WHERE cuentas.CBU = NEW.CBU;
 			END IF;
 		END;
 		// DELIMITER ;
