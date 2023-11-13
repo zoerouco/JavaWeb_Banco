@@ -14,13 +14,13 @@
                 <p>Ingrese a tu cuenta de Globank:</p>
                 <br>
                 <div class="text-layout">
-                    <input type="text" name="userName" id="userName" placeholder=" " required>
+                    <input type="text" name="userName" id="userName" maxlength="20" placeholder=" " required>
                     <label for="userName">Nombre de usuario</label>
                 </div>
                 <p id="examples">Ej: RamonaMartinez01</p>
                 <br>
                 <div class="text-layout">
-                    <input type="password" name="password" id="password" placeholder=" " required>
+                    <input type="password" name="password" id="password" maxlength="20" placeholder=" " required>
                     <label for="password">Contraseña</label>
                 </div>
                 <button type="submit" name=buttonSubmit value="Ingresar" id="buttonSubmit">Ingresar</button>

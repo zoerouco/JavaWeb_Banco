@@ -97,8 +97,11 @@
 			<label><%= cliente.getDNI() %></label>
 			<input type="hidden" name="dni1" value="<%= cliente.getDNI() %>" >
 		    <br>
-                        <label for="gender">Genero</label>
-                         <select name="gender" name="gender">
+                        <label for="gender">Genero: </label>
+                        <label><%= cliente.getId_genero().getDescripcion() %></label>
+                        <br>  
+                         
+		    <select name="gender" name="gender">
                            	<% ArrayList <Genero> generos = (ArrayList <Genero>)request.getAttribute("listaGeneros");
                         		if (generos != null){
                         			for(Genero genero : generos) { %>
@@ -107,9 +110,10 @@
                         		} else { %>
                         			<option>NO HAY</option>
                         	  <%}%>
-                        </select>
-		    <br>
-		    <label for="nationality">Nacionalidad</label>
+                        </select><br>
+		    <label for="nationality">Nacionalidad: </label>
+		    <label><%= cliente.getId_nacionalidad().getNombre_pais() %></label>
+                        <br> 
                         <select name="nationality" name="nationality">
                             <% ArrayList <Nacionalidad> nacionalidades = (ArrayList <Nacionalidad>)request.getAttribute("listaNacionalidades");
                            	   if (nacionalidades != null){
@@ -121,7 +125,9 @@
                         	  <%}%>
                         </select>
 		    <br>
-		     <label for="province">Provincia</label>
+		     <label for="province">Provincia: </label>
+		     <label><%= cliente.getId_provincia().getNombre_provincia() %></label>
+             <br> 
                         <select name="province" name="province"> <!--onchange="habilitarLocalidades()"-->
                             <% ArrayList <Provincia> provincias = (ArrayList <Provincia>)request.getAttribute("listaProvincias");
                         		if (provincias != null){
@@ -133,7 +139,9 @@
                         	  <%}%>
                         </select>
 		    <br>
-		    <label for="locality">Localidad</label>
+		    <label for="locality">Localidad: </label>
+		    <label><%= cliente.getId_localidades().getNombre_localidad() %></label>
+                        <br> 
                         <select name="locality" name="locality"> <!--disabled-->
                             <% ArrayList <Localidad> localidades = (ArrayList <Localidad>)request.getAttribute("listaLocalidades");
                         		if (localidades != null){

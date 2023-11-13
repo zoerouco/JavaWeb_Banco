@@ -43,7 +43,7 @@ public class ServletUsuario extends HttpServlet {
 
              if (usuario != null) {
 
-                 if (password.compareTo(usuario.getContraseña()) == 0) {
+                 if (password.compareTo(usuario.getContraseña()) == 0 && usuario.isEstado()) {
                 	 
                      request.getSession().setAttribute("usuario", usuario);
                   	
@@ -56,14 +56,12 @@ public class ServletUsuario extends HttpServlet {
                      
 
                  } else {
-                     // Contraseña incorrecta, redirigir al formulario de inicio de sesión con un mensaje de error
                 	 errorMessage = "Contraseña incorrecta. Intente nuevamente.";
                 	 request.setAttribute("errorMessage", errorMessage);
                 	 RequestDispatcher rd = request.getRequestDispatcher("/logIn.jsp");
                 	 rd.forward(request, response);
                  }
              } else {
-                 // Usuario no encontrado, redirigir al formulario de inicio de sesión con un mensaje de error
             	 errorMessage = "Usuario no encontrado. Intente nuevamente.";
             	 request.setAttribute("errorMessage", errorMessage);
             	 RequestDispatcher rd = request.getRequestDispatcher("/logIn.jsp");
