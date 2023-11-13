@@ -29,7 +29,7 @@ public class ServletGestionarPrestamos extends HttpServlet {
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		request.setAttribute("admin_actual", usuario);
 		
-		ArrayList<Prestamo> listaPrestamos = pneg.readAll();
+		ArrayList<Prestamo> listaPrestamos = pneg.readAllByEstado("Solicitado");
 		request.setAttribute("listaPrestamos", listaPrestamos);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/gestionPrestamos.jsp");   
@@ -41,25 +41,20 @@ public class ServletGestionarPrestamos extends HttpServlet {
 		request.setAttribute("admin_actual", usuario);
 		
 		ArrayList<Prestamo> listaPrestamos = new ArrayList<>();
-		listaPrestamos = pneg.readAll();
+		listaPrestamos = pneg.readAllByEstado("Solicitado");
 		request.setAttribute("listaPrestamos", listaPrestamos);
 		
-		if(request.getParameter("aprobado") != null) {
-			listaPrestamos = pneg.readAllByEstado("Aprobado");
-			request.setAttribute("listaPrestamos", listaPrestamos);
-		} else if (request.getParameter("solicitado") != null) {
-			listaPrestamos = pneg.readAllByEstado("Solicitado");
-			request.setAttribute("listaPrestamos", listaPrestamos);
-		} else if (request.getParameter("rechazado") != null) {
-			listaPrestamos = pneg.readAllByEstado("Rechazado");
-			request.setAttribute("listaPrestamos", listaPrestamos);
-		}
-		
-		if(request.getParameter("buttonRechazar") != null) {
+		if(request.getParameter("buttonRechazar") != null || request.getParameter("buttonAprobar") != null) {
 			int ID = Integer.parseInt(request.getParameter("ID"));
 			Prestamo prestamo = pneg.getPrestamoByID(ID);
-			String confirm = "Esta seguro de que quiere rechazar el prestamo " + prestamo.getId_prestamo() + "?";
-       	 	request.setAttribute("confirm" + ID, confirm);
+			String confirm = null;
+			if (request.getParameter("buttonRechazar") != null) {
+				confirm = "Esta seguro de que quiere rechazar el prestamo " + prestamo.getId_prestamo() + "?";
+				request.setAttribute("confirmRechazar" + ID, confirm);
+			} else {
+				confirm = "Esta seguro de que quiere aprobar el prestamo " + prestamo.getId_prestamo() + "?";
+				request.setAttribute("confirmAprobar" + ID, confirm);
+			}
 		}
 		
 		if(request.getParameter("confirmRechazar") != null) {
@@ -68,7 +63,16 @@ public class ServletGestionarPrestamos extends HttpServlet {
 			boolean rechazar = pneg.update(ID, "Rechazado");
 			request.setAttribute("rechazar", rechazar);
 			
-			listaPrestamos = pneg.readAll();
+			listaPrestamos = pneg.readAllByEstado("Solicitado");
+			request.setAttribute("listaPrestamos", listaPrestamos);
+		}
+		if(request.getParameter("confirmAprobar") != null) {
+			int ID = Integer.parseInt(request.getParameter("ID"));
+			
+			boolean aprobar = pneg.update(ID, "Aprobado");
+			request.setAttribute("aprobar", aprobar);
+			
+			listaPrestamos = pneg.readAllByEstado("Solicitado");
 			request.setAttribute("listaPrestamos", listaPrestamos);
 		}
 		/*
