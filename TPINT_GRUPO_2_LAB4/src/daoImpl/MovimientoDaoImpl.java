@@ -241,7 +241,7 @@ public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaConsultante) {
 					
 					
 					movimientosCliente.add(movimiento);
-					System.out.println("Consulta SQL: " + movimientosCliente);
+				
 				}
 
 		  conexion.cerrarConexion();
