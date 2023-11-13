@@ -163,6 +163,19 @@ DELIMITER ;
 	            VALUES ('1000000000000000000001', 'alta_prestamo', NEW.CBU, NOW(), 'alta_prestamo', NEW.importe_pedido, 1);
 				
 	            UPDATE cuentas SET saldo = saldo + NEW.importe_pedido WHERE cuentas.CBU = NEW.CBU;
+	            UPDATE cuentas SET saldo = saldo - NEW.importe_pedido WHERE CBU = '1000000000000000000001';
+			END IF;
+		END;
+		// DELIMITER ;
+		
+		
+		/*-------------------------*/
+		DELIMITER //
+		CREATE TRIGGER TR_BajaUsuario_Clientes AFTER UPDATE ON clientes
+		FOR EACH ROW
+		BEGIN
+			IF NEW.estado = 0 THEN
+				UPDATE usuarios SET estado = 0 WHERE usuarios.DNI = NEW.DNI;
 			END IF;
 		END;
 		// DELIMITER ;
