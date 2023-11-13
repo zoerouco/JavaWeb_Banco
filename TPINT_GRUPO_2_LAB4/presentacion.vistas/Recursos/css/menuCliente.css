@@ -17,13 +17,9 @@ background: aliceblue;
 	
 align-items: center;
 	
-flex-wrap: wrap;
-	
-height: 450px;
-	
 justify-content: space-evenly;
 	
-padding-bottom: 40px;
+flex-wrap: wrap;
 }
 
 .panel-cliente img{
@@ -48,6 +44,10 @@ border-radius: 9%;
 padding: 35px;
 	
 padding-bottom: 15px;
+	
+flex-wrap: wrap;
+	
+margin: 50px;
 }
 
 
@@ -61,8 +61,11 @@ padding-bottom: 15px;
 .form-mostrar-cuentas{
 	display: flex;
 	background: #62c06d;
-	border-radius: 6px;
+	border-radius: 19px;
 	padding: 25px;
+	width: 100%;
+	flex-wrap: wrap;
+	align-items: center;
 }
 
 .buttons{
@@ -93,15 +96,34 @@ background: #713ddb;
 	
 color: white;
 	
+width: 100%;
+	
 display: flex;
 	
 font-size: 22px;
+	
+margin-top: 50px;
+	
+padding: 30px;
+	
+flex-wrap: wrap;
 	
 flex-direction: column;
 	
 align-items: center;
 	
-padding-top: 30px;
+align-content: center;
+}
+
+.container-rep-mov{
+	
+display: flex;
+	
+flex-direction: column;
+	
+margin-top: 110px;
+	
+flex-wrap: wrap;
 }
 
 .Z-footer{

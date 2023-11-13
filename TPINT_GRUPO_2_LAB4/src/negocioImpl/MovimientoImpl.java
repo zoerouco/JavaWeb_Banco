@@ -49,4 +49,29 @@ MovimientoDao mdao = new MovimientoDaoImpl();
 		// TODO Auto-generated method stub
 		return mdao.getUltimoID();
 	}
+	
+	public Movimiento getUltimoMovimientoCuenta (Cuenta cuenta) {
+		
+	ArrayList<Movimiento> movimientosCliente = this.getMovimientosXCuenta(cuenta);
+	Movimiento movimientoMayor = new Movimiento();
+		
+        if (movimientosCliente.size() > 0) {
+           
+            int mayorId = movimientosCliente.get(0).getId_movimiento();
+            
+            for (Movimiento movimiento : movimientosCliente) {
+                if (movimiento.getId_movimiento() > mayorId) {
+                    mayorId = movimiento.getId_movimiento();
+                    movimientoMayor = movimiento;           
+                }
+            }
+        }
+		
+		return movimientoMayor;
+		
+		
+	}
+	
+	
+	
 }

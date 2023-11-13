@@ -8,6 +8,7 @@
 <%@ page import="entidades.Cliente"%>
 <%@ page import="entidades.Usuario"%>
 <%@ page import="entidades.Cuenta"%>
+<%@ page import="entidades.Movimiento"%>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -70,8 +71,12 @@
 					+ cliente.getId_provincia().getNombre_provincia() + " "
 					+ cliente.getId_nacionalidad().getNombre_pais()%></label> <label>E-mail
 				dónde recibes información importante y promociones:<br> <%=cliente.getCorreo_electronico()%></label>
+						
 		</div>
+		
+	
 		<div>
+		
 			<div class="form-mostrar-cuentas">
 
 				<form action="ServletMenuCliente" method="post"
@@ -116,6 +121,7 @@
 				href="ServletCliente" id="mis-prestamos"><div
 					class="form-mostrar-cuentas">Mis pagos</div></a>
 		</div>
+		
 		<div class="info-cuenta">
 			<h3>CBU</h3>
 			<label><%=cuenta.getCBU()%></label>
@@ -123,10 +129,72 @@
 			<label><%=cuenta.getNro_cuenta()%></label>
 			<h3>SALDO</h3>
 			<label><%=cuenta.getSaldo()%></label>
-
 		</div>
 
 	</div>
+	
+	<div class="container-rep-mov">
+				
+				<h3 class="text-center">ÚLTIMO MOVIMIENTO</h3>
+				<% 
+				if(request.getSession().getAttribute("ultimo_movimiento") != null){
+				
+				Movimiento movimiento = (Movimiento) request.getSession().getAttribute("ultimo_movimiento"); %>
+				
+				 <table class="table" height= 100px width= 100px>
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">CBU Origen</th>                           
+                            <th scope="col">CBU Destino</th>                           
+                            <th scope="col">Importe</th>
+                           <th scope="col">Tipo de movimiento</th>	
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+		
+                     <tr>
+                     <%
+						java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm");
+					%>
+                     	<td><%=df.format(movimiento.getFecha_Transaccion())%></td>
+                        <td> <%= movimiento.getCBU().getCBU()%></td>
+                        <td> <%= movimiento.getCBU_Destino().getCBU()%></td>
+                        <td> <%= movimiento.getImporte()%></td>
+                        <td> 	<%
+							switch (movimiento.getDetalle()) {
+									case "transferencia_enviada":
+						%> <img style="height: 24px; width: 24px; margin-right: 3px;"
+						src="Recursos/img/flecha-enviado.png"> Transferencia enviada
+						<%
+ 	break;
+ 			case "transferencia_recibida":
+ %> <img style="height: 24px; width: 24px; margin-right: 3px;"
+						src="Recursos/img/flecha-recibido.png"> Transferencia
+						recibida <%
+ 	break;
+ 			case "alta_cuenta":
+ %> <img style="height: 24px; width: 24px; margin-right: 3px;"
+						src="Recursos/img/alta-cuenta.png"> Alta cuenta <%
+ 	break;
+ 			case "alta_prestamo":
+ %> <img style="height: 24px; width: 24px; margin-right: 3px;"
+						src="Recursos/img/alta-prestamo.png"> Alta préstamo <%
+ 	break;
+ 			case "pago_prestamo":
+ %> <img style="height: 24px; width: 24px; margin-right: 3px;"
+						src="Recursos/img/flecha-enviado.png"> Pago préstamo <%
+ 	break;
+ 			}
+ %>
+					</td>     
+                    </tbody>
+                    
+                </table>
+
+              <%}%>  
+               </div> 	
 
 	<div class="cartelera-avisos">
 
