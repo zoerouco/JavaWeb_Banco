@@ -12,7 +12,7 @@ import entidades.Genero;
 import entidades.Localidad;
 import entidades.Nacionalidad;
 import entidades.Provincia;
-import entidades.Usuario;
+import excepciones.DniRepetido;
 
 public class ClienteDaoImpl implements ClienteDao{
 	
@@ -38,6 +38,7 @@ public class ClienteDaoImpl implements ClienteDao{
 	private static final String modificar = "UPDATE clientes SET id_genero=?, id_nacionalidad=?, id_provincia=?,"
 			+ "id_localidades=?, CUIL=?, nombre=?, apellido=?, direccion=?, "
 			+ "correo_electronico=?, telefono_primario=?, telefono_secundario=?, estado=? WHERE DNI=?"; 
+	private static final String DNI = "SELECT * FROM clientes WHERE DNI = ?";
 
 	@Override
 	public boolean insert(Cliente cliente) {
@@ -398,5 +399,23 @@ public class ClienteDaoImpl implements ClienteDao{
 		
 		
 		return isUpdateExitoso;
+	}
+	
+	public boolean verificarDniRepetido(String dni) throws DniRepetido {
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean existeDNI = false;
+
+	    try (PreparedStatement statement = conexion.prepareStatement(DNI)) {
+	        statement.setString(1, dni);
+		    ResultSet resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+			   existeDNI = true;
+			   throw new DniRepetido();
+			}
+	    } catch (SQLException e) {
+	    	e.printStackTrace();
+	    }
+	    return existeDNI;
 	}
 }

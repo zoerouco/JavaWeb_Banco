@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dao.ClienteDao;
 import daoImpl.ClienteDaoImpl;
 import entidades.Cliente;
+import excepciones.DniRepetido;
 import negocio.ClienteNegocio;
 
 public class ClienteNegocioImpl implements ClienteNegocio {
@@ -55,5 +56,9 @@ public class ClienteNegocioImpl implements ClienteNegocio {
 	@Override
 	public ArrayList<Cliente> readAllInactivos() {
 		return cdao.readAllInactivos();
+	}
+	
+	public boolean verificarDniRepetido(String dni) throws DniRepetido {
+		return cdao.verificarDniRepetido(dni);
 	}
 }

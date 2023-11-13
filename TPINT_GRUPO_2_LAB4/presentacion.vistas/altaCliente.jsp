@@ -82,7 +82,15 @@
         <div class="form-alta-cuentas">
             <form action="ServletAltaCliente" method="post">
                 <p class="details"> Ingrese un nuevo cliente al sistema:</p>
-	            <%  Boolean insert = (Boolean)request.getAttribute("insert");
+	            <% if(request.getAttribute("dniRepetido") != null) { %>
+            	<div>
+        		<%=request.getAttribute("dniRepetido")%>
+        	</div>
+        <%}
+	            
+	            
+	            
+	            Boolean insert = (Boolean)request.getAttribute("insert");
             	 	String formSubmitted = request.getParameter("buttonSubmit");
 				
 					if (formSubmitted != null) {
