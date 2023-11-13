@@ -125,24 +125,24 @@
                 %>
 	        </tbody>
 	    </table>
-<nav aria-label="...">
-  <ul class="pagination pagination-lg">
-    <%
-      for (int i = 1; i <= totalPages; i++) {
-        if (i == currentPage) {
-    %>
-          <li class="page-item active"><a class="page-link" href="#"><%= i %></a></li>
-    <%
-        } else {
-    %>
-          <li class="page-item"><a class="page-link" href="ServletListarCuenta?page=<%= i %>"><%= i %></a></li>
-    <%
-        }
-      }
-    %>
-  </ul>
-</nav>
-</form>
+		<nav aria-label="...">
+		  <ul class="pagination pagination-lg">
+		    <%
+		      for (int i = 1; i <= totalPages; i++) {
+		        if (i == currentPage) {
+		    %>
+		          <li class="page-item active"><a class="page-link" href="#"><%= i %></a></li>
+		    <%
+		        } else {
+		    %>
+		          <li class="page-item"><a class="page-link" href="ServletListarCuenta?page=<%= i %>"><%= i %></a></li>
+		    <%
+		        }
+		      }
+		    %>
+		  </ul>
+		</nav>
+	</form>
 </div>
 		
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

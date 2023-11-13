@@ -76,13 +76,23 @@
 	border-radius: 5px;
 }
 
-.table-row-even {
-    background-color: #F2F2F2;
+.pagination {
+    --bs-pagination-color: #28a745;
+    --bs-pagination-hover-color: #28a745;
+    --bs-pagination-focus-color: #28a745;
+    --bs-pagination-active-bg: #28a745;
+    --bs-pagination-active-border-color: #28a745;
 }
 
-.table-row-odd {
-    background-color: #FFFFFF;
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
 }
+
+.page-link {
+    color: #28a745;
 
 h2 {
 	text-align: center;

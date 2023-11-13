@@ -69,8 +69,9 @@
             </div> 
         </header>
         <% ArrayList<Prestamo> prestamos = (ArrayList<Prestamo>)request.getAttribute("listaPrestamos");
-           int itemsPerPage = 3, currentPage = 1; 
+           int itemsPerPage = 3;
 		   int totalPages = (int) Math.ceil((double) prestamos.size() / itemsPerPage);
+		   int currentPage = 1; 
 		   if (request.getParameter("page") != null) {
 		        currentPage = Integer.parseInt(request.getParameter("page"));
 		    }
@@ -105,11 +106,9 @@
 		        </thead>
 		        <tbody>
 		         <% if(prestamos != null) {
-		        	 int cont = 0;
-			        	for(Prestamo prestamo: prestamos) { 
-			        		cont++;
-			        		String rowClass = (cont % 2 == 0) ? "table-row-even" : "table-row-odd"; %>
-					        	<tr class="<%=rowClass%>">
+			        	for(int i = startIndex; i < endIndex; i++) {
+                     		Prestamo prestamo = prestamos.get(i); %>
+					        	<tr>
 					        		<th scope="row"><%=prestamo.getId_prestamo()%></th>
 					        		<td><%=prestamo.getCBU().getCBU()%></td>
 					        		<td><%=prestamo.getFecha_realizacion()%></td>
