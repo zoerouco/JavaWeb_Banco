@@ -94,7 +94,7 @@
 					        	<tr class="<%=rowClass%>">
 					        		<form action="ServletGestionarPrestamos" method="post">
 						        		<th scope="row"><%=prestamo.getId_prestamo()%><input type="hidden" name="ID" value="<%=prestamo.getId_prestamo()%>"></th>
-						        		<td><%=prestamo.getCBU().getCBU()%></td>
+						        		<td><%=prestamo.getCBU().getCBU()%><input type="hidden" name="CBU" value="<%=prestamo.getCBU().getCBU()%>"></td>
 						        		<td><%=prestamo.getFecha_realizacion()%></td>
 						        		<td><%=prestamo.getImporte_pedido()%></td>
 						        		<td><%=prestamo.getImporte_con_intereses()%></td>

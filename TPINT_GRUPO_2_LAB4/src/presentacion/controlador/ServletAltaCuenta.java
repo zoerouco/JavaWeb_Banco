@@ -52,6 +52,7 @@ Usuario usuario = new Usuario();
 		 request.setAttribute("admin_actual", usuario);
 		 tCuentas = tcuenegImpl.readAll();
 		 request.setAttribute("listatCuentas", tCuentas);
+		 Cuenta cuentaAdmin = (Cuenta) request.getSession().getAttribute("cuentaAdmin");
 		 
     	if(request.getParameter("btnAceptar") != null){
     		
@@ -65,7 +66,16 @@ Usuario usuario = new Usuario();
     		boolean guardo=false;
         ArrayList<Cuenta> cuentascliente= cuenegImpl.getCuentasxDNI(request.getParameter("txtDni"));
         if(cuentascliente.size()<3) {
-        	 guardo=cuenegImpl.insert(cuenta);	
+        	 guardo=cuenegImpl.insert(cuenta);
+
+ 			// UPDATE SALDO CUENTA ADMIN:
+        	 
+        	float saldoAnterior = cuentaAdmin.getSaldo();
+        	float saldo = saldoAnterior - 10000;
+        	cuentaAdmin.setSaldo(saldo);
+        	cuenegImpl.modificar(cuentaAdmin);
+
+        	//llamado a la funcion en el negocio de sp update
         }
         request.setAttribute("insert", guardo);
     	}
@@ -83,7 +93,8 @@ Usuario usuario = new Usuario();
 		 request.setAttribute("admin_actual", usuario);
 		 tCuentas = tcuenegImpl.readAll();
 		 request.setAttribute("listatCuentas", tCuentas);
-		
+		 Cuenta cuentaAdmin = (Cuenta) request.getSession().getAttribute("cuentaAdmin");
+		 
    	if(request.getParameter("btnAceptar") != null){
    		
    		cuenta.setCBU(request.getParameter("txtCbu"));
@@ -92,18 +103,26 @@ Usuario usuario = new Usuario();
    		cuenta.setNro_cuenta(request.getParameter("txtNroCuenta"));
    		cli = clineg.getClientexDNI((request.getParameter("txtDni")));
    		cuenta.setDNI(cli);
-   		cuenta.setSaldo(Float.parseFloat(request.getParameter("txtSaldo")));
            
-       boolean guardo= cuenegImpl.insert(cuenta);
-       
+   		boolean guardo=false;
+       ArrayList<Cuenta> cuentascliente= cuenegImpl.getCuentasxDNI(request.getParameter("txtDni"));
+       if(cuentascliente.size()<3) {
+       	 guardo=cuenegImpl.insert(cuenta);
+
+			// UPDATE SALDO CUENTA ADMIN:
+       	 
+       	float saldoAnterior = cuentaAdmin.getSaldo();
+       	float saldo = saldoAnterior - 10000;
+       	cuentaAdmin.setSaldo(saldo);
+       	cuenegImpl.modificar(cuentaAdmin);
+
+       	//llamado a la funcion en el negocio de sp update
+       }
        request.setAttribute("insert", guardo);
-       
    	}
    	
    	String url = "/altaCuenta.jsp";
 		request.setAttribute("miUrl", url);
 		request.getRequestDispatcher(url).forward(request, response);
-
-}
-
+	}
 }

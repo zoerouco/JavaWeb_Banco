@@ -126,6 +126,8 @@ DELIMITER ;
 
 	
 	/*------- TRIGGERS -------*/
+
+
 	
 	DELIMITER //
 	CREATE TRIGGER TR_CrearUsuario AFTER INSERT ON clientes
@@ -135,7 +137,32 @@ DELIMITER ;
     INSERT INTO usuarios(DNI, esAdmin, id_ref, contraseña, nombre_usuario, estado)
     VALUES (NEW.DNI, false, 0, NEW.DNI, CONCAT(NEW.nombre, NEW.apellido), true);
 	END;
-//
-DELIMITER ;
+	//
+	DELIMITER ;
 	
 	
+	/*------12/11---------*/
+		DELIMITER //
+		CREATE TRIGGER TR_AltaCuenta_Movimientos AFTER INSERT ON cuentas
+		FOR EACH ROW
+		
+		BEGIN
+			INSERT INTO movimientos(CBU, id_tipo, CBU_destino, fecha, detalle, importe, estado)
+			VALUES (NEW.CBU, 'alta_cuenta', '1000000000000000000001', NOW(), 'alta_cuenta',NEW.saldo, 1);
+		END;
+		// DELIMITER ;
+		
+		
+		/*-------------------------*/
+		DELIMITER //
+		CREATE TRIGGER TR_AltaPrestamos_Movimientos AFTER UPDATE ON prestamos
+		FOR EACH ROW
+		BEGIN
+			IF NEW.estado = 'Aprobado' THEN
+				INSERT INTO movimientos(CBU, id_tipo, CBU_destino, fecha, detalle, importe, estado)
+	            VALUES ('1000000000000000000001', 'alta_prestamo', NEW.CBU, NOW(), 'alta_prestamo', NEW.importe_pedido, 1);
+				
+	            UPDATE cuentas SET saldo = saldo + NEW.importe_pedido WHERE cuentas.CBU = '1000000000000000000001';
+			END IF;
+		END;
+		// DELIMITER ;
