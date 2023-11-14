@@ -79,13 +79,13 @@
 	    	<h2> Clientes: </h2>
 	    	
 	    	<form action="ServletListadoCliente" method="post" style="margin-left: 20px">
-         <label for="DNI">Buscar cliente por DNI:<span class="required-fields" ></span></label>
-        	<input type="text" name="DNI" id="DNI" placeholder=" " required>
-        	<input type="submit" name="btnBuscarXDNI" value="Aceptar" style="margin-top: 20px">
-        	<div class="error-message">
-    			<b>	<%= (request.getAttribute("errorMessage") != null) ? request.getAttribute("errorMessage") : "" %> </b>
-			</div>
-		</form>
+	         	<label for="DNI">Buscar cliente por DNI:<span class="required-fields" ></span></label>
+	        	<input type="text" name="DNI" id="DNI" placeholder=" " required>
+	        	<input type="submit" name="btnBuscarXDNI" value="Aceptar" style="margin-top: 20px">
+	        	<div class="error-message">
+	    			<b>	<%= (request.getAttribute("errorMessage") != null) ? request.getAttribute("errorMessage") : "" %> </b>
+				</div>
+			</form>
 	    	<form action="ServletListadoCliente" method="post">
 		    	<div class="d-flex justify-content-center mb-3">
 			    	<div class="btn-group" role="group" aria-label="Basic mixed styles example">
