@@ -2,11 +2,11 @@ package excepciones;
 
 import java.io.IOException;
 
-public class DniRepetido extends IOException{
+public class DniRepetidoException extends IOException{
 	
 	private static final long serialVersionUID = 1L;
 
-	public DniRepetido() {}
+	public DniRepetidoException() {}
 	
 	@Override
 	public String getMessage() {

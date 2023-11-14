@@ -30,7 +30,12 @@ public class MovimientoDaoImpl implements MovimientoDao {
 	
 	private static final String readall = "SELECT * FROM movimientos INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo";	
 	//private static final String update = "UPDATE movimientos SET  = ?,  = ? WHERE CBU = ?";
-	private static final String movimientosXcuentaEmisoras = "SELECT * FROM movimientos" + 
+	private static final String movimientosXcuenta = "SELECT * FROM movimientos" + 
+			" INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo" + 
+			" WHERE CBU = ?" +
+			" ORDER BY id_movimiento DESC";
+	
+	/*private static final String movimientosXcuentaEmisoras = "SELECT * FROM movimientos" + 
 			" INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo" + 
 			" WHERE CBU = ? and detalle = 'transferencia_enviada'" +
 			" ORDER BY id_movimiento DESC";
@@ -38,7 +43,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 	private static final String movimientosXcuentaReceptoras = "SELECT * FROM movimientos" + 
 			" INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo" + 
 			" WHERE CBU_destino = ? and detalle = 'transferencia_recibida' " +
-			" ORDER BY id_movimiento DESC";
+			" ORDER BY id_movimiento DESC";*/
 	
 	CuentaDaoImpl cuentaDaoImpl = new CuentaDaoImpl();
 	
@@ -216,7 +221,7 @@ public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaConsultante) {
 	Conexion conexion = Conexion.getConexion();
 	
 	try{ //se ejecuta movimientos x cuentas receptoras
-		PreparedStatement statement = conexion.getSQLConexion().prepareStatement(movimientosXcuentaEmisoras);
+		PreparedStatement statement = conexion.getSQLConexion().prepareStatement(movimientosXcuenta);
 		statement.setString(1, cbu);
 		ResultSet resultSet = statement.executeQuery();
 		
@@ -250,50 +255,12 @@ public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaConsultante) {
 		e.printStackTrace();
 	}
 	
-	 conexion = Conexion.getConexion();
-	
-	try{ //se ejecuta movimientos x cuentas receptoras
-		PreparedStatement statement = conexion.getSQLConexion().prepareStatement(movimientosXcuentaReceptoras);
-		statement.setString(1, cbu);
-		ResultSet resultSet = statement.executeQuery();
-		
-		while(resultSet.next()){
-			
-										
-					Movimiento movimiento = new Movimiento();					
-										
-					tipoMovimiento.setId_tipo(resultSet.getString("id_tipo"));
-					tipoMovimiento.setDescripcion((resultSet.getString("descripcion")));
-					cuentaDest.setCBU(resultSet.getString(2));	
-					
-					movimiento.setId_movimiento(resultSet.getInt("id_movimiento"));
-					movimiento.setCBU(cuentaDest);
-					movimiento.setCBU_Destino(cuentaConsultante);	
-					movimiento.setDetalle(resultSet.getString("detalle"));					
-					movimiento.setEstado(resultSet.getBoolean("estado"));					
-					movimiento.setFecha_Transaccion(new java.sql.Date(resultSet.getTimestamp("fecha").getTime()));
-					movimiento.setImporte(resultSet.getInt("importe"));
-					movimiento.setTipoMovimiento(tipoMovimiento);	
-					
-					
-					
-					movimientosCliente.add(movimiento);
-					System.out.println("Consulta SQL: " + movimientosCliente);
-		}
-		  conexion.cerrarConexion();
-		  
-		
-
-	}catch(Exception e){
-		e.printStackTrace();
-	}
-	
-	Collections.sort(movimientosCliente, new Comparator<Movimiento>() {
+	/*Collections.sort(movimientosCliente, new Comparator<Movimiento>() {
         @Override
         public int compare(Movimiento m1, Movimiento m2) {
             return Integer.compare(m1.getId_movimiento(), m2.getId_movimiento());
         }
-    });
+    });*/
 	
 	return movimientosCliente;
 

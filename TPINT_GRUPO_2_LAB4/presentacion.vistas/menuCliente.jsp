@@ -9,6 +9,7 @@
 <%@ page import="entidades.Usuario"%>
 <%@ page import="entidades.Cuenta"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="util.Utils"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -46,7 +47,7 @@
 	<header class="encabezado" style="
     text-align: center;
 ">
-	<div class="contenedor-menu" style="justify-content:center;">
+	<div class="contenedor-menu" style="justify-content: center;">
 		<a href="ServletMenuCliente"> <img class="imagen-menu"
 			src="Recursos/img/BancoLogo.png" alt="nav">
 		</a>
@@ -57,9 +58,10 @@
 	</div>
 	</header>
 
-	<h1 style="background-color:aliceblue;margin: 0;padding-left: 20%;padding-top: 15px;">
-					Bienvenid@,
-					<%=cliente.getNombre()%></h1><% if (cuenta != null) { %> <p style="color: floralwhite;margin: 0;font-weight: bold;">CBU seleccionado: <%=cuenta.getCBU()%></p><% } %>
+	<h1
+		style="background-color: aliceblue; margin: 0; padding-left: 20%; padding-top: 15px;">
+		Bienvenid@,
+		<%=cliente.getNombre()%></h1>
 
 	<div class="panel-cliente">
 		<img src="Recursos/img/perfil-del-usuario.png" class="imagen-cliente">
@@ -94,7 +96,7 @@
 							<%if (cuenta != null && cuentaCliente.getCBU().equals(cuenta.getCBU())) {%>
 							selected="selected" <%}%>><%=cuentaCliente.getCBU()%></option>
 						<%
-							}
+								}
 							}
 
 							else {
@@ -122,8 +124,7 @@
 			<h3>NÚMERO DE CUENTA</h3>
 			<label><%=cuenta.getNro_cuenta()%></label>
 			<h3>SALDO</h3>
-			<label><%=cuenta.getSaldo()%></label>
-
+			<label><%=Utils.formatMoney(cuenta.getSaldo())%></label>
 		</div>
 
 	</div>

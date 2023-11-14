@@ -12,7 +12,7 @@ import entidades.Genero;
 import entidades.Localidad;
 import entidades.Nacionalidad;
 import entidades.Provincia;
-import excepciones.DniRepetido;
+import excepciones.DniRepetidoException;
 
 public class ClienteDaoImpl implements ClienteDao{
 	
@@ -401,7 +401,7 @@ public class ClienteDaoImpl implements ClienteDao{
 		return isUpdateExitoso;
 	}
 	
-	public boolean verificarDniRepetido(String dni) throws DniRepetido {
+	public boolean verificarDniRepetido(String dni) throws DniRepetidoException {
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean existeDNI = false;
 
@@ -411,7 +411,7 @@ public class ClienteDaoImpl implements ClienteDao{
 
 			if (resultSet.next()) {
 			   existeDNI = true;
-			   throw new DniRepetido();
+			   throw new DniRepetidoException();
 			}
 	    } catch (SQLException e) {
 	    	e.printStackTrace();

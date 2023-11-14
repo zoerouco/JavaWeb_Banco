@@ -15,7 +15,7 @@ import entidades.Localidad;
 import entidades.Nacionalidad;
 import entidades.Provincia;
 import entidades.Usuario;
-import excepciones.DniRepetido;
+import excepciones.DniRepetidoException;
 import negocioImpl.ClienteNegocioImpl;
 import negocioImpl.GeneroNegocioImpl;
 import negocioImpl.LocalidadNegocioImpl;
@@ -88,7 +88,7 @@ public class ServletAltaCliente extends HttpServlet {
 			
 			try {
 				cneg.verificarDniRepetido(request.getParameter("DNI"));
-			} catch (DniRepetido e) {
+			} catch (DniRepetidoException e) {
 				String dniRepetido = e.getMessage();
 				request.setAttribute("dniRepetido", dniRepetido);
 			}

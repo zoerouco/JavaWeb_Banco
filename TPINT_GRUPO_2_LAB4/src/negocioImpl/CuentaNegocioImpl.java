@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import dao.CuentaDao;
 import daoImpl.CuentaDaoImpl;
 import entidades.Cuenta;
+import excepciones.SaldoInsuficienteException;
 import negocio.CuentaNegocio;
 
 public class CuentaNegocioImpl implements CuentaNegocio{
@@ -54,9 +55,15 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 		return cuenta;
 	}
 	
-
+	@Override
 	public ArrayList<Cuenta> getCuentasxDNI (String DNI) {
 		return  cuentas_cliente = cdao.getCuentasxDNI(DNI);
+	}
+	
+	@Override
+	public void validarSaldo(Cuenta cuenta, float importeMovimiento) throws SaldoInsuficienteException {
+		if (cuenta.getSaldo() - importeMovimiento < 0)
+			throw new SaldoInsuficienteException();
 	}
 	
 public Cuenta getCuentaxDNI (String CBU) {

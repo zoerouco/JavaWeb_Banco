@@ -14,6 +14,7 @@ import entidades.Cuenta;
 import entidades.Movimiento;
 import entidades.Tipo_Movimiento;
 import entidades.Usuario;
+import excepciones.SaldoInsuficienteException;
 import negocioImpl.ClienteNegocioImpl;
 import negocioImpl.CuentaNegocioImpl;
 import negocioImpl.MovimientoImpl;
@@ -53,6 +54,9 @@ public class ServletMovimientos extends HttpServlet {
 
 	private void accion(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String url = "/movimientosCliente.jsp";
+		request.setAttribute("miUrl", url);
+		
 		if (request.getSession().getAttribute("usuario") != null) {
 
 			usuario = (Usuario) request.getSession().getAttribute("usuario");
@@ -70,6 +74,15 @@ public class ServletMovimientos extends HttpServlet {
 			float saldoAnterior = cuenta.getSaldo();
 			float importeMovimiento = Float.parseFloat(request.getParameter("importe_transferir"));
 			
+			try {
+				cuentaN.validarSaldo(cuenta, importeMovimiento);
+			}
+			catch(SaldoInsuficienteException ex) {
+				request.setAttribute("saldo_insuficiente", ex.getMessage());
+				request.getRequestDispatcher(url).forward(request, response);
+				return;
+			}
+			
 			Movimiento movimiento_emitido = new Movimiento();
 			Movimiento movimiento_recibido = new Movimiento();
 			int ultimoID = movimientoN.getUltimoID();
@@ -86,14 +99,14 @@ public class ServletMovimientos extends HttpServlet {
 			movimiento_emitido.setEstado(true);
 			
 			// se guarda el movimiento EMITIDO
-		boolean insert = movimientoN.insert(movimiento_emitido);
+			boolean insert = movimientoN.insert(movimiento_emitido);
 						
 			//SE CARGA EL OBJETO MOVIMIENTO RECIBIDO
 			movimiento_recibido.setId_movimiento(ultimoID + 1);
 			cuentaDestinoTransfe = cuentaN.getCuentaxCBU(request.getParameter("cbu_destino"));
 			cuenta = cuentaN.getCuentaxCBU(cuenta.getCBU());
-			movimiento_recibido.setCBU(cuenta);
-			movimiento_recibido.setCBU_Destino(cuentaDestinoTransfe);
+			movimiento_recibido.setCBU(cuentaDestinoTransfe);
+			movimiento_recibido.setCBU_Destino(cuenta);
 			movimiento_recibido.setDetalle("transferencia_recibida");
 			movimiento_recibido.setImporte(importeMovimiento);
 			tipoMovimiento = tipoMovimientoN.getTipo_MovimientoByID("transferencia_recibida");
@@ -101,14 +114,18 @@ public class ServletMovimientos extends HttpServlet {
 			movimiento_recibido.setEstado(true);
 			
 			// se guarda el movimiento EMITIDO
-		boolean insert2 = movimientoN.insert(movimiento_recibido);
+			if (insert)
+				insert = movimientoN.insert(movimiento_recibido);
 			
 				
 			
 				request.setAttribute("insert", insert);
-				request.setAttribute("insert2", insert2);
 			
-			
+			// si no insertó alguno de los dos movimientos (enviado y recibido) termina
+			if (!insert) {
+				request.getRequestDispatcher(url).forward(request, response);
+				return;
+			}
 			
 			// UPDATE CLIENTE ACTUAL:
 			float saldo = saldoAnterior - importeMovimiento;
@@ -132,9 +149,7 @@ public class ServletMovimientos extends HttpServlet {
 		// request.setAttribute("validacion", validacion);
 
 		// }
-
-		String url = "/movimientosCliente.jsp";
-		request.setAttribute("miUrl", url);
+		
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 }

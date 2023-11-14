@@ -9,6 +9,7 @@
 <%@ page import="entidades.Usuario"%>
 <%@ page import="entidades.Cuenta"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="util.Utils"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -88,8 +89,7 @@
 				int endIndex = Math.min(startIndex + itemsPerPage, movimientosCliente.size());
 		%>
 
-		<h1 style="text-align: center; margin-top: 25px; margin-bottom: 35px;">MIS
-			MOVIMIENTOS</h1>
+		<h1 style="text-align: center; margin-top: 25px; margin-bottom: 35px;">MIS MOVIMIENTOS</h1>
 
 		<table class="table">
 			<thead>
@@ -112,11 +112,8 @@
 					<td><%=movimiento.getId_movimiento()%></td>
 					<td><%=movimiento.getCBU().getCBU()%></td>
 					<td><%=movimiento.getCBU_Destino().getCBU()%></td>
-					<%
-						java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm");
-					%>
-					<td><%=df.format(movimiento.getFecha_Transaccion())%></td>
-					<td><%=movimiento.getImporte()%></td>					
+					<td><%=Utils.formatDate(movimiento.getFecha_Transaccion(), true)%></td>
+					<td><%=Utils.formatMoney(movimiento.getImporte())%></td>
 					<td>
 						<%
 							switch (movimiento.getDetalle()) {
@@ -155,7 +152,7 @@
 			<%
 				for (int i = 1; i <= totalPages; i++) {
 			%>
-			<a style="padding: 3px;" href="?page=<%=i%>"><%=i%></a>
+			<a style="padding: 3px;<%if(i == currentPage) { %> font-weight: bold; color: crimson;<%}%>" href="?page=<%=i%>"><%=i%></a>
 
 			<%
 				}
@@ -188,6 +185,7 @@
 		</form>
 		 <%
 			Boolean insert = (Boolean) request.getAttribute("insert");
+		 	String saldo_insuficiente = (String) request.getAttribute("saldo_insuficiente");
 			String formSubmitted = request.getParameter("btnMovimiento");
 				
 				if (formSubmitted != null) {
@@ -196,9 +194,13 @@
 			    <div class="alta-movimiento-succes">
 				          Se realizo la transferencia correctamente.
 			    </div>
+				<%} else if (saldo_insuficiente != null && saldo_insuficiente.length() > 0) {%>
+				<div class="alta-movimiento-error">
+				   <%=saldo_insuficiente %>
+				</div>
 				<%} else {%>
 				<div class="alta-movimiento-error">
-				   Se produjo un error en la Transferencia, corrobore el cbu y saldo.
+				   Se produjo un error en la Transferencia. Vuelve a intentarlo.
 				</div>
 				<%}}%>
 	</div>

@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 import entidades.Cuenta;
+import excepciones.SaldoInsuficienteException;
 
 public interface CuentaNegocio {
 	
@@ -13,5 +14,5 @@ public interface CuentaNegocio {
 	public ArrayList<Cuenta> getCuentasxDNI (String DNI);
 	ArrayList<Cuenta> readAllActivos();
 	ArrayList<Cuenta> readAllInactivos();
-	
+	public void validarSaldo(Cuenta cuenta, float importeMovimiento) throws SaldoInsuficienteException;
 }
