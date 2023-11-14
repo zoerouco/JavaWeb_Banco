@@ -35,7 +35,7 @@ public class ServletListarCuenta extends HttpServlet {
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		 request.setAttribute("admin_actual", usuario);
 		
-		ArrayList<Cuenta> listaCuentas = cneg.readAllActivos();
+		ArrayList<Cuenta> listaCuentas = cneg.readAll();
 		request.setAttribute("listaCuentas", listaCuentas);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCuentas.jsp");   

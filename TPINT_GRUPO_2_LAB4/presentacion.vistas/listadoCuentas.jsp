@@ -116,32 +116,36 @@
 				        <td><%=cuenta.getFecha_creacion()%></td>
 				        <td><%=cuenta.getNro_cuenta()%></td>
 				        <td><%=cuenta.getSaldo()%></td>
-				        <td><%=cuenta.getEstado()%></td>	
-					                
+				        <%if(cuenta.getEstado()){%>
+		    	  			<td>Activo</td>
+		   				<%} else { %> 
+				 		 	<td>Inactivo</td>
+				 		<%}%>       
                  </tr>
                <%
-                                }
-                            
+                }            
                 %>
 	        </tbody>
 	    </table>
-		<nav aria-label="...">
-		  <ul class="pagination pagination-lg">
-		    <%
-		      for (int i = 1; i <= totalPages; i++) {
-		        if (i == currentPage) {
-		    %>
-		          <li class="page-item active"><a class="page-link" href="#"><%= i %></a></li>
-		    <%
-		        } else {
-		    %>
-		          <li class="page-item"><a class="page-link" href="ServletListarCuenta?page=<%= i %>"><%= i %></a></li>
-		    <%
-		        }
-		      }
-		    %>
-		  </ul>
-		</nav>
+	    <div class="d-flex justify-content-center mb-3">
+			<nav aria-label="...">
+			  <ul class="pagination pagination-lg">
+			    <%
+			      for (int i = 1; i <= totalPages; i++) {
+			        if (i == currentPage) {
+			    %>
+			          <li class="page-item active"><a class="page-link" href="#"><%= i %></a></li>
+			    <%
+			        } else {
+			    %>
+			          <li class="page-item"><a class="page-link" href="ServletListarCuenta?page=<%= i %>"><%= i %></a></li>
+			    <%
+			        }
+			      }
+			    %>
+			  </ul>
+			</nav>
+		</div>
 	</form>
 </div>
 		

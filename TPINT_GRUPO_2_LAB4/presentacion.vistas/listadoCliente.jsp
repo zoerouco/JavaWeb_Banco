@@ -137,9 +137,9 @@
 					        		<%}
 					        		if(cliente.isEstado()){%>
 		    	  						<td>Activo</td>
-		   							<%} else { %> 
+		   							<%} else {%> 
 							 		 	<td>Inactivo</td>
-							 		 <%} %>
+							 		 <%}%>
 							 	</tr>
 			        	 <%}
 			        }%>
