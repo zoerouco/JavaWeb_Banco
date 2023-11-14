@@ -86,19 +86,7 @@
 	            String formSubmitted = request.getParameter("buttonSubmit");
 					
 				if (formSubmitted != null) {
-					if (insert != null && insert) {%>
-						<div class="alert alert-success d-flex align-items-center" role="alert">
-					    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			      				<span aria-hidden="true">&times;</span>
-			    			</button>
-			    			<div class="d-flex align-items-center">
-			      				<svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:" width="24" height="24" viewBox="0 0 16 16">
-			      					<use xlink:href="#check-circle-fill"/>
-			      				</svg>
-								Se agregó correctamente!
-							</div>
-						</div>
-					<%} else if (request.getAttribute("dniRepetido") != null) { %>
+					 if (request.getAttribute("dniRepetido") != null) { %>
 							<div class="alert alert-danger d-flex align-items-center" role="alert">
 				    			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				    				<span aria-hidden="true">&times;</span>
@@ -108,6 +96,18 @@
 				      					<use xlink:href="#exclamation-triangle-fill"/>
 				      				</svg>
 				    				<%=request.getAttribute("dniRepetido")%>
+				   				</div>
+				  			</div>
+				  	<%} else if(request.getAttribute("cuilRepetido") != null){%>
+				  		<div class="alert alert-danger d-flex align-items-center" role="alert">
+				    			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    				<span aria-hidden="true">&times;</span>
+				    			</button>
+				    			<div class="d-flex align-items-center">
+				      				<svg class="bi flex-shrink-0 me-2" role="img" aria-label="Warning:" width="24" height="24" viewBox="0 0 16 16">
+				      					<use xlink:href="#exclamation-triangle-fill"/>
+				      				</svg>
+				    				<%=request.getAttribute("cuilRepetido")%>
 				   				</div>
 				  			</div>
 				  	<%}else if(request.getAttribute("edad") != null) { %>
@@ -232,37 +232,6 @@
                 <button type="reset" name="buttonReset" id="buttonCancel">Cancelar</button>
             </form>     
         </div>
-        <!--<script type="text/javascript">
-	        function habilitarLocalidades() {
-	            var provinciaSelect = document.getElementById("province");
-	            var localidadSelect = document.getElementById("locality");
-	
-	            if (provinciaSelect.value) {
-	                localidadSelect.disabled = false;
-	                localidadSelect.innerHTML = '';
-
-	                var provinciaSelect = document.getElementById("province");
-
-	                if (provinciaSelect.value) {
-	                    var form = document.createElement("form");
-	                    form.setAttribute("method", "post");
-	                    form.setAttribute("action", "ServletAltaCliente");
-	                    
-	                    var methodField = document.createElement("input");
-	                    methodField.setAttribute("type", "hidden");
-	                    methodField.setAttribute("name", "method");
-	                    methodField.setAttribute("value", "post");
-	                    form.appendChild(methodField);
-
-	                    document.body.appendChild(form);
-	                    form.submit();
-	                }     
-	            } else {
-	                localidadSelect.disabled = true;
-	                localidadSelect.innerHTML = '<option value="">Selecciona una provincia primero</option>';
-	            }
-	        }
-        </script>-->
 	</body>
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -85,6 +85,8 @@ public class ServletAltaCliente extends HttpServlet {
 		localidades = lneg.readAll();
 		request.setAttribute("listaLocalidades", localidades);
 		
+		boolean insert = false;
+		
 		if (request.getParameter("buttonSubmit") != null) {
 			
 			try {
@@ -127,15 +129,20 @@ public class ServletAltaCliente extends HttpServlet {
 					cliente.setTelefono_secundario(request.getParameter("number2"));
 					cliente.setEstado(true);
 					
-					boolean insert = cneg.insert(cliente);
-					request.setAttribute("insert", insert);
+					insert = cneg.insert(cliente);
+					request.getSession().setAttribute("clienteIngresado", cliente);
 				} else {
 					String edad = "El nuevo cliente debe tener 18 años o mas!";
 					request.setAttribute("edad", edad);
 				}
 			}
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("/altaCliente.jsp");   
-	    rd.forward(request, response);
+		if (insert) {
+			RequestDispatcher rd = request.getRequestDispatcher("/ServletAltaUsuario");   
+		    rd.forward(request, response);
+		} else {
+			RequestDispatcher rd = request.getRequestDispatcher("/altaCliente.jsp");   
+		    rd.forward(request, response);
+		}
 	}
 }

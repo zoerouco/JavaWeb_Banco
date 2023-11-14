@@ -15,5 +15,14 @@ public class UsuarioNegocioImpl implements UsuarioNegocio{
 		u = uDao.getUsuarioxUser(usuario);
 		return u;
 	}
+	
+	@Override
+	public Usuario getUsuarioxDNI(String dni) {
+		return uDao.getUsuarioxDNI(dni);
+	}
 
+	@Override
+	public boolean updatePassword(Usuario usuario) {
+		return uDao.updatePassword(usuario);
+	}
 }
