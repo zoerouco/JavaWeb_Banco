@@ -26,10 +26,10 @@ public class MovimientoImpl implements MovimientoNegocio {
 		return false;
 	}
 
-	/*
-	 * public ArrayList<Movimiento> readAll() { return mdao.readAll(); }
-	 */
-
+	public ArrayList<Movimiento> readAll() { 
+		return mdao.readAll(); 
+	}
+	
 	public ArrayList<Movimiento> getMovimientosXCuenta(Cuenta cuenta) {
 
 		return mdao.getMovimientosXCuenta(cuenta);

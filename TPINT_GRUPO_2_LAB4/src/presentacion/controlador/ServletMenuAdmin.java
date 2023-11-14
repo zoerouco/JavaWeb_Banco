@@ -13,6 +13,7 @@ import entidades.Cliente;
 import entidades.Cuenta;
 import entidades.Genero;
 import entidades.Localidad;
+import entidades.Movimiento;
 import entidades.Nacionalidad;
 import entidades.Provincia;
 import entidades.Usuario;
@@ -21,6 +22,7 @@ import negocioImpl.ClienteNegocioImpl;
 import negocioImpl.CuentaNegocioImpl;
 import negocioImpl.GeneroNegocioImpl;
 import negocioImpl.LocalidadNegocioImpl;
+import negocioImpl.MovimientoImpl;
 import negocioImpl.NacionalidadNegocioImpl;
 import negocioImpl.ProvinciaNegocioImpl;
 
@@ -29,8 +31,8 @@ import negocioImpl.ProvinciaNegocioImpl;
 public class ServletMenuAdmin extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	ClienteNegocioImpl cneg = new ClienteNegocioImpl();
-	Cliente cliente = new Cliente();
+	Movimiento movimiento = new Movimiento();
+	MovimientoImpl mneg = new MovimientoImpl();
 	CuentaNegocioImpl cuenegImpl = new CuentaNegocioImpl();
 	
 	Usuario usuario = new Usuario();
@@ -41,8 +43,8 @@ public class ServletMenuAdmin extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Cliente> listaClientes = cneg.readAllActivos();
-		request.setAttribute("listaClientes", listaClientes);
+		ArrayList<Movimiento> listaMovimientos = mneg.readAll();
+		request.setAttribute("listaMovimientos", listaMovimientos);
 		
 	    usuario = (Usuario) request.getSession().getAttribute("usuario");
 		request.setAttribute("admin_actual", usuario);
@@ -57,8 +59,8 @@ public class ServletMenuAdmin extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Cliente> listaClientes = cneg.readAllActivos();
-		request.setAttribute("listaClientes", listaClientes);
+		ArrayList<Movimiento> listaMovimientos = mneg.readAll();
+		request.setAttribute("listaMovimientos", listaMovimientos);
 		
 	    usuario = (Usuario) request.getSession().getAttribute("usuario");
 		request.setAttribute("admin_actual", usuario);
