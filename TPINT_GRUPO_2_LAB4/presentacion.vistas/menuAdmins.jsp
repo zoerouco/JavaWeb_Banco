@@ -3,6 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="entidades.Usuario" %>
 <%@page import="entidades.Cliente" %>
+<%@ page import="entidades.Movimiento"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -70,52 +71,63 @@
             </ul>
         </div> 
     </header>
-    <% ArrayList<Cliente> clientes = (ArrayList<Cliente>)request.getAttribute("listaClientes");%>
+    <% ArrayList<Movimiento> movimientos = (ArrayList<Movimiento>) request.getAttribute("listaMovimientos");
+       int itemsPerPage = 5;
+	   int totalPages = (int) Math.ceil((double) movimientos.size() / itemsPerPage);
+	   int currentPage = 1; 
+	   if (request.getParameter("page") != null) {
+	        currentPage = Integer.parseInt(request.getParameter("page"));
+	    }
+	    int startIndex = (currentPage - 1) * itemsPerPage;
+	    int endIndex = Math.min(startIndex + itemsPerPage, movimientos.size());%>
         <div class="container-table"  id="table-usuarios">
-	    	<h2> Clientes: </h2>
+	    	<h2> Reportes: </h2>
 	        <table class="table">
 	        <thead>
 	            <tr>
-	            	<th scope="col" class="table-header">DNI</th>
-		        	<th scope="col" class="table-header">Nombre</th>
-		        	<th scope="col" class="table-header">Apellido</th>
-		        	<th scope="col" class="table-header">Genero</th>
-		        	<th scope="col" class="table-header">Nacionalidad</th>
-		        	<th scope="col" class="table-header">CUIL</th>
-		        	<th scope="col" class="table-header">Fecha de nacimiento</th>
-		        	<th scope="col" class="table-header">Direccion</th>
-		        	<th scope="col" class="table-header">Correo electronico</th>
-		        	<th scope="col" class="table-header">Provincia</th>
-		        	<th scope="col" class="table-header">Localidad</th> 
-		        	<th scope="col" class="table-header">Telefono primario</th>
-		        	<th scope="col" class="table-header">Telefono secundario</th>
+	            	<th scope="col" class="table-header">ID</th>
+		        	<th scope="col" class="table-header">CBU Origen</th>
+		        	<th scope="col" class="table-header">CBU Destino</th>
+		        	<th scope="col" class="table-header">Fecha de transacción</th>
+		        	<th scope="col" class="table-header">Importe</th>
+		        	<th scope="col" class="table-header">Tipo de movimiento</th>
+		        	<th scope="col" class="table-header">Estado</th>
 	            </tr>
 	        </thead>
 	        <tbody>
-	         <% if(clientes != null) {
-	        	 int cont = 0;
-		        	for(Cliente cliente: clientes) { 
-		        		cont++;
-		        		String rowClass = (cont % 2 == 0) ? "table-row-even" : "table-row-odd"; %>
-				        	<tr class="<%=rowClass%>">
-				        		<th scope="row"><%=cliente.getDNI()%></th>
-				        		<td><%=cliente.getNombre()%></td>
-				        		<td><%=cliente.getApellido()%></td>
-				        		<td><%=cliente.getId_genero().getDescripcion()%></td>
-				        		<td><%=cliente.getId_nacionalidad().getNombre_pais()%></td>
-				        		<td><%=cliente.getCUIL()%></td>
-				        		<td><%=cliente.getFecha_nacimiento()%></td>
-				        		<td><%=cliente.getDireccion()%></td>
-				        		<td><%=cliente.getCorreo_electronico()%></td>
-				        		<td><%=cliente.getId_provincia().getNombre_provincia()%></td>
-				        		<td><%=cliente.getId_localidades().getNombre_localidad()%></td>
-				        		<td><%=cliente.getTelefono_primario()%></td>
-				        		<td><%=cliente.getTelefono_secundario()%></td>
+	         <% if(movimientos != null) {
+	        	 for(int i = startIndex; i < endIndex; i++) { 
+	        		 	Movimiento movimiento = movimientos.get(i);%>
+	        		 		<tr>
+				        		<th scope="row"><%=movimiento.getId_movimiento()%></th>
+				        		<td><%=movimiento.getCBU().getCBU()%></td>
+				        		<td><%=movimiento.getCBU_Destino().getCBU()%></td>
+				        		<td><%=movimiento.getFecha_Transaccion()%></td>
+				        		<td><%=movimiento.getImporte()%></td>
+				        		<td><%=movimiento.getTipoMovimiento().getId_tipo()%></td>
+				        		<%if(movimiento.getEstado()){%>
+		    	  					<td>Activo</td>
+		   						<%} else {%> 
+							 		<td>Inactivo</td>
+							 	<%}%>
 				        	</tr>
 		        	 <%}
 		        }%>
 	        </tbody>
 	    </table>
+	    <div class="d-flex justify-content-center mb-3">
+			    <nav aria-label="...">
+	  				<ul class="pagination pagination-lg">
+		    			<% for (int i = 1; i <= totalPages; i++) {
+		        				if (i == currentPage) { %>
+		          					<li class="page-item active"><a class="page-link" href="#"><%= i %></a></li>
+		    				  <%} else {%>
+		          					<li class="page-item"><a class="page-link" href="ServletMenuAdmin?page=<%= i %>"><%= i %></a></li>
+							  <%}
+		        		   }%>
+	  				</ul>
+				</nav>
+			</div>
 	</div>
 		
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

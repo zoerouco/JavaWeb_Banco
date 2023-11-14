@@ -24,12 +24,14 @@ import entidades.Nacionalidad;
 import entidades.Provincia;
 import entidades.Tipo_Movimiento;
 import entidades.Tipo_cuenta;
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
+import sun.util.resources.cldr.pt.TimeZoneNames_pt_PT;
 
 public class MovimientoDaoImpl implements MovimientoDao {
 	
 	
 	private static final String readall = "SELECT * FROM movimientos INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo";	
-	//private static final String update = "UPDATE movimientos SET  = ?,  = ? WHERE CBU = ?";
+	private static final String read = "SELECT * FROM movimientos INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo";
 	private static final String movimientosXcuenta = "SELECT * FROM movimientos" + 
 			" INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo" + 
 			" WHERE CBU = ?" +
@@ -89,7 +91,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 	}
 
 	@Override
-	/*public ArrayList<Movimiento> readAll() {
+	public ArrayList<Movimiento> readAll() {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -102,68 +104,27 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		Conexion conexion = Conexion.getConexion();
 		try{
 			
-			PreparedStatement statement = conexion.getSQLConexion().prepareStatement(readall);
+			PreparedStatement statement = conexion.getSQLConexion().prepareStatement(read);
 	        ResultSet resultSet = statement.executeQuery();
 			
 			while(resultSet.next()){
-				
-				
-				//habria que cargar cada objeto como en cuenta'
-				Cuenta cuenta = new Cuenta();
-				Tipo_cuenta tipoCuenta = new Tipo_cuenta();
-				Genero genero = new Genero();
-				Nacionalidad nacionalidad = new Nacionalidad();
-				Provincia provincia = new Provincia();
-				Localidad localidad = new Localidad();
-				Cliente cliente = new Cliente();
-				
-				cuenta.setCBU(resultSet.getString("CBU"));
-				tipoCuenta.setId_tipo(resultSet.getString(8));
-				tipoCuenta.setDescripcion(resultSet.getString(9));
-				cuenta.setId_tipo(tipoCuenta);
-				cliente.setDNI(resultSet.getString("DNI"));
-				genero.setId_genero(resultSet.getString(24));
-				genero.setDescripcion(resultSet.getString(25));
-				cliente.setId_genero(genero);
-				nacionalidad.setId(resultSet.getInt(29));
-				nacionalidad.setCode(resultSet.getShort(30));
-				nacionalidad.setIso3166a1(resultSet.getString(31));
-				nacionalidad.setIso3166a2(resultSet.getString(32));
-				nacionalidad.setNombre_pais(resultSet.getString(33));
-				cliente.setId_nacionalidad(nacionalidad);
-				provincia.setId(resultSet.getInt("id_provincia"));
-				provincia.setNombre_provincia(resultSet.getString(35));
-				cliente.setId_provincia(provincia);
-				localidad.setId(resultSet.getInt("id_localidades"));
-				localidad.setId_provincia(provincia);
-				localidad.setNombre_localidad(resultSet.getString("nombre_localidad"));
-				cliente.setCUIL(resultSet.getString("CUIL"));
-				cliente.setNombre(resultSet.getString("nombre"));
-				cliente.setApellido(resultSet.getString("apellido"));
-				cliente.setFecha_nacimiento(resultSet.getDate("fecha_nacimiento"));
-				cliente.setDireccion(resultSet.getString("direccion"));
-				cliente.setCorreo_electronico(resultSet.getString("correo_electronico"));
-				cliente.setTelefono_primario(resultSet.getString("telefono_primario"));
-				cliente.setTelefono_secundario(resultSet.getString("telefono_secundario"));
-				cuenta.setDNI(cliente);
-				cuenta.setFecha_creacion(resultSet.getDate("fecha_creacion"));
-				cuenta.setNro_cuenta(resultSet.getString("nro_cuenta"));
-				cuenta.setSaldo(resultSet.getFloat("saldo"));
-				cuenta.setEstado(resultSet.getBoolean("estado"));
-				
-				
-				
 
-				//clases necesarias para crear un obj Movimiento
 				Movimiento movimiento = new Movimiento();
-				// Cargar los atributos
-				Cuenta cbu = movimiento.getCBU();
-				Cuenta cbuDestino = movimiento.getCBU_Destino();
-				Date fechaTransaccion = movimiento.getFecha_Transaccion();
-				float importe = movimiento.getImporte();
-				String detalle = movimiento.getDetalle();
-			Tipo_Movimiento tipoMovimiento = movimiento.getTipoMovimiento();
-				boolean estado = movimiento.getEstado();
+				Cuenta cuenta = new Cuenta();
+				Cuenta cuentaDestino = new Cuenta();
+				Tipo_Movimiento tp = new Tipo_Movimiento();
+				
+				movimiento.setId_movimiento(resultSet.getInt("id_movimiento"));
+				cuenta.setCBU(resultSet.getString("CBU"));
+				movimiento.setCBU(cuenta);
+				cuentaDestino.setCBU(resultSet.getString("CBU_destino"));
+				movimiento.setCBU_Destino(cuentaDestino);
+				movimiento.setFecha_Transaccion(resultSet.getDate("fecha"));
+				movimiento.setImporte(resultSet.getFloat("importe"));
+				movimiento.setDetalle(resultSet.getString("detalle"));
+				tp.setId_tipo(resultSet.getString("id_tipo"));
+				tp.setDescripcion((resultSet.getString("descripcion")));
+				movimiento.setTipoMovimiento(tp);
 														
 				lista.add(movimiento);
 			}
@@ -175,9 +136,9 @@ public class MovimientoDaoImpl implements MovimientoDao {
 		}
 		
 		return lista;
-	}*/
+	}
 	
-public int getUltimoID() {
+	public int getUltimoID() {
 		
 	    int UltimoId = 0;
 
@@ -203,29 +164,29 @@ public int getUltimoID() {
 
 
 
-public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaConsultante) {
+	public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaConsultante) {
 	
 	
-	String cbu = cuentaConsultante.getCBU();
-	Tipo_Movimiento tipoMovimiento =new Tipo_Movimiento();
-	Cuenta cuentaDest =new Cuenta();
-	ArrayList<Movimiento> movimientosCliente = new ArrayList<Movimiento>();	
-
+		String cbu = cuentaConsultante.getCBU();
+		Tipo_Movimiento tipoMovimiento =new Tipo_Movimiento();
+		Cuenta cuentaDest =new Cuenta();
+		ArrayList<Movimiento> movimientosCliente = new ArrayList<Movimiento>();	
 	
-	try {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-	} catch (ClassNotFoundException e) {
-		e.printStackTrace();
-	}
-			
-	Conexion conexion = Conexion.getConexion();
-	
-	try{ //se ejecuta movimientos x cuentas receptoras
-		PreparedStatement statement = conexion.getSQLConexion().prepareStatement(movimientosXcuenta);
-		statement.setString(1, cbu);
-		ResultSet resultSet = statement.executeQuery();
 		
-		while(resultSet.next()){
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+				
+		Conexion conexion = Conexion.getConexion();
+		
+		try{ //se ejecuta movimientos x cuentas receptoras
+			PreparedStatement statement = conexion.getSQLConexion().prepareStatement(movimientosXcuenta);
+			statement.setString(1, cbu);
+			ResultSet resultSet = statement.executeQuery();
+			
+			while(resultSet.next()){
 			
 										
 					Movimiento movimiento = new Movimiento();					
@@ -263,13 +224,5 @@ public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaConsultante) {
     });*/
 	
 	return movimientosCliente;
-
-	
+	}
 }
-
-
-}
-
-
-
-
