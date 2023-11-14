@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 import entidades.Cliente;
+import excepciones.CuilRepetidoException;
 import excepciones.DniRepetidoException;
 
 public interface ClienteNegocio {
@@ -14,5 +15,5 @@ public interface ClienteNegocio {
 	public boolean modificar (Cliente cliente);
 	public ArrayList<Cliente> readAllInactivos();
 	boolean verificarDniRepetido(String dni) throws DniRepetidoException;
-	
+	public boolean verificarCuilRepetido(String cuil) throws CuilRepetidoException;
 }

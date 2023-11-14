@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 
 import entidades.Cliente;
+import excepciones.CuilRepetidoException;
 import excepciones.DniRepetidoException;
 
 public interface ClienteDao {
@@ -15,4 +16,5 @@ public interface ClienteDao {
 	public boolean modificar (Cliente cliente);
 	public ArrayList<Cliente> readAllInactivos();
 	public boolean verificarDniRepetido(String dni) throws DniRepetidoException;
+	public boolean verificarCuilRepetido(String cuil) throws CuilRepetidoException;
 }

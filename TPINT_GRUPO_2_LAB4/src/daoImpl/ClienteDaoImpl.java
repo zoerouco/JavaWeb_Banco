@@ -12,6 +12,7 @@ import entidades.Genero;
 import entidades.Localidad;
 import entidades.Nacionalidad;
 import entidades.Provincia;
+import excepciones.CuilRepetidoException;
 import excepciones.DniRepetidoException;
 
 public class ClienteDaoImpl implements ClienteDao{
@@ -39,6 +40,7 @@ public class ClienteDaoImpl implements ClienteDao{
 			+ "id_localidades=?, CUIL=?, nombre=?, apellido=?, direccion=?, "
 			+ "correo_electronico=?, telefono_primario=?, telefono_secundario=?, estado=? WHERE DNI=?"; 
 	private static final String DNI = "SELECT * FROM clientes WHERE DNI = ?";
+	private static final String CUIL = "SELECT * FROM clientes WHERE CUIL = ?";
 
 	@Override
 	public boolean insert(Cliente cliente) {
@@ -417,5 +419,24 @@ public class ClienteDaoImpl implements ClienteDao{
 	    	e.printStackTrace();
 	    }
 	    return existeDNI;
+	}
+
+	@Override
+	public boolean verificarCuilRepetido(String cuil) throws CuilRepetidoException {
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean existeCUIL = false;
+
+	    try (PreparedStatement statement = conexion.prepareStatement(CUIL)) {
+	        statement.setString(1, cuil);
+		    ResultSet resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+				existeCUIL = true;
+			   throw new CuilRepetidoException();
+			}
+	    } catch (SQLException e) {
+	    	e.printStackTrace();
+	    }
+	    return existeCUIL;
 	}
 }

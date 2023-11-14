@@ -15,6 +15,7 @@ import entidades.Localidad;
 import entidades.Nacionalidad;
 import entidades.Provincia;
 import entidades.Usuario;
+import excepciones.CuilRepetidoException;
 import excepciones.DniRepetidoException;
 import negocioImpl.ClienteNegocioImpl;
 import negocioImpl.GeneroNegocioImpl;
@@ -88,9 +89,13 @@ public class ServletAltaCliente extends HttpServlet {
 			
 			try {
 				cneg.verificarDniRepetido(request.getParameter("DNI"));
+				cneg.verificarCuilRepetido(request.getParameter("CUIL"));
 			} catch (DniRepetidoException e) {
 				String dniRepetido = e.getMessage();
 				request.setAttribute("dniRepetido", dniRepetido);
+			} catch (CuilRepetidoException e) {
+				String cuilRepetido = e.getMessage();
+				request.setAttribute("cuilRepetido", cuilRepetido);
 			}
 			
 			DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -98,7 +103,7 @@ public class ServletAltaCliente extends HttpServlet {
 			LocalDate ahora = LocalDate.now();
 			Period periodo = Period.between(fechaNac, ahora);
 			
-			if(request.getAttribute("dniRepetido") == null) {
+			if(request.getAttribute("dniRepetido") == null && request.getAttribute("cuilRepetido") == null) {
 				if (periodo.getYears() >= 18) {
 					
 					Cliente cliente = new Cliente();
