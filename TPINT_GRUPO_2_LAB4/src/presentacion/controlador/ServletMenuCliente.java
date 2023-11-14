@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import entidades.Cliente;
 import entidades.Cuenta;
+import entidades.Movimiento;
 import entidades.Usuario;
 import negocioImpl.ClienteNegocioImpl;
 import negocioImpl.CuentaNegocioImpl;
+import negocioImpl.MovimientoImpl;
 import negocioImpl.UsuarioNegocioImpl;
 
 @WebServlet("/ServletMenuCliente")
@@ -28,6 +30,8 @@ public class ServletMenuCliente extends HttpServlet {
 	ClienteNegocioImpl clienteN = new ClienteNegocioImpl();
 	ArrayList<Cuenta> cuentas_cliente = new ArrayList<Cuenta>();
 	CuentaNegocioImpl cuentaN = new CuentaNegocioImpl();
+	MovimientoImpl movimientoN = new MovimientoImpl();
+	Movimiento movimiento = new Movimiento();
 
 	public ServletMenuCliente() {
 		super();
@@ -61,27 +65,23 @@ public class ServletMenuCliente extends HttpServlet {
 			if (((Cuenta)request.getSession().getAttribute("cuenta_actual")) == null && (cbuCuentaCliente == null || cbuCuentaCliente.length() == 0) && cuentas_cliente.size() > 0)
 			{				
 				request.getSession().setAttribute("cuenta_actual", cuentas_cliente.get(0));
+				Movimiento movimientomayor = movimientoN.getUltimoMovimientoCuenta((Cuenta) request.getSession().getAttribute("cuenta_actual"));
+				request.getSession().setAttribute("ultimo_movimiento", movimientomayor);
 			}
 		}
 
-		// if (request.getParameter("btnMostrarCuenta") != null){ //se switchea la
-		// variable session que contiene la cuenta actual.
-
+		
 		if (cbuCuentaCliente != null && cbuCuentaCliente.length() > 0) {
 			cuenta = cuentaN.getCuentaxCBU(cbuCuentaCliente);
 			request.getSession().setAttribute("cuenta_actual", cuenta);
+			Movimiento movimientomayor = movimientoN.getUltimoMovimientoCuenta(cuenta);
+			request.getSession().setAttribute("ultimo_movimiento", movimientomayor);
 		}
 
-		// }
-
-		/*
-		 * if(request.getParameter("btnElegirCuenta") != null) {
-		 * 
-		 * cuenta = null; request.getSession().setAttribute("cuenta_actual", cuenta); }
-		 */
 
 		String url = "/menuCliente.jsp";
 		request.setAttribute("miUrl", url);
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 }
+
