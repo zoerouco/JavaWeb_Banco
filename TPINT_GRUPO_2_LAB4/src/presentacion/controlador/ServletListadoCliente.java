@@ -29,16 +29,16 @@ public class ServletListadoCliente extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Cliente> listaClientes = cneg.readAllActivos();
+		ArrayList<Cliente> listaClientes = cneg.readAll();
 		request.setAttribute("listaClientes", listaClientes);
 		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		request.setAttribute("admin_actual", usuario);
 		
-		String dni = request.getParameter("DNI"); 
+		/*String dni = request.getParameter("DNI"); 
 		Cliente cliente = cneg.getClientexDNI(dni);
 		if (cliente != null) {
-		    request.setAttribute("clienteDNI", cliente);}
+		    request.setAttribute("clienteDNI", cliente);}*/
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCliente.jsp");   
 	    rd.forward(request, response);
