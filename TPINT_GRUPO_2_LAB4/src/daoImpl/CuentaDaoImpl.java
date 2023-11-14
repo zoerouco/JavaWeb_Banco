@@ -15,6 +15,8 @@ import entidades.Localidad;
 import entidades.Nacionalidad;
 import entidades.Provincia;
 import entidades.Tipo_cuenta;
+import excepciones.CbuRepetidoException;
+
 
 
 public class CuentaDaoImpl implements CuentaDao{
@@ -46,6 +48,7 @@ public class CuentaDaoImpl implements CuentaDao{
 	        + "INNER JOIN nacionalidades ON clientes.id_nacionalidad = nacionalidades.id "
 	        + "INNER JOIN provincias ON clientes.id_provincia = provincias.id WHERE cuentas.estado = 0";
 	
+	private static final String CBU = "SELECT * FROM cuentas WHERE CBU = ?";
 	private static final String modificar = "UPDATE cuentas SET saldo=? WHERE CBU=?";
 	
 
@@ -491,6 +494,24 @@ public class CuentaDaoImpl implements CuentaDao{
 		
 		
 		return isUpdateExitoso;
+	}
+	
+	public boolean verificarCbuRepetido(String cbu) throws CbuRepetidoException{
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean existeCbu = false;
+
+	    try (PreparedStatement statement = conexion.prepareStatement(CBU)) {
+	        statement.setString(1, cbu);
+		    ResultSet resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+				existeCbu = true;
+			   throw new CbuRepetidoException();
+			}
+	    } catch (SQLException e) {
+	    	e.printStackTrace();
+	    }
+	    return existeCbu;
 	}
 
 }
