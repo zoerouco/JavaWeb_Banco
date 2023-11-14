@@ -82,62 +82,60 @@
         <div class="form-alta-cuentas">
             <form action="ServletAltaCliente" method="post">
                 <p class="details"> Ingrese un nuevo cliente al sistema:</p>
-	            <% if(request.getAttribute("dniRepetido") != null) { %>
-            	<div>
-        		<%=request.getAttribute("dniRepetido")%>
-        	</div>
-        <%}
-	            
-	            
-	            
-	            Boolean insert = (Boolean)request.getAttribute("insert");
-            	 	String formSubmitted = request.getParameter("buttonSubmit");
-				
-					if (formSubmitted != null) {
-				    	if (insert != null && insert) {%>
-				    		<div class="alert alert-success d-flex align-items-center" role="alert">
-				    			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		      						<span aria-hidden="true">&times;</span>
-		    					</button>
-		    					<div class="d-flex align-items-center">
-		      						<svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:" width="24" height="24" viewBox="0 0 16 16">
-		      							<use xlink:href="#check-circle-fill"/>
-		      						</svg>
-								  	<div>
-								    	Se agregó correctamente!
-								  	</div>
-		    					</div>
+                <%	Boolean insert = (Boolean)request.getAttribute("insert");
+	            String formSubmitted = request.getParameter("buttonSubmit");
+					
+				if (formSubmitted != null) {
+					if (insert != null && insert) {%>
+						<div class="alert alert-success d-flex align-items-center" role="alert">
+					    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			      				<span aria-hidden="true">&times;</span>
+			    			</button>
+			    			<div class="d-flex align-items-center">
+			      				<svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:" width="24" height="24" viewBox="0 0 16 16">
+			      					<use xlink:href="#check-circle-fill"/>
+			      				</svg>
+								Se agregó correctamente!
 							</div>
-				  		<%} else if(request.getAttribute("edad") != null) { %>
-			  					<div class="alert alert-danger d-flex align-items-center" role="alert">
-			    					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			      						<span aria-hidden="true">&times;</span>
-			    					</button>
-			    					<div class="d-flex align-items-center">
-			      						<svg class="bi flex-shrink-0 me-2" role="img" aria-label="Warning:" width="24" height="24" viewBox="0 0 16 16">
-			      							<use xlink:href="#exclamation-triangle-fill"/>
-			      						</svg>
-			      						<div>
-			        						<%= request.getAttribute("edad") %>
-			      						</div>
-			    					</div>
-			  					</div>
-							 <% } else {%>
+						</div>
+					<%} else if (request.getAttribute("dniRepetido") != null) { %>
+							<div class="alert alert-danger d-flex align-items-center" role="alert">
+				    			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    				<span aria-hidden="true">&times;</span>
+				    			</button>
+				    			<div class="d-flex align-items-center">
+				      				<svg class="bi flex-shrink-0 me-2" role="img" aria-label="Warning:" width="24" height="24" viewBox="0 0 16 16">
+				      					<use xlink:href="#exclamation-triangle-fill"/>
+				      				</svg>
+				    				<%=request.getAttribute("dniRepetido")%>
+				   				</div>
+				  			</div>
+				  	<%}else if(request.getAttribute("edad") != null) { %>
 				  			<div class="alert alert-danger d-flex align-items-center" role="alert">
-		    					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		      						<span aria-hidden="true">&times;</span>
-		    					</button>
-		    					<div class="d-flex align-items-center">
-		      						<svg class="bi flex-shrink-0 me-2" role="img" aria-label="Warning:" width="24" height="24" viewBox="0 0 16 16">
-      									<use xlink:href="#exclamation-triangle-fill"/>
-      								</svg>
-		      						<div>
-		        						Se produjo un error en la carga del cliente, corrobore los datos.
-		      						</div>
-		    					</div>
-		  					</div>
-					  <%}
-				 }%>
+				    			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    				<span aria-hidden="true">&times;</span>
+				    			</button>
+				    			<div class="d-flex align-items-center">
+				      				<svg class="bi flex-shrink-0 me-2" role="img" aria-label="Warning:" width="24" height="24" viewBox="0 0 16 16">
+				      					<use xlink:href="#exclamation-triangle-fill"/>
+				      				</svg>
+				    				<%= request.getAttribute("edad") %>
+				   				</div>
+				  			</div>
+					<% } else {%>
+				  			<div class="alert alert-danger d-flex align-items-center" role="alert">
+			    				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			      					<span aria-hidden="true">&times;</span>
+			    				</button>
+			    				<div class="d-flex align-items-center">
+			      					<svg class="bi flex-shrink-0 me-2" role="img" aria-label="Warning:" width="24" height="24" viewBox="0 0 16 16">
+	      								<use xlink:href="#exclamation-triangle-fill"/>
+	      							</svg>
+	      							Se produjo un error en la carga del cliente, corrobore los datos.
+			    				</div>
+			  				</div>
+						<%}
+				}%>
                 <div class="inputs">
                     <div class="text-layout">
                         <label for="name">Nombre<span class="required-fields">*</span></label>
