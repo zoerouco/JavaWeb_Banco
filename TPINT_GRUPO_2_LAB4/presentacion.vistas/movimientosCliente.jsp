@@ -152,7 +152,7 @@
 			<%
 				for (int i = 1; i <= totalPages; i++) {
 			%>
-			<a style="padding: 3px;<%if(i == currentPage) { %> font-weight: bold; color: crimson;<%}%>" href="?page=<%=i%>"><%=i%></a>
+			<a style="padding: 3px;<%if(i == currentPage) { %> font-weight: bold;color: white;background-color: #4ebf15;border-radius: 3px;padding: 3px 9px;<%}%>" href="?page=<%=i%>"><%=i%></a>
 
 			<%
 				}
