@@ -29,7 +29,7 @@ public class ServletListadoCliente extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Cliente> listaClientes = cneg.readAllActivos();
+		ArrayList<Cliente> listaClientes = cneg.readAll();
 		request.setAttribute("listaClientes", listaClientes);
 		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  

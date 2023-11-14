@@ -66,7 +66,15 @@
                 </ul>
             </div> 
         </header>
-        <% ArrayList<Cliente> clientes = (ArrayList<Cliente>)request.getAttribute("listaClientes");%>
+        <% ArrayList<Cliente> clientes = (ArrayList<Cliente>)request.getAttribute("listaClientes");
+           int itemsPerPage = 3;
+		   int totalPages = (int) Math.ceil((double) clientes.size() / itemsPerPage);
+		   int currentPage = 1; 
+		   if (request.getParameter("page") != null) {
+		        currentPage = Integer.parseInt(request.getParameter("page"));
+		    }
+		    int startIndex = (currentPage - 1) * itemsPerPage;
+		    int endIndex = Math.min(startIndex + itemsPerPage, clientes.size());%>
         <div class="container-table"  id="table-usuarios" style="margin-top: 150px">
 	    	<h2> Clientes: </h2>
 	    	<form action="ServletListadoCliente" method="post">
@@ -98,11 +106,9 @@
 		        </thead>
 		        <tbody>
 		         <% if(clientes != null) {
-		        	 int cont = 0;
-			        	for(Cliente cliente: clientes) { 
-			        		cont++;
-			        		String rowClass = (cont % 2 == 0) ? "table-row-even" : "table-row-odd"; %>
-					        	<tr class="<%=rowClass%>">
+			        	for(int i = startIndex; i < endIndex; i++) { 
+			        		Cliente cliente = clientes.get(i); %>
+					        	<tr>
 					        		<th scope="row"><%=cliente.getDNI()%></th>
 					        		<td><%=cliente.getNombre()%></td>
 					        		<td><%=cliente.getApellido()%></td>
@@ -130,6 +136,19 @@
 			        }%>
 		        </tbody>
 		    </table>
+		    <div class="d-flex justify-content-center mb-3">
+			    <nav aria-label="...">
+	  				<ul class="pagination pagination-lg">
+		    			<% for (int i = 1; i <= totalPages; i++) {
+		        				if (i == currentPage) { %>
+		          					<li class="page-item active"><a class="page-link" href="#"><%= i %></a></li>
+		    				  <%} else {%>
+		          					<li class="page-item"><a class="page-link" href="ServletListadoCliente?page=<%= i %>"><%= i %></a></li>
+							  <%}
+		        		   }%>
+	  				</ul>
+				</nav>
+			</div>
 		</form>
 	</div>
 		
