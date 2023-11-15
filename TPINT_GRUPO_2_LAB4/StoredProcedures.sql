@@ -160,8 +160,8 @@ DELIMITER ;
 		BEGIN
 			IF NEW.estado = 'Aprobado' THEN
 				INSERT INTO movimientos(CBU, id_tipo, CBU_destino, fecha, detalle, importe, estado)
-	            VALUES ('1000000000000000000001', 'alta_prestamo', NEW.CBU, NOW(), 'alta_prestamo', NEW.importe_pedido, 1);
-	            VALUES (NEW.CBU, 'alta_prestamo','1000000000000000000001', NOW(), 'alta_prestamo', NEW.importe_pedido,1 );
+	            VALUES ('1000000000000000000001', 'alta_prestamo', NEW.CBU, NOW(), 'alta_prestamo', NEW.importe_pedido, 1),
+	            (NEW.CBU, 'alta_prestamo','1000000000000000000001', NOW(), 'alta_prestamo', NEW.importe_pedido,1 );
 				
 	            UPDATE cuentas SET saldo = saldo + NEW.importe_pedido WHERE cuentas.CBU = NEW.CBU;
 	            UPDATE cuentas SET saldo = saldo - NEW.importe_pedido WHERE CBU = '1000000000000000000001';
