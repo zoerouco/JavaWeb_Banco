@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 import entidades.Cuenta;
+import excepciones.CbuRepetidoException;
 import excepciones.SaldoInsuficienteException;
 
 public interface CuentaNegocio {
@@ -15,4 +16,5 @@ public interface CuentaNegocio {
 	ArrayList<Cuenta> readAllActivos();
 	ArrayList<Cuenta> readAllInactivos();
 	public void validarSaldo(Cuenta cuenta, float importeMovimiento) throws SaldoInsuficienteException;
+	boolean verificarCbuRepetido(String cbu) throws CbuRepetidoException;
 }

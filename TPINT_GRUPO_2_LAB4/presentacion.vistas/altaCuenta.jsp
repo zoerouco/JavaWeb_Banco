@@ -123,7 +123,21 @@
 			String formSubmitted = request.getParameter("btnAceptar");
 				
 				if (formSubmitted != null) {
-				    	if (insert != null && insert) {
+					 if (request.getAttribute("cbuRepetido") != null) { %>
+						<div class="alert alert-danger d-flex align-items-center" role="alert">
+			    			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    				<span aria-hidden="true">&times;</span>
+			    			</button>
+			    			<div class="d-flex align-items-center">
+			      				<svg class="bi flex-shrink-0 me-2" role="img" aria-label="Warning:" width="24" height="24" viewBox="0 0 16 16">
+			      					<use xlink:href="#exclamation-triangle-fill"/>
+			      				</svg>
+			    				<%=request.getAttribute("cbuRepetido")%>
+			   				</div>
+			  			</div>
+
+					
+				    <% }if (insert != null && insert) {
 					%>
 			    <div class="alta-cuentas-succes">
 				          Se agregó correctamente.

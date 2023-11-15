@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import dao.CuentaDao;
 import daoImpl.CuentaDaoImpl;
 import entidades.Cuenta;
+import excepciones.CbuRepetidoException;
 import excepciones.SaldoInsuficienteException;
 import negocio.CuentaNegocio;
 
@@ -64,6 +65,9 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 	public void validarSaldo(Cuenta cuenta, float importeMovimiento) throws SaldoInsuficienteException {
 		if (cuenta.getSaldo() - importeMovimiento < 0)
 			throw new SaldoInsuficienteException();
+	}
+	public boolean verificarCbuRepetido(String cbu) throws CbuRepetidoException {
+		return cdao.verificarCbuRepetido(cbu);
 	}
 	
 public Cuenta getCuentaxDNI (String CBU) {

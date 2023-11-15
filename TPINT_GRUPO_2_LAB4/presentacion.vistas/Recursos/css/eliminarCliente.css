@@ -46,14 +46,6 @@
 	border-radius: 5px;
 }
 
-.table-row-even {
-    background-color: #F2F2F2;
-}
-
-.table-row-odd {
-    background-color: #FFFFFF;
-}
-
 h2 {
 	text-align: center;
 	color: black;
