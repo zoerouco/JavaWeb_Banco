@@ -111,7 +111,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 				movimiento.setCBU(cuenta);
 				cuentaDestino.setCBU(resultSet.getString("CBU_destino"));
 				movimiento.setCBU_Destino(cuentaDestino);
-                movimiento.setFecha_Transaccion(resultSet.getDate("fecha"));
+				movimiento.setFecha_Transaccion(resultSet.getTimestamp("fecha").toLocalDateTime());
 				movimiento.setImporte(resultSet.getFloat("importe"));
 				movimiento.setDetalle(resultSet.getString("detalle"));
 				tp.setId_tipo(resultSet.getString("id_tipo"));
@@ -192,7 +192,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 	            movimiento.setCBU_Destino(cuentaDest);
 	            movimiento.setDetalle(resultSet.getString("detalle"));
 	            movimiento.setEstado(resultSet.getBoolean("estado"));
-                movimiento.setFecha_Transaccion(resultSet.getDate("fecha"));
+	            movimiento.setFecha_Transaccion(resultSet.getTimestamp("fecha").toLocalDateTime());
 	            movimiento.setImporte(resultSet.getInt("importe"));
 	            movimiento.setTipoMovimiento(tipoMovimiento);
 
@@ -238,7 +238,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 	            movimiento.setCBU_Destino(cuentaDest);
 	            movimiento.setDetalle(resultSet.getString("detalle"));
 	            movimiento.setEstado(resultSet.getBoolean("estado"));
-                movimiento.setFecha_Transaccion(resultSet.getDate("fecha"));
+	            movimiento.setFecha_Transaccion(resultSet.getTimestamp("fecha").toLocalDateTime());
 	            movimiento.setImporte(resultSet.getInt("importe"));
 	            movimiento.setTipoMovimiento(tipoMovimiento);
 

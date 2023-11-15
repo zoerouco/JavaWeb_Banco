@@ -56,7 +56,9 @@
 		<h1
 			style="color: #ffefd5; font-weight: bolder; margin-top: 10px; margin-left: 10px;">GLOBANK</h1>
 
-
+	</div>
+	<div class= "div-btn-logout"> 
+	<a class="btn btn-danger" href="logOut.jsp" role="button">LogOut</a>
 	</div>
 	</header>
 
@@ -165,10 +167,7 @@
                     <tbody>
 		
                      <tr>
-                     <%
-						java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm");
-					%>
-                     	<td><%=df.format(movimiento.getFecha_Transaccion())%></td>
+                     	<td><%=movimiento.getFecha_Transaccion()%></td>
                         <td> <%= movimiento.getCBU().getCBU()%></td>
                         <td> <%= movimiento.getCBU_Destino().getCBU()%></td>
                         <td> <%= movimiento.getImporte()%></td>

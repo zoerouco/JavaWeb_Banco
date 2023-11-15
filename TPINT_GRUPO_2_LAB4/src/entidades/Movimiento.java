@@ -14,7 +14,7 @@ public class Movimiento {
 	private int id_movimiento;
 	private Cuenta CBU;	
 	private Cuenta CBU_Destino;
-	private Date Fecha_Transaccion;
+	private LocalDateTime Fecha_Transaccion;
 	private float Importe;
 	private String Detalle;	
 	private Tipo_Movimiento TipoMovimiento;
@@ -25,7 +25,7 @@ public class Movimiento {
 		ID_Movimiento++;
 	}
 
-	public Movimiento(int id_movimiento, Cuenta cBU, Cuenta cBU_Destino, Date fecha_Transaccion, float importe,
+	public Movimiento(int id_movimiento, Cuenta cBU, Cuenta cBU_Destino, LocalDateTime fecha_Transaccion, float importe,
 			String detalle, Tipo_Movimiento tipoMovimiento, boolean estado) {
 		super();
 		this.id_movimiento = id_movimiento;
@@ -62,13 +62,6 @@ public class Movimiento {
 		CBU_Destino = cBU_Destino;
 	}
 
-	public Date getFecha_Transaccion() {
-		return Fecha_Transaccion;
-	}
-
-	public void setFecha_Transaccion(Date fecha_Transaccion) {
-		Fecha_Transaccion = fecha_Transaccion;
-	}
 
 	public float getImporte() {
 		return Importe;
@@ -104,5 +97,14 @@ public class Movimiento {
 
 	public static int getID_Movimiento() {
 		return ID_Movimiento;
+	}
+
+	public void setFecha_Transaccion(LocalDateTime fecha_Transaccion) {
+		Fecha_Transaccion = fecha_Transaccion;
+	}
+
+	public LocalDateTime getFecha_Transaccion() {
+		return Fecha_Transaccion;
 	}	
+	
 }
