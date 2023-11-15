@@ -65,6 +65,9 @@
                         <h1> Bienvenid@, <%=admin.getNombreUsuario() %></h1> 
                     </li>
                 </ul>
+            <div class= "div-btn-logout"> 
+			<a class="btn btn-danger" href="logOut.jsp" role="button">LogOut</a>
+			</div>
             </div> 
         </header>
         <% ArrayList<Prestamo> prestamos = (ArrayList<Prestamo>)request.getAttribute("listaPrestamos");%>

@@ -67,6 +67,9 @@
 
 		</ul>
 	</div>
+	<div class= "div-btn-logout"> 
+	<a class="btn btn-danger" href="logOut.jsp" role="button">LogOut</a>
+	</div>
 	</header>
 
 	<%
