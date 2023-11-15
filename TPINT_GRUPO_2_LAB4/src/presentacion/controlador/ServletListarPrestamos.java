@@ -35,8 +35,10 @@ public class ServletListarPrestamos extends HttpServlet {
 		if (estado != null && !estado.isEmpty()) {
 			if(estado.equalsIgnoreCase("mostrarTodos")) {
 				listaPrestamos = pneg.readAll();
-			} else {
+			} else if(estado.equalsIgnoreCase("Aprobado") || estado.equalsIgnoreCase("Solicitado") || estado.equalsIgnoreCase("Rechazado")){
 				listaPrestamos = pneg.readAllByEstado(estado);
+			} else {
+				listaPrestamos = pneg.readAll();
 			}
 	    } else {
 	        listaPrestamos = pneg.readAll();
@@ -57,8 +59,10 @@ public class ServletListarPrestamos extends HttpServlet {
 		if (estado != null && !estado.isEmpty()) {
 			if(estado.equalsIgnoreCase("mostrarTodos")) {
 				listaPrestamos = pneg.readAll();
-			} else {
+			} else if(estado.equalsIgnoreCase("Aprobado") || estado.equalsIgnoreCase("Solicitado") || estado.equalsIgnoreCase("Rechazado")){
 				listaPrestamos = pneg.readAllByEstado(estado);
+			} else {
+				listaPrestamos = pneg.readAll();
 			}
 	    } else {
 	        listaPrestamos = pneg.readAll();
