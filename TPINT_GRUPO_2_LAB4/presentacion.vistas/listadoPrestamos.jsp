@@ -63,14 +63,15 @@
                             <a class="dropdown-item" href="ServletGestionarPrestamos">Gestionar prestamos</a>
                         </div>
                     </li>
+              		<li>
+               		<a class="btn btn-danger" href="logOut.jsp" role="button" >LogOut</a>
+            		</li>
+            		
                     <li class="mensaje-bienvenida">
                         <h1> Bienvenid@, <%=admin.getNombreUsuario() %></h1> 
                     </li>
                 </ul>
             </div> 
-            <div class= "div-btn-logout"> 
-			<a class="btn btn-danger" href="logOut.jsp" role="button">LogOut</a>
-			</div>
         </header>
         <% prestamos = (ArrayList<Prestamo>)request.getAttribute("listaPrestamos");
            int itemsPerPage = 3;
