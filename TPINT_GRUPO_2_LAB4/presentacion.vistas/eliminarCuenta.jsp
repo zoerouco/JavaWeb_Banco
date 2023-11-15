@@ -93,10 +93,10 @@
 				        		
 				        		<th scope="row"><%=cuenta.getCBU()%> <input type="hidden" name="CBU" value="<%=cuenta.getCBU()%>"></th>
 				        		<td><%=cuenta.getNro_cuenta()%></td>
-				        		<td><%=cuenta.getId_tipo()%></td>
+				        		<td><%=cuenta.getId_tipo().getDescripcion()%></td>
 				        		<td><%=cuenta.getDNI().getDNI()%></td>				        		
 				        		<td><%=cuenta.getSaldo()%></td>
-				        		<td><input type="submit" name="buttonEliminar" value="eliminar" id="button"></td>
+				        		<td><input type="submit" name="buttonEliminar" value="Eliminar" id="button"></td>
 				        		<div>
 			                        <% if (request.getAttribute("confirm" + cuenta.getCBU()) != null) { %>
 			                            <p class="confirm-message"><%= request.getAttribute("confirm" + cuenta.getCBU()) %>

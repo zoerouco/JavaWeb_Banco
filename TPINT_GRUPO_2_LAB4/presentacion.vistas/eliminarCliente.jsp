@@ -109,7 +109,7 @@
 					       		<td><%=cliente.getId_localidades().getNombre_localidad()%></td>
 				        		<td><%=cliente.getTelefono_primario()%></td>
 				        		<td><%=cliente.getTelefono_secundario()%></td>
-				        		<td><input type="submit" name="buttonEliminar" value="Eliminar" class="button-eliminar" class="eliminar-button"></td> 		
+				        		<td><input type="submit" name="buttonEliminar" value="Eliminar" id="button"></td> 		
 								<div>
 			                        <% if (request.getAttribute("confirm" + cliente.getDNI()) != null) { %>
 			                        	<p class="confirm-message"><%= request.getAttribute("confirm" + cliente.getDNI()) %>

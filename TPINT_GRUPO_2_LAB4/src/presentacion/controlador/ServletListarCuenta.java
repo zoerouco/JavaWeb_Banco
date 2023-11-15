@@ -31,11 +31,26 @@ public class ServletListarCuenta extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
-		 request.setAttribute("admin_actual", usuario);
+		request.setAttribute("admin_actual", usuario);
 		
-		ArrayList<Cuenta> listaCuentas = cneg.readAll();
+		String estado = request.getParameter("estado");
+		ArrayList<Cuenta> listaCuentas = new ArrayList<>();
+		
+		if (estado != null && !estado.isEmpty()) {
+			if(estado.equalsIgnoreCase("todos")) {
+				listaCuentas = cneg.readAll();
+			} else if(estado.equalsIgnoreCase("activos")) {
+				listaCuentas = cneg.readAllActivos();
+			} else if(estado.equalsIgnoreCase("inactivos")) {
+				listaCuentas = cneg.readAllInactivos();
+			} else {
+				listaCuentas = cneg.readAll();
+			}
+		} else {
+			listaCuentas = cneg.readAll();
+		}
+		
 		request.setAttribute("listaCuentas", listaCuentas);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCuentas.jsp");   
@@ -47,18 +62,26 @@ public class ServletListarCuenta extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
-		 request.setAttribute("admin_actual", usuario);
+		request.setAttribute("admin_actual", usuario);
 		
-		if(request.getParameter("todos") != null) {
-			ArrayList<Cuenta> listaCuentas = cneg.readAll();
-			request.setAttribute("listaCuentas", listaCuentas);
-		} else if (request.getParameter("activos") != null) {
-			ArrayList<Cuenta> listaCuentas = cneg.readAllActivos();
-			request.setAttribute("listaCuentas", listaCuentas);
-		} else if (request.getParameter("inactivos") != null) {
-			ArrayList<Cuenta> listaCuentas = cneg.readAllInactivos();
-			request.setAttribute("listaCuentas", listaCuentas);
+		String estado = request.getParameter("estado");
+		ArrayList<Cuenta> listaCuentas = new ArrayList<>();
+		
+		if (estado != null && !estado.isEmpty()) {
+			if(estado.equalsIgnoreCase("todos")) {
+				listaCuentas = cneg.readAll();
+			} else if(estado.equalsIgnoreCase("activos")) {
+				listaCuentas = cneg.readAllActivos();
+			} else if(estado.equalsIgnoreCase("inactivos")) {
+				listaCuentas = cneg.readAllInactivos();
+			} else {
+				listaCuentas = cneg.readAll();
+			}
+		} else {
+			listaCuentas = cneg.readAll();
 		}
+		
+		request.setAttribute("listaCuentas", listaCuentas);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCuentas.jsp");   
 	    rd.forward(request, response);

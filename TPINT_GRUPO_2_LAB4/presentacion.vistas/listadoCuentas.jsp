@@ -85,69 +85,61 @@
         <div class="container-table"  id="table-usuarios" style="margin-top: 150px">
 	    	<h2> Cuentas: </h2>
 	    	<form action="ServletListarCuenta" method="post">
-	    	<div class="d-flex justify-content-center mb-3">
-			    	<div class="btn-group" role="group" aria-label="Basic mixed styles example">
-			    		<button type="submit" class="btn btn-success" name="activos">Solo activos</button>
-					  	<button type="submit" class="btn btn-warning" name="todos">Todos los clientes</button>
-					  	<button type="submit" class="btn btn-danger" name="inactivos">Solo inactivos</button>
+		    	<div class="d-flex justify-content-center mb-3">
+				    	<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+				    		<button type="submit" class="btn btn-success" name="estado" value="activos">Solo activos</button>
+						  	<button type="submit" class="btn btn-warning" name="estado" value="todos">Todos los clientes</button>
+						  	<button type="submit" class="btn btn-danger" name="estado" value="inactivos">Solo inactivos</button>
+						</div>
 					</div>
-				</div>
-	        <table class="table">
-	        <thead>
-	            <tr>
-	            	<th scope="col" class="table-header">CBU</th>
-		        	<th scope="col" class="table-header">ID TIPO</th>
-		        	<th scope="col" class="table-header">DNI</th>
-		        	<th scope="col" class="table-header">FECHA DE CREACION</th>
-		        	<th scope="col" class="table-header">NRO. DE CUENTA</th>
-		        	<th scope="col" class="table-header">SALDO</th>
-		        	<th scope="col" class="table-header">ESTADO</th>		       
-	            </tr>
-	        </thead>
-	        <tbody>
-               <%
-                   for (int i = startIndex; i < endIndex; i++) {
-                     Cuenta cuenta= cuentas.get(i);
-                 %>
-                  <tr>
-                  		<th scope="row"><%=cuenta.getCBU()%></th>
-				        <td><%=cuenta.getId_tipo().getDescripcion()%></td>
-				        <td><%=cuenta.getDNI().getDNI()%></td>
-				        <td><%=cuenta.getFecha_creacion()%></td>
-				        <td><%=cuenta.getNro_cuenta()%></td>
-				        <td><%=cuenta.getSaldo()%></td>
-				        <%if(cuenta.getEstado()){%>
-		    	  			<td>Activo</td>
-		   				<%} else { %> 
-				 		 	<td>Inactivo</td>
-				 		<%}%>       
-                 </tr>
-               <%
-                }            
-                %>
-	        </tbody>
-	    </table>
-	    <div class="d-flex justify-content-center mb-3">
-			<nav aria-label="...">
-			  <ul class="pagination pagination-lg">
-			    <%
-			      for (int i = 1; i <= totalPages; i++) {
-			        if (i == currentPage) {
-			    %>
-			          <li class="page-item active"><a class="page-link" href="#"><%= i %></a></li>
-			    <%
-			        } else {
-			    %>
-			          <li class="page-item"><a class="page-link" href="ServletListarCuenta?page=<%= i %>"><%= i %></a></li>
-			    <%
-			        }
-			      }
-			    %>
-			  </ul>
-			</nav>
-		</div>
-	</form>
-</div>
+		        <table class="table">
+		        <thead>
+		            <tr>
+		            	<th scope="col" class="table-header">CBU</th>
+			        	<th scope="col" class="table-header">ID TIPO</th>
+			        	<th scope="col" class="table-header">DNI</th>
+			        	<th scope="col" class="table-header">FECHA DE CREACION</th>
+			        	<th scope="col" class="table-header">NRO. DE CUENTA</th>
+			        	<th scope="col" class="table-header">SALDO</th>
+			        	<th scope="col" class="table-header">ESTADO</th>		       
+		            </tr>
+		        </thead>
+		        <tbody>
+	               <%
+	                   for (int i = startIndex; i < endIndex; i++) {
+	                     Cuenta cuenta= cuentas.get(i);
+	                 %>
+	                  <tr>
+	                  		<th scope="row"><%=cuenta.getCBU()%></th>
+					        <td><%=cuenta.getId_tipo().getDescripcion()%></td>
+					        <td><%=cuenta.getDNI().getDNI()%></td>
+					        <td><%=cuenta.getFecha_creacion()%></td>
+					        <td><%=cuenta.getNro_cuenta()%></td>
+					        <td><%=cuenta.getSaldo()%></td>
+					        <%if(cuenta.getEstado()){%>
+			    	  			<td>Activo</td>
+			   				<%} else { %> 
+					 		 	<td>Inactivo</td>
+					 		<%}%>       
+	                 </tr>
+	               <%
+	                }            
+	                %>
+		        </tbody>
+		    </table>
+		    <div class="d-flex justify-content-center mb-3">
+				<nav aria-label="...">
+				    <ul class="pagination pagination-lg">
+	                        <% for (int i = 1; i <= totalPages; i++) { %>
+	                            <li class="page-item <%= i == currentPage ? "active" : "" %>">
+	                                <a class="page-link" href="ServletListarCuenta?page=<%= i %>&estado=<%= request.getParameter("estado") %>"><%= i %></a>
+	                            </li>
+	                        <% } %>
+	                </ul>
+				</nav>
+			</div>
+		</form>
+	</div>
 		
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
