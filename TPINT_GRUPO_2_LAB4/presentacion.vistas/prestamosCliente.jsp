@@ -105,9 +105,8 @@
                         }
                     %>
                 </select>
-        <input class="buttons" type="submit" name="btnBuscarXCbu" value="Buscar" id="btnBuscarXCbu"></input>
-		<input class="buttons" type="submit" name="btnLimpiarFiltro" value="Quitar filtro" id="btnLimpiarFiltro"></input>
-         </form>
+        <button class="buttons" type="submit" name="estado" value="Buscar" id="btnBuscarXCbu">Buscar</button>
+		<button class="buttons" type="submit" name="estado" value="Quitar filtro" id="btnLimpiarFiltro">Quitar filtro</button>
 
           <h1 class="titulo">Mis préstamos</h1>
     
@@ -161,16 +160,17 @@
                 <% 
                     for (int i = 1; i <= totalPages; i++) {
                 %>
-                    <a href="?page=<%= i %>"><%= i %></a>
+                
+                	<li <%= i == currentPage ? "active" : "" %>">
+		                 <a class="page-link" href="ServletCliente?page=<%= i %>&estado=<%= request.getParameter("estado") %>"><%= i %></a>
+		             </li>
 
                 <%
                     }
                 %>
                    </div>
-                   
-                  
-       
-        
+
+        </form>
             </div>
  <%}else if(prestamosxCBU != null && hayFiltro){ %>
     <div class="container-table" id="table-prestamos">
