@@ -1,6 +1,7 @@
 package entidades;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class Movimiento {
 	
@@ -13,7 +14,7 @@ public class Movimiento {
 	private int id_movimiento;
 	private Cuenta CBU;	
 	private Cuenta CBU_Destino;
-	private Date Fecha_Transaccion;
+	private LocalDateTime Fecha_Transaccion;
 	private float Importe;
 	private String Detalle;	
 	private Tipo_Movimiento TipoMovimiento;
@@ -28,22 +29,18 @@ public class Movimiento {
 		ID_Movimiento++;
 	}
 	
-	
-	
-	
-		public Movimiento(int id_Movimiento,Cuenta CBU, Cuenta CBU_Destino, float Importe , Date Fecha_Transaccion,String Detalle, Tipo_Movimiento TipoMovimiento, boolean estado) {
-			
-			this.id_movimiento=id_Movimiento;
-			this.CBU=CBU;	
-			this.CBU_Destino=CBU_Destino;
-			this.Importe = Importe;
-			this.Fecha_Transaccion = Fecha_Transaccion;
-			this.Detalle = Detalle;
-			this.Importe = Importe;
-			this.TipoMovimiento=TipoMovimiento;
-			this.estado = estado;
-		}
-		
+	public Movimiento(int id_movimiento, Cuenta cBU, Cuenta cBU_Destino, LocalDateTime fecha_Transaccion, float importe, String detalle, Tipo_Movimiento tipoMovimiento, boolean estado) {
+		super();
+		this.id_movimiento = id_movimiento;
+		CBU = cBU;
+		CBU_Destino = cBU_Destino;
+		Fecha_Transaccion = fecha_Transaccion;
+		Importe = importe;
+		Detalle = detalle;
+		TipoMovimiento = tipoMovimiento;
+		this.estado = estado;
+	}
+
 		public int getId_movimiento() {
 			return id_movimiento;
 		}
@@ -70,14 +67,14 @@ public class Movimiento {
 			this.CBU_Destino = CBU_Destino;
 		}
 		
-		public Date getFecha_Transaccion() {
+		public LocalDateTime getFecha_Transaccion() {
 			return Fecha_Transaccion;
 		}
-		
-		public void setFecha_Transaccion(Date Fecha_Transaccion) {
-			this.Fecha_Transaccion = Fecha_Transaccion;
+
+		public void setFecha_Transaccion(LocalDateTime fecha_Transaccion) {
+			Fecha_Transaccion = fecha_Transaccion;
 		}
-		
+
 		public float getImporte() {
 			return Importe;
 		}
@@ -117,6 +114,4 @@ public class Movimiento {
 		public int getID_MovimientoInstancia() {
 			return this.id_movimiento;
 		}
-		
-	
 }

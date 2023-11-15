@@ -1,5 +1,7 @@
 package dao;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import entidades.Cuenta;
@@ -12,4 +14,5 @@ public interface MovimientoDao {
 	public ArrayList<Movimiento> readAll();
 	public ArrayList<Movimiento> getMovimientosXCuenta(Cuenta cuenta);
 	public int getUltimoID();
+	public ArrayList<Movimiento> getMovimientosXFechas(LocalDateTime desde, LocalDateTime hasta);
 }
