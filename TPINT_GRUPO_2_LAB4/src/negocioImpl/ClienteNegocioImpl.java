@@ -67,4 +67,9 @@ public class ClienteNegocioImpl implements ClienteNegocio {
 	public boolean verificarCuilRepetido(String cuil) throws CuilRepetidoException {
 		return cdao.verificarCuilRepetido(cuil);
 	}
+	
+	@Override
+	public ArrayList<Cliente> getClientexDNILike(String DNI) {
+		return cdao.getClientexDNILike(DNI);
+	}
 }

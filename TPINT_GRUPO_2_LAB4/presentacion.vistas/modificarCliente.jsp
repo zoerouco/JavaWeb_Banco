@@ -69,7 +69,7 @@
                 </ul>
             </div> 
         </header>
-        <form action="ServletModificarCliente" method="post">
+        <form action="ServletModificarCliente" method="post" style="margin-left: 40px">
          <label for="DNI">Buscar cliente por DNI:<span class="required-fields"></span></label>
         	<input type="text" name="DNI" id="DNI" placeholder=" " required>
         	<input type="submit" name="btnBuscarXDNI" value="Aceptar" style="margin-top: 200px">
@@ -77,7 +77,7 @@
     				<%= (request.getAttribute("errorMessage") != null) ? request.getAttribute("errorMessage") : "" %>
 			</div>
 		</form>
-		    <form action="ServletModificarCliente" method="post">
+		    <form action="ServletModificarCliente" method="post" style="margin-left: 40px">
 			<div class="error-message">
     				<%= (request.getAttribute("mensaje") != null) ? request.getAttribute("mensaje") : "" %>
 			</div>
@@ -98,10 +98,7 @@
 			<input type="hidden" name="dni1" value="<%= cliente.getDNI() %>" >
 		    <br>
                         <label for="gender">Genero: </label>
-                        <label><%= cliente.getId_genero().getDescripcion() %></label>
-                        <br>  
-                         
-		    <select name="gender" name="gender">
+                        <label><%= cliente.getId_genero().getDescripcion() %></label>  <select name="gender" name="gender">
                            	<% ArrayList <Genero> generos = (ArrayList <Genero>)request.getAttribute("listaGeneros");
                         		if (generos != null){
                         			for(Genero genero : generos) { %>
@@ -110,10 +107,11 @@
                         		} else { %>
                         			<option>NO HAY</option>
                         	  <%}%>
-                        </select><br>
+                        </select> 
+                         
+		    <br>
 		    <label for="nationality">Nacionalidad: </label>
 		    <label><%= cliente.getId_nacionalidad().getNombre_pais() %></label>
-                        <br> 
                         <select name="nationality" name="nationality">
                             <% ArrayList <Nacionalidad> nacionalidades = (ArrayList <Nacionalidad>)request.getAttribute("listaNacionalidades");
                            	   if (nacionalidades != null){
@@ -124,11 +122,11 @@
                         			<option>NO HAY</option>
                         	  <%}%>
                         </select>
+                        
 		    <br>
 		     <label for="province">Provincia: </label>
 		     <label><%= cliente.getId_provincia().getNombre_provincia() %></label>
-             <br> 
-                        <select name="province" name="province"> <!--onchange="habilitarLocalidades()"-->
+             <select name="province" name="province"> <!--onchange="habilitarLocalidades()"-- >
                             <% ArrayList <Provincia> provincias = (ArrayList <Provincia>)request.getAttribute("listaProvincias");
                         		if (provincias != null){
                         			for(Provincia provincia : provincias) { %>
@@ -153,6 +151,7 @@
                         			<option>NO HAY</option>
                         	  <%}%>
                         </select>
+                        
 		    <br>
 		    <label for="idCUIL">CUIL:</label>
 		    <input type="text" name="idCUIL" value="<%= cliente.getCUIL() %>" required>

@@ -16,4 +16,5 @@ public interface ClienteNegocio {
 	public ArrayList<Cliente> readAllInactivos();
 	boolean verificarDniRepetido(String dni) throws DniRepetidoException;
 	public boolean verificarCuilRepetido(String cuil) throws CuilRepetidoException;
+	public ArrayList<Cliente> getClientexDNILike(String DNI);
 }
