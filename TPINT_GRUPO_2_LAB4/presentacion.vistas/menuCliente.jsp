@@ -140,7 +140,7 @@
 	</div>
 	
 	
-	<div class="form-reload"><form action="ServletMenuCliente" method="post"> <button onclick="this.form.submit()"  class="reload" type="submit"><img class="img-reload" src="Recursos/img/recargar.png"> <img> </button></form></div>
+	<div class="form-reload"><form action="ServletMenuCliente" method="post"> <button name="btnReload" onclick="this.form.submit()"  class="reload" type="submit"><img class="img-reload" src="Recursos/img/recargar.png"> <img> </button></form></div>
 	
 	
 	<div class="container-rep-mov">

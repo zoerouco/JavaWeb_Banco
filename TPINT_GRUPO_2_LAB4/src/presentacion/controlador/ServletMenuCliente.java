@@ -82,6 +82,11 @@ public class ServletMenuCliente extends HttpServlet {
 		    request.getSession().setAttribute("movimientosCliente", movimientosCliente);
 			request.getSession().setAttribute("ultimo_movimiento", movimientomayor);
 		}
+		
+		if(request.getParameter("btnReload") != null) {
+		    movimientomayor = movimientoN.getUltimoMovimientoCuenta((Cuenta) request.getSession().getAttribute("cuenta_actual"));
+		    request.getSession().setAttribute("movimientosCliente", movimientosCliente);
+		}
 
 
 		String url = "/menuCliente.jsp";
