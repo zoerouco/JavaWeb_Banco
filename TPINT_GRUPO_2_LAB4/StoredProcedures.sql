@@ -170,6 +170,7 @@ DELIMITER ;
 		// DELIMITER ;
 		
 		
+		
 		/*-------------------------*/
 		DELIMITER //
 		CREATE TRIGGER TR_BajaUsuario_Clientes AFTER UPDATE ON clientes

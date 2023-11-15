@@ -20,6 +20,7 @@
 	<%
 	Usuario admin = new Usuario ();
 	admin = (Usuario) request.getAttribute("admin_actual");
+	ArrayList<Prestamo> prestamos = new ArrayList<>();
 	%>
 		<header class="encabezado">
             <div class="contenedor-menu">
@@ -68,7 +69,7 @@
                 </ul>
             </div> 
         </header>
-        <% ArrayList<Prestamo> prestamos = (ArrayList<Prestamo>)request.getAttribute("listaPrestamos");
+        <% prestamos = (ArrayList<Prestamo>)request.getAttribute("listaPrestamos");
            int itemsPerPage = 3;
 		   int totalPages = (int) Math.ceil((double) prestamos.size() / itemsPerPage);
 		   int currentPage = 1; 
