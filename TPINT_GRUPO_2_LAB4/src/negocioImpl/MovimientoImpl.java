@@ -1,5 +1,7 @@
 package negocioImpl;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import dao.MovimientoDao;
@@ -54,6 +56,11 @@ public class MovimientoImpl implements MovimientoNegocio {
 		}
 
 		return null;
+	}
+
+	@Override
+	public ArrayList<Movimiento> getMovimientosXFechas(LocalDateTime desde, LocalDateTime hasta) {
+		return mdao.getMovimientosXFechas(desde, hasta);
 	}
 
 }

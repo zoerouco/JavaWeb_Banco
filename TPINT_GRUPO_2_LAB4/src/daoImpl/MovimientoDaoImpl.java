@@ -1,12 +1,13 @@
 package daoImpl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.Collections;
 import java.util.List;
 
@@ -110,7 +111,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 				movimiento.setCBU(cuenta);
 				cuentaDestino.setCBU(resultSet.getString("CBU_destino"));
 				movimiento.setCBU_Destino(cuentaDestino);
-				movimiento.setFecha_Transaccion(resultSet.getDate("fecha"));
+                movimiento.setFecha_Transaccion(resultSet.getDate("fecha"));
 				movimiento.setImporte(resultSet.getFloat("importe"));
 				movimiento.setDetalle(resultSet.getString("detalle"));
 				tp.setId_tipo(resultSet.getString("id_tipo"));
@@ -191,7 +192,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 	            movimiento.setCBU_Destino(cuentaDest);
 	            movimiento.setDetalle(resultSet.getString("detalle"));
 	            movimiento.setEstado(resultSet.getBoolean("estado"));
-	            movimiento.setFecha_Transaccion(new java.sql.Date(resultSet.getTimestamp("fecha").getTime()));
+                movimiento.setFecha_Transaccion(resultSet.getDate("fecha"));
 	            movimiento.setImporte(resultSet.getInt("importe"));
 	            movimiento.setTipoMovimiento(tipoMovimiento);
 
@@ -205,5 +206,50 @@ public class MovimientoDaoImpl implements MovimientoDao {
 	    return movimientosCliente;
 	}
 
+	
+	public ArrayList<Movimiento> getMovimientosXFechas(LocalDateTime desde, LocalDateTime hasta) {
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    ArrayList<Movimiento> movimientosCliente = new ArrayList<Movimiento>();
+	    Conexion conexion = Conexion.getConexion();
+	    String query = "SELECT * FROM movimientos WHERE fecha >= '" + desde + "'  AND fecha <= '" + hasta + "'";
+	
+	    try {
+	    	PreparedStatement statement = conexion.getSQLConexion().prepareStatement(query);
+	        ResultSet resultSet = statement.executeQuery();
+
+	        while (resultSet.next()) {
+	        	
+	            Movimiento movimiento = new Movimiento();
+	            Cuenta cuenta = new Cuenta();
+	            Cuenta cuentaDest = new Cuenta();
+	            Tipo_Movimiento tipoMovimiento = new Tipo_Movimiento();
+	            
+	            tipoMovimiento.setId_tipo(resultSet.getString("id_tipo"));
+	            cuenta.setCBU(resultSet.getString("CBU"));
+	            cuentaDest.setCBU(resultSet.getString("CBU_destino"));
+
+	            movimiento.setId_movimiento(resultSet.getInt("id_movimiento"));
+	            movimiento.setCBU(cuenta);
+	            movimiento.setCBU_Destino(cuentaDest);
+	            movimiento.setDetalle(resultSet.getString("detalle"));
+	            movimiento.setEstado(resultSet.getBoolean("estado"));
+                movimiento.setFecha_Transaccion(resultSet.getDate("fecha"));
+	            movimiento.setImporte(resultSet.getInt("importe"));
+	            movimiento.setTipoMovimiento(tipoMovimiento);
+
+	            movimientosCliente.add(movimiento);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return movimientosCliente;
+	}
 }
 

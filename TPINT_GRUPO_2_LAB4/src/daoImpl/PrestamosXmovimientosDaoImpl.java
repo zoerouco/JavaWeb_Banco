@@ -86,7 +86,7 @@ public class PrestamosXmovimientosDaoImpl implements PrestamosXmovimientosDao {
 				movimiento.setDetalle(resultSet.getString("detalle"));
 				movimiento.setImporte(resultSet.getFloat("importe"));
 				movimiento.setTipoMovimiento(tm);
-				movimiento.setFecha_Transaccion(resultSet.getDate("fecha"));
+                movimiento.setFecha_Transaccion(resultSet.getDate("fecha"));
 				
 				prestamo.setId_prestamo(resultSet.getInt("id_prestamo"));
 				prestamo.setCBU(cuenta_solicitante);

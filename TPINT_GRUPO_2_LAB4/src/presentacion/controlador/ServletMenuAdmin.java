@@ -1,6 +1,9 @@
 package presentacion.controlador;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -43,14 +46,22 @@ public class ServletMenuAdmin extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Movimiento> listaMovimientos = mneg.readAll();
-		request.setAttribute("listaMovimientos", listaMovimientos);
-		
-	    usuario = (Usuario) request.getSession().getAttribute("usuario");
+		usuario = (Usuario) request.getSession().getAttribute("usuario");
 		request.setAttribute("admin_actual", usuario);
 		
 		Cuenta cuentaAdmin = cuenegImpl.getCuentaxCBU("1000000000000000000001");
 		request.getSession().setAttribute("cuentaAdmin", cuentaAdmin);
+		
+		ArrayList<Movimiento> listaMovimientos = new ArrayList<>();
+		listaMovimientos = mneg.readAll();
+		
+		if(request.getParameter("estado") != null) {
+			LocalDateTime desde = LocalDateTime.parse(request.getParameter("fecha1"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+			LocalDateTime hasta = LocalDateTime.parse(request.getParameter("fecha2"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+			listaMovimientos = mneg.getMovimientosXFechas(desde, hasta);
+		}
+		
+		request.setAttribute("listaMovimientos", listaMovimientos);
 			 
 		String url = "/menuAdmins.jsp";
 		request.setAttribute("miUrl", url);
@@ -59,14 +70,22 @@ public class ServletMenuAdmin extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<Movimiento> listaMovimientos = mneg.readAll();
-		request.setAttribute("listaMovimientos", listaMovimientos);
-		
-	    usuario = (Usuario) request.getSession().getAttribute("usuario");
+		usuario = (Usuario) request.getSession().getAttribute("usuario");
 		request.setAttribute("admin_actual", usuario);
 		
 		Cuenta cuentaAdmin = cuenegImpl.getCuentaxCBU("1000000000000000000001");
 		request.getSession().setAttribute("cuentaAdmin", cuentaAdmin);
+		
+		ArrayList<Movimiento> listaMovimientos = new ArrayList<>();
+		listaMovimientos = mneg.readAll();
+		
+		if(request.getParameter("estado") != null) {
+			LocalDateTime desde = LocalDateTime.parse(request.getParameter("fecha1"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+			LocalDateTime hasta = LocalDateTime.parse(request.getParameter("fecha2"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+			listaMovimientos = mneg.getMovimientosXFechas(desde, hasta);
+		}
+		
+		request.setAttribute("listaMovimientos", listaMovimientos);
 			 
 		String url = "/menuAdmins.jsp";
 		request.setAttribute("miUrl", url);
