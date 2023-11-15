@@ -33,8 +33,9 @@ public class ServletMovimientos extends HttpServlet {
 	Usuario usuario = new Usuario();
 	Tipo_MovimientoNegocioImpl tipoMovimientoN = new Tipo_MovimientoNegocioImpl();
 	Tipo_Movimiento tipoMovimiento = new Tipo_Movimiento();
+	Movimiento movimientomayor = new Movimiento();
 
-	Cuenta cuenta = new Cuenta();
+	Cuenta cuenta = new Cuenta(); //CUENTA ACTUAL DEL CLIENTE SOLO SE MODIFICA SI EL CLIENTE LO HACE.
 	Cuenta cuentaDestinoTransfe  = new Cuenta();
 
 	public ServletMovimientos() {
@@ -62,7 +63,7 @@ public class ServletMovimientos extends HttpServlet {
 			usuario = (Usuario) request.getSession().getAttribute("usuario");
 			cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
 			request.getSession().setAttribute("cliente_actual", cliente);
-			cuenta = (Cuenta) request.getSession().getAttribute("cuenta_actual");
+			cuenta = (Cuenta) request.getSession().getAttribute("cuenta_actual"); //CUENTA ACTUAL
 			ArrayList<Movimiento> movimientosCliente = movimientoN.getMovimientosXCuenta(cuenta);
 			request.setAttribute("movimientosCliente", movimientosCliente);
 
@@ -144,12 +145,16 @@ public class ServletMovimientos extends HttpServlet {
 			cuentaN.modificar(cuentaDestino);
 
 			request.setAttribute("update", update);
+			
+
+			
 		}
-
-		// request.setAttribute("validacion", validacion);
-
-		// }
 		
+		ArrayList<Movimiento> movimientosCliente = movimientoN.getMovimientosXCuenta(cuenta);
+		request.getSession().setAttribute("movimientosCliente", movimientosCliente);
+		movimientomayor = movimientoN.getUltimoMovimientoCuenta((Cuenta) request.getSession().getAttribute("cuenta_actual"));
+		request.getSession().setAttribute("ultimo_movimiento", movimientomayor);
+		request.getSession().setAttribute("cuenta_actual", cuenta);
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 }

@@ -203,69 +203,55 @@ public int getUltimoID() {
 
 
 
-public ArrayList<Movimiento> getMovimientosXCuenta (Cuenta cuentaConsultante) {
+	public ArrayList<Movimiento> getMovimientosXCuenta(Cuenta cuentaConsultante) {
 	
-	
-	String cbu = cuentaConsultante.getCBU();
-	Tipo_Movimiento tipoMovimiento =new Tipo_Movimiento();
-	Cuenta cuentaDest =new Cuenta();
-	ArrayList<Movimiento> movimientosCliente = new ArrayList<Movimiento>();	
+	   
+	    ArrayList<Movimiento> movimientosCliente = new ArrayList<Movimiento>();
 
+	    try {
+	        // Load the JDBC driver (assuming you are using MySQL)
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	    Conexion conexion = Conexion.getConexion();
 	
-	try {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-	} catch (ClassNotFoundException e) {
-		e.printStackTrace();
+	    try {
+	    	
+	         PreparedStatement statement = conexion.getSQLConexion().prepareStatement(movimientosXcuenta);
+
+	        statement.setString(1, cuentaConsultante.getCBU());
+	        ResultSet resultSet = statement.executeQuery();
+
+	        while (resultSet.next()) {
+	        	
+	            Movimiento movimiento = new Movimiento();
+	            Cuenta cuentaDest = new Cuenta();
+	            Tipo_Movimiento tipoMovimiento = new Tipo_Movimiento();
+	            
+	            tipoMovimiento.setId_tipo(resultSet.getString("id_tipo"));
+	            tipoMovimiento.setDescripcion(resultSet.getString("descripcion"));
+	            cuentaDest.setCBU(resultSet.getString(4));
+
+	            movimiento.setId_movimiento(resultSet.getInt("id_movimiento"));
+	            movimiento.setCBU(cuentaConsultante);
+	            movimiento.setCBU_Destino(cuentaDest);
+	            movimiento.setDetalle(resultSet.getString("detalle"));
+	            movimiento.setEstado(resultSet.getBoolean("estado"));
+	            movimiento.setFecha_Transaccion(new java.sql.Date(resultSet.getTimestamp("fecha").getTime()));
+	            movimiento.setImporte(resultSet.getInt("importe"));
+	            movimiento.setTipoMovimiento(tipoMovimiento);
+
+	            movimientosCliente.add(movimiento);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return movimientosCliente;
 	}
-			
-	Conexion conexion = Conexion.getConexion();
-	
-	try{ //se ejecuta movimientos x cuentas receptoras
-		PreparedStatement statement = conexion.getSQLConexion().prepareStatement(movimientosXcuenta);
-		statement.setString(1, cbu);
-		ResultSet resultSet = statement.executeQuery();
-		
-		while(resultSet.next()){
-			
-										
-					Movimiento movimiento = new Movimiento();					
-										
-					tipoMovimiento.setId_tipo(resultSet.getString("id_tipo"));
-					tipoMovimiento.setDescripcion((resultSet.getString("descripcion")));
-					cuentaDest.setCBU(resultSet.getString(4));
-					
-					
-					movimiento.setId_movimiento(resultSet.getInt("id_movimiento"));
-					movimiento.setCBU(cuentaConsultante);
-					movimiento.setCBU_Destino(cuentaDest);	
-					movimiento.setDetalle(resultSet.getString("detalle"));					
-					movimiento.setEstado(resultSet.getBoolean("estado"));					
-					movimiento.setFecha_Transaccion(new java.sql.Date(resultSet.getTimestamp("fecha").getTime()));
-					movimiento.setImporte(resultSet.getInt("importe"));
-					movimiento.setTipoMovimiento(tipoMovimiento);	
-					
-					
-					movimientosCliente.add(movimiento);
-				
-				}
 
-		  conexion.cerrarConexion();
-		  
-	}catch(Exception e){
-		e.printStackTrace();
-	}
-	
-	/*Collections.sort(movimientosCliente, new Comparator<Movimiento>() {
-        @Override
-        public int compare(Movimiento m1, Movimiento m2) {
-            return Integer.compare(m1.getId_movimiento(), m2.getId_movimiento());
-        }
-    });*/
-	
-	return movimientosCliente;
-
-	
-}
 
 
 }

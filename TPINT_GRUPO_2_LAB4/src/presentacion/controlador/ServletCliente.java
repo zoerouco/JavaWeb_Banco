@@ -62,6 +62,9 @@ public class ServletCliente extends HttpServlet {
 	}
 
 	private void accion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		boolean bandera = false;
+		
 		if (request.getSession().getAttribute("usuario") != null) {
 
 			usuario = (Usuario) request.getSession().getAttribute("usuario");
@@ -146,6 +149,8 @@ public class ServletCliente extends HttpServlet {
 				ArrayList<Prestamo> prestamosClienteAux = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
 				request.setAttribute("prestamosClienteAux", prestamosClienteAux);
 				request.setAttribute("pagosPrestamos", pagosPrestamos);
+				bandera = true;
+				request.setAttribute("bandera", true);
 
 			}
 		}
@@ -174,14 +179,25 @@ public class ServletCliente extends HttpServlet {
 			Boolean inserto = movimientoN.insert(movimiento);
 			
 			movimiento.setId_movimiento(movimientoN.getUltimoID());
-
+			
 			pxm.setCBU(cuentaOrigen);
 			pxm.setId_movimiento(movimiento);
 			pxm.setId_prestamo(prestamo_actual);
 
 			Boolean inserto2 = pxmN.insert(pxm);
+			
+			//update cuenta actual:
+			float saldoAnterior = cuentaOrigen.getSaldo();
+			float saldo = saldoAnterior - importe_cuota;
+			cuentaOrigen.setSaldo(saldo);
+			boolean update = cuentaN.modificar(cuentaOrigen);
+			
+			//update cuenta destino (admin):
+			float nuevoSaldo = cuentaDestino.getSaldo() + importe_cuota;
+			cuentaDestino.setSaldo(nuevoSaldo);			
+			boolean update2 = cuentaN.modificar(cuentaDestino);
 
-			if (inserto && inserto2)
+			if (inserto && inserto2 && update && update2)
 				request.setAttribute("pagoCorrectamente", inserto);
 
 		}

@@ -32,6 +32,8 @@ public class ServletMenuCliente extends HttpServlet {
 	CuentaNegocioImpl cuentaN = new CuentaNegocioImpl();
 	MovimientoImpl movimientoN = new MovimientoImpl();
 	Movimiento movimiento = new Movimiento();
+	Movimiento movimientomayor = new Movimiento();
+	ArrayList<Movimiento> movimientosCliente = new ArrayList<Movimiento>();
 
 	public ServletMenuCliente() {
 		super();
@@ -60,12 +62,14 @@ public class ServletMenuCliente extends HttpServlet {
 			request.getSession().setAttribute("cliente_actual", cliente);
 			cuentas_cliente = cuentaN.getCuentasxDNI(cliente.getDNI());
 			request.getSession().setAttribute("cuentas_cliente_actual", cuentas_cliente);
+			cuenta = (Cuenta) request.getSession().getAttribute("cuenta_actual");
+			request.getSession().setAttribute("movimientosCliente", movimientosCliente);
 			
 			// se obtiene la primer cuenta por defecto por si es la primera carga
 			if (((Cuenta)request.getSession().getAttribute("cuenta_actual")) == null && (cbuCuentaCliente == null || cbuCuentaCliente.length() == 0) && cuentas_cliente.size() > 0)
 			{				
 				request.getSession().setAttribute("cuenta_actual", cuentas_cliente.get(0));
-				Movimiento movimientomayor = movimientoN.getUltimoMovimientoCuenta((Cuenta) request.getSession().getAttribute("cuenta_actual"));
+			   movimientomayor = movimientoN.getUltimoMovimientoCuenta((Cuenta) request.getSession().getAttribute("cuenta_actual"));
 				request.getSession().setAttribute("ultimo_movimiento", movimientomayor);
 			}
 		}
@@ -74,7 +78,8 @@ public class ServletMenuCliente extends HttpServlet {
 		if (cbuCuentaCliente != null && cbuCuentaCliente.length() > 0) {
 			cuenta = cuentaN.getCuentaxCBU(cbuCuentaCliente);
 			request.getSession().setAttribute("cuenta_actual", cuenta);
-			Movimiento movimientomayor = movimientoN.getUltimoMovimientoCuenta(cuenta);
+		    movimientomayor = movimientoN.getUltimoMovimientoCuenta((Cuenta) request.getSession().getAttribute("cuenta_actual"));
+		    request.getSession().setAttribute("movimientosCliente", movimientosCliente);
 			request.getSession().setAttribute("ultimo_movimiento", movimientomayor);
 		}
 

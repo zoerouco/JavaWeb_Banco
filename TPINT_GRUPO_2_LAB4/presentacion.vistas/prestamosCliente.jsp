@@ -332,7 +332,6 @@
 	<div class="container-mispagos">
 	
 	   <img src="Recursos/img/salario.png" height="64px"> <h1>MIS PAGOS</h1> <img>
-	   <p>Por el mes de Noviembre, si te atrasas en un pago no hay intereses, sin embargo baja el porcentaje de que tu próximo préstamo sea aprobado.</p>
 	   
                    
 	<form action="ServletCliente" method="Post">
@@ -416,7 +415,7 @@
                 %>
                    </div>
                    
-              <form action="ServletCliente" method=post>   
+              <form class="pagar" action="ServletCliente" method=post>   
               <%
               if((Boolean)request.getAttribute("debePagar") == true ){
               Prestamo prestamo = (Prestamo) request.getAttribute("prestamo_consultado");
@@ -436,9 +435,9 @@
                                 <option><%=cuentaCliente.getCBU()%></option>
                     <%
                             }
-                        } else {
+                        } else if(request.getAttribute("pagosPrestamos") == null) {
                     %>
-                            <option>NO HAY</option>
+                            <option>NO HAY PAGOS PARA MOSTRAR.</option>
                     <%
                         }
                     %>
@@ -452,8 +451,8 @@
               <h4> ¡Su préstamo está al día!</h4>
 <%}%>
 	</div>
-	<%}else{ %>
-	<h3> NO HAY PAGOS PARA MOSTRAR<h3>
+	<%}else if(request.getAttribute("bandera") != null) { %>
+			<h3 class="no-hay-pagos"> NO HAY PAGOS PARA MOSTRAR</h3>
 	<%} %>
 	
 	<%
@@ -468,8 +467,10 @@
 		<h4> El pago no se pudo realizar.</h4>
 	
 	<%} }%>
+	
 
 </section>
+
 
     <footer class="Z-footer">
         <p>Todos los derechos reservados &copy; Globank 2023</p>

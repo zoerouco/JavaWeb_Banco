@@ -20,10 +20,11 @@
 .titulo{
 	text-align: center;
 	font-size: 50px;
-	/* margin-bottom: 50px; */
 	background: #424a43;
 	padding: 30px;
 	color: #fca713;
+	margin-top: 50px;
+	width: 100%;
 }
 
 .form-prestamo {
@@ -82,10 +83,43 @@ color: white;
 
 }
 
+
 .container-mispagos{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background: aliceblue;
+	flex-wrap: wrap;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+.pagar{
+	text-align: center;
+}
+
+.no-hay-pagos{
 	
+	background: green;
+}
+
+.container-mispagos img{
 	
+/* margin-top: 15px; */
+}
+
+#prestamo-cliente{
 	
+	font-size: 20px;
+	width: 100px;
+	text-align: center;
+	margin-right: 20px;
+}
+
+.buttons{
+		padding: 4px 115px;
+	background-color: #ddba79;
+	border-radius: 37px;
+	margin-top: 20px;
 }
 
 

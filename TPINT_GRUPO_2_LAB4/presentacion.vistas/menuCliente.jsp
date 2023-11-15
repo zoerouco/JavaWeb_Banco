@@ -38,6 +38,7 @@
 		Cuenta cuenta = new Cuenta();
 		Usuario usuario = new Usuario();
 		ArrayList<Cuenta> cuentas_cliente_actual = new ArrayList<Cuenta>();
+		Movimiento movimiento = new Movimiento();
 
 		cuentas_cliente_actual = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
 		usuario = (Usuario) request.getSession().getAttribute("usuario");
@@ -73,11 +74,15 @@
 					+ cliente.getId_provincia().getNombre_provincia() + " "
 					+ cliente.getId_nacionalidad().getNombre_pais()%></label> <label>E-mail
 				dónde recibes información importante y promociones:<br> <%=cliente.getCorreo_electronico()%></label>
+				
+				
+			
 						
 		</div>
 		
-	
+		
 		<div>
+		
 		
 			<div class="form-mostrar-cuentas">
 
@@ -86,9 +91,7 @@
 
 					<h3>Seleccione la cuenta para gestionar</h3>
 
-					<select name="cuenta-cliente" id="cuentas-cliente"
-						onchange="this.form.submit()"
-						style="width: 350px; height: 45px; text-align: center;">
+					<select name="cuenta-cliente" id="cuentas-cliente" onchange="this.form.submit()" style="width: 350px; height: 45px; text-align: center;">
 						<%
 							ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
 
@@ -124,6 +127,7 @@
 					class="form-mostrar-cuentas">Mis pagos</div></a>
 		</div>
 		
+		
 		<div class="info-cuenta">
 			<h3>CBU</h3>
 			<label><%=cuenta.getCBU()%></label>
@@ -135,13 +139,17 @@
 
 	</div>
 	
+	
+	<div class="form-reload"><form action="ServletMenuCliente" method="post"> <button onclick="this.form.submit()"  class="reload" type="submit"><img class="img-reload" src="Recursos/img/recargar.png"> <img> </button></form></div>
+	
+	
 	<div class="container-rep-mov">
 				
 				<h3 class="text-center">ÚLTIMO MOVIMIENTO</h3>
 				<% 
 				if(request.getSession().getAttribute("ultimo_movimiento") != null){
 				
-				Movimiento movimiento = (Movimiento) request.getSession().getAttribute("ultimo_movimiento"); %>
+				 movimiento = (Movimiento) request.getSession().getAttribute("ultimo_movimiento"); %>
 				
 				 <table class="table" height= 100px width= 100px>
                     <thead>
@@ -196,7 +204,12 @@
                 </table>
 
               <%}%>  
-               </div> 	
+              
+              
+              
+               </div> 
+               
+               	
 
 	<div class="cartelera-avisos">
 
@@ -256,4 +269,6 @@
 		crossorigin="anonymous">
 		
 	</script>
+	
+	
 </body>

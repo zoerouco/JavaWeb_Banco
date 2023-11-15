@@ -70,8 +70,7 @@
 	</header>
 
 	<%
-		ArrayList<Movimiento> movimientosCliente = (ArrayList<Movimiento>) request
-				.getAttribute("movimientosCliente");
+		ArrayList<Movimiento> movimientosCliente = (ArrayList<Movimiento>) request.getSession().getAttribute("movimientosCliente");
 		if (movimientosCliente != null) {
 	%>
 	<main>
