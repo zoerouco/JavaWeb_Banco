@@ -83,13 +83,13 @@
 	    	<h2> Prestamos: </h2>
 	    	<form action="ServletListarPrestamos" method="post">
 	    		<div class="d-flex justify-content-center mb-3">
-		    		<button type="sumbit" class="btn btn-light" name="mostrarTodos">Quitar filtros</button>
+		    		<button type="sumbit" class="btn btn-light" name="estado" value="mostrarTodos">Quitar filtros</button>
 		    	</div>
 		    	<div class="d-flex justify-content-center mb-3">
 			    	<div class="btn-group" role="group" aria-label="Basic mixed styles example">
-			    		<button type="submit" class="btn btn-success" name="aprobado">Aprobados</button>
-					  	<button type="submit" class="btn btn-warning" name="solicitado">Solicitados</button>
-					  	<button type="submit" class="btn btn-danger" name="rechazado">Rechazados</button>
+			    		<button type="submit" class="btn btn-success" name="estado" value="Aprobado">Aprobados</button>
+					  	<button type="submit" class="btn btn-warning" name="estado" value="Solicitado">Solicitados</button>
+					  	<button type="submit" class="btn btn-danger" name="estado" value="Rechazado">Rechazados</button>
 					</div>
 				</div>
 		        <table class="table">
@@ -125,15 +125,13 @@
 		    </table>
 		    <div class="d-flex justify-content-center mb-3">
 			    <nav aria-label="...">
-	  				<ul class="pagination pagination-lg">
-		    			<% for (int i = 1; i <= totalPages; i++) {
-		        				if (i == currentPage) { %>
-		          					<li class="page-item active"><a class="page-link" href="#"><%= i %></a></li>
-		    				  <%} else {%>
-		          					<li class="page-item"><a class="page-link" href="ServletListarPrestamos?page=<%= i %>"><%= i %></a></li>
-							  <%}
-		        		   }%>
-	  				</ul>
+				    <ul class="pagination pagination-lg">
+			            <% for (int i = 1; i <= totalPages; i++) { %>
+			                <li class="page-item <%= i == currentPage ? "active" : "" %>">
+		                        <a class="page-link" href="ServletListarPrestamos?page=<%= i %>&estado=<%= request.getParameter("estado") %>"><%= i %></a>
+		                    </li>
+			            <% } %>
+			        </ul>
 				</nav>
 			</div>
 		</form>

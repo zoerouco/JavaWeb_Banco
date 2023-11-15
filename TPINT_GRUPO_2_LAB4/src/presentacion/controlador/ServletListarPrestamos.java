@@ -29,7 +29,18 @@ public class ServletListarPrestamos extends HttpServlet {
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		request.setAttribute("admin_actual", usuario);
 		
-		ArrayList<Prestamo> listaPrestamos = pneg.readAll();
+		String estado = request.getParameter("estado");
+		ArrayList<Prestamo> listaPrestamos = new ArrayList<>();
+		
+		if (estado != null && !estado.isEmpty()) {
+			if(estado.equalsIgnoreCase("mostrarTodos")) {
+				listaPrestamos = pneg.readAll();
+			} else {
+				listaPrestamos = pneg.readAllByEstado(estado);
+			}
+	    } else {
+	        listaPrestamos = pneg.readAll();
+	    }
 		request.setAttribute("listaPrestamos", listaPrestamos);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoPrestamos.jsp");   
@@ -40,22 +51,19 @@ public class ServletListarPrestamos extends HttpServlet {
 		usuario = (Usuario) request.getSession().getAttribute("usuario");  
 		request.setAttribute("admin_actual", usuario);
 		
+		String estado = request.getParameter("estado");
 		ArrayList<Prestamo> listaPrestamos = new ArrayList<>();
 		
-		if(request.getParameter("mostrarTodos") != null) {
-			listaPrestamos = pneg.readAll();
-			request.setAttribute("listaPrestamos", listaPrestamos);
-		}
-		if(request.getParameter("aprobado") != null) {
-			listaPrestamos = pneg.readAllByEstado("Aprobado");
-			request.setAttribute("listaPrestamos", listaPrestamos);
-		} else if (request.getParameter("solicitado") != null) {
-			listaPrestamos = pneg.readAllByEstado("Solicitado");
-			request.setAttribute("listaPrestamos", listaPrestamos);
-		} else if (request.getParameter("rechazado") != null) {
-			listaPrestamos = pneg.readAllByEstado("Rechazado");
-			request.setAttribute("listaPrestamos", listaPrestamos);
-		}
+		if (estado != null && !estado.isEmpty()) {
+			if(estado.equalsIgnoreCase("mostrarTodos")) {
+				listaPrestamos = pneg.readAll();
+			} else {
+				listaPrestamos = pneg.readAllByEstado(estado);
+			}
+	    } else {
+	        listaPrestamos = pneg.readAll();
+	    }
+		request.setAttribute("listaPrestamos", listaPrestamos);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoPrestamos.jsp");   
 	    rd.forward(request, response);
