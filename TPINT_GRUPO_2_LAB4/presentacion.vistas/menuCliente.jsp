@@ -56,7 +56,9 @@
 		<h1
 			style="color: #ffefd5; font-weight: bolder; margin-top: 10px; margin-left: 10px;">GLOBANK</h1>
 
-
+	</div>
+	<div class= "div-btn-logout"> 
+	<a class="btn btn-danger" href="logOut.jsp" role="button">LogOut</a>
 	</div>
 	</header>
 
