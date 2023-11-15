@@ -126,7 +126,7 @@
 		    <br>
 		     <label for="province">Provincia: </label>
 		     <label><%= cliente.getId_provincia().getNombre_provincia() %></label>
-             <select name="province" name="province"> <!--onchange="habilitarLocalidades()"-- >
+             <select name="province" name="province">
                             <% ArrayList <Provincia> provincias = (ArrayList <Provincia>)request.getAttribute("listaProvincias");
                         		if (provincias != null){
                         			for(Provincia provincia : provincias) { %>
@@ -140,11 +140,10 @@
 		    <label for="locality">Localidad: </label>
 		    <label><%= cliente.getId_localidades().getNombre_localidad() %></label>
                         <br> 
-                        <select name="locality" name="locality"> <!--disabled-->
+                        <select name="locality" name="locality">
                             <% ArrayList <Localidad> localidades = (ArrayList <Localidad>)request.getAttribute("listaLocalidades");
                         		if (localidades != null){
                         			for(Localidad localidad : localidades) { %>
-                        				<!--<option value="">Selecciona una provincia primero</option>-->
                         				<option value="<%=localidad.getId()%>"><%=localidad.getNombre_localidad()%></option>
                         			<%}
                         		} else { %>
