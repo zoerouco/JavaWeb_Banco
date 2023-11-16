@@ -165,8 +165,14 @@
 		
                      <tr>
                      	<td><%=movimiento.getFecha_Transaccion()%></td>
-                        <td> <%= movimiento.getCBU().getCBU()%></td>
-                        <td> <%= movimiento.getCBU_Destino().getCBU()%></td>
+                     	<% if(movimiento.getTipoMovimiento().getId_tipo().compareTo("transferencia_recibida") == 0 
+					|| movimiento.getTipoMovimiento().getId_tipo().compareTo("alta_prestamo") == 0 || movimiento.getTipoMovimiento().getId_tipo().compareTo("alta_cuenta") == 0 ){%>
+					<td><%=movimiento.getCBU_Destino().getCBU()%></td>
+					<td><%=movimiento.getCBU().getCBU()%></td>
+					<%}else{ %>
+					<td><%=movimiento.getCBU().getCBU()%></td>
+					<td><%=movimiento.getCBU_Destino().getCBU()%></td>
+					<%} %>
                         <td> <%="$ " +  movimiento.getImporte()%></td>
                         <td> 	<%
 							switch (movimiento.getDetalle()) {
