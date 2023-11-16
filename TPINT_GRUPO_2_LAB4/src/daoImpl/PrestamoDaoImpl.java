@@ -103,7 +103,7 @@ public class PrestamoDaoImpl implements PrestamoDao{
 	}
 	
 	public ArrayList<Prestamo> readAllByEstado(String estado) {
-		String query = "SELECT * FROM prestamos WHERE estado = '" + estado + "'";
+		String query = "SELECT * FROM prestamos WHERE estado = '" + estado + "' ORDER BY id_prestamo DESC";
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
