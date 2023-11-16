@@ -148,7 +148,8 @@ DELIMITER ;
 		
 		BEGIN
 			INSERT INTO movimientos(CBU, id_tipo, CBU_destino, fecha, detalle, importe, estado)
-			VALUES ('1000000000000000000001', 'alta_cuenta', NEW.CBU, NOW(), 'alta_cuenta',NEW.saldo, 1);
+			VALUES ('1000000000000000000001', 'alta_cuenta', NEW.CBU, NOW(), 'alta_cuenta',NEW.saldo, 1),
+			(NEW.CBU, 'alta_cuenta', '1000000000000000000001', NOW(), 'alta_cuenta',NEW.saldo, 1);
 		END;
 		// DELIMITER ;
 		

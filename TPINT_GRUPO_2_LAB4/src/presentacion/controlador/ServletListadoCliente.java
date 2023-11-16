@@ -98,16 +98,11 @@ public class ServletListadoCliente extends HttpServlet {
 		if (request.getParameter("btnBuscarXDNI") != null) {
 			ArrayList<Cliente> lista = new ArrayList<Cliente>();
 			String dni = request.getParameter("DNI"); 
-			if (cneg.getClientexDNI(dni) != null) {
-				Cliente cliente = cneg.getClientexDNI(dni);
-				lista.add(cliente);
-			    request.setAttribute("listaClientes", lista);
-			    
-			} else {
-				errorMessage="El DNI ingresado no existe";
-				request.setAttribute("errorMessage", errorMessage);
-			    request.setAttribute("listaClientes", lista);
-			}
+			lista = cneg.getClientexDNILike(dni);
+			request.setAttribute("listaClientes", lista);
+		} else {
+			errorMessage="El DNI ingresado no existe";
+			request.setAttribute("errorMessage", errorMessage);
 		}
 			
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCliente.jsp");   

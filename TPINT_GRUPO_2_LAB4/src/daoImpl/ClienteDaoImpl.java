@@ -443,7 +443,7 @@ public class ClienteDaoImpl implements ClienteDao{
 	@Override
 	public ArrayList<Cliente> getClientexDNILike(String DNI) {
 		ArrayList<Cliente> clientes = new ArrayList<>();
-	    String consultaSQL = "SELECT * FROM clientes WHERE DNI LIKE '?%'";
+	    String consultaSQL = "SELECT * FROM clientes WHERE DNI LIKE '%" + DNI +"%'";
 	    
 	    try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -466,26 +466,17 @@ public class ClienteDaoImpl implements ClienteDao{
 					//clases necesarias para crear un obj cliente
 					Genero genero = new Genero();
 					Nacionalidad nacionalidad = new Nacionalidad();
-				
 					Provincia provincia = new Provincia();
 					Localidad localidad = new Localidad();
 					
 					cliente.setDNI(resultSet.getString("DNI"));
-					genero.setId_genero(resultSet.getString("id_genero"));
-					genero.setDescripcion(resultSet.getString("descripcion"));
+					genero.setId_genero(resultSet.getString("id_genero"));	
 					cliente.setId_genero(genero);
-					nacionalidad.setId(resultSet.getInt("id_nacionalidad"));
-					nacionalidad.setCode(resultSet.getShort("code"));
-					nacionalidad.setIso3166a1(resultSet.getString("iso3166a1"));
-					nacionalidad.setIso3166a2(resultSet.getString("iso3166a2"));
-					nacionalidad.setNombre_pais(resultSet.getString("nombre_pais"));					
+					nacionalidad.setId(resultSet.getInt("id_nacionalidad"));		
 					cliente.setId_nacionalidad(nacionalidad);
-					provincia.setId(resultSet.getInt("id_provincia"));
-					provincia.setNombre_provincia(resultSet.getString("nombre_provincia"));					
+					provincia.setId(resultSet.getInt("id_provincia"));				
 					cliente.setId_provincia(provincia);
-					localidad.setId(resultSet.getInt("id_localidades"));
-					localidad.setId_provincia(provincia);
-					localidad.setNombre_localidad(resultSet.getString("nombre_localidad"));					
+					localidad.setId(resultSet.getInt("id_localidades"));		
 					cliente.setId_localidades(localidad);
 					cliente.setCUIL(resultSet.getString("CUIL"));
 					cliente.setNombre(resultSet.getString("nombre"));
