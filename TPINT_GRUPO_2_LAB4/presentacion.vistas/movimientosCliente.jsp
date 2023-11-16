@@ -56,8 +56,7 @@
 				href="ServletMovimientos"> Mis movimientos</a></li>
 			<li class="links-menu"><a class="links-menu"
 				href="ServletCliente"> Mis préstamos </a></li>
-			<li class="links-menu"><a class="links-menu" href="#">Ajustes
-					de la cuenta</a></li>
+			<li class="links-menu"><a class="links-menu" href="ServletCliente">Mis pagos</a></li>
 
 			<li class="mensaje-bienvenida">
 				<h1 style="margin: 0;">
