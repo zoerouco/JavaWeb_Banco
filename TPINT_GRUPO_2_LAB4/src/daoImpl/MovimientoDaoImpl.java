@@ -38,6 +38,11 @@ public class MovimientoDaoImpl implements MovimientoDao {
 			" WHERE CBU = ?" +
 			" ORDER BY id_movimiento DESC";
 	
+	private static final String movimientosXImporte = "SELECT * FROM movimientos" + 
+			" INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo" + 
+			" WHERE CBU = ? AND importe > ?" +
+			" ORDER BY id_movimiento DESC";
+	
 	
 	CuentaDaoImpl cuentaDaoImpl = new CuentaDaoImpl();
 	
@@ -250,6 +255,54 @@ public class MovimientoDaoImpl implements MovimientoDao {
 	    }
 
 	    return movimientosCliente;
+	}
+
+	@Override
+	public ArrayList<Movimiento> getMovimientosXImporte(Cuenta cuenta, Float importe) {
+		ArrayList<Movimiento> movimientosCliente = new ArrayList<Movimiento>();
+
+	    try {
+	 
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	    Conexion conexion = Conexion.getConexion();
+	
+	    try {
+	    	
+	         PreparedStatement statement = conexion.getSQLConexion().prepareStatement(movimientosXImporte);
+
+	        statement.setString(1, cuenta.getCBU());
+	        statement.setFloat(2, importe);
+	        ResultSet resultSet = statement.executeQuery();
+
+	        while (resultSet.next()) {
+	        	
+	            Movimiento movimiento = new Movimiento();
+	            Cuenta cuentaDest = new Cuenta();
+	            Tipo_Movimiento tipoMovimiento = new Tipo_Movimiento();
+	            
+	            tipoMovimiento.setId_tipo(resultSet.getString("id_tipo"));
+	            tipoMovimiento.setDescripcion(resultSet.getString("descripcion"));
+	            cuentaDest.setCBU(resultSet.getString(4));
+
+	            movimiento.setId_movimiento(resultSet.getInt("id_movimiento"));
+	            movimiento.setCBU(cuenta);
+	            movimiento.setCBU_Destino(cuentaDest);
+	            movimiento.setDetalle(resultSet.getString("detalle"));
+	            movimiento.setEstado(resultSet.getBoolean("estado"));
+	            movimiento.setFecha_Transaccion(resultSet.getTimestamp("fecha").toLocalDateTime());
+	            movimiento.setImporte(resultSet.getInt("importe"));
+	            movimiento.setTipoMovimiento(tipoMovimiento);
+
+	            movimientosCliente.add(movimiento);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		return movimientosCliente;
 	}
 }
 

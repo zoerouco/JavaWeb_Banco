@@ -80,7 +80,6 @@
 	<main>
 
 	<div class="container-table" id="table-movimientos">
-
 		<%
 			int itemsPerPage = 6;
 				int totalPages = (int) Math.ceil((double) movimientosCliente.size() / itemsPerPage);
@@ -91,8 +90,16 @@
 				int startIndex = (currentPage - 1) * itemsPerPage;
 				int endIndex = Math.min(startIndex + itemsPerPage, movimientosCliente.size());
 		%>
-
+		
+		
 		<h1 style="text-align: center; margin-top: 25px; margin-bottom: 35px;">MIS MOVIMIENTOS</h1>
+		<form action="ServletMovimientos" method="GET">
+		<p>Buscar movimientos mayores que $ <input required type="number" name="importe_filtro"></input>	</p>	
+ 		<button class="buttons" type="submit" name="estado" value="Buscar" id=btnBuscarxImporte>Buscar</button>
+		
+		</form>
+	
+ 		
 
 		<table class="table">
 			<thead>
@@ -123,7 +130,7 @@
 					<td><%=movimiento.getCBU_Destino().getCBU()%></td>
 					<%} %>
 					<td><%=movimiento.getFecha_Transaccion()%></td>
-					<td><%=Utils.formatMoney(movimiento.getImporte())%></td>
+					<td><%=Utils.formatMoney(movimiento.getImporte()) %></td>
 					<td>
 						<%
 							switch (movimiento.getDetalle()) {
@@ -183,10 +190,10 @@
 			style="display: flex; flex-direction: row; align-items: center;">
 
 			<p style="margin-right: 20px;">
-				Importe: <input type="number" name="importe_transferir"></input>
+				Importe: <input required type="number" min=1 name="importe_transferir"></input>
 			</p>
 			<p style="margin-right: 20px;">
-				Indique CBU: <input type="number" name="cbu_destino"></input>
+				Indique CBU: <input required type="number" name="cbu_destino"></input>
 			</p>
 
 			<input type="submit" name="btnMovimiento" value="Transferir"

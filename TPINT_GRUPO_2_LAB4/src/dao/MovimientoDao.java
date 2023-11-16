@@ -15,4 +15,5 @@ public interface MovimientoDao {
 	public ArrayList<Movimiento> getMovimientosXCuenta(Cuenta cuenta);
 	public int getUltimoID();
 	public ArrayList<Movimiento> getMovimientosXFechas(LocalDateTime desde, LocalDateTime hasta);
+	public ArrayList<Movimiento> getMovimientosXImporte(Cuenta cuenta, Float importe);
 }
