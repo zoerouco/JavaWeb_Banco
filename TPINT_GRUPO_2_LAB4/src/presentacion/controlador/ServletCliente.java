@@ -131,28 +131,6 @@ public class ServletCliente extends HttpServlet {
 		request.setAttribute("prestamosClienteAux", prestamosClienteAux);
 		
 		
-		/*if (request.getParameter("btnBuscarXCbu") != null) {
-
-			String cbu = request.getParameter("filtro-cuentas-cliente");
-			ArrayList<Prestamo> prestamosxCBU = prestamoN.getPrestamosxCBU(cbu, cuentas_cliente_actual);
-			ArrayList<Prestamo> prestamosClienteAux = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
-			ArrayList<Prestamo> prestamosCliente = null;
-
-			request.setAttribute("filtro", prestamosxCBU);
-			request.setAttribute("hayFiltro", true);
-
-			request.setAttribute("prestamosCliente", prestamosCliente);
-			request.setAttribute("prestamosClienteAux", prestamosClienteAux);
-
-		}
-
-		if (request.getParameter("btnLimpiarFiltro") != null) {
-
-			request.setAttribute("hayFiltro", false);
-			ArrayList<Prestamo> prestamosxCBU = null;
-			ArrayList<Prestamo> prestamosCliente = prestamoN.getPrestamoxCuentas(cuentas_cliente_actual);
-			request.setAttribute("prestamosCliente", prestamosCliente);
-		}*/
 
 		if (request.getParameter("btnConsultarPagos") != null) {
 

@@ -27,30 +27,6 @@ flex-wrap: wrap;
 }
 
 
-
-.reload{height: 64px;width: 64px;border-style: none;background: aliceblue;margin-left: 30px;}
-
-.form-reload{
-	display: flex;
-	width: 100%;
-	justify-content: center;
-	background: aliceblue;
-}
-
-.img-reload{
-	height: 64px;
-	width: 64px;
-}
-
-
-.form-reload:hover{
-	cursor: pointer;
-}
-
-.img-reload:hover{
-	cursor: pointer;
-}
-
 .panel-cliente img{
 height: 200px;	
 width: 200px;
