@@ -19,6 +19,7 @@ import entidades.Prestamo;
 import entidades.PrestamosXmovimientos;
 import entidades.Tipo_Movimiento;
 import entidades.Usuario;
+import excepciones.SaldoInsuficienteException;
 import negocioImpl.ClienteNegocioImpl;
 import negocioImpl.CuentaNegocioImpl;
 import negocioImpl.MovimientoImpl;
@@ -164,6 +165,8 @@ public class ServletCliente extends HttpServlet {
 		}
 
 		if (request.getParameter("btnRealizarpago") != null) {
+			
+		
 
 			Cuenta cuentaOrigen = new Cuenta();
 			Cuenta cuentaDestino = cuentaN.getCuentaxCBU("1000000000000000000001");
@@ -176,6 +179,16 @@ public class ServletCliente extends HttpServlet {
 			cuentaOrigen = cuentaN.getCuentaxCBU(cbu);
 			tm = tmN.getTipo_MovimientoByID("pago_prestamo");
 			float importe_cuota = prestamo_actual.getMonto_x_mes();
+			
+			try {
+				cuentaN.validarSaldo(cuentaOrigen, importe_cuota);
+			}
+			catch(SaldoInsuficienteException ex) {
+				String url = "/prestamosCliente.jsp";
+				request.setAttribute("saldo_insuficiente", ex.getMessage());
+				request.getRequestDispatcher(url).forward(request, response);
+				return;
+			}
 
 			movimiento.setCBU(cuentaOrigen);
 			movimiento.setCBU_Destino(cuentaDestino);

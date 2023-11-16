@@ -463,12 +463,23 @@
 	if((Boolean)request.getAttribute("pagoCorrectamente")){
 		%>
 		<h4> Tu pago fue realizado correctamente.</h4>
-		
 	<%	
-	}else{%>
-		<h4> El pago no se pudo realizar.</h4>
+	}else{
+		%>
+		<h4> Error al realizar el pago - intente nuevamente.</h4>
+	<% }
 	
-	<%} }%>
+	}else{
+		 String saldo_insuficiente = (String) request.getAttribute("saldo_insuficiente");
+		if(saldo_insuficiente != null && saldo_insuficiente.length() > 0){
+		%>
+		<div class="alta-movimiento-error">
+		   <%=saldo_insuficiente %>
+		</div> 
+	
+		<%} %>
+	
+	<%} %>
 	
 
 </section>
