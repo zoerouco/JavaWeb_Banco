@@ -134,7 +134,7 @@
                                 <tr>
                                      <td><%= prestamo.getId_prestamo() %></td>
                                     <td><%= prestamo.getCBU().getCBU() %></td>
-                                    <td><%= prestamo.getFecha_realizacion() %></td>
+                                    <td><%= Utils.formateador(prestamo.getFecha_realizacion()) %></td>
                                     <td><%= Utils.formatMoney(prestamo.getImporte_pedido())%></td>
                                      <td><%=Utils.formatMoney(prestamo.getImporte_con_intereses()) %></td>
                                     <td><%=Utils.formatMoney(prestamo.getMonto_x_mes()) %></td>
@@ -175,12 +175,9 @@
         </form>
             </div>
             
- <%}else if(prestamosCliente != null){ %>
- 
-    <div class="container-table" id="table-prestamos">
-        <%
-    		
-            int itemsPerPage = 6;
+ <%}else if(prestamosCliente != null){
+	  
+	        int itemsPerPage = 6;
             int totalPages = (int) Math.ceil((double) prestamosCliente.size() / itemsPerPage);
             int currentPage = 1;
             if (request.getParameter("page") != null) {
@@ -189,11 +186,14 @@
             int startIndex = (currentPage - 1) * itemsPerPage;
             int endIndex = Math.min(startIndex + itemsPerPage, prestamosCliente.size());
         %>
-        
-        
+ 
+    <div class="container-table" id="table-prestamos">
+       
+       
        <form action="ServletCliente" method="Get" class="buscarXCbu">
       
         <p>Buscar préstamos por CBU:</p>
+        
          <select required name="filtro-cuentas-cliente" id="cuentas-cliente">
                     <%
                         ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
@@ -231,6 +231,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                    
                         <%
                             for (int i = startIndex; i < endIndex; i++) {
                                 Prestamo prestamo = prestamosCliente.get(i);
@@ -272,9 +273,6 @@
                     }
                 %>
                    </div>
-                   
-                  
-       
         
             </div>
  
@@ -397,7 +395,7 @@
                                 <tr>
                                     <td><%= PrestamosXmovimientos.getId_movimiento().getId_movimiento() %></td>
                                     <td><%= PrestamosXmovimientos.getCBU().getCBU()%></td>
-                                    <td><%= PrestamosXmovimientos.getId_movimiento().getFecha_Transaccion() %></td>
+                                    <td><%= Utils.formateador(PrestamosXmovimientos.getId_movimiento().getFecha_Transaccion()) %></td>
                                     <td><%= Utils.formatMoney(PrestamosXmovimientos.getId_movimiento().getImporte()) %></td>
                                     <td><%= i + 1 %></td>
 								     <td><img class="icon-estado" src="Recursos/img/tick-verde.png"></td>                

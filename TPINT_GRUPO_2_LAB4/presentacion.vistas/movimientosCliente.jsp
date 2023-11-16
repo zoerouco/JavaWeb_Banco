@@ -127,7 +127,7 @@
 					<td><%=movimiento.getCBU().getCBU()%></td>
 					<td><%=movimiento.getCBU_Destino().getCBU()%></td>
 					<%} %>
-					<td><%=movimiento.getFecha_Transaccion()%></td>
+					<td><%=Utils.formateador(movimiento.getFecha_Transaccion())%></td>
 					<td><%=Utils.formatMoney(movimiento.getImporte()) %></td>
 					<td>
 						<%
