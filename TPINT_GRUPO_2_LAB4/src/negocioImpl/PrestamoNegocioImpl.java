@@ -128,4 +128,24 @@ public class PrestamoNegocioImpl implements PrestamoNegocio{
 		return update;
 
 	}
+
+	@Override
+	public ArrayList<Float> cantPrestamosXEstado() {
+		ArrayList<Prestamo> listaAprobado = pdao.readAllByEstado("Aprobado");
+		ArrayList<Prestamo> listaRechazado = pdao.readAllByEstado("Rechazado");
+		ArrayList<Prestamo> listaSolicitados = pdao.readAllByEstado("Solicitado");
+		
+		int cantAprobados = listaAprobado.size(), cantRechazados = listaRechazado.size(), cantSolicitados = listaSolicitados.size();
+		int total = cantAprobados + cantRechazados + cantSolicitados;
+		float porcentajeAprobados = ((float)cantAprobados/total)*100;
+		float porcentajeRechazados = ((float)cantRechazados/total)*100;
+		float porcentajeSolicitados = ((float)cantSolicitados/total)*100;
+		
+		ArrayList<Float> cantPrestamos = new ArrayList<>();
+		cantPrestamos.add(porcentajeAprobados);
+		cantPrestamos.add(porcentajeRechazados);
+		cantPrestamos.add(porcentajeSolicitados);
+		
+		return cantPrestamos;
+	}
 }

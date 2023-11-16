@@ -11,9 +11,9 @@ import entidades.Prestamo;
 
 public class PrestamoDaoImpl implements PrestamoDao{
 	
-	private static final String readall = "SELECT * FROM prestamos";
-	private static final String getPrestamosxCBU = "SELECT * FROM prestamos where CBU = ?";
-	private static final String getPrestamoxID = "SELECT * FROM prestamos where id_prestamo = ?";
+	private static final String readall = "SELECT * FROM prestamos ORDER BY id_prestamo DESC";
+	private static final String getPrestamosxCBU = "SELECT * FROM prestamos where CBU = ? ORDER BY id_prestamo DESC";
+	private static final String getPrestamoxID = "SELECT * FROM prestamos where id_prestamo = ? ORDER BY id_prestamo DESC";
 	private static final String update = "UPDATE prestamos SET estado = ? WHERE id_prestamo = ?";
 		
 	@Override

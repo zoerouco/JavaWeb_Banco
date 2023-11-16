@@ -9,11 +9,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import daoImpl.PrestamoDaoImpl;
 import entidades.Cuenta;
 import entidades.Movimiento;
+import entidades.Prestamo;
 import entidades.Usuario;
 import negocioImpl.CuentaNegocioImpl;
 import negocioImpl.MovimientoImpl;
+import negocioImpl.PrestamoNegocioImpl;
+import sun.net.www.content.text.plain;
 
 
 @WebServlet("/ServletMenuAdmin")
@@ -23,6 +28,8 @@ public class ServletMenuAdmin extends HttpServlet {
 	Movimiento movimiento = new Movimiento();
 	MovimientoImpl mneg = new MovimientoImpl();
 	CuentaNegocioImpl cuenegImpl = new CuentaNegocioImpl();
+	Prestamo prestamo = new Prestamo();
+	PrestamoNegocioImpl pneg = new PrestamoNegocioImpl();
 	
 	Usuario usuario = new Usuario();
 
@@ -37,6 +44,9 @@ public class ServletMenuAdmin extends HttpServlet {
 		
 		Cuenta cuentaAdmin = cuenegImpl.getCuentaxCBU("1000000000000000000001");
 		request.getSession().setAttribute("cuentaAdmin", cuentaAdmin);
+		
+		ArrayList<Float> listaPrestamos = pneg.cantPrestamosXEstado();
+		request.setAttribute("listaPrestamos", listaPrestamos);
 		
 		ArrayList<Movimiento> listaMovimientos = new ArrayList<>();
 		listaMovimientos = mneg.readAll();
@@ -70,6 +80,9 @@ public class ServletMenuAdmin extends HttpServlet {
 		
 		Cuenta cuentaAdmin = cuenegImpl.getCuentaxCBU("1000000000000000000001");
 		request.getSession().setAttribute("cuentaAdmin", cuentaAdmin);
+		
+		ArrayList<Float> listaPrestamos = pneg.cantPrestamosXEstado();
+		request.setAttribute("listaPrestamos", listaPrestamos);
 		
 		ArrayList<Movimiento> listaMovimientos = new ArrayList<>();
 		listaMovimientos = mneg.readAll();

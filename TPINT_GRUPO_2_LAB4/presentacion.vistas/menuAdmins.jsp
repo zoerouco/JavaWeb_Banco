@@ -5,6 +5,7 @@
 <%@page import="entidades.Usuario" %>
 <%@page import="entidades.Cliente" %>
 <%@ page import="entidades.Movimiento"%>
+<%@ page import="entidades.Prestamo"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -76,6 +77,7 @@
         </div> 
     </header>
     <% ArrayList<Movimiento> movimientos = (ArrayList<Movimiento>) request.getAttribute("listaMovimientos");
+       ArrayList<Float> listaPrestamos = (ArrayList<Float>) request.getAttribute("listaPrestamos");
        int itemsPerPage = 5;
 	   int totalPages = (int) Math.ceil((double) movimientos.size() / itemsPerPage);
 	   int currentPage = 1; 
@@ -140,6 +142,13 @@
 				</nav>
 			</div>
 			</form>
+		</div>
+		
+		<h2 style="margin-top: 40px;"> Estadísticas de prestamos por estado: </h2>
+		<div class="d-flex justify-content-center mb-3">
+			<h3 style="margin-right: 30px;">Aprobados: <%=listaPrestamos.get(0)%>%</h3>
+			<h3 style="margin-right: 30px;">Rechazados: <%=listaPrestamos.get(1)%>%</h3>
+		    <h3 style="margin-right: 30px;">Solicitados: <%=listaPrestamos.get(2)%>%</h3>
 		</div>
 		
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
