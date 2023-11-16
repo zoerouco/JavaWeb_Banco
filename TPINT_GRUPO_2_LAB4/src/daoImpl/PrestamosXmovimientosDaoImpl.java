@@ -90,7 +90,7 @@ public class PrestamosXmovimientosDaoImpl implements PrestamosXmovimientosDao {
 				
 				prestamo.setId_prestamo(resultSet.getInt("id_prestamo"));
 				prestamo.setCBU(cuenta_solicitante);
-				prestamo.setFecha_realizacion(resultSet.getDate("fecha_realizacion"));
+				prestamo.setFecha_realizacion(resultSet.getTimestamp(("fecha_realizacion")).toLocalDateTime());
 				prestamo.setImporte_pedido(resultSet.getFloat("importe_pedido"));
 				prestamo.setCant_cuotas(resultSet.getInt("cantidad_cuotas"));
 				prestamo.setMonto_x_mes(resultSet.getFloat("monto_x_mes"));

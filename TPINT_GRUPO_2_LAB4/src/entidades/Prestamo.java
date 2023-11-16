@@ -1,13 +1,25 @@
 package entidades;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 
 public class Prestamo {
 	
 	private int id_prestamo;
 	private Cuenta CBU;
-	private Date fecha_realizacion;
+	private LocalDateTime fecha_realizacion;
+	
+	
+	public void setFecha_realizacion(LocalDateTime fecha_realizacion) {
+		this.fecha_realizacion = fecha_realizacion;
+	}
+	
+	public LocalDateTime getFecha_realizacion() {
+		return fecha_realizacion;
+	}
+
+
 	private float importe_con_intereses;
 	private float importe_pedido;
 	private float monto_x_mes;
@@ -38,13 +50,6 @@ public class Prestamo {
 		CBU = cBU;
 	}
 
-	public Date getFecha_realizacion() {
-		return fecha_realizacion;
-	}
-
-	public void setFecha_realizacion(Date fecha_realizacion) {
-		this.fecha_realizacion = fecha_realizacion;
-	}
 
 	public float getImporte_con_intereses() {
 		return importe_con_intereses;

@@ -136,13 +136,10 @@
 			<h3>NÚMERO DE CUENTA</h3>
 			<label><%=cuenta.getNro_cuenta()%></label>
 			<h3>SALDO</h3>
-			<label><%=Utils.formatMoney(cuenta.getSaldo())%></label>
+			<label><%= Utils.formatMoney(cuenta.getSaldo())%></label>
 		</div>
 
 	</div>
-	
-	
-	<div class="form-reload"><form action="ServletMenuCliente" method="post"> <button name="btnReload" onclick="this.form.submit()"  class="reload" type="submit"><img class="img-reload" src="Recursos/img/recargar.png"> <img> </button></form></div>
 	
 	
 	<div class="container-rep-mov">
@@ -170,7 +167,7 @@
                      	<td><%=movimiento.getFecha_Transaccion()%></td>
                         <td> <%= movimiento.getCBU().getCBU()%></td>
                         <td> <%= movimiento.getCBU_Destino().getCBU()%></td>
-                        <td> <%= movimiento.getImporte()%></td>
+                        <td> <%="$ " +  movimiento.getImporte()%></td>
                         <td> 	<%
 							switch (movimiento.getDetalle()) {
 									case "transferencia_enviada":

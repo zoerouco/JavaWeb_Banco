@@ -84,7 +84,7 @@ public class PrestamoDaoImpl implements PrestamoDao{
 				prestamo.setId_prestamo(resultSet.getInt("id_prestamo"));
 				cuenta.setCBU(resultSet.getString("CBU")); //habria que llamar a lo demas en la query
 				prestamo.setCBU(cuenta);
-				prestamo.setFecha_realizacion(resultSet.getDate("fecha_realizacion"));
+				prestamo.setFecha_realizacion(resultSet.getTimestamp(("fecha_realizacion")).toLocalDateTime());
 				prestamo.setImporte_con_intereses(resultSet.getFloat("importe_con_intereses"));
 				prestamo.setImporte_pedido(resultSet.getFloat("importe_pedido"));
 				prestamo.setMonto_x_mes(resultSet.getFloat("monto_x_mes"));
@@ -126,7 +126,7 @@ public class PrestamoDaoImpl implements PrestamoDao{
 				prestamo.setId_prestamo(resultSet.getInt("id_prestamo"));
 				cuenta.setCBU(resultSet.getString("CBU")); //habria que llamar a lo demas en la query
 				prestamo.setCBU(cuenta);
-				prestamo.setFecha_realizacion(resultSet.getDate("fecha_realizacion"));
+				prestamo.setFecha_realizacion(resultSet.getTimestamp(("fecha_realizacion")).toLocalDateTime());
 				prestamo.setImporte_con_intereses(resultSet.getFloat("importe_con_intereses"));
 				prestamo.setImporte_pedido(resultSet.getFloat("importe_pedido"));
 				prestamo.setMonto_x_mes(resultSet.getFloat("monto_x_mes"));
@@ -214,7 +214,7 @@ public class PrestamoDaoImpl implements PrestamoDao{
 						cuenta.setNro_cuenta(cuentaAux.getNro_cuenta());
 						cuenta.setId_tipo(cuentaAux.getId_tipo());
 						prestamo.setCBU(cuenta);
-						prestamo.setFecha_realizacion(resultSet.getDate("fecha_realizacion"));
+						prestamo.setFecha_realizacion(resultSet.getTimestamp(("fecha_realizacion")).toLocalDateTime());
 						prestamo.setImporte_con_intereses(resultSet.getFloat("importe_con_intereses"));
 						prestamo.setImporte_pedido(resultSet.getFloat("importe_pedido"));
 						prestamo.setMonto_x_mes(resultSet.getFloat("monto_x_mes"));
@@ -266,7 +266,7 @@ public class PrestamoDaoImpl implements PrestamoDao{
 						prestamo.setId_prestamo(resultSet.getInt("id_prestamo"));
 						cuenta.setCBU(resultSet.getString("CBU")); 
 						prestamo.setCBU(cuenta);
-						prestamo.setFecha_realizacion(resultSet.getDate("fecha_realizacion"));
+						prestamo.setFecha_realizacion(resultSet.getTimestamp(("fecha_realizacion")).toLocalDateTime());
 						prestamo.setImporte_con_intereses(resultSet.getFloat("importe_con_intereses"));
 						prestamo.setImporte_pedido(resultSet.getFloat("importe_pedido"));
 						prestamo.setMonto_x_mes(resultSet.getFloat("monto_x_mes"));
@@ -312,7 +312,7 @@ public class PrestamoDaoImpl implements PrestamoDao{
 						prestamo.setId_prestamo(resultSet.getInt("id_prestamo"));
 						cuenta.setCBU(resultSet.getString("CBU")); 
 						prestamo.setCBU(cuenta);
-						prestamo.setFecha_realizacion(resultSet.getDate("fecha_realizacion"));
+						prestamo.setFecha_realizacion(resultSet.getTimestamp(("fecha_realizacion")).toLocalDateTime());
 						prestamo.setImporte_con_intereses(resultSet.getFloat("importe_con_intereses"));
 						prestamo.setImporte_pedido(resultSet.getFloat("importe_pedido"));
 						prestamo.setMonto_x_mes(resultSet.getFloat("monto_x_mes"));

@@ -150,11 +150,11 @@
                     </div>
                     <div class="text-layout">
                         <label for="DNI">DNI<span class="required-fields">*</span></label>
-                        <input type="number" name="DNI" min="8" max="9" placeholder=" XX-XXX-XXX" required>
+                        <input type="number" name="DNI" placeholder=" XX-XXX-XXX" required>
                     </div>
                     <div class="text-layout">
                         <label for="CUIL">CUIL<span class="required-fields">*</span></label>
-                        <input type="number" name="CUIL" min="11" max="11" placeholder=" XX-XXXXXXXX-X" required>
+                        <input type="number" name="CUIL" placeholder=" XX-XXXXXXXX-X" required>
                     </div>
                     <div class="text-layout">
                         <label for="birthdate">Fecha de nacimiento<span class="required-fields">*</span></label>
@@ -196,11 +196,11 @@
                     </div>
                     <div class="text-layout">
                         <label for="number1">Numero de telefono<span class="required-fields">*</span></label>
-                        <input type="number" min="10" max="10" name="number1" placeholder=" (11)XXXXXXXX" required>
+                        <input type="number"  name="number1" placeholder=" (11)XXXXXXXX" required>
                     </div>
                     <div class="text-layout">
                         <label for="number2">Numero de telefono secundario</label>
-                        <input type="number" min="10" max="10" name="number2">
+                        <input type="number"  name="number2">
                     </div>  
                     <div class="text-layout">
                         <label for="province">Provincia<span class="required-fields">*</span></label>

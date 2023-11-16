@@ -10,6 +10,7 @@
 <%@ page import="entidades.Usuario"%>
 <%@ page import="entidades.Cuenta"%>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="util.Utils" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -40,8 +41,6 @@
         Cuenta cuentaActual = (Cuenta) request.getSession().getAttribute("cuenta_actual");
         ArrayList <Prestamo> prestamosCliente = (ArrayList <Prestamo>) request.getAttribute("prestamosCliente");
         ArrayList<Prestamo> prestamosClienteAux =  (ArrayList<Prestamo>) request.getAttribute("prestamosClienteAux");
-        ArrayList <Prestamo> prestamosxCBU = (ArrayList <Prestamo>) request.getAttribute("filtro");
-        Boolean hayFiltro = (Boolean) request.getAttribute("hayFiltro");
     %>
 
     <header class="encabezado">
@@ -73,7 +72,7 @@
    <%
 
    
-   if(prestamosCliente != null || hayFiltro == null ) { %>
+   if(prestamosCliente != null) { %>
     <div class="container-table" id="table-prestamos">
         <%
     		
@@ -103,7 +102,7 @@
                             }
                         } else {
                     %>
-                            <option>NO HAY</option>
+                            <option>NO TIENE CUENTAS ABIERTAS.</option>
                     <%
                         }
                     %>
@@ -133,12 +132,12 @@
                                 Prestamo prestamo = prestamosCliente.get(i);
                         %>
                                 <tr>
-                                    <td><%= prestamo.getId_prestamo() %></td>
+                                     <td><%= prestamo.getId_prestamo() %></td>
                                     <td><%= prestamo.getCBU().getCBU() %></td>
                                     <td><%= prestamo.getFecha_realizacion() %></td>
-                                    <td><%= prestamo.getImporte_pedido() %></td>
-                                    <td><%= prestamo.getImporte_con_intereses() %></td>
-                                    <td><%= prestamo.getMonto_x_mes() %></td>
+                                    <td><%= Utils.formatMoney(prestamo.getImporte_pedido())%></td>
+                                     <td><%=Utils.formatMoney(prestamo.getImporte_con_intereses()) %></td>
+                                    <td><%=Utils.formatMoney(prestamo.getMonto_x_mes()) %></td>
                                     <td><%= prestamo.getCant_cuotas() %></td>
                                     <%
                                         if (prestamo.getEstado().compareTo("Solicitado") == 0) {
@@ -175,18 +174,18 @@
 
         </form>
             </div>
- <%}else if(prestamosxCBU != null && hayFiltro){ %>
+ <%}else if(prestamosCliente != null){ %>
     <div class="container-table" id="table-prestamos">
         <%
     		
             int itemsPerPage = 6;
-            int totalPages = (int) Math.ceil((double) prestamosxCBU.size() / itemsPerPage);
+            int totalPages = (int) Math.ceil((double) prestamosCliente.size() / itemsPerPage);
             int currentPage = 1;
             if (request.getParameter("page") != null) {
                 currentPage = Integer.parseInt(request.getParameter("page"));
             }
             int startIndex = (currentPage - 1) * itemsPerPage;
-            int endIndex = Math.min(startIndex + itemsPerPage, prestamosxCBU.size());
+            int endIndex = Math.min(startIndex + itemsPerPage, prestamosCliente.size());
         %>
         
         
@@ -232,15 +231,15 @@
                     <tbody>
                         <%
                             for (int i = startIndex; i < endIndex; i++) {
-                                Prestamo prestamo = prestamosxCBU.get(i);
+                                Prestamo prestamo = prestamosCliente.get(i);
                         %>
                                 <tr>
                                     <td><%= prestamo.getId_prestamo() %></td>
                                     <td><%= prestamo.getCBU().getCBU() %></td>
                                     <td><%= prestamo.getFecha_realizacion() %></td>
-                                    <td><%= prestamo.getImporte_pedido() %></td>
-                                    <td><%= prestamo.getImporte_con_intereses() %></td>
-                                    <td><%= prestamo.getMonto_x_mes() %></td>
+                                    <td><%="$" +  Utils.formatMoney(prestamo.getImporte_pedido())%></td>
+                                     <td><%="$" +  Utils.formatMoney(prestamo.getImporte_con_intereses()) %></td>
+                                    <td><%="$" +  Utils.formatMoney(prestamo.getMonto_x_mes()) %></td>
                                     <td><%= prestamo.getCant_cuotas() %></td>
                                     <%
                                         if (prestamo.getEstado().compareTo("Solicitado") == 0) {
@@ -397,7 +396,7 @@
                                     <td><%= PrestamosXmovimientos.getId_movimiento().getId_movimiento() %></td>
                                     <td><%= PrestamosXmovimientos.getCBU().getCBU()%></td>
                                     <td><%= PrestamosXmovimientos.getId_movimiento().getFecha_Transaccion() %></td>
-                                    <td><%= PrestamosXmovimientos.getId_movimiento().getImporte() %></td>
+                                    <td><%= Utils.formatMoney(PrestamosXmovimientos.getId_movimiento().getImporte()) %></td>
                                     <td><%= i + 1 %></td>
 								     <td><img class="icon-estado" src="Recursos/img/tick-verde.png"></td>                
                                     </tr>
@@ -426,7 +425,7 @@
               
               
               <h4> CUOTA N°: <%= nro_cuota  %> de <%= prestamo.getCant_cuotas() %></h4>
-              <label name="monto_x_mes" id="monto_x_mes" value=<%=prestamo.getMonto_x_mes() %>> Monto cuota: $<%= prestamo.getMonto_x_mes() %> </label>
+              <label name="monto_x_mes" id="monto_x_mes" value=<%=prestamo.getMonto_x_mes() %>> Monto cuota: <%= Utils.formatMoney(prestamo.getMonto_x_mes()) %> </label>
               
            <select required name="cbu_origen" id="cbu_origen">
                     <%
