@@ -173,7 +173,7 @@
 					<td><%=movimiento.getCBU().getCBU()%></td>
 					<td><%=movimiento.getCBU_Destino().getCBU()%></td>
 					<%} %>
-                        <td> <%="$ " +  movimiento.getImporte()%></td>
+                        <td> <%=Utils.formatMoney(movimiento.getImporte())%></td>
                         <td> 	<%
 							switch (movimiento.getDetalle()) {
 									case "transferencia_enviada":
