@@ -32,6 +32,7 @@ public class ServletListadoCliente extends HttpServlet {
 		
 		String estado = request.getParameter("estado");
 		ArrayList<Cliente> listaClientes = new ArrayList<>();
+		listaClientes = cneg.readAll();
 		
 		if (estado != null && !estado.isEmpty()) {
 			if(estado.equalsIgnoreCase("todos")) {
@@ -40,14 +41,9 @@ public class ServletListadoCliente extends HttpServlet {
 				listaClientes = cneg.readAllActivos();
 			} else if(estado.equalsIgnoreCase("inactivos")) {
 				listaClientes = cneg.readAllInactivos();
-			} else {
-				listaClientes = cneg.readAll();
 			}
-		} else {
-			listaClientes = cneg.readAll();
 		}
-		request.setAttribute("listaClientes", listaClientes);
-		
+
 		if(request.getParameter("btnBuscarXDNI") != null && !request.getParameter("btnBuscarXDNI").isEmpty()) {
 			String errorMessage= "";
 			
@@ -60,12 +56,10 @@ public class ServletListadoCliente extends HttpServlet {
 					request.setAttribute("errorMessage", errorMessage);
 				}
 			}
-		} else {
-			listaClientes = cneg.readAll();
 		}
-		
+
 		request.setAttribute("listaClientes", listaClientes);
-		
+			
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCliente.jsp");   
 	    rd.forward(request, response);
 	}
@@ -79,6 +73,7 @@ public class ServletListadoCliente extends HttpServlet {
 		
 		String estado = request.getParameter("estado");
 		ArrayList<Cliente> listaClientes = new ArrayList<>();
+		listaClientes = cneg.readAll();
 		
 		if (estado != null && !estado.isEmpty()) {
 			if(estado.equalsIgnoreCase("todos")) {
@@ -87,14 +82,9 @@ public class ServletListadoCliente extends HttpServlet {
 				listaClientes = cneg.readAllActivos();
 			} else if(estado.equalsIgnoreCase("inactivos")) {
 				listaClientes = cneg.readAllInactivos();
-			} else {
-				listaClientes = cneg.readAll();
 			}
-		} else {
-			listaClientes = cneg.readAll();
 		}
-		request.setAttribute("listaClientes", listaClientes);
-		
+
 		if(request.getParameter("btnBuscarXDNI") != null && !request.getParameter("btnBuscarXDNI").isEmpty()) {
 			String errorMessage= "";
 			
@@ -107,10 +97,8 @@ public class ServletListadoCliente extends HttpServlet {
 					request.setAttribute("errorMessage", errorMessage);
 				}
 			}
-		} else {
-			listaClientes = cneg.readAll();
 		}
-		
+
 		request.setAttribute("listaClientes", listaClientes);
 			
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCliente.jsp");   

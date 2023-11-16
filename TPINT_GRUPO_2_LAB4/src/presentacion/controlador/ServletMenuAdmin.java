@@ -46,9 +46,11 @@ public class ServletMenuAdmin extends HttpServlet {
 	        String fecha2Param = request.getParameter("fecha2");
 
 	        if (fecha1Param != null && fecha2Param != null && !fecha1Param.isEmpty() && !fecha2Param.isEmpty()) {
-	            LocalDateTime desde = LocalDateTime.parse(fecha1Param, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-	            LocalDateTime hasta = LocalDateTime.parse(fecha2Param, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-	            listaMovimientos = mneg.getMovimientosXFechas(desde, hasta);
+	        	try {
+	        		LocalDateTime desde = LocalDateTime.parse(fecha1Param, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+		            LocalDateTime hasta = LocalDateTime.parse(fecha2Param, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+		            listaMovimientos = mneg.getMovimientosXFechas(desde, hasta);
+	        	} catch (Exception e) {}
 	        } else {
 	            listaMovimientos = mneg.readAll();
 	        }
@@ -77,9 +79,11 @@ public class ServletMenuAdmin extends HttpServlet {
 	        String fecha2Param = request.getParameter("fecha2");
 
 	        if (fecha1Param != null && fecha2Param != null && !fecha1Param.isEmpty() && !fecha2Param.isEmpty()) {
-	            LocalDateTime desde = LocalDateTime.parse(fecha1Param, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-	            LocalDateTime hasta = LocalDateTime.parse(fecha2Param, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-	            listaMovimientos = mneg.getMovimientosXFechas(desde, hasta);
+	        	try {
+	        		LocalDateTime desde = LocalDateTime.parse(fecha1Param, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+		            LocalDateTime hasta = LocalDateTime.parse(fecha2Param, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+		            listaMovimientos = mneg.getMovimientosXFechas(desde, hasta);
+	        	} catch (Exception e) {}
 	        } else {
 	            listaMovimientos = mneg.readAll();
 	        }
