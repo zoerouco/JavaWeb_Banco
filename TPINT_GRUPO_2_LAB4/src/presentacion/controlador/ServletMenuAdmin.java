@@ -55,10 +55,14 @@ public class ServletMenuAdmin extends HttpServlet {
 		ArrayList<Movimiento> listaMovimientos = new ArrayList<>();
 		listaMovimientos = mneg.readAll();
 		
-		if(request.getParameter("estado") != null) {
-			LocalDateTime desde = LocalDateTime.parse(request.getParameter("fecha1"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-			LocalDateTime hasta = LocalDateTime.parse(request.getParameter("fecha2"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-			listaMovimientos = mneg.getMovimientosXFechas(desde, hasta);
+		if(request.getParameter("btnFiltrar") != null) {
+			if (request.getParameter("fecha1") != null && request.getParameter("fecha2") != null) {
+				LocalDateTime desde = LocalDateTime.parse(request.getParameter("fecha1"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+				LocalDateTime hasta = LocalDateTime.parse(request.getParameter("fecha2"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+				listaMovimientos = mneg.getMovimientosXFechas(desde, hasta);
+			} else {
+				listaMovimientos = mneg.readAll();
+			}
 		}
 		
 		request.setAttribute("listaMovimientos", listaMovimientos);
@@ -79,10 +83,14 @@ public class ServletMenuAdmin extends HttpServlet {
 		ArrayList<Movimiento> listaMovimientos = new ArrayList<>();
 		listaMovimientos = mneg.readAll();
 		
-		if(request.getParameter("estado") != null) {
-			LocalDateTime desde = LocalDateTime.parse(request.getParameter("fecha1"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-			LocalDateTime hasta = LocalDateTime.parse(request.getParameter("fecha2"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
-			listaMovimientos = mneg.getMovimientosXFechas(desde, hasta);
+		if(request.getParameter("btnFiltrar") != null) {
+			if (request.getParameter("fecha1") != null && request.getParameter("fecha2") != null) {
+				LocalDateTime desde = LocalDateTime.parse(request.getParameter("fecha1"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+				LocalDateTime hasta = LocalDateTime.parse(request.getParameter("fecha2"), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
+				listaMovimientos = mneg.getMovimientosXFechas(desde, hasta);
+			} else {
+				listaMovimientos = mneg.readAll();
+			}
 		}
 		
 		request.setAttribute("listaMovimientos", listaMovimientos);

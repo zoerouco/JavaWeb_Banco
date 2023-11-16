@@ -91,7 +91,7 @@
 			    		<label>Seleccione dos fechas:<span class="required-fields" ></span></label>
 			        	<input type="datetime-Local" name="fecha1" required>
 			        	<input type="datetime-Local" name="fecha2" required>
-			        	<input type="submit" id="button" name="estado" value="Filtrar" style="width: 80px;">
+			        	<input type="submit" id="button" name="btnFiltrar" value="Filtrar" style="width: 80px;">
 					</p>
 				</div>
 		        <table class="table">
@@ -128,18 +128,16 @@
 		        </tbody>
 		    </table>
 		    <div class="d-flex justify-content-center mb-3">
-				    <nav aria-label="...">
-		  				<ul class="pagination pagination-lg">
-			    			<% for (int i = 1; i <= totalPages; i++) {
-			        				if (i == currentPage) { %>
-			          					<li class="page-item active"><a class="page-link" href="#"><%= i %></a></li>
-			    				  <%} else {%>
-			          					<li class="page-item"><a class="page-link" href="ServletMenuAdmin?page=<%= i %>"><%= i %></a></li>
-								  <%}
-			        		   }%>
-		  				</ul>
-					</nav>
-				</div>
+			    <nav aria-label="...">
+				    <ul class="pagination pagination-lg">
+			            <% for (int i = 1; i <= totalPages; i++) { %>
+			                <li class="page-item <%= i == currentPage ? "active" : "" %>">
+		                        <a class="page-link" href="ServletMenuAdmin?page=<%= i %>&fecha1=<%= request.getParameter("fecha1") %>&fecha2=<%= request.getParameter("fecha2") %>"><%= i %></a>
+		                    </li>
+			            <% } %>
+			        </ul>
+				</nav>
+			</div>
 			</form>
 		</div>
 		
