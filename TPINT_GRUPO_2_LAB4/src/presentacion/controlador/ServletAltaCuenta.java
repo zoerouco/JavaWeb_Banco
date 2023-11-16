@@ -73,20 +73,26 @@ Usuario usuario = new Usuario();
     		cuenta.setDNI(cli);
             
     		boolean guardo=false;
-        ArrayList<Cuenta> cuentascliente= cuenegImpl.getCuentasxDNI(request.getParameter("txtDni"));
-        if(cuentascliente.size()<3) {
-        	 guardo=cuenegImpl.insert(cuenta);
+    		if(cuenta.getDNI()==null) {
+    			request.setAttribute("insert", guardo);
+    		}
+    		else {
+    	        ArrayList<Cuenta> cuentascliente= cuenegImpl.getCuentasxDNI(request.getParameter("txtDni"));
+    	        if(cuentascliente.size()<3) {
+    	        	 guardo=cuenegImpl.insert(cuenta);
 
- 			// UPDATE SALDO CUENTA ADMIN:
-        	 
-        	float saldoAnterior = cuentaAdmin.getSaldo();
-        	float saldo = saldoAnterior - 10000;
-        	cuentaAdmin.setSaldo(saldo);
-        	cuenegImpl.modificar(cuentaAdmin);
+    	 			// UPDATE SALDO CUENTA ADMIN:
+    	        	 
+    	        	float saldoAnterior = cuentaAdmin.getSaldo();
+    	        	float saldo = saldoAnterior - 10000;
+    	        	cuentaAdmin.setSaldo(saldo);
+    	        	cuenegImpl.modificar(cuentaAdmin);
 
-        	//llamado a la funcion en el negocio de sp update
-        }
-        request.setAttribute("insert", guardo);
+    	        	//llamado a la funcion en el negocio de sp update
+    	        }
+    	        request.setAttribute("insert", guardo);
+    		}
+
     	}
     	}
     	
