@@ -46,24 +46,26 @@ public class ServletListadoCliente extends HttpServlet {
 		} else {
 			listaClientes = cneg.readAll();
 		}
+		request.setAttribute("listaClientes", listaClientes);
+		
+		if(request.getParameter("btnBuscarXDNI") != null && !request.getParameter("btnBuscarXDNI").isEmpty()) {
+			String errorMessage= "";
+			
+			if (request.getParameter("btnBuscarXDNI") != null && !request.getParameter("btnBuscarXDNI").isEmpty()) {
+				if(request.getParameter("DNI") != null && !request.getParameter("DNI").isEmpty()) {
+					String dni = request.getParameter("DNI"); 
+					listaClientes = cneg.getClientexDNILike(dni);
+				} else {
+					errorMessage="El DNI ingresado no existe";
+					request.setAttribute("errorMessage", errorMessage);
+				}
+			}
+		} else {
+			listaClientes = cneg.readAll();
+		}
 		
 		request.setAttribute("listaClientes", listaClientes);
-		String errorMessage= "";
 		
-		if (request.getParameter("btnBuscarXDNI") != null) {
-			ArrayList<Cliente> lista = new ArrayList<Cliente>();
-			String dni = request.getParameter("DNI"); 
-			if (cneg.getClientexDNILike(dni) != null) {
-				ArrayList<Cliente> cliente = cneg.getClientexDNILike(dni);
-			    request.setAttribute("listaClientes", cliente);
-			    
-			} else {
-				errorMessage="El DNI ingresado no existe";
-				request.setAttribute("errorMessage", errorMessage);
-			    request.setAttribute("listaClientes", lista);
-			}
-		}
-			
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCliente.jsp");   
 	    rd.forward(request, response);
 	}
@@ -91,19 +93,25 @@ public class ServletListadoCliente extends HttpServlet {
 		} else {
 			listaClientes = cneg.readAll();
 		}
+		request.setAttribute("listaClientes", listaClientes);
+		
+		if(request.getParameter("btnBuscarXDNI") != null && !request.getParameter("btnBuscarXDNI").isEmpty()) {
+			String errorMessage= "";
+			
+			if (request.getParameter("btnBuscarXDNI") != null && !request.getParameter("btnBuscarXDNI").isEmpty()) {
+				if(request.getParameter("DNI") != null && !request.getParameter("DNI").isEmpty()) {
+					String dni = request.getParameter("DNI"); 
+					listaClientes = cneg.getClientexDNILike(dni);
+				} else {
+					errorMessage="El DNI ingresado no existe";
+					request.setAttribute("errorMessage", errorMessage);
+				}
+			}
+		} else {
+			listaClientes = cneg.readAll();
+		}
 		
 		request.setAttribute("listaClientes", listaClientes);
-		String errorMessage= "";
-		
-		if (request.getParameter("btnBuscarXDNI") != null) {
-			ArrayList<Cliente> lista = new ArrayList<Cliente>();
-			String dni = request.getParameter("DNI"); 
-			lista = cneg.getClientexDNILike(dni);
-			request.setAttribute("listaClientes", lista);
-		} else {
-			errorMessage="El DNI ingresado no existe";
-			request.setAttribute("errorMessage", errorMessage);
-		}
 			
 		RequestDispatcher rd = request.getRequestDispatcher("/listadoCliente.jsp");   
 	    rd.forward(request, response);

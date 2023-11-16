@@ -35,6 +35,7 @@
 		Cliente cliente = new Cliente();
 		Usuario usuario = new Usuario();
 		ArrayList<Cuenta> cuentas_cliente_actual = new ArrayList<Cuenta>();
+		Movimiento movimiento = new Movimiento();
 
 		cuentas_cliente_actual = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
 		usuario = (Usuario) request.getSession().getAttribute("usuario");
@@ -115,12 +116,19 @@
 			<tbody>
 				<%
 					for (int i = startIndex; i < endIndex; i++) {
-							Movimiento movimiento = movimientosCliente.get(i);
+							 movimiento = movimientosCliente.get(i);
 				%>
 				<tr>
+				
 					<td><%=movimiento.getId_movimiento()%></td>
+					<% if(movimiento.getTipoMovimiento().getId_tipo().compareTo("transferencia_recibida") == 0 
+					|| movimiento.getTipoMovimiento().getId_tipo().compareTo("alta_prestamo") == 0 || movimiento.getTipoMovimiento().getId_tipo().compareTo("alta_cuenta") == 0 ){%>
+					<td><%=movimiento.getCBU_Destino().getCBU()%></td>
+					<td><%=movimiento.getCBU().getCBU()%></td>
+					<%}else{ %>
 					<td><%=movimiento.getCBU().getCBU()%></td>
 					<td><%=movimiento.getCBU_Destino().getCBU()%></td>
+					<%} %>
 					<td><%=movimiento.getFecha_Transaccion()%></td>
 					<td><%=Utils.formatMoney(movimiento.getImporte()) %></td>
 					<td>

@@ -153,7 +153,7 @@
 			       <ul class="pagination pagination-lg">
                         <% for (int i = 1; i <= totalPages; i++) { %>
                             <li class="page-item <%= i == currentPage ? "active" : "" %>">
-                                <a class="page-link" href="ServletListadoCliente?page=<%= i %>&estado=<%= request.getParameter("estado") %>"><%= i %></a>
+                                <a class="page-link" href="ServletListadoCliente?page=<%= i %>&estado=<%= request.getParameter("estado") %>&btnBuscarXDNI=<%=request.getParameter("btnBuscarXDNI")%>&DNI=<%=request.getParameter("DNI")%>"><%= i %></a>
                             </li>
                         <% } %>
                     </ul>
