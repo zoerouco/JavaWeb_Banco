@@ -443,7 +443,7 @@ public class ClienteDaoImpl implements ClienteDao{
 	@Override
 	public ArrayList<Cliente> getClientexDNILike(String DNI) {
 		ArrayList<Cliente> clientes = new ArrayList<>();
-	    String consultaSQL = "SELECT * FROM clientes WHERE DNI LIKE '%" + DNI + "%';";
+	    String consultaSQL = "SELECT * FROM clientes WHERE DNI LIKE '?%'";
 	    
 	    try {
 			Class.forName("com.mysql.cj.jdbc.Driver");

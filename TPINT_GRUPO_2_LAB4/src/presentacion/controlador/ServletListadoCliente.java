@@ -53,10 +53,9 @@ public class ServletListadoCliente extends HttpServlet {
 		if (request.getParameter("btnBuscarXDNI") != null) {
 			ArrayList<Cliente> lista = new ArrayList<Cliente>();
 			String dni = request.getParameter("DNI"); 
-			if (cneg.getClientexDNI(dni) != null) {
-				Cliente cliente = cneg.getClientexDNI(dni);
-				lista.add(cliente);
-			    request.setAttribute("listaClientes", lista);
+			if (cneg.getClientexDNILike(dni) != null) {
+				ArrayList<Cliente> cliente = cneg.getClientexDNILike(dni);
+			    request.setAttribute("listaClientes", cliente);
 			    
 			} else {
 				errorMessage="El DNI ingresado no existe";
