@@ -57,6 +57,7 @@ public class ServletMovimientos extends HttpServlet {
 			throws ServletException, IOException {
 		String url = "/movimientosCliente.jsp";
 		request.setAttribute("miUrl", url);
+		ArrayList<Movimiento> movimientosCliente = new ArrayList<Movimiento>();
 		
 		if (request.getSession().getAttribute("usuario") != null) {
 
@@ -64,12 +65,13 @@ public class ServletMovimientos extends HttpServlet {
 			cliente = clienteN.getClientexDNI(usuario.getDni().getDNI());
 			request.getSession().setAttribute("cliente_actual", cliente);
 			cuenta = (Cuenta) request.getSession().getAttribute("cuenta_actual"); //CUENTA ACTUAL
-			ArrayList<Movimiento> movimientosCliente = movimientoN.getMovimientosXCuenta(cuenta);
+		    movimientosCliente = movimientoN.getMovimientosXCuenta(cuenta);
 			request.setAttribute("movimientosCliente", movimientosCliente);
 
 			ArrayList<Cuenta> cuentas_cliente_actual = (ArrayList<Cuenta>) request.getSession().getAttribute("cuentas_cliente_actual");
 			request.setAttribute("cuentas_cliente_actual", cuentas_cliente_actual);
 		}
+	
 		if (request.getParameter("btnMovimiento") != null) {
 			
 			float saldoAnterior = cuenta.getSaldo();
@@ -146,15 +148,30 @@ public class ServletMovimientos extends HttpServlet {
 
 			request.setAttribute("update", update);
 			
-
+			
 			
 		}
-		
-		ArrayList<Movimiento> movimientosCliente = movimientoN.getMovimientosXCuenta(cuenta);
+		//si presiona el boton del filtro cargo el array de movimientos Cliente con getMovimientos por importe.
+		if (request.getParameter("estado") != null) {
+			
+			Float importeFiltro = Float.parseFloat(request.getParameter("importe_filtro"));
+			movimientosCliente = movimientoN.getMovimientosXImporte(cuenta, importeFiltro);
+			request.getSession().setAttribute("movimientosCliente", movimientosCliente);
+			request.getSession().setAttribute("ultimo_movimiento", movimientomayor);
+			request.getSession().setAttribute("cuenta_actual", cuenta);
+			
+		}
+		else {
+		movimientosCliente = movimientoN.getMovimientosXCuenta(cuenta);
 		request.getSession().setAttribute("movimientosCliente", movimientosCliente);
 		movimientomayor = movimientoN.getUltimoMovimientoCuenta((Cuenta) request.getSession().getAttribute("cuenta_actual"));
 		request.getSession().setAttribute("ultimo_movimiento", movimientomayor);
 		request.getSession().setAttribute("cuenta_actual", cuenta);
+		}
+		
 		request.getRequestDispatcher(url).forward(request, response);
 	}
+	
+	
+	
 }

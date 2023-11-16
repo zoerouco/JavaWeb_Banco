@@ -38,6 +38,9 @@ public class MovimientoImpl implements MovimientoNegocio {
 
 	}
 
+	public ArrayList<Movimiento> getMovimientosXImporte(Cuenta cuenta, Float importe){
+		return mdao.getMovimientosXImporte(cuenta, importe);
+	}
 	@Override
 	public boolean update(Movimiento movimiento) {
 		// TODO Auto-generated method stub
