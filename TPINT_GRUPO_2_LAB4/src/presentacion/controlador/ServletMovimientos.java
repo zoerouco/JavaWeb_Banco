@@ -153,13 +153,15 @@ public class ServletMovimientos extends HttpServlet {
 		}
 		//si presiona el boton del filtro cargo el array de movimientos Cliente con getMovimientos por importe.
 		if (request.getParameter("estado") != null) {
-			
 			Float importeFiltro = Float.parseFloat(request.getParameter("importe_filtro"));
+			if(importeFiltro !=null) {
+			importeFiltro = Float.parseFloat(request.getParameter("importe_filtro"));
+			
 			movimientosCliente = movimientoN.getMovimientosXImporte(cuenta, importeFiltro);
 			request.getSession().setAttribute("movimientosCliente", movimientosCliente);
 			request.getSession().setAttribute("ultimo_movimiento", movimientomayor);
 			request.getSession().setAttribute("cuenta_actual", cuenta);
-			
+			}
 		}
 		else {
 		movimientosCliente = movimientoN.getMovimientosXCuenta(cuenta);

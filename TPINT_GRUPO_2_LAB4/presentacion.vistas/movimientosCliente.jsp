@@ -94,8 +94,7 @@
 		
 		<h1 style="text-align: center; margin-top: 25px; margin-bottom: 35px;">MIS MOVIMIENTOS</h1>
 		<form action="ServletMovimientos" method="GET">
-		<p>Buscar movimientos mayores que $ <input required type="number" name="importe_filtro"></input>	</p>	
- 		<button class="buttons" type="submit" name="estado" value="Buscar" id=btnBuscarxImporte>Buscar</button>
+		<p>Buscar movimientos mayores que $ <input required type="number" name="importe_filtro"></input>	<button class="buttons" type="submit" name="estado" value="Buscar" id=btnBuscarxImporte>Buscar</button></p>
 		
 		</form>
 	
@@ -169,7 +168,9 @@
 			<%
 				for (int i = 1; i <= totalPages; i++) {
 			%>
-			<a style="padding: 3px;<%if(i == currentPage) { %> font-weight: bold;color: white;background-color: #4ebf15;border-radius: 3px;padding: 3px 9px;<%}%>" href="?page=<%=i%>"><%=i%></a>
+				 							                    
+			<a class="page-item <%= i == currentPage ? "active" : "" %>">
+			<a style="padding: 3px;<%if(i == currentPage) { %> font-weight: bold;color: white;background-color: #4ebf15;border-radius: 3px;padding: 3px 9px;<%}%>" href="ServletMovimientos?page=<%= i %>&btnBuscarxImporte=<%=request.getParameter("btnBuscarxImporte")%>&importe_filtro=<%= request.getParameter("importe_filtro") %>"><%= i %></a>
 
 			<%
 				}
