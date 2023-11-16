@@ -367,7 +367,7 @@
 	 <h1 class="titulo">Mis Pagos</h1>
     
        <%
-            int itemsPerPage = 3;
+            int itemsPerPage = 18;
             int totalPages = (int) Math.ceil((double) pagosPrestamos.size() / itemsPerPage);
             int currentPage = 1;
             if (request.getParameter("page") != null) {
@@ -376,7 +376,7 @@
             int startIndex = (currentPage - 1) * itemsPerPage;
             int endIndex = Math.min(startIndex + itemsPerPage, pagosPrestamos.size());
         %>
-        
+        <h4> Información sobre el préstamo ID: <%= pagosPrestamos.get(0).getId_prestamo().getId_prestamo() %></h4>
                 <table class="table">
                     <thead>
                         <tr>
