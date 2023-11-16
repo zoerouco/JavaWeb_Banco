@@ -34,16 +34,6 @@ public class ServletListadoCliente extends HttpServlet {
 		ArrayList<Cliente> listaClientes = new ArrayList<>();
 		listaClientes = cneg.readAll();
 		
-		if (estado != null && !estado.isEmpty()) {
-			if(estado.equalsIgnoreCase("todos")) {
-				listaClientes = cneg.readAll();
-			} else if(estado.equalsIgnoreCase("activos")) {
-				listaClientes = cneg.readAllActivos();
-			} else if(estado.equalsIgnoreCase("inactivos")) {
-				listaClientes = cneg.readAllInactivos();
-			}
-		}
-
 		if(request.getParameter("btnBuscarXDNI") != null && !request.getParameter("btnBuscarXDNI").isEmpty()) {
 			String errorMessage= "";
 			
@@ -55,6 +45,16 @@ public class ServletListadoCliente extends HttpServlet {
 					errorMessage="El DNI ingresado no existe";
 					request.setAttribute("errorMessage", errorMessage);
 				}
+			}
+		}
+		
+		if (estado != null && !estado.isEmpty()) {
+			if(estado.equalsIgnoreCase("todos")) {
+				listaClientes = cneg.readAll();
+			} else if(estado.equalsIgnoreCase("activos")) {
+				listaClientes = cneg.readAllActivos();
+			} else if(estado.equalsIgnoreCase("inactivos")) {
+				listaClientes = cneg.readAllInactivos();
 			}
 		}
 
@@ -75,16 +75,6 @@ public class ServletListadoCliente extends HttpServlet {
 		ArrayList<Cliente> listaClientes = new ArrayList<>();
 		listaClientes = cneg.readAll();
 		
-		if (estado != null && !estado.isEmpty()) {
-			if(estado.equalsIgnoreCase("todos")) {
-				listaClientes = cneg.readAll();
-			} else if(estado.equalsIgnoreCase("activos")) {
-				listaClientes = cneg.readAllActivos();
-			} else if(estado.equalsIgnoreCase("inactivos")) {
-				listaClientes = cneg.readAllInactivos();
-			}
-		}
-
 		if(request.getParameter("btnBuscarXDNI") != null && !request.getParameter("btnBuscarXDNI").isEmpty()) {
 			String errorMessage= "";
 			
@@ -96,6 +86,16 @@ public class ServletListadoCliente extends HttpServlet {
 					errorMessage="El DNI ingresado no existe";
 					request.setAttribute("errorMessage", errorMessage);
 				}
+			}
+		}
+		
+		if (estado != null && !estado.isEmpty()) {
+			if(estado.equalsIgnoreCase("todos")) {
+				listaClientes = cneg.readAll();
+			} else if(estado.equalsIgnoreCase("activos")) {
+				listaClientes = cneg.readAllActivos();
+			} else if(estado.equalsIgnoreCase("inactivos")) {
+				listaClientes = cneg.readAllInactivos();
 			}
 		}
 
