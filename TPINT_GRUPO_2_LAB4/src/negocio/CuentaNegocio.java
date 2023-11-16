@@ -16,5 +16,6 @@ public interface CuentaNegocio {
 	ArrayList<Cuenta> readAllActivos();
 	ArrayList<Cuenta> readAllInactivos();
 	public void validarSaldo(Cuenta cuenta, float importeMovimiento) throws SaldoInsuficienteException;
+    public boolean esNumero(String texto);
 	boolean verificarCbuRepetido(String cbu) throws CbuRepetidoException;
 }

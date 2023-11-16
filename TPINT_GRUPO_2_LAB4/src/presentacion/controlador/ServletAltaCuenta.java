@@ -54,46 +54,53 @@ Usuario usuario = new Usuario();
 		 Cuenta cuentaAdmin = (Cuenta) request.getSession().getAttribute("cuentaAdmin");
 		 
     	if(request.getParameter("btnAceptar") != null){
-    		
-			try {
-				cuenegImpl.verificarCbuRepetido(request.getParameter("txtCbu"));
-			} catch (CbuRepetidoException e) {
-				String cbuRepetido = e.getMessage();
-				request.setAttribute("cbuRepetido", cbuRepetido);
-			} 
-    		
-			if(request.getAttribute("cbuRepetido")==null) {
-				
-			
-    		cuenta.setCBU(request.getParameter("txtCbu"));
-    		tcuenta= tipoCuentaDaoImpl.getTipo_cuentaByID(request.getParameter("txtTipo"));
-    		cuenta.setId_tipo(tcuenta);
-    		cuenta.setNro_cuenta(request.getParameter("txtNroCuenta"));
-    		cli = clineg.getClientexDNI((request.getParameter("txtDni")));
-    		cuenta.setDNI(cli);
-            
-    		boolean guardo=false;
-    		if(cuenta.getDNI()==null) {
-    			request.setAttribute("insert", guardo);
+    		if(cuenegImpl.esNumero(request.getParameter("txtCbu"))) {
+    			try {
+    				cuenegImpl.verificarCbuRepetido(request.getParameter("txtCbu"));
+    			} catch (CbuRepetidoException e) {
+    				String cbuRepetido = e.getMessage();
+    				request.setAttribute("cbuRepetido", cbuRepetido);
+    			} 
+        		
+    			if(request.getAttribute("cbuRepetido")==null) {
+    				
+    			
+        		cuenta.setCBU(request.getParameter("txtCbu"));
+        		tcuenta= tipoCuentaDaoImpl.getTipo_cuentaByID(request.getParameter("txtTipo"));
+        		cuenta.setId_tipo(tcuenta);
+        		cuenta.setNro_cuenta(request.getParameter("txtNroCuenta"));
+        		cli = clineg.getClientexDNI((request.getParameter("txtDni")));
+        		cuenta.setDNI(cli);
+                
+        		boolean guardo=false;
+        		if(cuenta.getDNI()==null) {
+        			request.setAttribute("insert", guardo);
+        		}
+        		else {
+        	        ArrayList<Cuenta> cuentascliente= cuenegImpl.getCuentasxDNI(request.getParameter("txtDni"));
+        	        if(cuentascliente.size()<3) {
+        	        	 guardo=cuenegImpl.insert(cuenta);
+
+        	 			// UPDATE SALDO CUENTA ADMIN:
+        	        	 
+        	        	float saldoAnterior = cuentaAdmin.getSaldo();
+        	        	float saldo = saldoAnterior - 10000;
+        	        	cuentaAdmin.setSaldo(saldo);
+        	        	cuenegImpl.modificar(cuentaAdmin);
+
+        	        	//llamado a la funcion en el negocio de sp update
+        	        }
+        	        request.setAttribute("insert", guardo);
+        		}
+
+        	}
+    		}else {
+        		boolean guardo=false;
+        		if(cuenta.getDNI()==null) {
+        			request.setAttribute("insert", guardo);
+        		}
     		}
-    		else {
-    	        ArrayList<Cuenta> cuentascliente= cuenegImpl.getCuentasxDNI(request.getParameter("txtDni"));
-    	        if(cuentascliente.size()<3) {
-    	        	 guardo=cuenegImpl.insert(cuenta);
 
-    	 			// UPDATE SALDO CUENTA ADMIN:
-    	        	 
-    	        	float saldoAnterior = cuentaAdmin.getSaldo();
-    	        	float saldo = saldoAnterior - 10000;
-    	        	cuentaAdmin.setSaldo(saldo);
-    	        	cuenegImpl.modificar(cuentaAdmin);
-
-    	        	//llamado a la funcion en el negocio de sp update
-    	        }
-    	        request.setAttribute("insert", guardo);
-    		}
-
-    	}
     	}
     	
     	String url = "/altaCuenta.jsp";

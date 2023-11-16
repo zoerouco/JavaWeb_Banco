@@ -69,6 +69,9 @@ public class CuentaNegocioImpl implements CuentaNegocio{
 	public boolean verificarCbuRepetido(String cbu) throws CbuRepetidoException {
 		return cdao.verificarCbuRepetido(cbu);
 	}
+	public boolean esNumero(String texto) {
+		return texto.matches("\\d+");
+	}
 	
 public Cuenta getCuentaxDNI (String CBU) {
 		
