@@ -86,11 +86,11 @@
         <div class="container-table"  id="table-usuarios">
 	    	<h2> Reportes: </h2>
 	    	<form action="ServletMenuAdmin" method="post">
-		    	<div>
+		    	<div class="d-flex justify-content-center mb-3">
 		    		<p>
 			    		<label>Seleccione dos fechas:<span class="required-fields" ></span></label>
-			        	<input type="datetime-Local" name="fecha1" required>
-			        	<input type="datetime-Local" name="fecha2" required>
+			        	<input type="datetime-local" name="fecha1" required>
+			        	<input type="datetime-local" name="fecha2" required>
 			        	<input type="submit" id="button" name="btnFiltrar" value="Filtrar" style="width: 80px;">
 					</p>
 				</div>
@@ -132,7 +132,7 @@
 				    <ul class="pagination pagination-lg">
 			            <% for (int i = 1; i <= totalPages; i++) { %>
 			                <li class="page-item <%= i == currentPage ? "active" : "" %>">
-		                        <a class="page-link" href="ServletMenuAdmin?page=<%= i %>&fecha1=<%= request.getParameter("fecha1") %>&fecha2=<%= request.getParameter("fecha2") %>"><%= i %></a>
+		                        <a class="page-link" href="ServletMenuAdmin?page=<%= i %>&btnFiltrar=<%=request.getParameter("btnFiltrar")%>&fecha1=<%= request.getParameter("fecha1") %>&fecha2=<%= request.getParameter("fecha2") %>"><%= i %></a>
 		                    </li>
 			            <% } %>
 			        </ul>
