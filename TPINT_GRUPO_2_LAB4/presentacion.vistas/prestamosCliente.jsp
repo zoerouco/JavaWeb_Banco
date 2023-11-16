@@ -70,7 +70,7 @@
    
    
    <%
-
+    prestamosCliente = (ArrayList <Prestamo>) request.getAttribute("prestamosCliente");
    
    if(prestamosCliente != null) { %>
     <div class="container-table" id="table-prestamos">
@@ -162,11 +162,11 @@
                 <% 
                     for (int i = 1; i <= totalPages; i++) {
                 %>
-                
-                	<li <%= i == currentPage ? "active" : "" %>">
+                <ul>
+                	<li <%= i == currentPage ? "active" : "" %>>
 		                 <a class="page-link" href="ServletCliente?page=<%= i %>&estado=<%= request.getParameter("estado") %>"><%= i %></a>
 		             </li>
-
+					</ul>
                 <%
                     }
                 %>
@@ -174,7 +174,9 @@
 
         </form>
             </div>
+            
  <%}else if(prestamosCliente != null){ %>
+ 
     <div class="container-table" id="table-prestamos">
         <%
     		
@@ -375,8 +377,8 @@
             }
             int startIndex = (currentPage - 1) * itemsPerPage;
             int endIndex = Math.min(startIndex + itemsPerPage, pagosPrestamos.size());
+   
         %>
-        <h4> Información sobre el préstamo ID: <%= pagosPrestamos.get(0).getId_prestamo().getId_prestamo() %></h4>
                 <table class="table">
                     <thead>
                         <tr>
