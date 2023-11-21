@@ -73,9 +73,6 @@ Tipos de movimientos posibles:
 
 • Transferencia: Una transferencia genera dos movimientos, un movimiento negativo en la cuenta de origen (extracción de dinero)
 y un movimiento positivo en la cuenta destino (depósito de dinero).
-
-
-Usamos Java, JSP (Java Server Pages), SQL, JavaScript, HTML y CSS.
 ```
 
 ### Diagrama Entidad Relacion
@@ -83,9 +80,6 @@ Usamos Java, JSP (Java Server Pages), SQL, JavaScript, HTML y CSS.
 
 
 ## Programas utilizados
-
-### IDE
-Eclipse
-
-### Sistema Gestor de Bases de Datos
-MySQL
+IDE: Eclipse
+DATABASE: MySQL
+CODE: Java, JSP (Java Server Pages), SQL, JavaScript, Bootstrap, HTML y CSS.
