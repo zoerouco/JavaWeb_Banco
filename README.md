@@ -80,6 +80,8 @@ y un movimiento positivo en la cuenta destino (depósito de dinero).
 
 
 ## Programas utilizados
-IDE: Eclipse
-DATABASE: MySQL
-CODE: Java, JSP (Java Server Pages), SQL, JavaScript, Bootstrap, HTML y CSS.
+> IDE: Eclipse
+> 
+> DATABASE: MySQL
+> 
+> CODE: Java, JSP (Java Server Pages), SQL, JavaScript, Bootstrap, HTML y CSS.
