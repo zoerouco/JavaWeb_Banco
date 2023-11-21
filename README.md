@@ -1,7 +1,7 @@
 # JavaWeb_Banco
 Sistema de gestión para un banco, desarrollado con Java/JSP.
 
-Usuario banco
+Usuario banco:
 
 • ABML de clientes. Tener en cuenta que a cada cliente se le asignará
 un usuario y contraseña para poder acceder a la web del banco. El
@@ -21,7 +21,7 @@ el cliente.
 
 • Incluir informe/ reportes estadísticos para el administrador.
 
-Usuario cliente
+Usuario cliente:
 
 • El cliente podrá seleccionar una cuenta y observar el historial de los
 movimientos realizados en esa cuenta.
@@ -32,8 +32,7 @@ CBU. Se podrá realizar la transferencia mientras el usuario cuente con
 dinero disponible. Si no posee dinero no podrá transferir.
 
 • Pedido de préstamo. El cliente podrá pedir un préstamo de cierto
-dinero al banco, seleccionar la cantidad de cuotas en las que quiere
-Página 3 de 10
+dinero al banco, seleccionar la cantidad de cuotas en las que quiere 
 abonarlo y elegir la cuenta en donde se le depositará el pago del
 préstamo. El banco recibirá el pedido y autorizará o no dicho
 préstamo.
@@ -76,22 +75,4 @@ dinero negativo en la cuenta origen.
 
 • Transferencia. Una transferencia genera dos movimientos, un
 movimiento negativo en la cuenta de origen (extracción de dinero) y
-un movimiento positivo en la cuenta destino (depósito de dinero)
-Página 4 de 10
-En cuanto a los datos, mínimamente cada tabla tiene los siguientes datos:
-
-• Por cada movimiento se tiene una fecha, detalle o concepto, importe
-y tipo de movimiento.
-
-• Un cliente tiene un DNI, CUIL, nombre, apellido, sexo, nacionalidad,
-fecha de nacimiento, dirección, localidad, provincia, correo
-electrónico, teléfonos, un usuario y contraseña para acceder a la
-página.
-
-• Una cuenta tiene un cliente asignado, fecha de creación, tipo de
-cuenta, un número de cuenta, CBU y un saldo.
-
-• Un préstamo tiene un cliente asignado, una fecha, el importe que
-deberá pagar el cliente (con intereses), el importe pedido por el
-cliente, un plazo de pago en meses, el monto que deberá pagar por
-mes y cuotas.
+un movimiento positivo en la cuenta destino (depósito de dinero).
