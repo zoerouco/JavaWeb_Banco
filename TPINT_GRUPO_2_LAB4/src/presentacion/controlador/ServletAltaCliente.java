@@ -116,7 +116,7 @@ public class ServletAltaCliente extends HttpServlet {
 					cliente.setDireccion(request.getParameter("adress"));
 					cliente.setDNI(request.getParameter("DNI"));
 					cliente.setFecha_nacimiento(Date.valueOf(request.getParameter("birthdate")));
-					genero = gneg.getGeneroByID(request.getParameter("id_genero"));
+					genero = gneg.getGeneroByID(request.getParameter("gender"));
 					cliente.setId_genero(genero);
 					localidad = lneg.getLocalidadByID(Integer.parseInt(request.getParameter("locality")));
 					cliente.setId_localidades(localidad);

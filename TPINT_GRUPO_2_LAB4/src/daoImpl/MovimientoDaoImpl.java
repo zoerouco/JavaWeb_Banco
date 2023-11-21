@@ -30,8 +30,6 @@ import sun.util.resources.cldr.pt.TimeZoneNames_pt_PT;
 
 public class MovimientoDaoImpl implements MovimientoDao {
 	
-	
-	private static final String readall = "SELECT * FROM movimientos INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo ORDER BY id_movimiento DESC";	
 	private static final String read = "SELECT * FROM movimientos INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo ORDER BY id_movimiento DESC";
 	private static final String movimientosXcuenta = "SELECT * FROM movimientos" + 
 			" INNER JOIN tipo_movimiento ON movimientos.id_tipo = tipo_movimiento.id_tipo" + 
@@ -122,6 +120,7 @@ public class MovimientoDaoImpl implements MovimientoDao {
 				tp.setId_tipo(resultSet.getString("id_tipo"));
 				tp.setDescripcion((resultSet.getString("descripcion")));
 				movimiento.setTipoMovimiento(tp);
+				movimiento.setEstado(resultSet.getBoolean("estado"));
 														
 				lista.add(movimiento);
 			}

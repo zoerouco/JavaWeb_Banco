@@ -443,54 +443,65 @@ public class ClienteDaoImpl implements ClienteDao{
 	@Override
 	public ArrayList<Cliente> getClientexDNILike(String DNI) {
 		ArrayList<Cliente> clientes = new ArrayList<>();
-	    String consultaSQL = "SELECT * FROM clientes WHERE DNI LIKE '%" + DNI +"%'";
+	    String consultaSQL = "SELECT * FROM clientes "
+	    		+ "INNER JOIN generos ON clientes.id_genero = generos.id_genero "
+	    		+ "INNER JOIN localidades ON clientes.id_localidades = localidades.id "
+	    		+ "INNER JOIN nacionalidades ON clientes.id_nacionalidad = nacionalidades.id "
+	    		+ "INNER JOIN provincias ON clientes.id_provincia = provincias.id "
+	    		+ "WHERE clientes.DNI LIKE '%" + DNI +"%'";
 	    
 	    try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		Cliente cliente = null;
+	    
 		Conexion conexion = Conexion.getConexion();
 		try{
 			
 			PreparedStatement statement = conexion.getSQLConexion().prepareStatement(consultaSQL);
 	        ResultSet resultSet = statement.executeQuery();
 		
-			while(resultSet.next()){
+			while(resultSet.next()) {
+				Genero genero = new Genero();
+				genero.setId_genero(resultSet.getString("id_genero"));
+				genero.setDescripcion(resultSet.getString("descripcion"));
 				
-
-					cliente = new Cliente();
+				Nacionalidad nacionalidad = new Nacionalidad();
+				nacionalidad.setId(resultSet.getInt("id_nacionalidad"));
+				nacionalidad.setCode(resultSet.getShort("code"));
+				nacionalidad.setIso3166a1(resultSet.getString("iso3166a1"));
+				nacionalidad.setIso3166a2(resultSet.getString("iso3166a2"));
+				nacionalidad.setNombre_pais(resultSet.getString("nombre_pais"));
+				
+				Provincia provincia = new Provincia();
+				provincia.setId(resultSet.getInt("id_provincia"));
+				provincia.setNombre_provincia(resultSet.getString("nombre_provincia"));
+				
+				Localidad localidad = new Localidad();
+				localidad.setId(resultSet.getInt("id_localidades"));
+				localidad.setId_provincia(provincia);
+				localidad.setNombre_localidad(resultSet.getString("nombre_localidad"));
+				
+				Cliente cliente = new Cliente();
+				cliente.setDNI(resultSet.getString("DNI"));
+				cliente.setId_genero(genero);
+				cliente.setId_nacionalidad(nacionalidad);
+				cliente.setId_provincia(provincia);
+				cliente.setId_localidades(localidad);
+				cliente.setCUIL(resultSet.getString("CUIL"));
+				cliente.setNombre(resultSet.getString("nombre"));
+				cliente.setApellido(resultSet.getString("apellido"));
+				cliente.setFecha_nacimiento(resultSet.getDate("fecha_nacimiento"));
+				cliente.setDireccion(resultSet.getString("direccion"));
+				cliente.setCorreo_electronico(resultSet.getString("correo_electronico"));
+				cliente.setTelefono_primario(resultSet.getString("telefono_primario"));
+				cliente.setTelefono_secundario(resultSet.getString("telefono_secundario"));
+				cliente.setEstado(resultSet.getBoolean("estado"));
 					
-					//clases necesarias para crear un obj cliente
-					Genero genero = new Genero();
-					Nacionalidad nacionalidad = new Nacionalidad();
-					Provincia provincia = new Provincia();
-					Localidad localidad = new Localidad();
+				clientes.add(cliente);
 					
-					cliente.setDNI(resultSet.getString("DNI"));
-					genero.setId_genero(resultSet.getString("id_genero"));	
-					cliente.setId_genero(genero);
-					nacionalidad.setId(resultSet.getInt("id_nacionalidad"));		
-					cliente.setId_nacionalidad(nacionalidad);
-					provincia.setId(resultSet.getInt("id_provincia"));				
-					cliente.setId_provincia(provincia);
-					localidad.setId(resultSet.getInt("id_localidades"));		
-					cliente.setId_localidades(localidad);
-					cliente.setCUIL(resultSet.getString("CUIL"));
-					cliente.setNombre(resultSet.getString("nombre"));
-					cliente.setApellido(resultSet.getString("apellido"));
-					cliente.setFecha_nacimiento(resultSet.getDate("fecha_nacimiento"));
-					cliente.setDireccion(resultSet.getString("direccion"));
-					cliente.setCorreo_electronico(resultSet.getString("correo_electronico"));
-					cliente.setTelefono_primario(resultSet.getString("telefono_primario"));
-					cliente.setTelefono_secundario(resultSet.getString("telefono_secundario"));
-					cliente.setEstado(resultSet.getBoolean("estado"));	
-					
-					clientes.add(cliente);
-					
-				} 
+			} 
 			
 
 		conexion.cerrarConexion();
