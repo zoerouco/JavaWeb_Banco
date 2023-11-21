@@ -74,7 +74,7 @@
             </div> 
         </header>
         <% prestamos = (ArrayList<Prestamo>)request.getAttribute("listaPrestamos");
-           int itemsPerPage = 3;
+           int itemsPerPage = 6;
 		   int totalPages = (int) Math.ceil((double) prestamos.size() / itemsPerPage);
 		   int currentPage = 1; 
 		   if (request.getParameter("page") != null) {

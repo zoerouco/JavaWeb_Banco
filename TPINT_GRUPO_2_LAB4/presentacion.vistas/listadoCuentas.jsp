@@ -73,7 +73,7 @@
         </header>
         <% ArrayList<Cuenta> cuentas = (ArrayList<Cuenta>)request.getAttribute("listaCuentas"); %>
 		<%
-		    int itemsPerPage = 3; 
+		    int itemsPerPage = 6; 
 		    int totalPages = (int) Math.ceil((double) cuentas.size() / itemsPerPage);
 		    int currentPage = 1;
 		

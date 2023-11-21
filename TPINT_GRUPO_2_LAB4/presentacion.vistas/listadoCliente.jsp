@@ -70,7 +70,7 @@
             </div> 
         </header>
         <% ArrayList<Cliente> clientes = (ArrayList<Cliente>)request.getAttribute("listaClientes");
-           int itemsPerPage = 3;
+           int itemsPerPage = 6;
 		   int totalPages = (int) Math.ceil((double) clientes.size() / itemsPerPage);
 		   int currentPage = 1; 
 		   if (request.getParameter("page") != null) {
