@@ -7,4 +7,5 @@ public interface Tipo_cuentaDao {
 	
 	public ArrayList<Tipo_cuenta> readAll();
 	public Tipo_cuenta getTipo_cuentaByID(String id_tipo);
+	
 }

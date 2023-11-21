@@ -1,7 +1,6 @@
 package dao;
 
 import java.util.ArrayList;
-
 import entidades.Cuenta;
 import entidades.Prestamo;
 

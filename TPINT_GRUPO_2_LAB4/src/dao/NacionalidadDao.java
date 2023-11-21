@@ -7,4 +7,5 @@ public interface NacionalidadDao {
 	
 	public ArrayList<Nacionalidad> readAll();
 	public Nacionalidad getNacionalidadByID(int id);
+	
 }
