@@ -76,7 +76,7 @@ y un movimiento positivo en la cuenta destino (depósito de dinero).
 ```
 
 ### Diagrama Entidad Relacion
-![Diagrama de entidad-relacion](./Recursos/img/DER.jpg)
+![Diagrama de entidad-relacion](TPINT_GRUPO_2_LAB4/presentacion.vistas/Recursos/img/DER.jpg)
 
 
 ## Programas utilizados
